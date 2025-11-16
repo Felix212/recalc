@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_cartdiagram_cache.srs
+global type s_cartdiagram_cache from structure
+	long		lindex_key
+	long		ldetail_key
+	blob		bblob
+end type
+

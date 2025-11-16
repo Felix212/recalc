@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_check_three_letter_code_name.srf
+global type f_check_three_letter_code_name from function_object
+end type
+
+forward prototypes
+global function string f_check_three_letter_code_name (long lcode)
+end prototypes
+
+global function string f_check_three_letter_code_name (long lcode);// ---------------------------------
+// Eingegebenen 3-Letter-Code
+// pr$$HEX1$$fc00$$ENDHEX$$fen
+// ---------------------------------
+
+String sCode
+
+SELECT sys_three_letter_codes.cdestination
+ INTO :sCode  
+ FROM sys_three_letter_codes  
+WHERE sys_three_letter_codes.ntlc_key  = :lCode   ;
+
+if sqlca.sqlcode <> 0 then
+	return "N/A"
+else
+	return sCode
+end if
+
+
+end function
+

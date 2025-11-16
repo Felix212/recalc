@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_check_more_classnames.srf
+global type f_check_more_classnames from function_object
+end type
+
+forward prototypes
+global function long f_check_more_classnames (string sclass, long lairlinekey)
+end prototypes
+
+global function long f_check_more_classnames (string sclass, long lairlinekey);	Long 		lAirLine
+	string	sClassPart
+	integer	iClassError = 0
+	integer 	i
+// -----------------------------------
+// Pr$$HEX1$$fc00$$ENDHEX$$fung mit einstelligen Klassen
+// -----------------------------------
+	For i = 1 to len(sClass)
+		 sClassPart = mid(sClass,i,1)
+		 SELECT cen_class_name.nairline_key  
+		  INTO :lAirline  
+		  FROM cen_class_name  
+		 WHERE ( cen_class_name.nairline_key = :lAirlineKey ) AND  
+				 ( cen_class_name.cclass = :sClassPart );
+		 if sqlca.sqlcode = 100 then
+			 iClassError ++
+		 End if
+	Next
+
+	If iClassError = 0 Then
+			return 0
+	End if
+// -----------------------------------
+// Pr$$HEX1$$fc00$$ENDHEX$$fung mit zweistelligen Klassen
+// -----------------------------------
+	
+	iClassError = 0
+	For i = 1 to len(sClass) Step + 2
+		 sClassPart = mid(sClass,i,2)
+		 SELECT cen_class_name.nairline_key  
+		  INTO :lAirline  
+		  FROM cen_class_name  
+		 WHERE ( cen_class_name.nairline_key = :lAirlineKey ) AND  
+				 ( cen_class_name.cclass = :sClassPart );
+		 if sqlca.sqlcode = 100 then
+			 iClassError ++
+		 End if
+	Next
+	
+	If iClassError = 0 Then
+		return 0
+		Else
+		return -1
+	End if
+	
+
+end function
+

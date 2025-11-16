@@ -1,0 +1,100 @@
+HA$PBExportHeader$f_connect.srf
+$PBExportComments$Datenbankverbindung erstellen
+global type f_connect from function_object
+end type
+
+forward prototypes
+global function boolean f_connect ()
+end prototypes
+
+global function boolean f_connect ();String	sValue
+
+// ------------------------------------------
+// Profile auslesen !
+// ------------------------------------------
+If not FileExists(sProfile) Then
+	guoLog.uf_allways(  "[f_connect] Couldn't find the application profile " + sProfile)
+	return False
+End if
+
+// ====================================================================
+// Datenbank-Connection mit vorheriger Zerst$$HEX1$$f600$$ENDHEX$$rung von Trans-Object
+// 
+// 18.10.05
+// Vor der Destroy erstmal pr$$HEX1$$fc00$$ENDHEX$$fen, ob wir noch verbunden sind,
+// wenn ja, dann ist es auch gut
+// ====================================================================
+If isvalid(SQLCA) then
+	
+	select dummy into :sValue from dual;
+	
+	if sqlca.sqlcode = 0 then
+		guoLog.uf_debug(  "[f_connect] Transaction is connected to "+ SQLCA.ServerName)
+		return true
+	else
+		
+		guoLog.uf_allways(  "[f_connect] Transaction is N-O-T connected" )
+		guoLog.uf_allways(  "[f_connect] ErrorCode = " + String(sqlca.sqlcode))
+		guoLog.uf_allways(  "[f_connect] ErrorText = " + String(sqlca.sqlerrtext))
+		
+		disconnect;
+		destroy(SQLCA)
+		GarbageCollect()
+		SQLCA = create transaction
+		// ------------------------------------------
+		// Database Connection
+		// ------------------------------------------
+		SQLCA.ServerName 	= ProfileString(sProfile,"Database","Server","")
+		SQLCA.DBMS 			= ProfileString(sProfile,"Database","DBMS","ODBC")
+		SQLCA.DBParm 		= ProfileString(sProfile,"Database","DBPARM","")
+		SQLCA.LogPass 		= ProfileString(sProfile,"Database","LogPass","")
+		SQLCA.LogId 			= ProfileString(sProfile,"Database","LogId","")
+		SQLCA.AutoCommit 	= False
+		connect using sqlca;
+		guoLog.uf_allways(  "[f_connect] Transaction re-created to "+ SQLCA.ServerName)
+	end if
+End if
+
+If not isvalid(SQLCA) then
+	SQLCA = create transaction
+	SQLCA.ServerName 	= ProfileString(sProfile,"Database","Server","")
+	SQLCA.DBMS 			= ProfileString(sProfile,"Database","DBMS","ODBC")
+	SQLCA.DBParm 		= ProfileString(sProfile,"Database","DBPARM","")
+	SQLCA.LogPass 		= ProfileString(sProfile,"Database","LogPass","")
+	SQLCA.LogId 		= ProfileString(sProfile,"Database","LogId","")
+
+	SQLCA.AutoCommit 	= False
+	connect using sqlca;
+	guoLog.uf_allways(  "[f_connect] Transaction object created  to "+ SQLCA.ServerName)
+End if
+
+// ------------------------------------------------------------------
+// Connection OK ?
+// ------------------------------------------------------------------	
+if SQLCA.SQLCode <> 0 then
+	guoLog.uf_allways(  "[f_connect] Couldn't connect to database "+ SQLCA.ServerName)
+	guoLog.uf_allways(  "[f_connect] ErrorCode = " + String(sqlca.sqlcode)  )
+	guoLog.uf_allways(  "[f_connect] ErrorText = " + String(sqlca.sqlerrtext)  )
+	return False
+end if
+
+// 14.12.2009 HR:
+s_app.sUser = SQLCA.LogId
+f_set_logon_role(SQLCA)
+	
+uo_systemerror uose
+uose.of_init_db()
+
+// --------------------------------------------------------------------------------------------------------------------
+// 13.10.2021 HR: Ausgabe der Verbindungsparameter ins LOG
+// --------------------------------------------------------------------------------------------------------------------
+f_get_connection_infos(gs_instance_name, SQLCA, "")
+
+// --------------------------------------------------------------------------------------------------------------------
+// 12.10.2021 HR: Check DB-Settings (CEN_SETUP) for Graylog
+// --------------------------------------------------------------------------------------------------------------------
+guoLog.uf_init_graylog()
+	
+return True
+end function
+

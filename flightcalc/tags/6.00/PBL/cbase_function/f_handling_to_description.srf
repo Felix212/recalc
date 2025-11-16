@@ -1,0 +1,26 @@
+HA$PBExportHeader$f_handling_to_description.srf
+global type f_handling_to_description from function_object
+end type
+
+forward prototypes
+global function string f_handling_to_description (long lid)
+end prototypes
+
+global function string f_handling_to_description (long lid);// -------------------------------------
+// F$$HEX1$$fc00$$ENDHEX$$r den eingegebenen Key 
+// die Abfertigungsart ermitteln 
+// -------------------------------------
+	String sHandling
+	
+	SELECT cen_handling_types.cdescription
+	  INTO :sHandling  
+	  FROM cen_handling_types  
+	 WHERE cen_handling_types.nhandling_type_key = :lID ;
+	
+	If sqlca.sqlcode = 0 then
+		return shandling
+	Else
+		return "Error"
+	End if
+end function
+

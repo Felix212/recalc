@@ -1,0 +1,6 @@
+HA$PBExportHeader$str_label_return.srs
+global type str_label_return from structure
+	long		nlabeltype
+	blob		dw
+end type
+

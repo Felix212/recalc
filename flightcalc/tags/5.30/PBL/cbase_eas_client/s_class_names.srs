@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_class_names.srs
+global type s_class_names from structure
+	string		class_long_name
+	string		class_short_name
+end type
+

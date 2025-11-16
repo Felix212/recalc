@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_rout_to_number.srf
+global type f_rout_to_number from function_object
+end type
+
+forward prototypes
+global function long f_rout_to_number (string srout)
+end prototypes
+
+global function long f_rout_to_number (string srout);// -------------------------------------
+// Aus dem "Buchstaben" (L,S,D) 
+// die nrouting_id (1,2,3) ermitten 
+// -------------------------------------
+Long lID
+
+SELECT cen_routing.nrouting_id
+ INTO :lID
+ FROM cen_routing  
+WHERE cen_routing.crouting  = :sRout  ;
+
+if sqlca.sqlcode = 0 then
+	return lID
+elseif sqlca.sqlcode = 100 then
+	return -1
+else
+	return -1
+end if
+
+
+end function
+

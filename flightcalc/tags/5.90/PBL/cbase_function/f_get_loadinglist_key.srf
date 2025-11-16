@@ -1,0 +1,35 @@
+HA$PBExportHeader$f_get_loadinglist_key.srf
+global type f_get_loadinglist_key from function_object
+end type
+
+forward prototypes
+global function long f_get_loadinglist_key (string sloadinglist)
+end prototypes
+
+global function long f_get_loadinglist_key (string sloadinglist);
+Long 		lKey
+datetime	dtToday
+
+dtToday = Datetime(Today(), Time("00:00"))
+
+select cen_loadinglist_index.nloadinglist_index_key
+    INTO :lkey 
+    FROM cen_loadinglist_index  
+   WHERE cen_loadinglist_index.cloadinglist = :sloadinglist and
+	      cen_loadinglist_index.dvalid_from <= :dtToday and 
+	      cen_loadinglist_index.dvalid_to >= :dtToday ;
+	
+	if sqlca.sqlcode = 0 then
+		return lKey
+	elseif sqlca.sqlcode = 100 then
+		Return -1
+	else
+		f_db_error(sqlca, "f_get_loadinglist_name_text()")
+		Return -1
+	end if
+	
+	
+	
+	
+end function
+

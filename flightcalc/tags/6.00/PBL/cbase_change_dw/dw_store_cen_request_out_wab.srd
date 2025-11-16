@@ -1,0 +1,66 @@
+HA$PBExportHeader$dw_store_cen_request_out_wab.srd
+$PBExportComments$GetlLast transfered Galley Weights by result_key
+release 10;
+datawindow(units=1 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=46 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=25 color="536870912" )
+detail(height=23 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=njob_nr dbname="cen_request_out_wab.njob_nr" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nsort dbname="cen_request_out_wab.nsort" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=cgalley dbname="cen_request_out_wab.cgalley" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nweight dbname="cen_request_out_wab.nweight" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nmax_weight dbname="cen_request_out_wab.nmax_weight" )
+ retrieve="SELECT	njob_nr,
+			nsort,
+      		cgalley,
+			nweight,
+			nmax_weight
+FROM		cen_request_out_wab
+WHERE	njob_nr = :arg_njob_nr
+ORDER BY nsort
+" update="cen_request_out_wab" updatewhere=0 updatekeyinplace=no arguments=(("arg_njob_nr", number))  sort="nsort A cgalley A " )
+text(band=header alignment="0" text="" border="6" color="0" x="4" y="3" height="40" width="332" html.valueishtml="0"  name=t_2 visible="1"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+rectangle(band=header x="134" y="23" height="21" width="84"  name=r_2 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="43" y="23" height="21" width="47"  name=r_14 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="89" y="23" height="21" width="46"  name=r_1 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Sort" border="0" color="0" x="46" y="27" height="13" width="32" html.valueishtml="0"  name=t_sort visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="Gewicht" border="0" color="0" x="139" y="27" height="13" width="72" html.valueishtml="0"  name=t_gewicht visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="1" y1="1" x2="1" y2="44"  name=l_8 visible="0" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+bitmap(band=header filename="..\Resource\Icons\Small\folder.png" x="19" y="25" height="16" width="16" border="0"  name=p_2 visible="1" )
+line(band=header x1="42" y1="23" x2="42" y2="43"  name=l_5 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="88" y1="23" x2="88" y2="43"  name=l_3 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="216" y1="24" x2="216" y2="43"  name=l_6 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Galley" border="0" color="0" x="93" y="27" height="13" width="35" html.valueishtml="0"  name=t_galley visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="133" y1="23" x2="133" y2="43"  name=l_4 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="PantryCode:" border="0" color="33554432" x="6" y="6" height="13" width="74" html.valueishtml="0"  name=t_header visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="0" text="" border="0" color="33554432" x="79" y="6" height="13" width="75" html.valueishtml="0"  name=t_pantrycode visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+rectangle(band=header x="217" y="23" height="21" width="102"  name=r_6 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="1" text="Max. Galleygewicht" border="0" color="0" x="223" y="27" height="13" width="92" html.valueishtml="0"  name=t_3 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="42" y1="22" x2="317" y2="22"  name=l_anchor visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+bitmap(band=header filename="..\Resource\headline.gif" x="43" y="7" height="11" width="276" border="0"  name=p_6 visible="1" )
+line(band=header x1="317" y1="23" x2="317" y2="42"  name=l_9 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="2" y1="1" x2="337" y2="1"  name=l_7 visible="0" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+rectangle(band=detail x="217" y="0" height="21" width="102"  name=r_7 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="43" y="0" height="21" width="47"  name=r_3 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+line(band=detail x1="28" y1="0" x2="28" y2="53~tif(getrow() = rowcount(), 10, 30)"  name=l_1 visible="1" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="16777215" )
+line(band=detail x1="29" y1="9" x2="43" y2="9"  name=l_2 visible="1" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="16777215" )
+rectangle(band=detail x="89" y="0" height="21" width="46"  name=r_4 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="134" y="0" height="21" width="84"  name=r_5 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="46" y="3" height="15" width="41" format="[general]" html.valueishtml="0"  name=nsort visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="92" y="3" height="15" width="40" format="[general]" html.valueishtml="0"  name=cgalley visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="137" y="3" height="15" width="78" format="#,##0.00" html.valueishtml="0"  name=nweight visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432~tif( nweight > nmax_weight, RGB(255,0,0), RGB(0,0,0) )" x="220" y="3" height="15" width="96" format="#,##0.00" html.valueishtml="0"  name=nmax_weight visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=footer alignment="0" text="Gesamtgewicht:" border="0" color="0" x="44" y="7" height="15" width="78" html.valueishtml="0"  name=t_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=footer alignment="1" expression="sum(  nweight  for all )"border="0" color="33554432" x="137" y="7" height="15" width="78" format="#,##0.00" html.valueishtml="0"  name=compute_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

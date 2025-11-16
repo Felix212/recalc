@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_city_pairs.srs
+global type s_city_pairs from structure
+	string		sname
+	string		sfullname
+	integer		irefund
+	long		lAreaKey
+end type
+

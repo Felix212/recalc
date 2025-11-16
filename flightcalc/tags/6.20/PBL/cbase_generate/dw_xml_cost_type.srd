@@ -1,0 +1,35 @@
+HA$PBExportHeader$dw_xml_cost_type.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=ncost_type_key dbname="cen_cost_type.ncost_type_key" )
+ column=(type=char(40) updatewhereclause=yes name=ccost_type_cust dbname="cen_cost_type_airl.ccost_type_cust" )
+ column=(type=char(40) updatewhereclause=yes name=ctext dbname="cen_cost_type.ctext" )
+ column=(type=char(40) updatewhereclause=yes name=cen_cost_type_ctext2 dbname="cen_cost_type.ctext2" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_cost_type~" )  TABLE(NAME=~"cen_cost_type_airl~" ) COLUMN(NAME=~"cen_cost_type.ncost_type_key~") COLUMN(NAME=~"cen_cost_type_airl.ccost_type_cust~") COLUMN(NAME=~"cen_cost_type.ctext~") COLUMN(NAME=~"cen_cost_type.ctext2~")    JOIN (LEFT=~"cen_cost_type_airl.ncost_type_key~"    OP =~"=~"RIGHT=~"cen_cost_type.ncost_type_key~"    OUTER2 =~"cen_cost_type.ncost_type_key~" )WHERE(    EXP1 =~"cen_cost_type.ncustomer_key~"   OP =~"=~"    EXP2 =~":arg_customer_key~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_cost_type.dvalid_from~"   OP =~"<=~"    EXP2 =~":arg_date~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"cen_cost_type.dvalid_to~"   OP =~">=~"    EXP2 =~":arg_date~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_cost_type_airl.dvalid_from~"   OP =~"<=~"    EXP2 =~":arg_date~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_cost_type_airl.dvalid_to~"   OP =~">=~"    EXP2 =~":arg_date~" ) ) ARG(NAME = ~"arg_customer_key~" TYPE = number)  ARG(NAME = ~"arg_date~" TYPE = date) " arguments=(("arg_customer_key", number),("arg_date", date)) )
+text(band=header alignment="2" text="Cen Cost Type
+ncost_type_key" border="0" color="33554432" x="0" y="4" height="128" width="530" html.valueishtml="0"  name=cen_class_name_cclass_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Cost type
+ctext" border="0" color="33554432" x="549" y="4" height="128" width="1275" html.valueishtml="0"  name=cen_class_name_nowner_id_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Cost type_airl
+ccost_type_cust" border="0" color="33554432" x="1833" y="4" height="128" width="1289" html.valueishtml="0"  name=cen_class_name_cclass_host_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Cost type
+ctext2" border="0" color="33554432" x="3118" y="4" height="128" width="1285" html.valueishtml="0"  name=cen_airlines_cairline_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="526" format="[general]" html.valueishtml="0"  name=ncost_type_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="1833" y="4" height="76" width="1280" format="[general]" html.valueishtml="0"  name=ccost_type_cust visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="549" y="4" height="76" width="1280" format="[general]" html.valueishtml="0"  name=ctext visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="3113" y="4" height="76" width="1280" format="[general]" html.valueishtml="0"  name=cen_cost_type_ctext2 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

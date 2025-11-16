@@ -1,0 +1,18 @@
+HA$PBExportHeader$f_check_null.srf
+global type f_check_null from function_object
+end type
+
+forward prototypes
+global function String f_check_null (string stext)
+end prototypes
+
+global function String f_check_null (string stext);
+if isnull(sText) then
+	return ""
+else
+	return sText
+end if
+
+return sText
+end function
+

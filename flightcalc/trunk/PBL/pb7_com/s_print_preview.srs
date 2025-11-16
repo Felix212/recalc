@@ -1,0 +1,15 @@
+HA$PBExportHeader$s_print_preview.srs
+global type s_print_preview from structure
+	blob		bdata
+	long		lreportid
+	integer		iexcel
+	string		sreportname
+	string		sexceltext1
+	string		sexceltext2
+	string		sexceltext3
+	string		sexceltext4
+	string		sdatasourcename
+	blob		bxls_data
+	boolean		busedetailheight
+end type
+

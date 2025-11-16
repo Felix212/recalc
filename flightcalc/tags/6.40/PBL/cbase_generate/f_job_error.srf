@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_job_error.srf
+global type f_job_error from function_object
+end type
+
+forward prototypes
+global function integer f_job_error (string slog_text, string slog_file)
+end prototypes
+
+global function integer f_job_error (string slog_text, string slog_file);guoLog.uf_allways( slog_text )
+guoLog.uf_allways( " ")
+guoLog.uf_allways( "######################################################################################################")
+guoLog.uf_allways( " ")
+
+/*
+integer	iFileNumber
+
+
+iFileNumber	= FileOpen(slog_file, LineMode!,Write!,LockWrite!,Append!)
+
+If iFileNumber <> -1 Then
+	FileWrite(iFileNumber,string(today(),"dd.mm.yyyy") + "~t" + string(now(),"hh:mm:ss") + + "~t" + slog_text)
+	FileWrite(iFileNumber," ")
+	FileWrite(iFileNumber,"######################################################################################################")
+	FileWrite(iFileNumber," ")
+	FileClose( iFileNumber)	
+End if
+
+*/
+return 0
+end function
+

@@ -1,0 +1,17 @@
+HA$PBExportHeader$dw_label_layout_other_backup.srd
+release 9;
+datawindow(units=1 timer_interval=0 color=16777215 processing=2 HTMLDW=no print.printername="" print.documentname="" print.orientation = 2 print.margin.left = 0 print.margin.right = 0 print.margin.top = 80 print.margin.bottom = 80 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no label.name="Laser Address-Clear  1.33 x 4.25 5662" label.width=408 label.height=128 label.rows=7 label.rows.spacing=0 label.columns=2 label.columns.spacing=0 label.topdown=no label.sheet=yes label.shape=roundrectangle label.ellipse_height=0 label.ellipse_width=0 )
+detail(height=129 color="536870912" )
+table(column=(type=char(20) updatewhereclause=no name=cobject_name dbname="cobject_name" )
+ column=(type=number updatewhereclause=no name=nobject_type dbname="nobject_type" )
+ column=(type=number updatewhereclause=no name=nbelly dbname="name_1" )
+ column=(type=number updatewhereclause=no name=nvisible dbname="nvisible" initial="1" )
+ column=(type=char(12) updatewhereclause=no name=carea dbname="carea" )
+ column=(type=char(12) updatewhereclause=no name=cworkstation dbname="cworkstation" )
+ )
+text(band=detail alignment="0" text="" border="0" color="0" x="4" y="4" height="11" width="12" html.valueishtml="0"  name=jumppoint visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )

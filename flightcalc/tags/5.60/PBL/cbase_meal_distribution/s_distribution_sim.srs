@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_distribution_sim.srs
+global type s_distribution_sim from structure
+	string		sll[]
+	string		sZBL[]
+end type
+

@@ -1,0 +1,24 @@
+HA$PBExportHeader$s_preview_settings.srs
+global type s_preview_settings from structure
+	string		sairline
+	string		srouting
+	string		sunit
+	long		lflightfrom
+	long		lflightto
+	datetime		dtdate
+	string		stimefrom
+	string		stimeto
+	boolean		bsuccessful
+	integer		iprintdirectly
+	long		lmaster_key
+	long		ldetail_key
+	datetime		dtdateto
+	integer		ihandling_type
+	string		ssub_header
+	long		ltraffic_area
+	string		straffic_area_short
+	string		sall_traffic_areas[]
+	long		lairline
+	string		sDataSourceName
+end type
+

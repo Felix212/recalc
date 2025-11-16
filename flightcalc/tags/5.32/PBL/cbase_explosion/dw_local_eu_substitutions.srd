@@ -1,0 +1,51 @@
+HA$PBExportHeader$dw_local_eu_substitutions.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=loc_pl_subst_npl_index_key dbname="loc_pl_subst.npl_index_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_pl_subst_npl_level dbname="loc_pl_subst.npl_level" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_pl_subst_npl_index_key_subst dbname="loc_pl_subst.npl_index_key_subst" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_pl_subst_npl_level_subst dbname="loc_pl_subst.npl_level_subst" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_pl_subst_flights_npartial_substitution dbname="loc_pl_subst_flights.npartial_substitution" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_pl_subst_flights_nresult_key dbname="loc_pl_subst_flights.nresult_key" )
+ column=(type=char(18) updatewhereclause=yes name=cen_packinglist_index_cpackinglist dbname="cen_packinglist_index.cpackinglist" )
+ column=(type=char(40) updatewhereclause=yes name=cen_packinglists_ctext dbname="cen_packinglists.ctext" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_packinglists_npackinglist_detail_key dbname="cen_packinglists.npackinglist_detail_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_packinglists_nlabel_type_key dbname="cen_packinglists.nlabel_type_key" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"loc_pl_subst~" )  TABLE(NAME=~"loc_pl_subst_flights~" )  TABLE(NAME=~"cen_packinglist_index~" )  TABLE(NAME=~"cen_packinglists~" ) COLUMN(NAME=~"loc_pl_subst.npl_index_key~") COLUMN(NAME=~"loc_pl_subst.npl_level~") COLUMN(NAME=~"loc_pl_subst.npl_index_key_subst~") COLUMN(NAME=~"loc_pl_subst.npl_level_subst~") COLUMN(NAME=~"loc_pl_subst_flights.npartial_substitution~") COLUMN(NAME=~"loc_pl_subst_flights.nresult_key~") COLUMN(NAME=~"cen_packinglist_index.cpackinglist~") COLUMN(NAME=~"cen_packinglists.ctext~") COLUMN(NAME=~"cen_packinglists.npackinglist_detail_key~") COLUMN(NAME=~"cen_packinglists.nlabel_type_key~")    JOIN (LEFT=~"loc_pl_subst_flights.nloc_pl_subst_key~"    OP =~"=~"RIGHT=~"loc_pl_subst.nloc_pl_subst_key~" )    JOIN (LEFT=~"loc_pl_subst.npl_index_key_subst~"    OP =~"=~"RIGHT=~"cen_packinglist_index.npackinglist_index_key~" )    JOIN (LEFT=~"cen_packinglists.npackinglist_index_key~"    OP =~"=~"RIGHT=~"cen_packinglist_index.npackinglist_index_key~" )WHERE(    EXP1 =~"loc_pl_subst_flights.nresult_key~"   OP =~"=~"    EXP2 =~":arg_result~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"loc_pl_subst_flights.ddeparture~"   OP =~"between~"    EXP2 =~"cen_packinglists.dvalid_from and cen_packinglists.dvalid_to~" ) ) ARG(NAME = ~"arg_result~" TYPE = number) " arguments=(("arg_result", number)) )
+text(band=header alignment="2" text="Loc Pl Subst
+Npl Index Key" border="0" color="33554432" x="5" y="4" height="128" width="352" html.valueishtml="0"  name=loc_pl_subst_npl_index_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Pl Subst
+Npl Level" border="0" color="33554432" x="361" y="4" height="128" width="329" html.valueishtml="0"  name=loc_pl_subst_npl_level_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Pl Subst
+Npl Index Key Subst" border="0" color="33554432" x="695" y="4" height="128" width="517" html.valueishtml="0"  name=loc_pl_subst_npl_index_key_subst_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Pl Subst
+Npl Level Subst" border="0" color="33554432" x="1216" y="4" height="128" width="402" html.valueishtml="0"  name=loc_pl_subst_npl_level_subst_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Pl Subst Flights
+Npartial Substitution" border="0" color="33554432" x="1623" y="4" height="128" width="526" html.valueishtml="0"  name=loc_pl_subst_flights_npartial_substitution_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Pl Subst Flights
+Nresult Key" border="0" color="33554432" x="2153" y="4" height="128" width="503" html.valueishtml="0"  name=loc_pl_subst_flights_nresult_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_pl_subst_npl_index_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="361" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_pl_subst_npl_level visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="695" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_pl_subst_npl_index_key_subst visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="1216" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_pl_subst_npl_level_subst visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1623" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_pl_subst_flights_npartial_substitution visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="2153" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_pl_subst_flights_nresult_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="2656" y="0" height="64" width="489" format="[general]" html.valueishtml="0"  name=cen_packinglist_index_cpackinglist visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="3145" y="0" height="64" width="1079" format="[general]" html.valueishtml="0"  name=cen_packinglists_ctext visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="4224" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=cen_packinglists_npackinglist_detail_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=0 border="0" color="33554432" x="6359" y="0" height="64" width="2135" html.valueishtml="0"  name=cen_packinglists_nlabel_type_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

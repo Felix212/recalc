@@ -1,0 +1,81 @@
+HA$PBExportHeader$f_utc_to_local_time.srf
+global type f_utc_to_local_time from function_object
+end type
+
+forward prototypes
+global function s_dep_time f_utc_to_local_time (s_dep_time s_parm)
+end prototypes
+
+global function s_dep_time f_utc_to_local_time (s_dep_time s_parm);// -----------------------------------------------------
+// Zeitwert mit Offset verrechnen, Stunden und Minuten
+// Beispiel : Offset 1,30 = 1 Stunde und 30 Minuten
+// -----------------------------------------------------
+	integer	iHour, &
+				iMinute,iCalcMinute
+	
+	decimal	dMinutes
+	
+			
+	if isnull(s_parm.iOffset) then s_parm.iOffset = 0
+	if isnull(s_parm.dOffset) then s_parm.dOffset = 0
+// ---------------------------
+// Stunden ermitteln
+// ---------------------------
+	iHour 	= integer(mid(s_parm.sTime,1,2))
+// ---------------------------
+// Minuten ermitteln
+// ---------------------------
+	iMinute 	= integer(mid(s_parm.sTime,4,2))	
+// ---------------------------
+// Minuten um das Offset erh$$HEX1$$f600$$ENDHEX$$hen
+// ---------------------------
+	If s_parm.dOffset >= 0 Then
+		dMinutes  = s_parm.dOffset - int(s_parm.dOffset)
+		dMinutes  = dMinutes * 100
+		iMinute 	+= dMinutes
+		If iMinute >= 60 then 
+			iMinute = iMinute - 60
+			s_parm.iOffset = int(s_parm.dOffset) +1
+		Else
+			s_parm.iOffset = int(s_parm.dOffset)
+		End if
+	End if
+
+	If s_parm.dOffset < 0 Then
+		s_parm.dOffset = s_parm.dOffset * -1
+		dMinutes  		= s_parm.dOffset - int(s_parm.dOffset)
+		dMinutes  		= dMinutes * 100
+		iCalcMinute 	= iMinute - dMinutes
+		If iCalcMinute < 0 then 
+			iMinute 	 		= 60 - dMinutes + iMinute
+			s_parm.iOffset = int(s_parm.dOffset) +1
+			s_parm.iOffset = s_parm.iOffset * -1
+		Else
+			iMinute 	 		= iCalcMinute
+			s_parm.iOffset = int(s_parm.dOffset)
+			s_parm.iOffset = s_parm.iOffset * -1
+		End if
+	End if
+	
+// ---------------------------
+// Stunden um das Offset erh$$HEX1$$f600$$ENDHEX$$hen
+// ---------------------------
+	iHour 	+= s_parm.iOffset
+
+	if iHour < 0 then 
+		iHour += 24
+		s_parm.ddate = relativedate(s_parm.ddate,-1)
+	End if	
+	
+	if iHour >= 24 then
+		iHour -= 24
+		s_parm.ddate = relativedate(s_parm.ddate,+1)
+	End if	
+
+	s_parm.sTime = string(iHour,"00") + ":" + string(iMinute,"00")
+	
+	return s_parm
+
+
+end function
+

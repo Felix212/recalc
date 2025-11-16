@@ -1,0 +1,17 @@
+HA$PBExportHeader$str_findresult.srs
+global type str_findresult from structure
+	string		sfilename
+	string		saltfilename
+	long		lfilesize
+	boolean		breadonly
+	boolean		bhidden
+	boolean		bsystem
+	boolean		bsubdirectory
+	boolean		barchive
+	boolean		bdrive
+	date		dCreationDate
+	time		tCreationTime
+	date		dWriteDate
+	time		tWriteTime
+end type
+

@@ -1,0 +1,170 @@
+HA$PBExportHeader$dw_uo_ac_distr_exceptions.srd
+$PBExportComments$Ausnahmen f$$HEX1$$fc00$$ENDHEX$$r Distribution by AC Type
+release 10;
+datawindow(units=1 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=48 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=36 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes name=naircraft_distr_ex_key dbname="cen_aircraft_distr_ex.naircraft_distr_ex_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nairline_key dbname="cen_aircraft_distr_ex.nairline_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=naircraft_key dbname="cen_aircraft_distr_ex.naircraft_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=naircraft_all dbname="cen_aircraft_distr_ex.naircraft_all" initial="0" values="	1/	0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nhandling_type_all dbname="cen_aircraft_distr_ex.nhandling_type_all" initial="1" values="	1/	0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntlc_from dbname="cen_aircraft_distr_ex.ntlc_from" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntlc_from_all dbname="cen_aircraft_distr_ex.ntlc_from_all" initial="1" values="	1/	0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntlc_to_all dbname="cen_aircraft_distr_ex.ntlc_to_all" values="	1/	0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nflight_number dbname="cen_aircraft_distr_ex.nflight_number" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nflight_number_all dbname="cen_aircraft_distr_ex.nflight_number_all" initial="1" values="	1/	0" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=csuffix dbname="cen_aircraft_distr_ex.csuffix" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nsuffix_all dbname="cen_aircraft_distr_ex.nsuffix_all" initial="1" values="	1/	0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nfreq1 dbname="cen_aircraft_distr_ex.nfreq1" initial="1" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nfreq2 dbname="cen_aircraft_distr_ex.nfreq2" initial="1" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nfreq3 dbname="cen_aircraft_distr_ex.nfreq3" initial="1" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nfreq4 dbname="cen_aircraft_distr_ex.nfreq4" initial="1" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nfreq5 dbname="cen_aircraft_distr_ex.nfreq5" initial="1" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nfreq6 dbname="cen_aircraft_distr_ex.nfreq6" initial="1" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nfreq7 dbname="cen_aircraft_distr_ex.nfreq7" initial="1" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dvalid_from dbname="cen_aircraft_distr_ex.dvalid_from" initial="1.1.2000" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dvalid_to dbname="cen_aircraft_distr_ex.dvalid_to" initial="1.1.3000" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=ctime_from dbname="cen_aircraft_distr_ex.ctime_from" initial="00:00" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=ctime_to dbname="cen_aircraft_distr_ex.ctime_to" initial="23:59" )
+ column=(type=char(32) updatewhereclause=yes name=cfrequence dbname="cfrequence" initial="1234567" validationmsg="~"Bitte geben Sie einen g$$HEX1$$fc00$$ENDHEX$$ltigen Wert ein.~"" )
+ column=(type=char(3) updatewhereclause=yes name=ctlc_from dbname="sys_three_letter_codes.ctlc" validationmsg="~"Bitte geben Sie einen g$$HEX1$$fc00$$ENDHEX$$ltigen Three Letter Code ein.~"" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nactive dbname="cen_aircraft_distr_ex.nactive" values="	1/	0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntlc_to dbname="cen_aircraft_distr_ex.ntlc_to" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ndistribution_key dbname="cen_aircraft_distr_ex.ndistribution_key" )
+ column=(type=char(40) updatewhereclause=yes name=cen_distribution_ctext dbname="cen_distribution.ctext" )
+ column=(type=char(256) updatewhereclause=yes name=cen_distribution_cdescription dbname="cen_distribution.cdescription" )
+ column=(type=datetime updatewhereclause=yes name=cen_distribution_dvalid_from dbname="cen_distribution.dvalid_from" )
+ column=(type=datetime updatewhereclause=yes name=cen_distribution_dvalid_to dbname="cen_distribution.dvalid_to" )
+ column=(type=char(10) updatewhereclause=yes name=cactype dbname="cen_aircraft.cactype" )
+ column=(type=char(10) updatewhereclause=yes name=cgalleyversion dbname="cen_aircraft.cgalleyversion" )
+ column=(type=char(20) updatewhereclause=yes name=cconfiguration dbname="cen_aircraft.cconfiguration" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nhandling_type_key dbname="cen_aircraft_distr_ex.nhandling_type_key" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_types_ctext dbname="cen_handling_types.ctext" )
+ column=(type=char(10) updatewhereclause=yes name=cairline dbname="cen_airlines.cairline" )
+ column=(type=char(3) updatewhereclause=yes name=ctlc_to dbname="sys_three_letter_codes.ctlc" )
+ retrieve="  SELECT cen_aircraft_distr_ex.naircraft_distr_ex_key,   
+         cen_aircraft_distr_ex.nairline_key,   
+         cen_aircraft_distr_ex.naircraft_key,   
+         cen_aircraft_distr_ex.naircraft_all,   
+         cen_aircraft_distr_ex.nhandling_type_all,   
+         cen_aircraft_distr_ex.ntlc_from,   
+         cen_aircraft_distr_ex.ntlc_from_all,   
+         cen_aircraft_distr_ex.ntlc_to_all,   
+         cen_aircraft_distr_ex.nflight_number,   
+         cen_aircraft_distr_ex.nflight_number_all,   
+         cen_aircraft_distr_ex.csuffix,   
+         cen_aircraft_distr_ex.nsuffix_all,   
+         cen_aircraft_distr_ex.nfreq1,   
+         cen_aircraft_distr_ex.nfreq2,   
+         cen_aircraft_distr_ex.nfreq3,   
+         cen_aircraft_distr_ex.nfreq4,   
+         cen_aircraft_distr_ex.nfreq5,   
+         cen_aircraft_distr_ex.nfreq6,   
+         cen_aircraft_distr_ex.nfreq7,   
+         cen_aircraft_distr_ex.dvalid_from,   
+         cen_aircraft_distr_ex.dvalid_to,   
+         cen_aircraft_distr_ex.ctime_from,   
+         cen_aircraft_distr_ex.ctime_to,   
+         '       ' cfrequence,   
+         sys_three_letter_codes_a.ctlc,   
+         cen_aircraft_distr_ex.nactive,   
+         cen_aircraft_distr_ex.ntlc_to,   
+         cen_aircraft_distr_ex.ndistribution_key,   
+         cen_distribution.ctext,   
+         cen_distribution.cdescription,   
+         cen_distribution.dvalid_from,   
+         cen_distribution.dvalid_to,   
+         cen_aircraft.cactype,   
+         cen_aircraft.cgalleyversion,   
+         cen_aircraft.cconfiguration,   
+         cen_aircraft_distr_ex.nhandling_type_key,   
+         cen_handling_types.ctext,   
+         cen_airlines.cairline,   
+         sys_three_letter_codes_b.ctlc  
+    FROM cen_aircraft_distr_ex,   
+         sys_three_letter_codes sys_three_letter_codes_a,   
+         cen_distribution,   
+         cen_aircraft,   
+         cen_handling_types,   
+         cen_airlines,   
+         sys_three_letter_codes sys_three_letter_codes_b  
+   WHERE ( sys_three_letter_codes_a.ntlc_key (+) = cen_aircraft_distr_ex.ntlc_from) and  
+         ( cen_aircraft_distr_ex.naircraft_key = cen_aircraft.naircraft_key (+)) and  
+         ( cen_aircraft_distr_ex.nhandling_type_key = cen_handling_types.nhandling_type_key (+)) and  
+         ( cen_aircraft_distr_ex.nairline_key = cen_distribution.nairline_key ) and  
+         ( cen_aircraft_distr_ex.ndistribution_key = cen_distribution.ndistribution_key ) and  
+         ( cen_aircraft_distr_ex.nairline_key = cen_airlines.nairline_key ) and  
+         ( sys_three_letter_codes_b.ntlc_key = cen_aircraft_distr_ex.ntlc_to ) and  
+         ( CEN_AIRCRAFT_DISTR_EX.nairline_key = :arg_airline_key ) AND  
+         (cen_aircraft_distr_ex.naircraft_key = :arg_aircraft_key OR  
+         cen_aircraft_distr_ex.naircraft_all = 1)    AND
+			cen_aircraft_distr_ex.nactive = 1
+" arguments=(("arg_airline_key", number),("arg_aircraft_key", number))  sort="naircraft_all A nflight_number_all A nhandling_type_all A ntlc_from_all A ntlc_to_all A nsuffix_all A " )
+text(band=header alignment="0" text="Flugger$$HEX1$$e400$$ENDHEX$$t" border="2" color="0" x="30" y="31" height="14" width="179" html.valueishtml="0"  name=t_aircraft visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Suffix" border="2" color="0" x="467" y="31" height="14" width="42" html.valueishtml="0"  name=t_suffix  tag="OFF" visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Flugnummer" border="2" color="0" x="396" y="31" height="14" width="70" html.valueishtml="0"  name=t_flight_number  tag="OFF" visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Frequenz" border="2" color="0" x="695" y="31" height="14" width="56" html.valueishtml="0"  name=t_freqence visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Verteilungsparameter" border="2" color="0" x="231" y="31" height="14" width="164" html.valueishtml="0"  name=t_1  tag="OFF" visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Abfertigung" border="2" color="0" x="510" y="31" height="14" width="77" html.valueishtml="0"  name=t_handling_type visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Von" border="2" color="0" x="588" y="31" height="14" width="30" html.valueishtml="0"  name=t_tlc_from visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Nach" border="2" color="0" x="637" y="31" height="14" width="30" html.valueishtml="0"  name=t_tlc_to visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Zeit von" border="2" color="0" x="755" y="31" height="14" width="56" html.valueishtml="0"  name=t_time_from visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Zeit bis" border="2" color="0" x="812" y="31" height="14" width="56" html.valueishtml="0"  name=t_time_to visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="G$$HEX1$$fc00$$ENDHEX$$ltig bis" border="2" color="0" x="933" y="31" height="14" width="70" html.valueishtml="0"  name=t_valid_to visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="G$$HEX1$$fc00$$ENDHEX$$ltig ab" border="2" color="0" x="869" y="31" height="14" width="63" html.valueishtml="0"  name=t_valid_from visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Aktiv" border="2" color="0" x="1004" y="31" height="14" width="35" html.valueishtml="0"  name=t_aktive visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression=" cairline  + ~" ~" + cactype + ~" [~" + cgalleyversion + ~"] ~" +  cconfiguration "border="2" color="33554432" x="27" y="2" height="14" width="186" format="[GENERAL]" html.valueishtml="0"  name=compute_ac_type visible="1"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=180 border="2" color="33554432" x="1106" y="2" height="14" width="50" format="[general]" html.valueishtml="0"  name=naircraft_distr_ex_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=200 border="2" color="33554432" x="1157" y="2" height="14" width="50" format="[general]" html.valueishtml="0"  name=naircraft_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=190 border="2" color="255" x="1029" y="2" height="14" width="36" format="[general]" html.valueishtml="0"  name=nairline_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="0" tabsequence=300 border="2" color="33554432" x="1066" y="2" height="14" width="39" format="[general]" html.valueishtml="0"  name=ndistribution_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=20 border="2" color="33554432" x="395" y="2" height="14" width="50" format="[general]" html.valueishtml="0"  name=nflight_number visible="1" edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=30 border="2" color="33554432" x="446" y="2" height="14" width="15" format="[general]" html.valueishtml="0"  name=nflight_number_all visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=70 border="2" color="33554432" x="559" y="2" height="14" width="14" format="[general]" html.valueishtml="0"  name=nhandling_type_all visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="2" tabsequence=50 border="2" color="33554432" x="485" y="2" height="14" width="23" format="[general]" html.valueishtml="0"  name=nsuffix_all visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=90 border="2" color="33554432" x="614" y="2" height="14" width="18" format="[general]" html.valueishtml="0"  name=ntlc_from_all visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=110 border="2" color="33554432" x="675" y="2" height="14" width="20" format="[general]" html.valueishtml="0"  name=ntlc_to_all visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="0" tabsequence=120 border="2" color="33554432" x="698" y="17" height="14" width="50" format="[general]" html.valueishtml="0"  name=cfrequence visible="0" edit.limit=7 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=40 border="2" color="33554432" x="462" y="2" height="14" width="22" format="[general]" html.valueishtml="0"  name=csuffix visible="1" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=38 alignment="0" tabsequence=32766 border="2" color="33554432" x="4" y="2" height="14" width="22" format="[general]" html.valueishtml="0"  name=cairline visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=10 border="2" color="33554432" x="212" y="2" height="14" width="17" format="[general]" html.valueishtml="0"  name=naircraft_all visible="0" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=29 alignment="0" tabsequence=32766 border="2" color="33554432" x="231" y="2" height="14" width="163" format="[general]" html.valueishtml="0"  name=cen_distribution_ctext visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=37 alignment="0" tabsequence=60 border="2" color="33554432" x="509" y="2" height="14" width="49" format="[general]" html.valueishtml="0"  name=cen_handling_types_ctext visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="0" tabsequence=80 border="2" color="33554432" x="587" y="2" height="14" width="26" format="[general]" html.valueishtml="0"  name=ctlc_from visible="1" edit.limit=0 edit.case=upper edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=39 alignment="0" tabsequence=100 border="2" color="33554432" x="633" y="2" height="14" width="41" format="[general]" html.valueishtml="0"  name=ctlc_to visible="1" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=220 border="2" color="33554432" x="696" y="2" height="14" width="7" format="[general]" html.valueishtml="0"  name=nfreq1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=230 border="2" color="33554432" x="704" y="2" height="14" width="7" format="[general]" html.valueishtml="0"  name=nfreq2 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=240 border="2" color="33554432" x="712" y="2" height="14" width="7" format="[general]" html.valueishtml="0"  name=nfreq3 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=250 border="2" color="33554432" x="720" y="2" height="14" width="7" format="[general]" html.valueishtml="0"  name=nfreq4 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=260 border="2" color="33554432" x="728" y="2" height="14" width="7" format="[general]" html.valueishtml="0"  name=nfreq5 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=270 border="2" color="33554432" x="736" y="2" height="14" width="7" format="[general]" html.valueishtml="0"  name=nfreq6 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=280 border="2" color="33554432" x="744" y="2" height="14" width="7" format="[general]" html.valueishtml="0"  name=nfreq7 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="0" tabsequence=130 border="2" color="33554432" x="766" y="2" height="14" width="40" format="[general]" html.valueishtml="0"  name=ctime_from visible="1" edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="0" tabsequence=140 border="2" color="33554432" x="807" y="2" height="14" width="41" format="[general]" html.valueishtml="0"  name=ctime_to visible="1" edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="2" tabsequence=170 border="2" color="33554432" x="1001" y="2" height="14" width="27" format="[general]" html.valueishtml="0"  name=nactive visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=150 border="2" color="33554432" x="849" y="2" height="14" width="75" format="[shortdate] " html.valueishtml="0"  name=dvalid_from visible="1" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="0" tabsequence=160 border="2" color="33554432" x="925" y="2" height="14" width="75" format="[shortdate] " html.valueishtml="0"  name=dvalid_to visible="1" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=34 alignment="2" tabsequence=350 border="2" color="33554432" x="80" y="20" height="14" width="50" format="[general]" html.valueishtml="0"  name=cgalleyversion visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=33 alignment="0" tabsequence=340 border="2" color="33554432" x="29" y="20" height="14" width="50" format="[general]" html.valueishtml="0"  name=cactype visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="alle" border="2" color="0" x="131" y="20" height="14" width="30" html.valueishtml="0"  name=t_alle_caircraft visible="0"  font.face="Courier New" font.height="-8" font.weight="400"  font.family="1" font.pitch="1" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=35 alignment="0" tabsequence=360 border="2" color="33554432" x="162" y="20" height="14" width="67" format="[general]" html.valueishtml="0"  name=cconfiguration visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="0" tabsequence=290 border="2" color="33554432" x="1277" y="2" height="14" width="27" format="[general]" html.valueishtml="0"  name=ntlc_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=31 alignment="0" tabsequence=320 border="2" color="33554432" x="1264" y="2" height="14" width="55" format="[shortdate] [time]" html.valueishtml="0"  name=cen_distribution_dvalid_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=32 alignment="0" tabsequence=330 border="2" color="33554432" x="1208" y="2" height="14" width="55" format="[shortdate] [time]" html.valueishtml="0"  name=cen_distribution_dvalid_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=210 border="2" color="33554432" x="1320" y="2" height="14" width="50" format="[general]" html.valueishtml="0"  name=ntlc_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=36 alignment="0" tabsequence=370 border="2" color="33554432" x="1371" y="2" height="14" width="50" format="[general]" html.valueishtml="0"  name=nhandling_type_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=30 alignment="0" tabsequence=310 border="2" color="33554432" x="1422" y="2" height="14" width="50" format="[general]" html.valueishtml="0"  name=cen_distribution_cdescription visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Courier New" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

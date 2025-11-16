@@ -1,0 +1,21 @@
+HA$PBExportHeader$f_gettempfilename_new.srf
+global type f_gettempfilename_new from function_object
+end type
+
+forward prototypes
+global function string f_gettempfilename_new (string stemppath, string ssuffix)
+end prototypes
+
+global function string f_gettempfilename_new (string stemppath, string ssuffix);
+String	sTempFile
+
+sTempFile = sTempPath + "\" + sSuffix + string(time(today()),"ffffff") + ".Tmp"
+
+Messagebox("Temp",sTempFile)
+
+return sTempFile
+
+
+
+end function
+

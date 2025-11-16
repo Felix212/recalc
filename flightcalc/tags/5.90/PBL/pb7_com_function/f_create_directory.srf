@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_create_directory.srf
+global type f_create_directory from function_object
+end type
+
+forward prototypes
+global function boolean f_create_directory (string sdirectory)
+end prototypes
+
+global function boolean f_create_directory (string sdirectory);// ------------------------------------------
+// Verzeichnis erstellen
+// ------------------------------------------
+	ulong  	ulRet
+// ------------------------------------------
+// Nachschau, ob das Verzeichnis vorhanden 
+// ist
+// ------------------------------------------
+	ulRet =  GetFileAttributesA(sDirectory)
+	if ulRet <> 16 then
+		if not CreateDirectoryA(sDirectory,0 ) then
+			return False
+		end if
+	end if
+	return true
+end function
+

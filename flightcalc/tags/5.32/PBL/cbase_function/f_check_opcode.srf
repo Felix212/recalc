@@ -1,0 +1,53 @@
+HA$PBExportHeader$f_check_opcode.srf
+global type f_check_opcode from function_object
+end type
+
+forward prototypes
+global function long f_check_opcode (string as_text, long al_airline_key)
+end prototypes
+
+global function long f_check_opcode (string as_text, long al_airline_key);/* 
+* Funktion: 			f_check_opcode
+* Beschreibung: 	Holt opcode-Key
+* Besonderheit: 	keine
+*
+* Argumente:
+* 	Name						Beschreibung
+*	as_text					klartext zum opcode (copcode)
+*	al_airline_key			airlinekey
+*
+* Aenderungshistorie:
+* 	Version 		Wer			Wann				Was und warum
+*	1.0 			M.N$$HEX1$$fc00$$ENDHEX$$ndel		18.05.2009		Erstellung
+*
+* Return Codes:
+*	nopcode_key	wenn gefunden
+*	-1					sonst
+*/
+
+// hilfsvariable
+long 		lKey
+
+// lesen
+SELECT nopcode_key
+ INTO :lKey  
+FROM cen_airline_opcodes
+WHERE nairline_key = :al_airline_key
+  AND copcode = :as_text;
+
+// erfolgreich: key zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+if sqlca.sqlcode = 0 then
+	return lKey
+	
+// nicht gefunden: -1 zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+elseif sqlca.sqlcode = 100 then
+	return -1
+	
+// fehler: log schreiben und -1 zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+else
+	f_db_error(sqlca, "f_check_opcode()")
+	return -1
+end if
+
+end function
+

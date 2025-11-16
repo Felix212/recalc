@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_bestview.srf
+$PBExportComments$Funktion $$HEX1$$e400$$ENDHEX$$ndert die Gr$$HEX2$$f600df00$$ENDHEX$$e des aktuellen Fensters auf Vollbild
+global type f_bestview from function_object
+end type
+
+forward prototypes
+global subroutine f_bestview (window w_window)
+end prototypes
+
+global subroutine f_bestview (window w_window);	Environment eEnv
+	
+	Getenvironment(eEnv)
+	
+	w_window.height = PixelstoUnits(eEnv.ScreenHeight,YPixelsToUnits!)
+	w_window.width  = PixelstoUnits(eEnv.ScreenWidth,XPixelsToUnits!)
+
+
+
+
+//	If eEnv.ScreenHeight < 768 or eEnv.ScreenWidth < 1024 or eEnv.NumberOfColors < 65536 Then
+//		Messagebox("System","Die derzeit verwendeten Bildschirmeinstellungen gen$$HEX1$$fc00$$ENDHEX$$gen~nnicht den Programm-Anforderungen.~nNehmen Sie folgende Einstellungen vor:~n~nAufl$$HEX1$$f600$$ENDHEX$$sung = 1024 x 768 Pixel.~nFarbpalette = 65536 Farben.")
+//	End if	
+//	
+end subroutine
+

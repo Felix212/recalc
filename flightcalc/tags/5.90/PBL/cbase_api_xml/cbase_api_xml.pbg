@@ -1,0 +1,9 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_api_xml\\cbase_api_xml.pbl" "";
+@end;
+@begin Objects
+ "cbase_api_xml\\uo_xml_file_handler.sru" "cbase_api_xml\\cbase_api_xml.pbl";
+ "cbase_api_xml\\uo_xml_node_list.sru" "cbase_api_xml\\cbase_api_xml.pbl";
+ "cbase_api_xml\\uo_xml_node.sru" "cbase_api_xml\\cbase_api_xml.pbl";
+@end;

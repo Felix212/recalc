@@ -1,0 +1,23 @@
+HA$PBExportHeader$f_has_focus.srf
+global type f_has_focus from function_object
+end type
+
+forward prototypes
+global function boolean f_has_focus (string scolumn, datawindow odw)
+end prototypes
+
+global function boolean f_has_focus (string scolumn, datawindow odw);String sFocus
+
+sFocus = oDw.GetColumnName()
+
+if sFocus = sColumn then
+	return true
+else
+	return false
+end if
+
+return false
+
+
+end function
+

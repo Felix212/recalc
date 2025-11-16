@@ -1,0 +1,26 @@
+HA$PBExportHeader$f_get_traffic_area_key.srf
+global type f_get_traffic_area_key from function_object
+end type
+
+forward prototypes
+global function long f_get_traffic_area_key (string stext, long lairline)
+end prototypes
+
+global function long f_get_traffic_area_key (string stext, long lairline);Long lAreaKey
+
+select narea_key 
+  into :lAreaKey 
+  from cen_traffic_areas 
+ where cshort = :sText and ncustomer_key = :lAirline;
+ 
+ 
+if sqlca.sqlcode = 0 then
+	return lAreaKey
+elseif sqlca.sqlcode = 100 then
+	return -1
+else
+	f_db_error(sqlca, "f_get_traffic_area_key")
+	return -1
+end if
+end function
+

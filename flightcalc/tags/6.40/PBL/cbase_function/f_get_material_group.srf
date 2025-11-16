@@ -1,0 +1,55 @@
+HA$PBExportHeader$f_get_material_group.srf
+global type f_get_material_group from function_object
+end type
+
+forward prototypes
+global function string f_get_material_group (long lkey)
+end prototypes
+
+global function string f_get_material_group (long lkey);string sText, sText1, sText2, sText3, sText4
+
+SELECT cen_material_group.ctext, 
+		cen_material_group.ctext1,
+		cen_material_group.ctext2, 
+		cen_material_group.ctext3, 
+		cen_material_group.ctext4 
+ INTO  :sText,  
+		 :sText1,  
+		 :sText2,   
+		 :sText3,   
+		 :sText4  
+
+ FROM cen_material_group  
+WHERE cen_material_group.nmaterial_index_key = :lKey   ;
+
+
+if sqlca.sqlcode = 0 then
+	
+	choose case s_app.iLanguage 
+		case 1
+			return sText
+	
+		case 2
+			return sText1
+	
+		case 3
+			return sText2
+	
+		case 4
+			return sText3
+	
+		case 5
+			return sText4
+			
+	end choose
+	
+elseif sqlca.sqlcode = 100 then
+	Return "MaterialGroup: " + String(lKey) + " not found!"
+else
+	f_db_error(sqlca, "f_get_material_group()")
+	Return "Error"
+end if
+
+	
+end function
+

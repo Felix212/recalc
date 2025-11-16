@@ -1,0 +1,11 @@
+HA$PBExportHeader$f_get_dateformat.srf
+global type f_get_dateformat from function_object
+end type
+
+forward prototypes
+global function string f_get_dateformat ()
+end prototypes
+
+global function string f_get_dateformat ();return s_app.sDateFormat
+end function
+

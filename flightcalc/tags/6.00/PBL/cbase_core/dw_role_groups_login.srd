@@ -1,0 +1,40 @@
+HA$PBExportHeader$dw_role_groups_login.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(30) updatewhereclause=yes name=sys_roles_crole_name dbname="sys_roles.crole_name" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_role_groups_detail_nrole_id dbname="sys_role_groups_detail.nrole_id" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_role_groups_detail_ndefaultread dbname="sys_role_groups_detail.ndefaultread" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_role_groups_detail_ndefaultwrite dbname="sys_role_groups_detail.ndefaultwrite" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_role_groups_detail_ndefaultdelete dbname="sys_role_groups_detail.ndefaultdelete" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_role_groups_detail_ndefaultprint dbname="sys_role_groups_detail.ndefaultprint" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_role_groups_detail_nuse4web dbname="sys_role_groups_detail.nuse4web" )
+ column=(type=char(30) updatewhereclause=yes name=sys_role_groups_ctext dbname="sys_role_groups.ctext" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sys_login_groups~" )  TABLE(NAME=~"sys_role_groups~" )  TABLE(NAME=~"sys_role_groups_detail~" )  TABLE(NAME=~"sys_roles~" ) COLUMN(NAME=~"sys_roles.crole_name~") COLUMN(NAME=~"sys_role_groups_detail.nrole_id~") COLUMN(NAME=~"sys_role_groups_detail.ndefaultread~") COLUMN(NAME=~"sys_role_groups_detail.ndefaultwrite~") COLUMN(NAME=~"sys_role_groups_detail.ndefaultdelete~") COLUMN(NAME=~"sys_role_groups_detail.ndefaultprint~") COLUMN(NAME=~"sys_role_groups_detail.nuse4web~") COLUMN(NAME=~"sys_role_groups.ctext~")    JOIN (LEFT=~"sys_role_groups.nrole_groupkey~"    OP =~"=~"RIGHT=~"sys_login_groups.nrole_groupkey~" )    JOIN (LEFT=~"sys_role_groups_detail.nrole_groupkey~"    OP =~"=~"RIGHT=~"sys_role_groups.nrole_groupkey~" )    JOIN (LEFT=~"sys_roles.nrole_id~"    OP =~"=~"RIGHT=~"sys_role_groups_detail.nrole_id~" )WHERE(    EXP1 =~"sys_login_groups.nuser_id~"   OP =~"=~"    EXP2 =~":lUser~" ) ) ARG(NAME = ~"lUser~" TYPE = number) " arguments=(("lUser", number))  sort="sys_role_groups_ctext A sys_roles_crole_name A " )
+text(band=header alignment="2" text="Sys Roles
+Crole Name" border="0" color="0" x="5" y="4" height="128" width="850"  name=sys_roles_crole_name_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Role Groups Detail
+Nrole Id" border="0" color="0" x="859" y="4" height="128" width="622"  name=sys_role_groups_detail_nrole_id_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Role Groups Detail
+Ndefaultread" border="0" color="0" x="1486" y="4" height="128" width="622"  name=sys_role_groups_detail_ndefaultread_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Role Groups Detail
+Ndefaultwrite" border="0" color="0" x="2112" y="4" height="128" width="626"  name=sys_role_groups_detail_ndefaultwrite_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Role Groups Detail
+Ndefaultdelete" border="0" color="0" x="2743" y="4" height="128" width="622"  name=sys_role_groups_detail_ndefaultdelete_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Role Groups Detail
+Ndefaultprint" border="0" color="0" x="3369" y="4" height="128" width="622"  name=sys_role_groups_detail_ndefaultprint_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Role Groups Detail
+Nuse4web" border="0" color="0" x="3995" y="4" height="128" width="622"  name=sys_role_groups_detail_nuse4web_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="850" format="[general]"  name=sys_roles_crole_name edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="859" y="4" height="76" width="329" format="[general]"  name=sys_role_groups_detail_nrole_id edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="1486" y="4" height="76" width="329" format="[general]"  name=sys_role_groups_detail_ndefaultread edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="2112" y="4" height="76" width="329" format="[general]"  name=sys_role_groups_detail_ndefaultwrite edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="2743" y="4" height="76" width="329" format="[general]"  name=sys_role_groups_detail_ndefaultdelete edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="3369" y="4" height="76" width="329" format="[general]"  name=sys_role_groups_detail_ndefaultprint edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="3995" y="4" height="76" width="329" format="[general]"  name=sys_role_groups_detail_nuse4web edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=0 border="0" color="0" x="4617" y="0" height="64" width="809"  name=sys_role_groups_ctext  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

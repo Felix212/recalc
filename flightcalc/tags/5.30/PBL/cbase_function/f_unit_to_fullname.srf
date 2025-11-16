@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_unit_to_fullname.srf
+global type f_unit_to_fullname from function_object
+end type
+
+forward prototypes
+global function string f_unit_to_fullname (string sunit)
+end prototypes
+
+global function string f_unit_to_fullname (string sunit);// -----------------------------------------
+// Pr$$HEX1$$fc00$$ENDHEX$$fen, ob's den Betrieb gibt
+// -----------------------------------------
+
+String 		sText
+
+SELECT sys_units.ctext  
+  INTO :sText  
+  FROM sys_units  
+ WHERE sys_units.cunit = :sUnit;
+ 
+ if sqlca.sqlcode = 0 then
+	return sText
+else
+	return "Error"
+end if
+
+end function
+

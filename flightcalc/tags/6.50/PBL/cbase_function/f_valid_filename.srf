@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_valid_filename.srf
+global type f_valid_filename from function_object
+end type
+
+forward prototypes
+global function string f_valid_filename (string sfilename)
+end prototypes
+
+global function string f_valid_filename (string sfilename);integer i 
+integer iPos
+
+iPos = pos(sFilename,"*") 
+If iPos <= 0 Then
+	return sFilename
+Else
+	For i = 1 to len(sFilename)
+	    if mid(sFilename,i,1) = "*" Then
+			 sFilename = Replace(sFilename,i,1,"_")
+		 End if	 
+	Next
+End if	
+
+return sFilename
+end function
+

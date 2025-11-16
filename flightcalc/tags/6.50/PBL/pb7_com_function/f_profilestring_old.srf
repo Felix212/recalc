@@ -1,0 +1,38 @@
+HA$PBExportHeader$f_profilestring_old.srf
+$PBExportComments$Profilestring aus Datenbank
+global type f_profilestring_old from function_object
+end type
+
+forward prototypes
+global function string f_profilestring_old (string ssection, string skey, string sdefault)
+end prototypes
+
+global function string f_profilestring_old (string ssection, string skey, string sdefault);string	sValue
+
+Select 	cValue 
+into 		:sValue 
+from		loc_setup
+where		nuser_id		= :s_app.lUser_id	and
+			cSection		= :sSection			and
+			cKey			= :sKey;
+			
+If SQLCA.SQLCode = 100 and sValue <> "" Then
+	sValue = sDefault
+	INSERT INTO loc_setup  
+          (nuser_id,   
+          csection,   
+          ckey,   
+          cvalue )
+   VALUES (:s_app.lUser_Id,   
+          :sSection,   
+          :sKey,   
+          :sDefault)  ;
+	f_check_sql(sqlca,"Insert into loc_setup","Insert")
+End if
+
+
+return sValue
+
+
+end function
+

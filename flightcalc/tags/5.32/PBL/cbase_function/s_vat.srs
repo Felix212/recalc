@@ -1,0 +1,11 @@
+HA$PBExportHeader$s_vat.srs
+global type s_vat from structure
+	string		svat
+	string		scountry_ger
+	string		scountry_uk
+	long		lvatkey
+	long		lcountrykey
+	boolean		bsuccessful
+	decimal{2}		decvalue
+end type
+

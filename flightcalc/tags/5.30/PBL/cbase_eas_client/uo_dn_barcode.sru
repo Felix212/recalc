@@ -1,0 +1,400 @@
+HA$PBExportHeader$uo_dn_barcode.sru
+$PBExportComments$Create Barcode for Delivery Notes
+forward
+global type uo_dn_barcode from nonvisualobject
+end type
+end forward
+
+global type uo_dn_barcode from nonvisualobject
+end type
+global uo_dn_barcode uo_dn_barcode
+
+type variables
+
+
+String	isLastError
+
+
+CONSTANT Integer		TYPE_COLUMN = 1
+CONSTANT Integer		TYPE_FIXED  = 2
+end variables
+
+forward prototypes
+protected function integer of_create_bc_content (long al_result_key, long al_setting_key, ref string ras_content)
+protected function integer of_create_barcode (integer ai_type, string as_file, string as_text, integer ai_width, integer ai_height, integer ai_dpi)
+public function integer of_create_and_save (integer ai_customer_bbill, long al_result_key, long al_transaction, long al_airlinekey, datetime adt_departure, ref string ras_file_name)
+end prototypes
+
+protected function integer of_create_bc_content (long al_result_key, long al_setting_key, ref string ras_content);
+
+Long			ll_Rows
+Long			ll_Flight_Rows
+
+Long			ll_Counter
+String		ls_Temp
+Long			ll_Number
+String		ls_String
+DatetIme		ldt_Date
+String		ls_Part
+Long			ll_Type
+String		ls_Datatype
+String		ls_Format
+String		ls_Return
+DataStore	lds_barcode_parts
+DataStore	lds_flight_info
+
+
+
+lds_barcode_parts = CREATE DataStore
+lds_barcode_parts.DataObject = "dw_dn_barcode_parts"
+lds_barcode_parts.SetTransobject( SQLCA)
+
+lds_flight_info = CREATE DataStore
+lds_flight_info.DataObject = "dw_dn_bc_flight_info"
+lds_flight_info.SetTransobject( SQLCA)
+
+
+ras_Content = "TEST"
+//dw_dn_bc_flight_info
+ll_Rows = lds_barcode_parts.Retrieve(al_Setting_key)
+
+ll_Flight_Rows = lds_flight_info.retrieve( al_result_key)
+
+If ll_Flight_Rows < 1 then
+	// Error - Flight not valid
+	
+Else
+	For ll_Counter = 1 To ll_Rows
+		ll_Type		= lds_barcode_parts.GetItemNumber(ll_Counter , "ntype")
+		ls_Datatype	= lds_barcode_parts.GetItemString(ll_Counter , "cdatatype")
+		ls_Part		= lds_barcode_parts.GetItemString(ll_Counter , "cpart")
+		ls_Format	= lds_barcode_parts.GetItemString(ll_Counter , "cformat")
+		If ll_Type = TYPE_COLUMN Then
+			ls_Datatype = lower(ls_Datatype)
+			ls_Datatype = trim(ls_Datatype)
+			Choose CASE ls_Datatype 
+				CASE "string"
+					ls_Temp = lds_flight_info.GetItemString(1 , ls_Part)
+					If isNULL(ls_Temp) Then ls_Temp = ""
+					
+				CASE "date"
+					ldt_Date = lds_flight_info.GetItemDatetime(1 , ls_Part)
+					If isnull(ls_Format) Then ls_Format = s_app.sdateformat
+					If trim(ls_Format) = "" Then ls_Format = s_app.sdateformat					
+					ls_Temp = String(ldt_Date, ls_Format)
+					If isNULL(ls_Temp) Then ls_Temp = ""
+					
+				CASE "number"
+					ll_Number = lds_flight_info.GetItemNumber(1 , ls_Part)
+					ls_Temp = String(ll_Number)
+					If isNULL(ls_Temp) Then ls_Temp = ""
+										
+			End Choose
+			
+			ls_Return += ls_Temp
+			
+		End If
+		If ll_Type = TYPE_FIXED Then
+			
+			ls_Return += ls_Part
+			
+		End If
+		
+//		1	ddeparture_date	date
+//2	"
+//"	string
+//1	cairline	string
+//2	"
+//"	string
+//1	nflight_number	number
+//1	csuffix	string
+//2	"
+//"	string
+//1	ctlc_from	string
+//1	ctlc_to	string
+	//TYPE_COLUMN
+	
+	Next
+	
+End If
+	
+
+ras_Content = ls_Return
+
+
+DESTROY	lds_barcode_parts
+DESTROY	lds_flight_info
+
+
+return 1
+end function
+
+protected function integer of_create_barcode (integer ai_type, string as_file, string as_text, integer ai_width, integer ai_height, integer ai_dpi);/* ### Event: of_create_barcode *******************************************
+ *
+ * Beschreibung : Funktion zur Erstellung eines Barcodes
+ *
+ *	Parameter : 	ai_type 	= 	37: Barcode DataMatrix
+ * 									 	14: Barcode Code128
+ * 						as_file	=	Filename (incl Pfad) des Barcodes
+ *						as_text 	= 	Text der im Barcode codiert werden soll
+ *			 			ai_width	=	Breite des Barcodes
+ *			 			ai_height	=	H$$HEX1$$f600$$ENDHEX$$he des Barcodes
+ *			 			ai_dpi		=	Aufl$$HEX1$$f600$$ENDHEX$$sung des Barcodes
+ *
+ * Aenderungshistorie
+ *  Version  Wer                        			Wann        		Was und warum
+ *   1.0     	H.Rothenbach /LSY IS       	19.11.2007  	Erstellung
+ *	  1.1 		H.Rothenbach /LSY IS       	05.06.2008  	Austausch des Barcodes
+ *   1.2		Klaus								21.09.2012		Aus PPS $$HEX1$$fc00$$ENDHEX$$bernommen
+ * ### END Eventdoku ***************************************************
+ */
+
+long result
+OLEObject myoleobject
+
+myoleobject = CREATE OLEObject
+
+//---------------------------------------------------------------------------------
+// Code f$$HEX1$$fc00$$ENDHEX$$r TBarcode8
+//---------------------------------------------------------------------------------
+result = myoleobject.ConnectToNewObject("TBarCode8.TBarCode8")
+	
+myoleobject.LicenseMe("Mem: Lufthansa Systems Business Solutions GmbH", 3, 1, "71636CB6AA94C8F74F7A837E4F68D978", 33)
+isLastError = myoleobject.LastError
+
+if  ai_type = 37 then	
+	 myoleobject.BarCode =71 
+elseif ai_type = 58 then
+	myoleobject.BarCode =58 
+elseif ai_type = 71 then
+	myoleobject.BarCode =71 
+else
+	myoleobject.BarCode =20 
+	myoleobject.PrintDataText = FALSE //true
+	myoleobject.BackStyle = 1 
+	ai_width = myoleobject.CountModules() * 3
+	ai_height = 60
+end if
+
+isLastError = myoleobject.LastError
+
+if isnull(as_text) then
+	Messagebox("Achtung","Der $$HEX1$$fc00$$ENDHEX$$bergebene Barcodetext ist NULL. Es kann kein Barcode erstellt werden")
+	myoleobject.text=" "
+else
+	myoleobject.text=as_text
+	myoleobject.SaveImage(as_file, 0, ai_width,ai_height, 96, 96) 
+end if
+
+isLastError = myoleobject.LastError
+
+myoleobject.DisconnectObject() 
+
+destroy myoleobject
+
+return 1
+
+// #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+
+end function
+
+public function integer of_create_and_save (integer ai_customer_bbill, long al_result_key, long al_transaction, long al_airlinekey, datetime adt_departure, ref string ras_file_name);
+
+Integer	li_Succ
+String	ls_Content
+Integer	li_Return
+Long		ll_Setting_Key
+Long		ll_Code_Type
+Long		ll_Rows
+Long		ll_TBarcode_ID
+Long		ll_Pic_Rows
+String	ls_File_Name
+DataStore		lds_Settings
+
+lds_Settings = CREATE DataStore
+
+li_Return = 1
+
+//dw_custom_boarding_bill
+
+If ai_Customer_BBill =1 Then 
+	lds_Settings.DataObject = "dw_custom_boarding_bill"
+	lds_Settings.SetTransobject(SQLCA)
+	ll_Rows = lds_Settings.Retrieve(al_airlinekey, adt_departure)
+	
+	If ll_Rows > 0 Then
+		ll_Setting_Key = lds_Settings.GetItemNumber(1, "ndn_bc_setting")
+		ll_Code_Type   = lds_Settings.GetItemNumber(1, "ndn_bc_type")
+
+	End If
+	// Customer BB
+	
+	//dw_custom_boarding_bill airline_key, departure
+	
+	// > 0 => get type, get setting key
+	//ndn_bc_type, bb.ndn_bc_setting
+	//al_AirlineKey
+Else
+	lds_Settings.DataObject = "dw_delivery_note_edit"
+	lds_Settings.SetTransobject(SQLCA)
+	ll_Rows = lds_Settings.Retrieve(al_airlinekey)
+	If ll_Rows > 0 Then
+		ll_Setting_Key = lds_Settings.GetItemNumber(1, "ndn_bc_setting")
+		ll_Code_Type   = lds_Settings.GetItemNumber(1, "ndn_bc_type")
+		
+		
+	End If
+	// Normal (DW) Delievry Note
+//	dsSetup	= create Datastore
+//dsSetup.dataobject = "dw_delivery_note_edit"
+//dsSetup.SetTransObject(sqlca)
+//	dsSetup.Retrieve(this.lAirlineKey)
+//	if dsSetup.RowCount() = 0 then
+//		this.iStatus 	= -1
+//		this.sError		= "No Delivery Note defined"
+//		return this.iStatus
+//	end if
+//
+//	sTitle = dsSetup.GetItemString(1, "ctitle")
+
+// get type, get setting key
+//ndn_bc_type, bb.ndn_bc_setting
+	//al_AirlineKey
+End If
+
+If isnull(ll_Setting_Key) Then
+	DESTROY lds_Settings
+	return -1
+End If
+
+If ll_Setting_Key = 0 Then
+	DESTROY lds_Settings
+	return -1
+End If
+
+If isnull(ll_Code_Type) Then
+	DESTROY lds_Settings
+	return -1
+End If
+
+If ll_Code_Type > 0 Then
+
+	select	ntype_id 
+	into		:ll_TBarcode_ID 
+	from		sys_dn_bc_type 
+	where		ntype = :ll_Code_Type ;
+	
+End If
+
+
+
+li_Succ = of_create_bc_content( al_result_key, ll_Setting_Key, ls_content )
+
+If trim(ls_content) = "" Then 
+	DESTROY lds_Settings
+	return -1
+	
+End If
+
+If li_Succ = 1 Then 
+	//ls_content
+	//string ls_type
+	//long ll_type
+	//uo_barcode luo_barcode
+		
+	ls_File_Name = f_gettemppath() + "BC_" + String(al_result_key) + "_" + String(now(),"hhmmssfff") + ".bmp"
+	
+	if FileExists(ls_File_Name) then
+		FileDelete(ls_File_Name)
+	end if
+	
+	//	case "QR-Code" 		ll_TBarcode_ID = 58
+	//	case "Datamatrix"		ll_TBarcode_ID = 71
+	//	case "Code 128"		ll_TBarcode_ID = 20		
+	//	case else      		ll_TBarcode_ID = 20
+	
+	//mle_trace.text += "try creating barcode ("+ls_type+"="+string(ll_type)+") BITMAP ~r~n"
+	
+	try
+		li_Succ = of_create_barcode(ll_TBarcode_ID, ls_File_Name, ls_content , 120,120, 75) 
+		f_trace( "try creating barcode BITMAP DONE")
+	catch(runtimeerror rte)
+		f_trace( "EXCEPTION:"+ rte.text )
+		f_trace( "LastError:"+ islasterror)
+		li_Return = -1
+	end try
+	
+	// Bei Erfolg: file to blob, blob to db
+	If fileexists(ls_File_Name) then
+	
+//		cen_out_dn_barcode
+//		nresult_key , ntransaction, dtimestamp  bpicture
+		
+		select count(*)
+		into	:ll_Pic_Rows
+		from 	cen_out_dn_barcode
+		where nresult_key		= :al_result_key
+		and	ntransaction	= :al_Transaction;
+		
+		If ll_Pic_Rows < 1 Then
+			INSERT into cen_out_dn_barcode (nresult_key , ntransaction, dtimestamp)
+			values (:al_result_key, :al_Transaction, sysdate);
+			If sqlca.SQLCode = 0 Then 
+				COMMIT;
+			End If
+		End If
+		
+		long ll_rc = 0
+		blob lb_blob
+		setnull(lb_Blob)
+					
+		if (f_file_to_blob(ls_File_Name, lb_blob, true) = 0) then
+			uf.mbox("Attention", "File is empty, please adjust!", stopsign!)
+			ll_rc = 1
+			li_Return = -1
+			//return ll_rc
+			
+		end if
+			  
+		updateblob cen_out_dn_barcode
+		set      bpicture          	=	:lb_blob       
+		where    nresult_key 			=	:al_result_key
+		AND 		ntransaction 			=	:al_Transaction;
+								  
+		if sqlca.sqlcode <> 0 then
+//			f_db_error(sqlca, "wf_save_report failed")
+			ll_rc = 2
+			li_Return = -1
+		Else
+			COMMIT;
+		end if
+
+
+	End If
+	
+
+Else
+	 // Error
+End If
+
+DESTROY lds_Settings
+
+If fileexists(ls_File_Name) then
+	ras_File_Name = ls_File_Name
+End If
+
+return li_Return
+
+
+end function
+
+on uo_dn_barcode.create
+call super::create
+TriggerEvent( this, "constructor" )
+end on
+
+on uo_dn_barcode.destroy
+TriggerEvent( this, "destructor" )
+call super::destroy
+end on
+

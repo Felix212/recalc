@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_number_per_class.srs
+global type s_number_per_class from structure
+	string		sclass
+	integer		iclass_number
+	integer		ipax_number
+	integer		iversion
+end type
+

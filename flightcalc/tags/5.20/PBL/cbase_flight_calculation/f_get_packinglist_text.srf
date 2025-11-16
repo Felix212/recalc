@@ -1,0 +1,51 @@
+HA$PBExportHeader$f_get_packinglist_text.srf
+$PBExportComments$Den St$$HEX1$$fc00$$ENDHEX$$cklistentext anhand der St$$HEX1$$fc00$$ENDHEX$$cklistennummer ermitteln
+global type f_get_packinglist_text from function_object
+end type
+
+forward prototypes
+global function string f_get_packinglist_text (long lpackinglist_index_key, datetime dtvalid_from)
+end prototypes
+
+global function string f_get_packinglist_text (long lpackinglist_index_key, datetime dtvalid_from);// ---------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------
+string	sText
+datetime	dtToday
+
+dtToday = datetime(today())
+
+SELECT cen_packinglists.ctext  
+ INTO :sText  
+ FROM cen_packinglists
+WHERE cen_packinglists.npackinglist_index_key = :lpackinglist_index_key 
+   AND cen_packinglists.dvalid_from <= :dtvalid_from
+   AND cen_packinglists.dvalid_to   >= :dtvalid_from  ;
+
+if sqlca.sqlcode <> 0 then
+	//
+	// Packinglist hat wohl keine Geschichte
+	//
+	SELECT cen_packinglists.ctext  
+	 INTO :sText  
+	 FROM cen_packinglists
+	WHERE cen_packinglists.npackinglist_index_key = :lpackinglist_index_key 
+		AND cen_packinglists.dvalid_from <= :dtToday
+		AND cen_packinglists.dvalid_to   >= :dtToday  ;
+
+	if sqlca.sqlcode = 0 then
+		return sText
+
+	elseif sqlca.sqlcode = 100 then
+		return "N/A"
+	else
+		return "Error"
+	end if
+else
+	return sText
+end if
+
+
+
+end function
+

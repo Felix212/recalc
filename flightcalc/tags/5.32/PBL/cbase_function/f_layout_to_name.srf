@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_layout_to_name.srf
+global type f_layout_to_name from function_object
+end type
+
+forward prototypes
+global function string f_layout_to_name (long lval)
+end prototypes
+
+global function string f_layout_to_name (long lval);// -----------------------------------------------
+// Layout Key in LAyout Beschreibung umwandeln
+// -----------------------------------------------
+
+String sReturn
+SELECT cen_diagram_layout.clayout_name  
+  INTO :sReturn 
+  FROM cen_diagram_layout  
+ WHERE cen_diagram_layout.nlayout_key = :lVal;
+
+if sqlca.sqlcode = 0 then
+	return sReturn
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	return "N/A"
+end if
+	
+
+
+end function
+

@@ -1,0 +1,41 @@
+HA$PBExportHeader$f_get_country_name_uk.srf
+$PBExportComments$Country Name UK f$$HEX1$$fc00$$ENDHEX$$r Country Key
+global type f_get_country_name_uk from function_object
+end type
+
+forward prototypes
+global function string f_get_country_name_uk (long lcountry)
+end prototypes
+
+global function string f_get_country_name_uk (long lcountry);/*
+* Objekt : f_get_country_name_uk
+* Methode: Global Function
+* Autor  : Oliver H$$HEX1$$f600$$ENDHEX$$fer
+* Datum  : 16.04.2009
+*
+* Argument(e):
+* none
+*
+* Beschreibung:		Ermittle L$$HEX1$$e400$$ENDHEX$$ndername UK
+*
+* Aenderungshistorie:
+* Version 		Wer			Wann			Was und warum
+* 1.0 			O.Hoefer	16.04.2009		Erstellung - weil f_get_country_name nur GER liefert
+*
+*
+* Return: String	Countryname oder "Error"
+*
+*/
+string sCountry
+
+select ccountry_uk into :sCountry from sys_countries where ncountry_key = :lCountry;
+
+if sqlca.sqlcode = 0 then
+	return sCountry
+else
+	f_db_error(sqlca, "f_get_country_name_uk")
+	return "Error"
+end if
+
+end function
+

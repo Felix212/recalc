@@ -1,0 +1,79 @@
+HA$PBExportHeader$f_check_product_group.srf
+global type f_check_product_group from function_object
+end type
+
+forward prototypes
+global function long f_check_product_group (ref string sproductgroup)
+end prototypes
+
+global function long f_check_product_group (ref string sproductgroup);/*********************************************************************************************
+* Objekt : f_check_product_group
+* Methode:  (Event)
+* Autor  : Ulrich Paudler [UP]
+* Datum  : 15.07.2009
+*
+* Argument(e):	none
+* Return: none
+*
+*
+*
+*
+*
+***********************************************************************************************
+* Modifikationen:
+* Datum			Version    Autor				Kommentar
+*-----------------------------------------------------------------------------------------------
+*15.07.2009		1.1		Ulrich Paudler	SetTrans-> SetTransObject
+************************************************************************************************/
+// -------------------------------------------------------------------
+// Hole Product-Group-Key aus einem Text und normalisiere den Text
+// -------------------------------------------------------------------
+DataStore 	dsTemp
+Long 			i
+Long			lKey
+Long			lCount
+Long			lPackinglistLevel
+String 		searchstring
+String		searchpattern
+
+lKey 		= -1
+lCount 	= 0
+lPackinglistLevel = 3 //Artikel
+
+searchpattern = Upper(sproductgroup)
+
+//Die Sonderzeichen m$$HEX1$$fc00$$ENDHEX$$ssen ersetzt werden
+f_mask_special_characters(searchpattern)
+
+searchpattern = ".*" + searchpattern + ".*"
+
+dsTemp = Create DataStore
+dsTemp.dataobject = "dw_search_product_group"
+// 15.07.2009 Ulrich Paudler [UP]
+dsTemp.setTransObject(SQLCA)
+
+dsTemp.retrieve(s_app.smandant, lPackinglistLevel, s_app.ilanguage)
+
+for i = 1 to dsTemp.rowCount()
+	searchstring = Upper(dsTemp.getItemString(i, "compute_text"))
+
+	if Match(searchstring, searchpattern) then
+		if lCount = 0 then
+			sproductgroup = dsTemp.getItemString(i, "compute_text")
+			lKey = dsTemp.getItemNumber(i, "nproduct_index_key")
+			lCount++
+		else
+			lkey = -5
+			sproductgroup = ""
+			exit
+		end if
+	end if
+	
+next
+
+Destroy(dsTemp)
+
+return lkey
+
+end function
+

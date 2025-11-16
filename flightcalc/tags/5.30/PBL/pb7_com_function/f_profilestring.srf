@@ -1,0 +1,64 @@
+HA$PBExportHeader$f_profilestring.srf
+$PBExportComments$Profilestring aus Datenbank
+global type f_profilestring from function_object
+end type
+
+forward prototypes
+global function string f_profilestring (string ssection, string skey, string sdefault)
+end prototypes
+
+global function string f_profilestring (string ssection, string skey, string sdefault);Long 		lFound, &
+			a
+
+String	sReturn
+
+
+if sDefault = "" then sDefault = " " 
+
+if isnull(ssection) then return sDefault
+if ssection = "" then return sDefault
+
+lFound = s_app.dsProfile.Find("csection = '" + ssection + "' and ckey = '" + sKey + "'", 1, s_app.dsProfile.RowCount())
+// -------------------------------------
+// Treffer
+// -------------------------------------
+if lFound > 0 then
+	
+	sReturn = s_app.dsProfile.GetItemString(lFound, "cvalue")
+	
+	return sReturn
+	
+// -------------------------------------
+// not found .... Dann einf$$HEX1$$fc00$$ENDHEX$$gen
+// -------------------------------------
+else 
+	
+	a = s_app.dsProfile.InsertRow(0)
+	s_app.dsProfile.SetItem(a, "nuser_id", s_app.lUser_id)
+	s_app.dsProfile.SetItem(a, "csection", sSection)	
+	s_app.dsProfile.SetItem(a, "ckey", sKey)
+	s_app.dsProfile.SetItem(a, "cvalue", sDefault)
+	
+	if s_app.dsProfile.Update() = 1 then
+		commit;
+	else
+//		Messagebox("", sSection + "~r" + sKey + "~r" + sDefault)
+//		f_print_datastore(s_app.dsProfile)
+
+		if isnull(ssection) then sSection = "[NULL]"
+		if isnull(skey) then skey = "[NULL]"
+		if isnull(sdefault) then sdefault = "[NULL]"
+		
+		// Messagebox("aaaaaaaa", ssection + "~r" + skey + "~r" + sdefault)
+
+
+		uf.mbox("Achtung", "Failed to update profile", StopSign!)
+	end if
+	
+	return sDefault
+	
+end if
+
+return sDefault
+end function
+

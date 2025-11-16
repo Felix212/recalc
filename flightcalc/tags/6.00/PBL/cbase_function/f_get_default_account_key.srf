@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_get_default_account_key.srf
+global type f_get_default_account_key from function_object
+end type
+
+forward prototypes
+global function long f_get_default_account_key (long arg_customer)
+end prototypes
+
+global function long f_get_default_account_key (long arg_customer);
+Long	lKey
+
+select naccount_key 
+  into :lKey 
+  from cen_airline_accounts 
+ where nairline_key = :arg_customer 
+   and ndefault = 1;
+ 
+if sqlca.sqlcode = 0 then
+	return lKey
+elseif sqlca.sqlcode = 100 then
+	return 0
+else
+	f_db_error(sqlca, "f_get_account_key")
+	return -1
+end if
+
+
+return 0
+
+end function
+

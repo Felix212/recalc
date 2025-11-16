@@ -1,0 +1,46 @@
+HA$PBExportHeader$f_check_packinglist_news_text.srf
+global type f_check_packinglist_news_text from function_object
+end type
+
+forward prototypes
+global function string f_check_packinglist_news_text (long lpackinglist_index_key, datetime dtvalid_from, datetime dtvalid_to)
+end prototypes
+
+global function string f_check_packinglist_news_text (long lpackinglist_index_key, datetime dtvalid_from, datetime dtvalid_to);// ---------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------
+string	sText
+datetime	dtToday
+
+dtToday = datetime(today())
+
+SELECT cen_news_pl.cnewspaper 
+ INTO :sText  
+ FROM cen_news_pl
+WHERE cen_news_pl.NNEWS_PL_INDEX_KEY = :lpackinglist_index_key 
+   AND cen_news_pl.dvalid_from <= :dtvalid_from
+   AND cen_news_pl.dvalid_to   >= :dtvalid_from  ;
+
+if sqlca.sqlcode <> 0 then
+	//
+	// Packinglist hat wohl keine Geschichte
+	//
+	SELECT cen_news_pl.cnewspaper  
+	 INTO :sText  
+	 FROM cen_news_pl
+	WHERE cen_news_pl.NNEWS_PL_INDEX_KEY = :lpackinglist_index_key 
+		AND cen_news_pl.dvalid_from <= :dtToday
+		AND cen_news_pl.dvalid_to   >= :dtToday  ;
+
+	if sqlca.sqlcode <> 0 then
+		return ""
+	else
+		return sText // + "@"
+	end if
+else
+	return sText
+end if
+
+
+end function
+

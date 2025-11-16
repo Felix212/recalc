@@ -1,0 +1,51 @@
+HA$PBExportHeader$f_get_printer_list.srf
+$PBExportComments$Gibt eine Liste der Namen aller verf$$HEX1$$fc00$$ENDHEX$$gbaren Drucker zur$$HEX1$$fc00$$ENDHEX$$ck
+global type f_get_printer_list from function_object
+end type
+
+forward prototypes
+global function string f_get_printer_list (string as_delimiter)
+end prototypes
+
+global function string f_get_printer_list (string as_delimiter);/*
+* Objekt : f_get_printer_list (Function)
+* Autor  : Dirk Bunk
+* Datum  : 16.11.2012
+*
+* Argument(e):
+*   as_Delimiter Das Trennzeichen, das benutzt werden soll, um die Druckernamen voneinander abzugrenzen
+*
+* Beschreibung: Gibt eine Liste der Namen aller verf$$HEX1$$fc00$$ENDHEX$$gbaren Drucker zur$$HEX1$$fc00$$ENDHEX$$ck.	
+*
+* $$HEX1$$c400$$ENDHEX$$nderungshistorie:
+*   Version    Wer          Wann          Was und warum
+*   1.0        Dirk Bunk    16.11.2012    Erstellung
+*
+* Return: 
+*   Eine Liste der Namen aller verf$$HEX1$$fc00$$ENDHEX$$gbaren Drucker.
+*/
+
+string ls_Printer, ls_PrinterList, ls_Printers = ""
+
+// Zun$$HEX1$$e400$$ENDHEX$$chst mal die Informationen von allen verf$$HEX1$$fc00$$ENDHEX$$gbaren Druckern holen
+ls_PrinterList = PrintGetPrinters()
+
+// Solange noch mehr als ein Drucker in der Liste ist...
+do while Pos(ls_PrinterList, "~n") > 0
+	// Name des Druckers auslesen
+	ls_Printer = Left(ls_PrinterList, Pos(ls_PrinterList, "~n") - 1)
+	ls_Printer = Left(ls_Printer, Pos(ls_Printer, "~t") - 1)
+	
+	// Druckerliste reduzieren
+	ls_PrinterList = Mid(ls_PrinterList, Pos(ls_PrinterList, "~n") + 1)
+
+	// Name des Druckers an den Ergebnisstring h$$HEX1$$e400$$ENDHEX$$ngen
+	ls_Printers += ls_Printer + as_Delimiter
+loop
+
+// Hier ist nur noch maximal ein Drucker in der Liste, welchen wir nun auch noch an den Ergebnisstring h$$HEX1$$e400$$ENDHEX$$ngen
+ls_Printers += Left(ls_PrinterList, Pos(ls_PrinterList, "~t") - 1)
+
+return ls_Printers
+end function
+

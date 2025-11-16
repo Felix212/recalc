@@ -1,0 +1,14 @@
+HA$PBExportHeader$s_new_entry.srs
+$PBExportComments$Structur zur Neuaufnahme
+global type s_new_entry from structure
+	string		stitle
+	object		odatatype
+	boolean		bsuccessful
+	string		sreturn
+	string		stexttoset
+	date		dvalid_from
+	date		dvalid_to
+	long		lreturn
+	boolean		breturn
+end type
+

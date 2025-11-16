@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_tr_contents.srs
+$PBExportComments$Transporter Cart Content: Packing list and Stowage
+global type s_tr_contents from structure
+	long		ll_pl_index_key
+	long		ll_stowage_key
+	string		ls_PL
+	string		ls_Stowage
+end type
+

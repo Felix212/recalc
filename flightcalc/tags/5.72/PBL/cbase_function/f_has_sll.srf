@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_has_sll.srf
+global type f_has_sll from function_object
+end type
+
+forward prototypes
+global function integer f_has_sll (integer lschedulekey)
+end prototypes
+
+global function integer f_has_sll (integer lschedulekey);// ---------------------------------
+// Anzahl der zugeordneten SLL's 
+// ermitteln
+// ---------------------------------
+
+Long lCount
+
+SELECT Count(cen_schedule_temp_sll.nschedule_key)
+ INTO :lCount  
+ FROM cen_schedule_temp_sll  
+WHERE cen_schedule_temp_sll.nschedule_key = :lScheduleKey;
+
+if sqlca.sqlcode <> 0 then
+	uf.mbox("Achtung", "SQL-Fehler: ${" + string(sqlca.sqlcode) + "} ~r ${" + sqlca.sqlerrtext + "}", StopSign!)
+	return -1
+else
+	return lCount
+end if
+
+
+
+end function
+

@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_check_loadinglist.srf
+global type f_check_loadinglist from function_object
+end type
+
+forward prototypes
+global function long f_check_loadinglist (string sloadinglist)
+end prototypes
+
+global function long f_check_loadinglist (string sloadinglist);
+Long lAircraftKey
+
+SELECT DISTINCT cen_loadinglist_index.naircraft_key  
+  INTO :lAircraftKey  
+  FROM cen_loadinglist_index  
+ WHERE cen_loadinglist_index.cloadinglist = :sloadinglist   ;
+
+
+if sqlca.sqlcode = 100 then
+	return 0
+elseif sqlca.sqlcode = 0 then
+	return lAircraftKey
+else
+	f_db_error(sqlca, "f_check_loadinglist")
+	return -1
+end if
+
+
+end function
+

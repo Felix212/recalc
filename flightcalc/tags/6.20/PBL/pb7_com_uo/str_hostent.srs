@@ -1,0 +1,9 @@
+HA$PBExportHeader$str_hostent.srs
+global type str_hostent from structure
+  unsignedlong    h_name
+    unsignedlong    h_aliases
+    integer         h_addrtype
+    integer         h_length
+    unsignedlong    h_addr_list
+end type
+

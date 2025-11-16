@@ -1,0 +1,44 @@
+HA$PBExportHeader$dw_dn_barcode_assignment.srd
+$PBExportComments$Assigned Delivery Note Barcodes for a Result Key
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nbarcode_key dbname="cen_barcodes.nbarcode_key" )
+ column=(type=char(255) updatewhereclause=yes name=cbarcode_content dbname="cen_barcodes.cbarcode_content" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=cen_barcode_assignment_nbarcode_assignment_key dbname="cen_barcode_assignment.nbarcode_assignment_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=cen_barcode_assignment_nbarcode_key dbname="cen_barcode_assignment.nbarcode_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=cen_barcode_assignment_ntype dbname="cen_barcode_assignment.ntype" )
+ column=(type=datetime update=yes updatewhereclause=yes name=cen_barcode_assignment_dcreated dbname="cen_barcode_assignment.dcreated" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_barcode_assignment~" )  TABLE(NAME=~"cen_barcodes~" ) COLUMN(NAME=~"cen_barcodes.nbarcode_key~") COLUMN(NAME=~"cen_barcodes.cbarcode_content~") COLUMN(NAME=~"cen_barcode_assignment.nbarcode_assignment_key~") COLUMN(NAME=~"cen_barcode_assignment.nbarcode_key~") COLUMN(NAME=~"cen_barcode_assignment.ntype~") COLUMN(NAME=~"cen_barcode_assignment.dcreated~")    JOIN (LEFT=~"cen_barcode_assignment.nbarcode_key~"    OP =~"=~"RIGHT=~"cen_barcodes.nbarcode_key~" )WHERE(    EXP1 =~"cen_barcode_assignment.nresult_key~"   OP =~"=~"    EXP2 =~":arg_result_key~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_barcodes.ndeliverynote~"   OP =~"=~"    EXP2 =~"1~" ) ) ARG(NAME = ~"arg_result_key~" TYPE = number) " update="cen_barcode_assignment" updatewhere=0 updatekeyinplace=no arguments=(("arg_result_key", number))  sort="nbarcode_key D " )
+text(band=header alignment="2" text="Cen Barcodes
+Nbarcode Key" border="2" color="33554432" x="9" y="8" height="128" width="357" html.valueishtml="0"  name=cen_barcodes_nbarcode_key_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Barcodes
+Cbarcode Content" border="2" color="33554432" x="375" y="8" height="128" width="466" html.valueishtml="0"  name=cen_barcodes_cbarcode_content_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Barcode Assignment
+Nbarcode Assignment Key" border="2" color="33554432" x="850" y="8" height="128" width="654" html.valueishtml="0"  name=cen_barcode_assignment_nbarcode_assignment_key_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Barcode Assignment
+Nbarcode Key" border="2" color="33554432" x="1513" y="8" height="128" width="590" html.valueishtml="0"  name=cen_barcode_assignment_nbarcode_key_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Barcode Assignment
+Ntype" border="2" color="33554432" x="2112" y="8" height="128" width="608" html.valueishtml="0"  name=cen_barcode_assignment_ntype_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Barcode Assignment
+Dcreated" border="2" color="33554432" x="2729" y="8" height="128" width="562" html.valueishtml="0"  name=cen_barcode_assignment_dcreated_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="2" color="33554432" x="9" y="8" height="76" width="357" format="[general]" html.valueishtml="0"  name=nbarcode_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="2" color="33554432" x="375" y="8" height="76" width="466" format="[general]" html.valueishtml="0"  name=cbarcode_content visible="1" edit.limit=255 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="2" color="33554432" x="850" y="8" height="76" width="654" format="[general]" html.valueishtml="0"  name=cen_barcode_assignment_nbarcode_assignment_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="2" color="33554432" x="1513" y="8" height="76" width="590" format="[general]" html.valueishtml="0"  name=cen_barcode_assignment_nbarcode_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="2" color="33554432" x="2112" y="8" height="76" width="608" format="[general]" html.valueishtml="0"  name=cen_barcode_assignment_ntype visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="2" color="33554432" x="2729" y="8" height="76" width="562" format="[shortdate] [time]" html.valueishtml="0"  name=cen_barcode_assignment_dcreated visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,49 @@
+HA$PBExportHeader$f_check_filename.srf
+global type f_check_filename from function_object
+end type
+
+forward prototypes
+global function string f_check_filename (string sfilename)
+end prototypes
+
+global function string f_check_filename (string sfilename);// --------------------------------------------------
+// Unzul$$HEX1$$e400$$ENDHEX$$ssige Zeichen aus einem Dateinamen entfernen
+// --------------------------------------------------
+
+String 	sOut, sCheck
+Integer	i
+
+sOut = ""
+
+if Pos(sFileName, "*") = 0 and &
+	Pos(sFileName, ":") = 0  and &
+	Pos(sFileName, ">") = 0  and &
+	Pos(sFileName, "<") = 0  and &
+	Pos(sFileName, "?") = 0  and &
+	Pos(sFileName, "|") = 0  and &
+	Pos(sFileName, "/") = 0  and &
+	Pos(sFileName, char(34) ) = 0  then
+	
+	return sFilename
+	
+end if
+
+For i = 1 to Len(sFilename)
+	
+	sCheck = Mid(sFilename, i, 1)
+	
+//	Messagebox("", sCheck + "~r~r" + string(Pos("*:<>?|" + Char(34), sCheck)))
+	
+	if Pos("*:<>?|/" + Char(34), sCheck) > 0 then
+		sOut += "_"
+	else
+		sOut += sCheck
+	end if
+	
+Next
+
+//Messagebox("", "Return = " + sOut)
+
+return sOut
+end function
+

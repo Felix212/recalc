@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_get_packinglist_join_supplier.srf
+$PBExportComments$Read Packinglist join Supplier
+global type f_get_packinglist_join_supplier from function_object
+end type
+
+forward prototypes
+global function long f_get_packinglist_join_supplier (string spackinglist)
+end prototypes
+
+global function long f_get_packinglist_join_supplier (string spackinglist);// ---------------------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------------------
+Long	lkey
+
+SELECT cen_packinglist_index.npackinglist_index_key
+ INTO :lKey  
+ FROM cen_packinglist_index, cen_supplier   
+ where cen_packinglist_index.nsupplier_key=cen_supplier.nsupplier_key 
+and cen_packinglist_index.cclient 			= :s_app.smandant 
+  AND	cen_packinglist_index.cpackinglist		= :sPackinglist ;
+
+
+if sqlca.sqlcode <> 0 then
+	return 0
+else
+	return lkey
+end if
+
+
+end function
+

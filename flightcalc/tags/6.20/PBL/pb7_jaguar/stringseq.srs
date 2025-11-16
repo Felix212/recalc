@@ -1,0 +1,7 @@
+HA$PBExportHeader$stringseq.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type STRINGSEQ from structure
+  public:
+    String		item[]
+end type
+

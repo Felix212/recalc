@@ -1,0 +1,70 @@
+HA$PBExportHeader$f_write_log2csv.srf
+$PBExportComments$Log - Funktion in CSV - Datei
+global type f_write_log2csv from function_object
+end type
+
+forward prototypes
+global function integer f_write_log2csv (string arg_file, long ljob, integer iinfotype, string smessage)
+end prototypes
+
+global function integer f_write_log2csv (string arg_file, long ljob, integer iinfotype, string smessage);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_write_log2csv
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// ljob 0 = Erfolg
+// 				1 = Information
+//					2 = Fehler
+//					3 = SQL Fehler
+// iinfotype
+// smessage
+// --------------------------------------------------------------------------------------------------------------------
+// Return: integer
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung:
+//
+//
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  17.06.2020	   1.0      H.Rothenbach   Erstellung
+//
+// --------------------------------------------------------------------------------------------------------------------
+
+integer iFile
+string  sLogMessage, lsFileArchiv
+guoLog.uf_allways( smessage )
+/*
+// Send to Graylog
+f_send_to_graylog(iinfotype, smessage)
+
+// --------------------------------------------------------------------------------------------------------------------
+// 21.07.2020 HR: LOG-File splitten, wenn es gr$$HEX2$$f600df00$$ENDHEX$$er 50MB ist
+// --------------------------------------------------------------------------------------------------------------------
+if FileLength(arg_file) > 50000000 then
+	iFile 			= lastpos(arg_file, ".")
+	lsFileArchiv 	= left(arg_file, iFile -1) + "-" + String(now(), "hhmmss") + mid(arg_file, iFile)
+	
+	if Filecopy(arg_file, lsFileArchiv, false) = 1 then
+		if FileDelete(arg_file) then
+			iFile = FileOpen(arg_file, LineMode!, Write!, LockWrite!, Append!)
+			FileWrite(iFile, string(today(),"YYYY-MM-DD") + "," + string(now(), "hh:mm:ss") + ", File larger then Limit, Backup to " + lsFileArchiv)
+			FileWrite(iFile, "################################################################# ")
+			FileClose(iFile)
+		end if
+	end if
+end if
+
+// ----------------------------------------------------
+// Message verfeinern
+// ----------------------------------------------------
+sLogMessage = string(today(),"YYYY-MM-DD") + "," + string(now(), "hh:mm:ss") + "," + sMessage
+iFile = FileOpen(arg_file, LineMode!, Write!, Shared!)
+FileWrite(iFile,sLogMessage)
+FileClose(iFile)
+*/
+Return 0
+end function
+

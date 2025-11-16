@@ -1,0 +1,48 @@
+HA$PBExportHeader$f_setunitprofilestring.srf
+$PBExportComments$SetProfilestring aus Datenbank
+global type f_setunitprofilestring from function_object
+end type
+
+forward prototypes
+global function boolean f_setunitprofilestring (string ssection, string skey, string svalue, string sunit)
+end prototypes
+
+global function boolean f_setunitprofilestring (string ssection, string skey, string svalue, string sunit);
+if isnull(sValue) or sValue = "" then
+	sValue = " " 
+end if
+
+INSERT INTO loc_unit_setup  
+         (cunit,   
+         csection,   
+         ckey,   
+         cvalue )
+  VALUES (:sUnit,   
+         :sSection,   
+         :sKey,   
+         :sValue)  using SQLCA;
+			 
+If SQLCA.SQLCode <> 0 Then
+	Update	loc_unit_setup 
+	Set 		cValue = :sValue
+	where		cunit		= :sUnit	and
+				cSection		= :sSection			and
+				cKey			= :sKey using SQLCA;
+				
+	If SQLCA.SQLCode <> 0 Then
+		Messagebox("Ups",sqlca.sqlerrtext)
+		return False
+	End if	
+End if
+
+commit using SQLCA;
+
+If SQLCA.SQLCode <> 0 Then
+	Messagebox("Ups Commit","")
+	return False
+End if	
+
+	
+return True
+end function
+

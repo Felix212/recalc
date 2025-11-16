@@ -1,0 +1,18 @@
+HA$PBExportHeader$html_menu_settings.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type html_menu_settings from structure
+  public:
+    String		stargetframe
+    String		background_image_parent
+    String		style_parent
+    String		style_child
+    Integer		iwidth
+    Integer		iheightparent
+    Integer		imenutype
+    String		backgroundcolorparent
+    String		backgroundcolorchild
+    String		background_image_child
+    Integer		ifontheightparent
+    Integer		ifontheightchild
+end type
+

@@ -1,0 +1,219 @@
+HA$PBExportHeader$dw_generate_routingplan_cfs.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nroutingdetail_key dbname="cen_rplan_cfs_legs.ncfs_leg_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=ncfs_key dbname="cen_rplan_cfs_legs.ncfs_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nrouting_group_key dbname="cen_rplan_cfs_legs.ncfs_group_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=ncustomer_key dbname="cen_rplan_cfs_legs.ncustomer_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nairline_key dbname="cen_rplan_cfs_legs.nairline_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nflight_number dbname="cen_rplan_cfs_legs.nflight_number" )
+ column=(type=char(3) updatewhereclause=yes name=csuffix dbname="cen_rplan_cfs_legs.csuffix" )
+ column=(type=decimal(0) updatewhereclause=yes name=nleg_number dbname="cen_rplan_cfs_legs.nleg_number" )
+ column=(type=decimal(0) updatewhereclause=yes name=nleg_ident dbname="cen_rplan_cfs_legs.nleg_ident" )
+ column=(type=decimal(0) updatewhereclause=yes name=nrouting_id dbname="cen_rplan_cfs_legs.nrouting_id" )
+ column=(type=decimal(0) updatewhereclause=yes name=ntlc_from dbname="cen_rplan_cfs_legs.ntlc_from" )
+ column=(type=decimal(0) updatewhereclause=yes name=ntlc_to dbname="cen_rplan_cfs_legs.ntlc_to" )
+ column=(type=char(4) updatewhereclause=yes name=cen_routingplan_cunit dbname="cen_rplan_cfs_legs.cunit" )
+ column=(type=decimal(0) updatewhereclause=yes name=nfreq1 dbname="cen_rplan_cfs_legs.nfreq1" )
+ column=(type=decimal(0) updatewhereclause=yes name=nfreq2 dbname="cen_rplan_cfs_legs.nfreq2" )
+ column=(type=decimal(0) updatewhereclause=yes name=nfreq3 dbname="cen_rplan_cfs_legs.nfreq3" )
+ column=(type=decimal(0) updatewhereclause=yes name=nfreq4 dbname="cen_rplan_cfs_legs.nfreq4" )
+ column=(type=decimal(0) updatewhereclause=yes name=nfreq5 dbname="cen_rplan_cfs_legs.nfreq5" )
+ column=(type=decimal(0) updatewhereclause=yes name=nfreq6 dbname="cen_rplan_cfs_legs.nfreq6" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_type_key1 dbname="cen_rplan_cfs_legs.nhandling_type_key1" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_type_key2 dbname="cen_rplan_cfs_legs.nhandling_type_key2" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_type_key3 dbname="cen_rplan_cfs_legs.nhandling_type_key3" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_type_key4 dbname="cen_rplan_cfs_legs.nhandling_type_key4" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_type_key5 dbname="cen_rplan_cfs_legs.nhandling_type_key5" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_type_key6 dbname="cen_rplan_cfs_legs.nhandling_type_key6" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_type_key7 dbname="cen_rplan_cfs_legs.nhandling_type_key7" )
+ column=(type=decimal(0) updatewhereclause=yes name=nequal dbname="cen_rplan_cfs_legs.nequal" )
+ column=(type=decimal(0) updatewhereclause=yes name=ndummy dbname="cen_rplan_cfs_legs.ndummy" )
+ column=(type=datetime updatewhereclause=yes name=dtimestamp dbname="cen_rplan_cfs_legs.dtimestamp" )
+ column=(type=char(40) updatewhereclause=yes name=cchanged dbname="cen_rplan_cfs_legs.cchanged" )
+ column=(type=char(256) updatewhereclause=yes name=cvariation_key dbname="cen_rplan_cfs_legs.cvariation_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nfreq7 dbname="cen_rplan_cfs_legs.nfreq7" )
+ column=(type=char(3) updatewhereclause=yes name=ctlc_from dbname="sys_three_letter_codes.ctlc_from" )
+ column=(type=char(3) updatewhereclause=yes name=ctlc_to dbname="sys_three_letter_codes.ctlc_to" )
+ column=(type=char(10) updatewhereclause=yes name=cairline dbname="cen_airlines.cairline" )
+ column=(type=char(10) updatewhereclause=yes name=ccustomer dbname="cen_airlines.ccustomer" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_rplan_cfs_nroutingplan_index dbname="cen_rplan_cfs.nroutingplan_index" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_airlines_nairline_type dbname="cen_airlines.nairline_type" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_types_ctext1 dbname="cen_handling_types.ctext1" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_types_ctext2 dbname="cen_handling_types.ctext2" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_types_ctext3 dbname="cen_handling_types.ctext3" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_types_ctext4 dbname="cen_handling_types.ctext4" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_types_ctext5 dbname="cen_handling_types.ctext5" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_types_ctext6 dbname="cen_handling_types.ctext6" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_types_ctext7 dbname="cen_handling_types.ctext7" )
+ column=(type=char(256) updatewhereclause=yes name=cen_handling_types_cdescription1 dbname="cen_handling_types.cdescription1" )
+ column=(type=char(256) updatewhereclause=yes name=cen_handling_types_cdescription2 dbname="cen_handling_types.cdescription2" )
+ column=(type=char(256) updatewhereclause=yes name=cen_handling_types_cdescription3 dbname="cen_handling_types.cdescription3" )
+ column=(type=char(256) updatewhereclause=yes name=cen_handling_types_cdescription4 dbname="cen_handling_types.cdescription4" )
+ column=(type=char(256) updatewhereclause=yes name=cen_handling_types_cdescription5 dbname="cen_handling_types.cdescription5" )
+ column=(type=char(256) updatewhereclause=yes name=cen_handling_types_cdescription6 dbname="cen_handling_types.cdescription6" )
+ column=(type=char(256) updatewhereclause=yes name=cen_handling_types_cdescription7 dbname="cen_handling_types.cdescription7" )
+ column=(type=char(5) updatewhereclause=yes name=crouting dbname="cen_routing.crouting" )
+ column=(type=char(15) updatewhereclause=yes name=crouting_text dbname="cen_routing.crouting_text" )
+ retrieve="  SELECT cen_rplan_cfs_legs.ncfs_leg_key,   
+         cen_rplan_cfs_legs.ncfs_key,   
+         cen_rplan_cfs_legs.ncfs_group_key,   
+         cen_rplan_cfs_legs.ncustomer_key,   
+         cen_rplan_cfs_legs.nairline_key,   
+         cen_rplan_cfs_legs.nflight_number,   
+         cen_rplan_cfs_legs.csuffix,   
+         cen_rplan_cfs_legs.nleg_number,   
+         cen_rplan_cfs_legs.nleg_ident,   
+         cen_rplan_cfs_legs.nrouting_id,   
+         cen_rplan_cfs_legs.ntlc_from,   
+         cen_rplan_cfs_legs.ntlc_to,   
+         cen_rplan_cfs_legs.cunit,   
+         cen_rplan_cfs_legs.nfreq1,   
+         cen_rplan_cfs_legs.nfreq2,   
+         cen_rplan_cfs_legs.nfreq3,   
+         cen_rplan_cfs_legs.nfreq4,   
+         cen_rplan_cfs_legs.nfreq5,   
+         cen_rplan_cfs_legs.nfreq6,   
+         cen_rplan_cfs_legs.nhandling_type_key1,   
+         cen_rplan_cfs_legs.nhandling_type_key2,   
+         cen_rplan_cfs_legs.nhandling_type_key3,   
+         cen_rplan_cfs_legs.nhandling_type_key4,   
+         cen_rplan_cfs_legs.nhandling_type_key5,   
+         cen_rplan_cfs_legs.nhandling_type_key6,   
+         cen_rplan_cfs_legs.nhandling_type_key7,   
+         cen_rplan_cfs_legs.nequal,   
+         cen_rplan_cfs_legs.ndummy,   
+         cen_rplan_cfs_legs.dtimestamp,   
+         cen_rplan_cfs_legs.cchanged,   
+         cen_rplan_cfs_legs.cvariation_key,   
+         cen_rplan_cfs_legs.nfreq7,   
+         sys_three_letter_codes_a.ctlc ctlc_from,   
+         sys_three_letter_codes_b.ctlc ctlc_to,   
+         cen_airlines_a.cairline cairline,   
+         cen_airlines_b.cairline ccustomer,   
+         cen_rplan_cfs.nroutingplan_index,   
+         cen_airlines_a.nairline_type,   
+         cen_handling_types_1.ctext ctext1,   
+         cen_handling_types_2.ctext ctext2,
+         cen_handling_types_3.ctext ctext3,
+         cen_handling_types_4.ctext ctext4,
+         cen_handling_types_5.ctext ctext5,
+         cen_handling_types_6.ctext ctext6,
+         cen_handling_types_7.ctext ctext7,
+         cen_handling_types_1.cdescription cdescription1,   
+         cen_handling_types_2.cdescription cdescription2,
+         cen_handling_types_3.cdescription cdescription3,
+         cen_handling_types_4.cdescription cdescription4,
+         cen_handling_types_5.cdescription cdescription5,
+         cen_handling_types_6.cdescription cdescription6,
+         cen_handling_types_7.cdescription cdescription7,
+         cen_routing.crouting,   
+         cen_routing.crouting_text   
+
+
+    FROM cen_rplan_cfs_legs,   
+         sys_three_letter_codes sys_three_letter_codes_a,   
+         sys_three_letter_codes sys_three_letter_codes_b,   
+         cen_airlines cen_airlines_a,   
+         cen_airlines cen_airlines_b,   
+         cen_rplan_cfs,   
+	    cen_routing,
+         cen_handling_types cen_handling_types_1,   
+         cen_handling_types cen_handling_types_2 , 
+         cen_handling_types cen_handling_types_3,  
+         cen_handling_types cen_handling_types_4,  
+         cen_handling_types cen_handling_types_5,  
+         cen_handling_types cen_handling_types_6,  
+         cen_handling_types cen_handling_types_7  
+   WHERE ( cen_rplan_cfs_legs.ntlc_from = sys_three_letter_codes_a.ntlc_key ) and  
+         ( cen_rplan_cfs_legs.ntlc_to = sys_three_letter_codes_b.ntlc_key ) and  
+         ( cen_rplan_cfs_legs.nairline_key = cen_airlines_a.nairline_key ) and  
+         ( cen_rplan_cfs_legs.ncustomer_key = cen_airlines_b.nairline_key ) and  
+         ( cen_rplan_cfs.ncfs_key = cen_rplan_cfs_legs.ncfs_key ) and  
+         ( cen_rplan_cfs_legs.nrouting_id = cen_routing.nrouting_id ) and  
+         ( cen_rplan_cfs_legs.nhandling_type_key1 = cen_handling_types_1.nhandling_type_key ) and  
+         ( cen_rplan_cfs_legs.nhandling_type_key2 = cen_handling_types_2.nhandling_type_key ) and  
+         ( cen_rplan_cfs_legs.nhandling_type_key3 = cen_handling_types_3.nhandling_type_key ) and  
+         ( cen_rplan_cfs_legs.nhandling_type_key4 = cen_handling_types_4.nhandling_type_key ) and  
+         ( cen_rplan_cfs_legs.nhandling_type_key5 = cen_handling_types_5.nhandling_type_key ) and  
+         ( cen_rplan_cfs_legs.nhandling_type_key6 = cen_handling_types_6.nhandling_type_key ) and  
+         ( cen_rplan_cfs_legs.nhandling_type_key7 = cen_handling_types_7.nhandling_type_key ) and  
+         ( ( cen_rplan_cfs.nroutingplan_index = :arg_nroutingplan_index_key ) )    and
+	    ( cen_rplan_cfs.ncfs_key in ( select ncfs_key 
+                                                           from cen_rplan_cfs_legs 
+  											 where cunit = :arg_cunit
+											union all
+											select ncfs_key 
+											from cen_rplan_cfs_legs, cen_routingplan_handling 
+											where cen_rplan_cfs_legs.ncfs_leg_key = cen_routingplan_handling.nroutingdetail_key and
+													cen_routingplan_handling.cunit = :arg_cunit))
+														
+" arguments=(("arg_nroutingplan_index_key", number),("arg_cunit", string))  sort="ncfs_key A nrouting_group_key A nleg_number A " )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nroutingdetail_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="512" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ncfs_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="1019" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nrouting_group_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="1527" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ncustomer_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2039" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nairline_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="2546" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nflight_number visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="3054" y="4" height="76" width="110" format="[general]" html.valueishtml="0"  name=csuffix visible="1" edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="3561" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nleg_number visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="4069" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nleg_ident visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="4576" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nrouting_id visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="33554432" x="5083" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ntlc_from visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="33554432" x="5591" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ntlc_to visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="6103" y="4" height="76" width="137" format="[general]" html.valueishtml="0"  name=cen_routingplan_cunit visible="1" edit.limit=4 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="33554432" x="6610" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nfreq1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="1" tabsequence=32766 border="0" color="33554432" x="7118" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nfreq2 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="1" tabsequence=32766 border="0" color="33554432" x="7625" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nfreq3 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="1" tabsequence=32766 border="0" color="33554432" x="8133" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nfreq4 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="1" tabsequence=32766 border="0" color="33554432" x="8640" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nfreq5 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="1" tabsequence=32766 border="0" color="33554432" x="9147" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nfreq6 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="1" tabsequence=32766 border="0" color="33554432" x="9655" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_type_key1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="1" tabsequence=32766 border="0" color="33554432" x="10208" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_type_key2 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="1" tabsequence=32766 border="0" color="33554432" x="10757" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_type_key3 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="1" tabsequence=32766 border="0" color="33554432" x="11305" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_type_key4 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="1" tabsequence=32766 border="0" color="33554432" x="11854" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_type_key5 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="1" tabsequence=32766 border="0" color="33554432" x="12402" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_type_key6 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="1" tabsequence=32766 border="0" color="33554432" x="12951" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_type_key7 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="1" tabsequence=32766 border="0" color="33554432" x="13499" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nequal visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="1" tabsequence=32766 border="0" color="33554432" x="14007" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ndummy visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=29 alignment="0" tabsequence=32766 border="0" color="33554432" x="14514" y="4" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=dtimestamp visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=30 alignment="0" tabsequence=32766 border="0" color="33554432" x="15122" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cchanged visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=31 alignment="0" tabsequence=32766 border="0" color="33554432" x="16256" y="4" height="76" width="5481" format="[general]" html.valueishtml="0"  name=cvariation_key visible="1" edit.limit=256 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=32 alignment="1" tabsequence=32766 border="0" color="33554432" x="21746" y="4" height="76" width="325" format="[general]" html.valueishtml="0"  name=nfreq7 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=35 alignment="0" tabsequence=32766 border="0" color="33554432" x="23488" y="4" height="60" width="471" format="[general]" html.valueishtml="0"  name=cairline visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=37 alignment="1" tabsequence=32766 border="0" color="33554432" x="24279" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cen_rplan_cfs_nroutingplan_index visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=33 alignment="0" tabsequence=32766 border="0" color="33554432" x="24768" y="0" height="64" width="82" format="[general]" html.valueishtml="0"  name=ctlc_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=34 alignment="0" tabsequence=32766 border="0" color="33554432" x="24850" y="0" height="64" width="82" format="[general]" html.valueishtml="0"  name=ctlc_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=36 alignment="0" tabsequence=32766 border="0" color="33554432" x="24933" y="0" height="64" width="270" format="[general]" html.valueishtml="0"  name=ccustomer visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=38 alignment="0" tabsequence=32766 border="0" color="33554432" x="25202" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=cen_airlines_nairline_type visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=46 alignment="0" tabsequence=32766 border="0" color="33554432" x="33001" y="0" height="64" width="5486" format="[general]" html.valueishtml="0"  name=cen_handling_types_cdescription1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=47 alignment="0" tabsequence=32766 border="0" color="33554432" x="38487" y="0" height="64" width="5486" format="[general]" html.valueishtml="0"  name=cen_handling_types_cdescription2 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=48 alignment="0" tabsequence=32766 border="0" color="33554432" x="43973" y="0" height="64" width="5486" format="[general]" html.valueishtml="0"  name=cen_handling_types_cdescription3 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=49 alignment="0" tabsequence=32766 border="0" color="33554432" x="49458" y="0" height="64" width="5486" format="[general]" html.valueishtml="0"  name=cen_handling_types_cdescription4 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=50 alignment="0" tabsequence=32766 border="0" color="33554432" x="54944" y="0" height="64" width="5486" format="[general]" html.valueishtml="0"  name=cen_handling_types_cdescription5 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=51 alignment="0" tabsequence=32766 border="0" color="33554432" x="60430" y="0" height="64" width="5486" format="[general]" html.valueishtml="0"  name=cen_handling_types_cdescription6 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=52 alignment="0" tabsequence=32766 border="0" color="33554432" x="65915" y="0" height="64" width="5486" format="[general]" html.valueishtml="0"  name=cen_handling_types_cdescription7 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=39 alignment="0" tabsequence=32766 border="0" color="33554432" x="71401" y="0" height="64" width="809" format="[general]" html.valueishtml="0"  name=cen_handling_types_ctext1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=40 alignment="0" tabsequence=32766 border="0" color="33554432" x="72210" y="0" height="64" width="809" format="[general]" html.valueishtml="0"  name=cen_handling_types_ctext2 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=41 alignment="0" tabsequence=32766 border="0" color="33554432" x="73019" y="0" height="64" width="809" format="[general]" html.valueishtml="0"  name=cen_handling_types_ctext3 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=42 alignment="0" tabsequence=32766 border="0" color="33554432" x="73829" y="0" height="64" width="809" format="[general]" html.valueishtml="0"  name=cen_handling_types_ctext4 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=43 alignment="0" tabsequence=32766 border="0" color="33554432" x="74638" y="0" height="64" width="809" format="[general]" html.valueishtml="0"  name=cen_handling_types_ctext5 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=44 alignment="0" tabsequence=32766 border="0" color="33554432" x="75447" y="0" height="64" width="809" format="[general]" html.valueishtml="0"  name=cen_handling_types_ctext6 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=45 alignment="0" tabsequence=32766 border="0" color="33554432" x="76256" y="0" height="64" width="809" format="[general]" html.valueishtml="0"  name=cen_handling_types_ctext7 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=53 alignment="0" tabsequence=32766 border="0" color="33554432" x="77065" y="0" height="64" width="137" format="[general]" html.valueishtml="0"  name=crouting visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=54 alignment="0" tabsequence=32766 border="0" color="33554432" x="77202" y="0" height="64" width="407" format="[general]" html.valueishtml="0"  name=crouting_text visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

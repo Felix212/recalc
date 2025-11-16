@@ -1,0 +1,140 @@
+HA$PBExportHeader$f_rowscopy_dw_ds.srf
+$PBExportComments$Kopiert Columns von einem DW in ein Anderes unabh$$HEX1$$e400$$ENDHEX$$ngig vom DW Object
+global type f_rowscopy_dw_ds from function_object
+end type
+
+forward prototypes
+global function boolean f_rowscopy_dw_ds (datawindow dwsource, datastore dwtarget, long lstartrow, long lendrow)
+end prototypes
+
+global function boolean f_rowscopy_dw_ds (datawindow dwsource, datastore dwtarget, long lstartrow, long lendrow);// ge$$HEX1$$e400$$ENDHEX$$ndert am 13.02.98: Argument #2 ist DataWindow
+
+string	sobjectName, sExpr
+string	sObjectsSource, sObjectsTarget
+string	sSourceColumns[255,2]
+string	sTargetColumns[255,2]
+
+integer	i=1, j=1, iAnzSourceCol, iAnzTargetCol, k, iAnzTargetRows
+
+string	sString
+long 		lNumber
+date		dDate
+dateTime	dtDate
+decimal	decDecimal
+
+long		lDiff
+
+//trace("-------> Starte SuperRowsCopy <-------")
+
+sObjectsSource = dwSource.Describe("DataWindow.Objects")
+sObjectsTarget = dwTarget.Describe("DataWindow.Objects")
+
+//
+// "Differenz" Endrow zu Startrow
+//
+lDiff = lendrow - lstartrow + 1
+
+// Columns von Source
+do while Len(sObjectsSource) > 0
+	
+	sobjectName = f_get_token( sObjectsSource, "~t")	
+	
+	If dwSource.Describe(sObjectName+".Type") = "column" Then
+		sSourceColumns[i,1] = sObjectName
+		sSourceColumns[i,2] = dwSource.Describe(sObjectName+".ColType")
+		//trace("SourceDW: " + sSourceColumns[i,1] + ":" + sSourceColumns[i,2])
+		i++
+	End If
+	iAnzSourceCol=i - 1
+loop
+
+
+// Columns von Target
+do while Len(sObjectsTarget) > 0
+	
+	sobjectName = f_get_token( sObjectsTarget, "~t")	
+	
+	If dwTarget.Describe(sObjectName+".Type") = "column" Then
+		sTargetColumns[j,1] = sObjectName
+		sTargetColumns[j,2] = dwTarget.Describe(sObjectName+".ColType")
+		//trace("TargetDW: " + sTargetColumns[j,1] + ":" + sTargetColumns[j,2])
+		j++
+	End If
+	iAnzTargetCol=j - 1
+loop
+
+// was issen schon drin im Target???
+//iAnzTargetRows = dwTarget.RowCount()
+//trace("Rows bereits im Target: " + String(iAnzTargetRows))
+
+// Rows in Target anlegen
+for i = lstartrow to lendrow
+	dwTarget.InsertRow(0)
+next
+//trace("Rows in Target eingefuegt: " + String(i))
+
+// Kopiere Source in Target
+for i=1 to iAnzSourceCol
+	for j=1 to iAnzTargetCol
+		// stimmt Column-Name und Column-Typ $$HEX1$$fc00$$ENDHEX$$berein?
+		if sSourceColumns[i,1] = sTargetColumns[j,1] and sSourceColumns[i,2] = sTargetColumns[j,2] then
+			sExpr=Left(sSourceColumns[i,2],5)
+			Choose Case sExpr
+				case "char("
+					for k=lstartrow to lendrow
+						sString=dwSource.GetItemString(k,sSourceColumns[i,1])
+						if dwTarget.SetItem(lDiff,sSourceColumns[i,1],sString) = 1 then
+							//trace(sSourceColumns[i,1] + ":" + sString)
+						else
+							//trace(sSourceColumns[i,1] + ":Fehler beim Einf$$HEX1$$fc00$$ENDHEX$$gen in TargetDataStore (string)")
+						end if
+					next
+				case "long"
+					for k=lstartrow to lendrow
+						lNumber=dwSource.GetItemNumber(k,sSourceColumns[i,1])
+						if dwTarget.SetItem(lDiff,sSourceColumns[i,1],lNumber) = 1 then
+							//trace(sSourceColumns[i,1] + ":" + String(lNumber))
+						else
+							//trace(sSourceColumns[i,1] + ":Fehler beim Einf$$HEX1$$fc00$$ENDHEX$$gen in TargetDataStore (number)")
+						end if
+					next
+				case "decim"
+					for k=lstartrow to lendrow
+						decDecimal=dwSource.GetItemDecimal(k,sSourceColumns[i,1])
+						if dwTarget.SetItem(lDiff,sSourceColumns[i,1],decDecimal) = 1 then
+							//trace(sSourceColumns[i,1] + ":" + String(lNumber))
+						else
+							MessageBox("superrowscopy","Fehler Decimal")
+							//trace(sSourceColumns[i,1] + ":Fehler beim Einf$$HEX1$$fc00$$ENDHEX$$gen in TargetDataStore (number)")
+						end if
+					next
+				case "date"
+					for k=lstartrow to lendrow
+						dDate=dwSource.GetItemDate(k,sSourceColumns[i,1])
+						if dwTarget.SetItem(lDiff,sSourceColumns[i,1],dDate) = 1 then
+							//trace(sSourceColumns[i,1] + ":" + String(dDate))
+						else
+							//trace(sSourceColumns[i,1] + ":Fehler beim Einf$$HEX1$$fc00$$ENDHEX$$gen in TargetDataStore (date)")
+						end if
+					next
+				case "datet"
+					for k=lstartrow to lendrow
+						dtDate=dwSource.GetItemDateTime(k,sSourceColumns[i,1])
+						if dwTarget.SetItem(lDiff,sSourceColumns[i,1],dtDate) = 1 then
+							//trace(sSourceColumns[i,1] + ":" + String(dtDate))
+						else
+							//trace(sSourceColumns[i,1] + ":Fehler beim Einf$$HEX1$$fc00$$ENDHEX$$gen in TargetDataStore (datetime)")
+						end if
+					next
+			End Choose
+		end if
+	next
+next
+
+dwTarget.AcceptText()
+
+//trace("Rows in Target total: " + String(dwTarget.RowCount()))
+
+return True
+end function
+

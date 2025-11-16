@@ -1,0 +1,35 @@
+HA$PBExportHeader$f_set_printer.srf
+$PBExportComments$Setzt den aktuell gew$$HEX1$$e400$$ENDHEX$$hlten Drucker anhand seines Namens
+global type f_set_printer from function_object
+end type
+
+forward prototypes
+global function integer f_set_printer (string as_printer)
+end prototypes
+
+global function integer f_set_printer (string as_printer);/*
+* Objekt : f_set_printer (Function)
+* Autor  : Dirk Bunk
+* Datum  : 16.11.2012
+*
+* Argument(e):
+*   keine
+*
+* Beschreibung: Setzt den aktuell gew$$HEX1$$e400$$ENDHEX$$hlten Drucker anhand seines Namens.	
+*
+* $$HEX1$$c400$$ENDHEX$$nderungshistorie:
+*   Version    Wer          Wann          Was und warum
+*   1.0        Dirk Bunk    16.11.2012    Erstellung
+*
+* Return: 
+*   0: OK
+*  -1: Fehler
+*/
+
+if PrintSetPrinter(as_Printer) = 1 then
+	return 0
+else
+	return -1
+end if
+end function
+

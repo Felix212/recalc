@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_changes.srs
+global type s_changes from structure
+	boolean		bExtraChanged
+	boolean		bMealChanged
+	boolean		bSPMLChanged
+	boolean		bPaxChanged
+end type
+

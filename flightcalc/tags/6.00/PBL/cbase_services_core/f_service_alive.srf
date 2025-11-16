@@ -1,0 +1,110 @@
+HA$PBExportHeader$f_service_alive.srf
+global type f_service_alive from function_object
+end type
+
+forward prototypes
+global function integer f_service_alive (string arg_service, string arg_instance, string arg_version, long arg_sleeptimer, transaction arg_trans, string arg_path)
+end prototypes
+
+global function integer f_service_alive (string arg_service, string arg_instance, string arg_version, long arg_sleeptimer, transaction arg_trans, string arg_path);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_service_alive
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// arg_service: 		Dienstname, mit dem er registriert werden soll
+// arg_instance: 	Instancename, mit dem er registriert werden soll
+// arg_version:		Version des Dienstets
+// arg_sleeptimer: Zeit, die der Dienst zwischen zwei L$$HEX1$$e400$$ENDHEX$$ufen schl$$HEX1$$e400$$ENDHEX$$ft
+// --------------------------------------------------------------------------------------------------------------------
+// Return: NPAUSE (0: keine Pause des Dienstes / 1 + 2: Dienst soll pausieren, keine Verabreitung)
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung:
+//
+//
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       		Version  	Autor          		Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  18.03.2015	   	1.0      	H.Rothenbach   Erstellung
+//  07.05.2020		1.1		H.Rothenbach   Master=2 f$$HEX1$$fc00$$ENDHEX$$r Javaservices eingebaut, Transaction eingebaut
+// --------------------------------------------------------------------------------------------------------------------
+
+/*
+ Usage:
+		// -------------------------------------------------------------------------------------------------------------------
+		// 18.03.2015 HR: Wir setzen ein Lifesign f$$HEX1$$fc00$$ENDHEX$$r den Service und pr$$HEX1$$fc00$$ENDHEX$$fen, ob der Dienst pausieren soll
+		// --------------------------------------------------------------------------------------------------------------------
+		if f_service_alive("cbase_ftq_boxallocation", sInstance, sVersion+"-"+sBuild, nSleep, SQLCA, sLogPath) = 0 then
+		
+		else
+			// 18.03.2015 HR:
+			guoLog.uf_allways("[xxxxx] Service is paused by table SYS_SERVICES_ALIVE")
+		end if
+
+*/
+
+datastore 	lds
+integer		li_ret
+string 		ls_graylog_uri
+
+lds = create datastore
+lds.dataobject="dw_services_alive"
+lds.settransobject(arg_trans)
+
+lds.retrieve(arg_service, arg_instance)
+
+if lds.rowcount()=0 then
+	lds.insertrow(0)
+	lds.setitem(1,"cservice", 				arg_service)
+	lds.setitem(1,"cinstance", 			arg_instance)
+	lds.setitem(1,"npause", 				0)
+	lds.setitem(1,"nmaster", 				0)
+	lds.setitem(1,"ngraylog_enabled", 	0)
+end if
+
+gb_GrayLogEnabled = ( lds.getitemnumber(1,"ngraylog_enabled")=1 )
+
+// --------------------------------------------------------------------------------------------------------------------
+// 07.05.2020 HR: NMASTER=2 sind JAVA Services, daher muss die PB-Instance pausieren
+// --------------------------------------------------------------------------------------------------------------------
+if  lds.getitemnumber(1,"nmaster") = 2 then
+	guoLog.uf_allways("[f_service_alive] Instance " + arg_instance + " is configured as a JAVA service. PB service instance is paused")
+	li_ret = 1
+else
+	lds.setitem(1,"cversion", 			arg_version)
+	lds.setitem(1,"dlifesign", 			datetime(today(), now()))
+	lds.setitem(1,"nsleeptimer",		arg_sleeptimer)
+	
+	li_ret = lds.getitemnumber(1,"npause")
+	
+	if li_ret = 1 then 
+		// Das Stoppen des Dienstes ist best$$HEX1$$e400$$ENDHEX$$tigt
+		lds.setitem(1,"npause", 		2)	
+		li_ret = 2
+	end if
+	
+	lds.update()
+	commit using arg_trans;
+
+	
+end if
+
+destroy lds
+
+if gb_GrayLogEnabled then
+	// Initialize Graylog Client
+	if not isvalid(gnvo_GrayLogClient) then
+		gnvo_GrayLogClient = Create n_graylog_client
+	end if
+	
+	ls_graylog_uri = f_get_cen_setup(arg_trans, "GRAYLOG", "LogEndpoint", "")
+	
+	gnvo_GrayLogClient.of_Init(ls_graylog_uri, arg_service, arg_version, arg_path)
+	gnvo_GrayLogClient.of_SetAdditionalProperty("Instance", arg_instance)
+
+end if
+
+return li_ret
+end function
+

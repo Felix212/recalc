@@ -1,0 +1,204 @@
+HA$PBExportHeader$uo_display_crystal_report.sru
+$PBExportComments$Objekt zum Anzeigen von Crystal Reports
+forward
+global type uo_display_crystal_report from userobject
+end type
+type tab_fake_container from tab within uo_display_crystal_report
+end type
+type tab_fake_container from tab within uo_display_crystal_report
+end type
+end forward
+
+global type uo_display_crystal_report from userobject
+integer width = 1554
+integer height = 964
+long backcolor = 67108864
+string text = "none"
+long tabtextcolor = 33554432
+long picturemaskcolor = 536870912
+tab_fake_container tab_fake_container
+end type
+global uo_display_crystal_report uo_display_crystal_report
+
+type variables
+PRIVATE:
+
+uo_crystal_report_viewer_interface iuo_viewer
+end variables
+
+forward prototypes
+public function integer of_show (ref uo_crystal_report auo_cr)
+public function integer resize (integer w, integer h)
+public function integer of_print ()
+public function integer of_export ()
+end prototypes
+
+public function integer of_show (ref uo_crystal_report auo_cr);/*
+* Objekt : uo_display_crystal_report
+* Methode: of_show
+* Autor  : Ulrich Paudler
+* Datum  : 26.11.2009
+*
+* Argument(e):
+*   keine
+*
+* Beschreibung: Zeigt den geladenen Crystal Report im Viewer Objekt an.
+*
+* $$HEX1$$c400$$ENDHEX$$nderungshistorie:
+*   Version    Wer          Wann          Was und warum
+*   1.0        U.Paudler    26.11.2009    Erstellung
+*   1.1        Dirk Bunk    07.02.2013    Umbau f$$HEX1$$fc00$$ENDHEX$$r neuen Crystal Report Viewer
+*
+* Return: 
+*   0: OK
+*  -1: Fehler
+*/
+
+string ls_id = ""
+
+// Pr$$HEX1$$fc00$$ENDHEX$$fen, welche Crystal Reports Version installiert ist und entsprechendes UserObject erstellen
+RegistryGet("HKEY_CLASSES_ROOT\CrystalReports115.ActiveXReportViewer.1\CLSID", "", ls_id)
+
+if ls_id <> "" then
+	tab_fake_container.OpenTab(iuo_viewer, "uo_crystal_report_viewer_115", 0)
+else
+	tab_fake_container.OpenTab(iuo_viewer, "uo_crystal_report_viewer_110", 0)
+end if
+
+iuo_viewer.of_show(auo_cr)
+
+resize(width, height)
+
+return 0
+end function
+
+public function integer resize (integer w, integer h);/* 
+* Funktion: resize
+* Beschreibung: Anpassen der Gr$$HEX2$$f600df00$$ENDHEX$$e des OLE Objekts an die Gr$$HEX2$$f600df00$$ENDHEX$$e des Parent Objekts 
+* Besonderheit: keine
+*
+* Argumente:
+* 	Name	Beschreibung
+*  w     Die Breite in PB-Units, die gesetzt werden soll
+*  h     Die H$$HEX1$$f600$$ENDHEX$$he in PB-Units, die gesetzt werden soll
+*
+* Aenderungshistorie:
+* 	Version    Wer       Wann          Was und warum
+*	1.0        D.Bunk    07.02.2013    Erstellung
+*
+* Return Codes:
+*  PB Return Code
+*/
+
+integer li_ret
+
+li_ret = super::resize(w, h)
+
+tab_fake_container.width = w
+tab_fake_container.height = h + 40
+
+iuo_viewer.resize(w, h)
+iuo_viewer.show()
+
+return li_ret
+end function
+
+public function integer of_print ();/*
+* Objekt : uo_display_crystal_report
+* Methode: of_print
+* Autor  : Dirk Bunk
+* Datum  : 18.02.2013
+*
+* Argument(e):
+*   keine
+*
+* Beschreibung: Druckt den angezeigten Crystal Report.
+*
+* $$HEX1$$c400$$ENDHEX$$nderungshistorie:
+*   Version    Wer          Wann          Was und warum
+*   1.0        Dirk Bunk    18.02.2013    Erstellung
+*
+* Return: 
+*   0: OK
+*  -1: Fehler
+*/
+
+if IsValid(iuo_viewer) then 
+	return iuo_viewer.of_print()
+else
+	return -1
+end if
+end function
+
+public function integer of_export ();/*
+* Objekt : uo_display_crystal_report
+* Methode: of_export
+* Autor  : Dirk Bunk
+* Datum  : 18.02.2013
+*
+* Argument(e):
+*   keine
+*
+* Beschreibung: Exportiert den angezeigten Crystal Report.
+*
+* $$HEX1$$c400$$ENDHEX$$nderungshistorie:
+*   Version    Wer          Wann          Was und warum
+*   1.0        Dirk Bunk    18.02.2013    Erstellung
+*
+* Return: 
+*   0: OK
+*  -1: Fehler
+*/
+
+if IsValid(iuo_viewer) then 
+	return iuo_viewer.of_export()
+else
+	return -1
+end if
+end function
+
+on uo_display_crystal_report.create
+this.tab_fake_container=create tab_fake_container
+this.Control[]={this.tab_fake_container}
+end on
+
+on uo_display_crystal_report.destroy
+destroy(this.tab_fake_container)
+end on
+
+event destructor;DESTROY iuo_viewer
+end event
+
+event constructor;// Erstmal nur das Interface Objekt f$$HEX1$$fc00$$ENDHEX$$r den Viewer erzeugen.
+// Beim $$HEX1$$f600$$ENDHEX$$ffnen des Dokuments, wird dann das richtige Objekt erzeugt.
+// Das erzeugen, des eigentlich Viewer Objekts darf erst dann passieren,
+// weil es sonst zu Problemen kommt.
+iuo_viewer = CREATE uo_crystal_report_viewer_interface
+end event
+
+type tab_fake_container from tab within uo_display_crystal_report
+integer width = 1454
+integer height = 880
+integer taborder = 10
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+long backcolor = 67108864
+boolean raggedright = true
+boolean focusonbuttondown = true
+boolean showtext = false
+boolean showpicture = false
+tabposition tabposition = tabsonbottom!
+integer selectedtab = 1
+end type
+
+
+Start of PowerBuilder Binary Data Section : Do NOT Edit
+0Cuo_display_crystal_report.bin 
+2100000a00e011cfd0e11ab1a1000000000000000000000000000000000003003e0009fffe000000060000000000000000000000010000000100000000000010000000000200000001fffffffe0000000000000000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdfffffffefffffffefffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff006f00520074006f004500200074006e00790072000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050016ffffffffffffffff0000000100000000000000000000000000000000000000000000000000000000369d07d001cd7baa00000003000000800000000000500003004f0042005800430054005300450052004d0041000000000000000000000000000000000000000000000000000000000000000000000000000000000102001affffffff00000002ffffffff000000000000000000000000000000000000000000000000000000000000000000000000fffffffe0000000000000000004200500043004f00530058004f00540041005200450047000000000000000000000000000000000000000000000000000000000000000000000000000000000001001affffffffffffffff00000003460324e84357cfb43eceef85623ae2bf00000000369d07d001cd7baa369d07d001cd7baa000000000000000000000000006f00430074006e006e00650073007400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001020012ffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000780000000000000001fffffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+2Cffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000071000001dc4000013d8ffff000bffff000bffff000bffff000bffff000bffff000bffff000bffff000b0000000bffff000bffff000bffff000bffff000b0000000bffff000bffff000bffff000bffff000b00000008000b0000000bffff000bffff000b0000000b0000000bffff0013ffff000004070062007900730061005c00650068005300720061006400650050005c0077006f0072006500750042006c006900650064003b0072003a00430050005c006f007200720067006d00610065006d0053005c0062007900730061005c0065005100530020004c006e0041007700790065006800650072003900200077005c006e0069003200330043003b005c003a007200500067006f00610072006d006d005c00650079005300610062006500730053005c0061006800650072005c0064006900770033006e003b0032003a00430050005c006f007200720067006d00610065006d0053005c0062007900730061005c0065005100530020004c006e0041007700790065006800650072003900200064005c0069007200650076007300720043003b005c003a007200500067006f00610072006d006d005c00650079005300610062006500730053005c0061006800650072005c006400790053006100620065007300430020006e006500720074006c0061003400200033002e0077005c006e0069003200330043003b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+1Cuo_display_crystal_report.bin 
+End of PowerBuilder Binary Data Section : No Source Expected After This Point

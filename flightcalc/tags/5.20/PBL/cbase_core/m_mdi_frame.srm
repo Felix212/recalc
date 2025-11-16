@@ -1,0 +1,20 @@
+HA$PBExportHeader$m_mdi_frame.srm
+$PBExportComments$Master Men$$HEX1$$fc00$$ENDHEX$$
+forward
+global type m_mdi_frame from menu
+end type
+end forward
+
+global type m_mdi_frame from menu
+end type
+global m_mdi_frame m_mdi_frame
+
+on m_mdi_frame.create
+m_mdi_frame=this
+call super::create
+end on
+
+on m_mdi_frame.destroy
+call super::destroy
+end on
+

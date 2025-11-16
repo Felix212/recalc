@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_cbase_equipment_units.srf
+global type f_cbase_equipment_units from function_object
+end type
+
+forward prototypes
+global function long f_cbase_equipment_units (long lunits, integer ikoordinatentype)
+end prototypes
+
+global function long f_cbase_equipment_units (long lunits, integer ikoordinatentype);// --------------------------------------
+// iKoordinatenType 1 => X-Koordiante
+// iKoordinatenType 2 => Y-Koordiante
+// --------------------------------------
+	long	lRet,lRest
+
+// --------------------------------------
+// Steps des Equipments
+// --------------------------------------
+//	lRest	 = mod(lunits,s_app.lpix_cm / 2)
+//	lunits = lunits - lRest
+	
+	Choose case iKoordinatenType
+			case 1
+				lRet = lunits
+			case 2
+				lRet = lunits
+	end choose
+	
+
+
+return lunits
+end function
+

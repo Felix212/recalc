@@ -1,0 +1,12 @@
+HA$PBExportHeader$f_trace.srf
+global type f_trace from function_object
+end type
+
+forward prototypes
+global function integer f_trace (string trace_text)
+end prototypes
+
+global function integer f_trace (string trace_text);guoLog.uf_allways( trace_text )
+return 0
+end function
+

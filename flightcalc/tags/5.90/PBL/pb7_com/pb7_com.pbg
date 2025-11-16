@@ -1,0 +1,36 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "pb7_com\\pb7_com.pbl" "";
+@end;
+@begin Objects
+ "pb7_com\\s_print_preview.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\dw_column_status.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_application.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\dw_report.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\d_system_error.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\m_uo_dw.srm" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\d_db_error.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_bc_protocol.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\dw_analyse.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_textobject.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_pointapi.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\lpdata.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\tagsize.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_new_entry.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_point.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\dw_analyse_dw_objects.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_hittest.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\str_size.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\dw_sessions.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_dwr.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_textsize.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_user_parameters.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_retrieval_arguments.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\dw_translation_master.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\dw_translation_master_index.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\dw_translation_master_mass.srd" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_printer_settings.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_errormessages.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_find_parent_return.srs" "pb7_com\\pb7_com.pbl";
+ "pb7_com\\s_preview_settings.srs" "pb7_com\\pb7_com.pbl";
+@end;

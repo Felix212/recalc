@@ -1,0 +1,77 @@
+HA$PBExportHeader$f_blob_to_file.srf
+$PBExportComments$Funktion schreibt den Inhalt einer Blob-Variable in eine Datei
+global type f_blob_to_file from function_object
+end type
+
+forward prototypes
+global function long f_blob_to_file (string sfilename, blob bfilebuffer)
+end prototypes
+
+global function long f_blob_to_file (string sfilename, blob bfilebuffer);// -------------------------------------------------
+// Diese Funktion speichert einen Blob in eine Datei
+// welcher $$HEX1$$fc00$$ENDHEX$$bergeben wurde.
+//
+// der R$$HEX1$$fc00$$ENDHEX$$ckgabewert ist die Anzahl der geschriebenen
+// Bytes
+// -------------------------------------------------
+	Blob		bBuffer
+	Long		lFileLength, &
+				lBytesWrite, &
+				lAnzSchreibLoops, &
+				l
+				
+	Integer	iFileHandleSource
+ 	
+     // MHO 2014-03-27: 
+	// ACHTUNG: Diese $$HEX1$$c400$$ENDHEX$$nderung f$$HEX1$$fc00$$ENDHEX$$hrte zumindest in einem Fall (Crystal Report Browser Setup, Hochladen von Reports) zu dem Fehler, dass irgendwo auf dem Weg der
+	// Blob geleert wurde. 
+	// !!! Das allerdings nur in der kompilierten CBase-Version !!! 
+	// FileWriteEx() und ReadFileEx() ist damit mit Vorsicht zu genie$$HEX1$$df00$$ENDHEX$$en! Eventuell auch das Weiterreichen der Blobs $$HEX1$$fc00$$ENDHEX$$ber die Funktionsargumente.	
+ 	// MHO 2014-03-20: Umlenken auf die Funktion mit dem neuen FileWriteEx = Kein St$$HEX1$$fc00$$ENDHEX$$ckeln mehr! Performance k$$HEX1$$f600$$ENDHEX$$nnte sich vervierfachen!
+	//return f_blob_to_file_unicode (sfilename, bfilebuffer)
+	// ==================================================
+	
+	SetPointer(Hourglass!)
+	
+	filedelete( sfilename )
+	
+	// ----------------
+	// Dateigr$$HEX2$$f600df00$$ENDHEX$$e
+	// ----------------
+	If Len(bfilebuffer) <= 0 or isnull(Len(bfilebuffer)) Then
+		guoLog.uf_error("[f_blob_to_file] Dateigr$$HEX2$$f600df00$$ENDHEX$$e der Ausgabedatei ist null!")
+	End if	
+
+	lFileLength = Len(bfilebuffer)
+	
+	iFileHandleSource = FileOpen(sfilename, StreamMode!, Write!, LockReadWrite!, Replace!)
+	
+	If iFileHandleSource = -1 Then
+		guoLog.uf_error("[f_blob_to_file] Ausgabedatei kann nicht geschrieben werden! (" + sfilename + ")" )
+	End if
+	
+	// ------------------------------------------
+	// Wir schreiben den Blob
+	//
+	// FileRead und Write verarbeitet nur Chunks 
+	// mit 32K ggf. mehrere Loops
+	// ------------------------------------------
+
+	lAnzSchreibLoops = Mod (lFileLength, 32765)
+	If lAnzSchreibLoops = 0 Then
+		lAnzSchreibLoops = lFileLength / 32765
+	elseif lAnzSchreibLoops > 0 Then 
+		lAnzSchreibLoops = (lFileLength / 32765) + 1
+	end if
+
+	For l = 1 To lAnzSchreibLoops
+		bBuffer   = BlobMid(bfilebuffer, (((l - 1) * 32765) + 1), 32765)
+		lBytesWrite = lBytesWrite + FileWrite(iFileHandleSource, bBuffer) 
+	next
+
+	FileClose(iFileHandleSource)
+	
+	return lBytesWrite
+
+end function
+

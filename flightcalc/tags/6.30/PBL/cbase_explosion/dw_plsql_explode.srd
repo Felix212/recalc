@@ -1,0 +1,183 @@
+HA$PBExportHeader$dw_plsql_explode.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=npackinglist_index_key dbname="npackinglist_index_key" )
+ column=(type=number updatewhereclause=yes name=npackinglist_detail_key dbname="npackinglist_detail_key" )
+ column=(type=char(40) updatewhereclause=yes name=cpackinglist dbname="cpackinglist" )
+ column=(type=number updatewhereclause=yes name=nlevel dbname="nlevel" )
+ column=(type=number updatewhereclause=yes name=npackinglist_key dbname="npackinglist_key" )
+ column=(type=char(120) updatewhereclause=yes name=clevel dbname="clevel" )
+ column=(type=char(120) updatewhereclause=yes name=ctype dbname="ctype" )
+ column=(type=number updatewhereclause=yes name=nsort dbname="nsort" )
+ column=(type=number updatewhereclause=yes name=nquantity dbname="nquantity" )
+ column=(type=char(15) updatewhereclause=yes name=cunit dbname="cunit" )
+ column=(type=number updatewhereclause=yes name=nquantity_cal dbname="nquantity_cal" )
+ column=(type=number updatewhereclause=yes name=nreckoning dbname="nreckoning" )
+ column=(type=number updatewhereclause=yes name=nworkstation_key dbname="nworkstation_key" )
+ column=(type=number updatewhereclause=yes name=narea_key dbname="narea_key" )
+ column=(type=char(120) updatewhereclause=yes name=ctext dbname="ctext" )
+ column=(type=char(40) updatewhereclause=yes name=ccustomer_pl dbname="ccustomer_pl" )
+ column=(type=char(120) updatewhereclause=yes name=ccustomer_text dbname="ccustomer_text" )
+ column=(type=number updatewhereclause=yes name=nreserve dbname="nreserve" )
+ column=(type=number updatewhereclause=yes name=npercent dbname="npercent" )
+ column=(type=number updatewhereclause=yes name=nancestor_pl_index_key dbname="nancestor_pl_index_key" )
+ column=(type=number updatewhereclause=yes name=nancestor_pl_detail_key dbname="nancestor_pl_detail_key" )
+ column=(type=number updatewhereclause=yes name=nmaster_index_key dbname="nmaster_index_key" )
+ column=(type=number updatewhereclause=yes name=npl_kind_key dbname="npl_kind_key" )
+ column=(type=number updatewhereclause=yes name=npl_type_key dbname="npl_type_key" )
+ column=(type=number updatewhereclause=yes name=nsequence dbname="nsequence" )
+ column=(type=number updatewhereclause=yes name=nmaterial_index_key dbname="nmaterial_index_key" )
+ column=(type=number updatewhereclause=yes name=nancestor_seq_nr dbname="nancestor_seq_nr" )
+ column=(type=char(1) updatewhereclause=yes name=csales_rel dbname="csales_rel" )
+ column=(type=char(10) updatewhereclause=yes name=cgoods_recipient dbname="cgoods_recipient" )
+ column=(type=char(4) updatewhereclause=yes name=cdef_storage_location dbname="cdef_storage_location" )
+ column=(type=number updatewhereclause=yes name=nstatus dbname="nstatus" )
+ column=(type=number updatewhereclause=yes name=nmaster_seq_nr dbname="nmaster_seq_nr" )
+ column=(type=number updatewhereclause=yes name=naccount_key dbname="naccount_key" )
+ column=(type=char(18) updatewhereclause=yes name=caccount dbname="caccount" )
+ column=(type=number updatewhereclause=yes name=nportion dbname="nportion" )
+ column=(type=number updatewhereclause=yes name=nquantity_version dbname="nquantity_version" )
+ column=(type=number updatewhereclause=yes name=nreserve_version dbname="nreserve_version" )
+ column=(type=number updatewhereclause=yes name=npltimeframe_index dbname="npltimeframe_index" )
+ column=(type=decimal(0) updatewhereclause=yes name=nbatch dbname="nbatch" )
+ column=(type=datetime updatewhereclause=yes name=dprod_date dbname="dprod_date" )
+ column=(type=char(170) updatewhereclause=yes name=ctext_short dbname="ctext_short" )
+ column=(type=decimal(0) updatewhereclause=yes name=nworkschedule_index dbname="nworkschedule_index" )
+ column=(type=decimal(0) updatewhereclause=yes name=npltf_flight_index_group dbname="npltf_flight_index_group" )
+ column=(type=decimal(0) updatewhereclause=yes name=npltf_flight_index dbname="npltf_flight_index" )
+ column=(type=char(40) updatewhereclause=yes name=cprod_cat_text dbname="cprod_cat_text" )
+ retrieve="  SELECT    	npackinglist_index_key,
+				npackinglist_detail_key,
+				cpackinglist,
+				nlevel,
+				npackinglist_key,
+				clevel,
+				ctype,
+				nsort,
+				nquantity,
+				cunit,
+				nquantity_cal,
+				nreckoning,
+				nvl(nworkstation_key,0) nworkstation_key,
+				nvl(narea_key,0) narea_key,
+				ctext,
+				ccustomer_pl,
+				ccustomer_text,
+				nvl(nreserve,0) nreserve,
+				npercent,
+				nancestor_pl_index_key,
+				nancestor_pl_detail_key,
+				nmaster_index_key,
+				npl_kind_key,
+				npl_type_key,
+				nsequence,
+				nmaterial_index_key,
+				nancestor_seq_nr,
+				csales_rel, 
+				cgoods_recipient,
+				cdef_storage_location,
+				nstatus,
+				nmaster_seq_nr,
+				naccount_key,
+				caccount, 
+				nportion,
+   				nquantity_version,
+   				nreserve_version,
+				npltimeframe_index,
+                  nbatch,
+				dprod_date,
+				ctext_short,
+   				NWORKSCHEDULE_INDEX,
+   				NPLTF_FLIGHT_INDEX_GROUP,
+                  npltf_flight_index, cprod_cat_text
+FROM table (CBASE_EXPLOSION.pf_explode_pl(:arg_index_key, :arg_ref_date, :arg_self, :arg_cunit, :arg_narline_key, :arg_quantity, :arg_quantity_version, :arg_billingonly,
+                                                                    :arg_master_reckoning, :arg_departure_time, :arg_ncnx, :arg_nconvGtoKG, :arg_nDoNotSet0ForCXFlight, :arg_sales_rel,
+                                                                    :arg_sDef_storage_location, :arg_sgoods_recipient, :arg_nstatus, :arg_naccount_key, :arg_caccount, :arg_fillcustomer, :arg_result_key))
+" arguments=(("arg_index_key", number),("arg_ref_date", date),("arg_self", number),("arg_cunit", string),("arg_narline_key", number),("arg_quantity", number),("arg_quantity_version", number),("arg_billingonly", number),("arg_master_reckoning", number),("arg_departure_time", string),("arg_ncnx", number),("arg_nconvGtoKG", number),("arg_nDoNotSet0ForCXFlight", number),("arg_sales_rel", string),("arg_sDef_storage_location", string),("arg_sgoods_recipient", string),("arg_nstatus", number),("arg_naccount_key", number),("arg_caccount", string),("arg_fillcustomer", number),("arg_result_key", number)) )
+text(band=header alignment="2" text="Npackinglist Index Key" border="0" color="33554432" x="5" y="4" height="64" width="613" html.valueishtml="0"  name=npackinglist_index_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npackinglist Detail Key" border="0" color="33554432" x="617" y="4" height="64" width="617" html.valueishtml="0"  name=npackinglist_detail_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cpackinglist" border="0" color="33554432" x="1239" y="4" height="64" width="1125" html.valueishtml="0"  name=cpackinglist_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nlevel" border="0" color="33554432" x="2368" y="4" height="64" width="329" html.valueishtml="0"  name=nlevel_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npackinglist Key" border="0" color="33554432" x="2706" y="4" height="64" width="448" html.valueishtml="0"  name=npackinglist_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Clevel" border="0" color="33554432" x="3159" y="4" height="64" width="1125" html.valueishtml="0"  name=clevel_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ctype" border="0" color="33554432" x="4288" y="4" height="64" width="1125" html.valueishtml="0"  name=ctype_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nsort" border="0" color="33554432" x="5417" y="4" height="64" width="329" html.valueishtml="0"  name=nsort_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nquantity" border="0" color="33554432" x="5751" y="4" height="64" width="329" html.valueishtml="0"  name=nquantity_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cunit" border="0" color="33554432" x="6085" y="4" height="64" width="165" html.valueishtml="0"  name=cunit_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nquantity Cal" border="0" color="33554432" x="6254" y="4" height="64" width="357" html.valueishtml="0"  name=nquantity_cal_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nreckoning" border="0" color="33554432" x="6615" y="4" height="64" width="329" html.valueishtml="0"  name=nreckoning_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nworkstation Key" border="0" color="33554432" x="6953" y="4" height="64" width="462" html.valueishtml="0"  name=nworkstation_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Narea Key" border="0" color="33554432" x="7424" y="4" height="64" width="329" html.valueishtml="0"  name=narea_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ctext" border="0" color="33554432" x="7758" y="4" height="64" width="1947" html.valueishtml="0"  name=ctext_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ccustomer Pl" border="0" color="33554432" x="9710" y="4" height="64" width="521" html.valueishtml="0"  name=ccustomer_pl_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ccustomer Text" border="0" color="33554432" x="10235" y="4" height="64" width="1125" html.valueishtml="0"  name=ccustomer_text_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nreserve" border="0" color="33554432" x="11365" y="4" height="64" width="329" html.valueishtml="0"  name=nreserve_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npercent" border="0" color="33554432" x="11698" y="4" height="64" width="329" html.valueishtml="0"  name=npercent_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nancestor Pl Index Key" border="0" color="33554432" x="12032" y="4" height="64" width="626" html.valueishtml="0"  name=nancestor_pl_index_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nancestor Pl Detail Key" border="0" color="33554432" x="12663" y="4" height="64" width="635" html.valueishtml="0"  name=nancestor_pl_detail_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nmaster Index Key" border="0" color="33554432" x="13303" y="4" height="64" width="507" html.valueishtml="0"  name=nmaster_index_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npl Kind Key" border="0" color="33554432" x="13815" y="4" height="64" width="347" html.valueishtml="0"  name=npl_kind_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npl Type Key" border="0" color="33554432" x="14167" y="4" height="64" width="357" html.valueishtml="0"  name=npl_type_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nsequence" border="0" color="33554432" x="14528" y="4" height="64" width="329" html.valueishtml="0"  name=nsequence_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nmaterial Index Key" border="0" color="33554432" x="14862" y="4" height="64" width="535" html.valueishtml="0"  name=nmaterial_index_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nancestor Seq Nr" border="0" color="33554432" x="15401" y="4" height="64" width="471" html.valueishtml="0"  name=nancestor_seq_nr_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npackinglist_index_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="617" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npackinglist_detail_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="1239" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cpackinglist visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="2368" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nlevel visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2706" y="4" height="76" width="325" format="[general]" html.valueishtml="0"  name=npackinglist_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="3159" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=clevel visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="4288" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=ctype visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="5417" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nsort visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="5751" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nquantity visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="33554432" x="6085" y="4" height="76" width="165" format="[general]" html.valueishtml="0"  name=cunit visible="1" edit.limit=5 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="33554432" x="6254" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nquantity_cal visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="33554432" x="6615" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nreckoning visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="33554432" x="6953" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nworkstation_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="33554432" x="7424" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=narea_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="33554432" x="7758" y="4" height="76" width="1947" format="[general]" html.valueishtml="0"  name=ctext visible="1" edit.limit=70 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="33554432" x="9710" y="4" height="76" width="521" format="[general]" html.valueishtml="0"  name=ccustomer_pl visible="1" edit.limit=18 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="33554432" x="10235" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=ccustomer_text visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="1" tabsequence=32766 border="0" color="33554432" x="11365" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nreserve visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="1" tabsequence=32766 border="0" color="33554432" x="11698" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npercent visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="1" tabsequence=32766 border="0" color="33554432" x="12032" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nancestor_pl_index_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="1" tabsequence=32766 border="0" color="33554432" x="12663" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nancestor_pl_detail_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="1" tabsequence=32766 border="0" color="33554432" x="13303" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nmaster_index_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="1" tabsequence=32766 border="0" color="33554432" x="13815" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npl_kind_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="1" tabsequence=32766 border="0" color="33554432" x="14167" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npl_type_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="1" tabsequence=32766 border="0" color="33554432" x="14528" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nsequence visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="1" tabsequence=32766 border="0" color="33554432" x="14862" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nmaterial_index_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="1" tabsequence=32766 border="0" color="33554432" x="15401" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nancestor_seq_nr visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="0" tabsequence=32766 border="0" color="33554432" x="15872" y="0" height="64" width="27" format="[general]" html.valueishtml="0"  name=csales_rel visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=29 alignment="0" tabsequence=32766 border="0" color="33554432" x="15899" y="0" height="64" width="270" format="[general]" html.valueishtml="0"  name=cgoods_recipient visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=30 alignment="0" tabsequence=32766 border="0" color="33554432" x="16169" y="0" height="64" width="110" format="[general]" html.valueishtml="0"  name=cdef_storage_location visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=31 alignment="0" tabsequence=32766 border="0" color="33554432" x="16279" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nstatus visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=32 alignment="0" tabsequence=32766 border="0" color="33554432" x="18414" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nmaster_seq_nr visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=33 alignment="0" tabsequence=32766 border="0" color="33554432" x="20549" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=naccount_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=34 alignment="0" tabsequence=32766 border="0" color="33554432" x="22683" y="0" height="64" width="489" format="[general]" html.valueishtml="0"  name=caccount visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=35 alignment="0" tabsequence=32766 border="0" color="33554432" x="23182" y="0" height="64" width="2139" format="[general]" html.valueishtml="0"  name=nportion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=36 alignment="0" tabsequence=32766 border="0" color="33554432" x="25317" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nquantity_version visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=37 alignment="0" tabsequence=32766 border="0" color="33554432" x="27451" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nreserve_version visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=38 alignment="0" tabsequence=32766 border="0" color="33554432" x="29586" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=npltimeframe_index visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=40 alignment="0" tabsequence=32766 border="0" color="33554432" x="31721" y="0" height="64" width="297" format="[shortdate] [time]" html.valueishtml="0"  name=dprod_date visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=41 alignment="0" tabsequence=32766 border="0" color="33554432" x="32018" y="0" height="64" width="2162" format="[general]" html.valueishtml="0"  name=ctext_short visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=42 alignment="0" tabsequence=32766 border="0" color="33554432" x="34181" y="0" height="64" width="2290" format="[general]" html.valueishtml="0"  name=nworkschedule_index visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=43 alignment="0" tabsequence=32766 border="0" color="33554432" x="36471" y="0" height="64" width="2295" format="[general]" html.valueishtml="0"  name=npltf_flight_index_group visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=44 alignment="0" tabsequence=32766 border="0" color="33554432" x="38766" y="0" height="64" width="2295" format="[general]" html.valueishtml="0"  name=npltf_flight_index visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=45 alignment="0" tabsequence=32766 border="2" color="33554432" x="41061" y="0" height="64" width="1083" format="[general]" html.valueishtml="0"  name=cprod_cat_text visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=39 alignment="0" tabsequence=0 border="0" color="33554432" x="42144" y="0" height="64" width="2135" html.valueishtml="0"  name=nbatch visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

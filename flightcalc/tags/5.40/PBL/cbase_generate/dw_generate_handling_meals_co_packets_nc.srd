@@ -1,0 +1,25 @@
+HA$PBExportHeader$dw_generate_handling_meals_co_packets_nc.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nhandling_key dbname="cen_meals.nhandling_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_meals_nclass_number dbname="cen_meals.nclass_number" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_meals~" )  TABLE(NAME=~"cen_meals_packages~" ) COLUMN(NAME=~"cen_meals.nhandling_key~") COLUMN(NAME=~"cen_meals.nclass_number~")    JOIN (LEFT=~"cen_meals_packages.nhandling_meal_key~"    OP =~"=~"RIGHT=~"cen_meals.nhandling_meal_key~" )WHERE(    EXP1 =~":arg_ddeparture~"   OP =~"between~"    EXP2 =~"cen_meals.dvalid_from and cen_meals.dvalid_to~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_meals_packages.nairline_packages_key~"   OP =~"in~"    EXP2 =~"(:arg_cairline_class_packages_keys)~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"(cen_meals.nclass_number~"   OP =~"=~"    EXP2 =~":arg_nclass_number~"    LOGIC =~"or~" ) WHERE(    EXP1 =~":arg_nclass_number~"   OP =~"=~"    EXP2 =~"0)~" ) ) ARG(NAME = ~"arg_ddeparture~" TYPE = date)  ARG(NAME = ~"arg_cairline_class_packages_keys~" TYPE = numberlist)  ARG(NAME = ~"arg_nclass_number~" TYPE = number) " arguments=(("arg_ddeparture", date),("arg_cairline_class_packages_keys", numberlist),("arg_nclass_number", number)) )
+text(band=header alignment="2" text="Cen Meals
+Nhandling Key" border="0" color="33554432" x="5" y="4" height="128" width="366" html.valueishtml="0"  name=cen_meals_nhandling_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="33554432" x="370" y="0" height="64" width="2135" html.valueishtml="0"  name=cen_meals_nclass_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

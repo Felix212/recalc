@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_getpathname.srf
+global type f_getpathname from function_object
+end type
+
+forward prototypes
+global function string f_getpathname (string sfilename)
+end prototypes
+
+global function string f_getpathname (string sfilename);// --------------------------------------------------
+// Aus Dateinamen (c:\temp\lh400.xml) den Pfadname
+// extrahieren (c:\temp)
+// --------------------------------------------------
+Integer I
+String	sTemp
+
+sTemp = sFileName 
+
+
+For i = len(sFilename) to 1 step -1
+
+	if Mid(sFileName, I, 1) = "\" then
+		return Mid(sFileName, 1, I - 1)
+	end if
+
+Next
+
+return "."
+end function
+

@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_get_country_from_tlc.srf
+global type f_get_country_from_tlc from function_object
+end type
+
+forward prototypes
+global function long f_get_country_from_tlc (long ltlc)
+end prototypes
+
+global function long f_get_country_from_tlc (long ltlc);Long lCountry
+
+
+SELECT sys_three_letter_codes.ncountry_key  
+  INTO :lCountry  
+  FROM sys_three_letter_codes
+WHERE  sys_three_letter_codes.ntlc_key = :lTLC;
+
+
+if sqlca.sqlcode = 0 then
+	return lCountry
+else
+	f_db_error(sqlca, "f_get_country_from_tlc")
+	return -1
+end if
+
+return 0
+end function
+

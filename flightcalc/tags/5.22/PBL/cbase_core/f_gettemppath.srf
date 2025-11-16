@@ -1,0 +1,44 @@
+HA$PBExportHeader$f_gettemppath.srf
+$PBExportComments$Funktion zur Ermittlung des tempor$$HEX1$$e400$$ENDHEX$$ren Verzeichnisses
+global type f_gettemppath from function_object
+end type
+
+forward prototypes
+global function string f_gettemppath ()
+end prototypes
+
+global function string f_gettemppath ();// -----------------------------------
+// diese Funktion liefert das Temp-
+// Verzeichnis
+// -----------------------------------
+String 	sTempPath, sBuffer
+Long		lLen, lRet, I
+	
+// ---------------------------------------------
+// alte f_gettemppath()
+// 
+// Verwenden des Windows-Temp-Verzeichnisses
+// ---------------------------------------------
+//sTempPath = Space(255)
+//lLen		 = Len(sTempPath)
+//
+//lRet = GetTempPath(lLen, sTempPath)
+//
+//if lRet > 0 Then
+// 
+//	if Right(sTempPath, 1) <> "\" Then
+//		sTempPath = sTempPath + "\"
+//	end if
+//	
+//	sTempPath = Trim(sTempPath) + "CBASE\"
+//	
+//else
+//	SetNull(sTempPath)
+//	
+//end if
+
+sTempPath 							= ProfileString(sProfile, "LOG", "Path","C:\")
+
+return sTempPath	
+end function
+

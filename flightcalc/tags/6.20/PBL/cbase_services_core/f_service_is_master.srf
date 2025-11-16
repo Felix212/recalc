@@ -1,0 +1,67 @@
+HA$PBExportHeader$f_service_is_master.srf
+global type f_service_is_master from function_object
+end type
+
+forward prototypes
+global function integer f_service_is_master (string arg_service, string arg_instance, transaction arg_trans)
+end prototypes
+
+global function integer f_service_is_master (string arg_service, string arg_instance, transaction arg_trans);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_service_is_master
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// arg_service Servicename
+// arg_instance Instancename
+// arg_trans   Transactionobject
+// --------------------------------------------------------------------------------------------------------------------
+// Return: allways 1
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung: Set Instance as Masterinstance in SYS_SERVICES_ALIVE
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  05.09.2022	   1.0      H.Rothenbach   Erstellung
+// --------------------------------------------------------------------------------------------------------------------
+
+/*
+ Usage:
+ 
+// --------------------------------------------------------------------------------------------------------------------
+// 05.09.2022 HR: Set Instance as Masterinstance in SYS_SERVICES_ALIVE
+// --------------------------------------------------------------------------------------------------------------------
+f_service_is_master("cbase_document_engine", sInstance, SQLCA)
+
+*/
+
+datastore 	lds
+integer		li_ret
+string 		ls_graylog_uri
+
+lds = create datastore
+lds.dataobject="dw_services_alive"
+lds.settransobject(arg_trans)
+
+lds.retrieve(arg_service, arg_instance)
+
+if lds.rowcount()=0 then
+	lds.insertrow(0)
+	lds.setitem(1,"cservice", 				arg_service)
+	lds.setitem(1,"cinstance", 			arg_instance)
+	lds.setitem(1,"npause", 				0)
+	lds.setitem(1,"nmaster", 				1)
+	lds.setitem(1,"ngraylog_enabled", 	0)
+else
+	lds.setitem(1,"nmaster", 				1)
+end if
+
+lds.update()
+commit using arg_trans;
+
+destroy lds
+
+return 1 
+end function
+

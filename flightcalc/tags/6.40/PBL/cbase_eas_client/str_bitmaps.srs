@@ -1,0 +1,6 @@
+HA$PBExportHeader$str_bitmaps.srs
+global type str_bitmaps from structure
+	blob		bBitmap
+	string		sFileName
+end type
+

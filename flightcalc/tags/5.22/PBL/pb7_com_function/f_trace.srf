@@ -1,0 +1,14 @@
+HA$PBExportHeader$f_trace.srf
+global type f_trace from function_object
+end type
+
+forward prototypes
+global function integer f_trace (string trace_text)
+end prototypes
+
+global function integer f_trace (string trace_text);
+f_Log2Csv(0,1,"[f_trace] "+trace_text)	
+
+return 0
+end function
+

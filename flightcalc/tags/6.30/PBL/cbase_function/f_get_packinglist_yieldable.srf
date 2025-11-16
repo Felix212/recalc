@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_get_packinglist_yieldable.srf
+global type f_get_packinglist_yieldable from function_object
+end type
+
+forward prototypes
+global function long f_get_packinglist_yieldable (long lindexkey)
+end prototypes
+
+global function long f_get_packinglist_yieldable (long lindexkey);// ---------------------------------------------
+// Pr$$HEX1$$fc00$$ENDHEX$$ft St$$HEX1$$fc00$$ENDHEX$$cklistenlevel
+// ---------------------------------------------
+long lKey
+long lYieldable
+
+select nyieldable into :lYieldable 
+from sys_packinglist_kinds 
+where
+	npl_kind_key = (select npl_kind_key from cen_packinglist_index where npackinglist_index_key = :lIndexKey);
+
+
+
+if sqlca.sqlcode <> 0 then
+	f_db_error(sqlca, "f_get_packinglist_yieldable")
+	return -1
+else
+	return lYieldable
+end if
+
+return lYieldable
+
+end function
+

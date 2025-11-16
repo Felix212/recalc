@@ -1,0 +1,87 @@
+HA$PBExportHeader$f_connect.srf
+$PBExportComments$Datenbankverbindung erstellen
+global type f_connect from function_object
+end type
+
+forward prototypes
+global function boolean f_connect ()
+end prototypes
+
+global function boolean f_connect ();String	sValue
+
+// ------------------------------------------
+// Profile auslesen !
+// ------------------------------------------
+If not FileExists(sProfile) Then
+	f_Log2Csv(0,2,"Couldn't find the application profile " + sProfile)
+	return False
+End if
+
+// ====================================================================
+// Datenbank-Connection mit vorheriger Zerst$$HEX1$$f600$$ENDHEX$$rung von Trans-Object
+// 
+// 18.10.05
+// Vor der Destroy erstmal pr$$HEX1$$fc00$$ENDHEX$$fen, ob wir noch verbunden sind,
+// wenn ja, dann ist es auch gut
+// ====================================================================
+If isvalid(SQLCA) then
+	
+	select dummy into :sValue from dual;
+	
+	if sqlca.sqlcode = 0 then
+		// f_Log2Csv(0,2,"Transaction is connected ")
+		return true
+	else
+		
+		f_Log2Csv(0,2,"Transaction is N-O-T connected" )
+		f_Log2Csv(0,2,"ErrorCode = " + String(sqlca.sqlcode))
+		f_Log2Csv(0,2,"ErrorText = " + String(sqlca.sqlerrtext))
+		
+		disconnect;
+		destroy(SQLCA)
+		GarbageCollect()
+		SQLCA = create transaction
+		// ------------------------------------------
+		// Database Connection
+		// ------------------------------------------
+		SQLCA.ServerName 	= ProfileString(sProfile,"Database","Server","")
+		SQLCA.DBMS 			= ProfileString(sProfile,"Database","DBMS","ODBC")
+		SQLCA.DBParm 		= ProfileString(sProfile,"Database","DBPARM","")
+		SQLCA.LogPass 		= ProfileString(sProfile,"Database","LogPass","")
+		SQLCA.LogId 		= ProfileString(sProfile,"Database","LogId","")
+		SQLCA.AutoCommit 	= False
+		connect using sqlca;
+		f_Log2Csv(0,2,"Transaction re-created to "+ SQLCA.ServerName)
+	end if
+End if
+
+If not isvalid(SQLCA) then
+	SQLCA = create transaction
+	SQLCA.ServerName 	= ProfileString(sProfile,"Database","Server","")
+	SQLCA.DBMS 			= ProfileString(sProfile,"Database","DBMS","ODBC")
+	SQLCA.DBParm 		= ProfileString(sProfile,"Database","DBPARM","")
+	SQLCA.LogPass 		= ProfileString(sProfile,"Database","LogPass","")
+	SQLCA.LogId 		= ProfileString(sProfile,"Database","LogId","")
+
+	SQLCA.AutoCommit 	= False
+	connect using sqlca;
+	f_Log2Csv(0,2,"Transaction object created  to "+ SQLCA.ServerName)
+End if
+
+// ------------------------------------------------------------------
+// Connection OK ?
+// ------------------------------------------------------------------	
+if SQLCA.SQLCode <> 0 then
+	f_Log2Csv(0,2,"Couldn't connect to database "+ SQLCA.ServerName)
+	f_Log2Csv(0,2,"ErrorCode = " + String(sqlca.sqlcode)  )
+	f_Log2Csv(0,2,"ErrorText = " + String(sqlca.sqlerrtext)  )
+	return False
+end if
+
+// 14.12.2009 HR:
+s_app.sUser = SQLCA.LogId
+f_set_logon_role(SQLCA)
+
+return True
+end function
+

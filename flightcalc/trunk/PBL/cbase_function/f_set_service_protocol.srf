@@ -1,0 +1,68 @@
+HA$PBExportHeader$f_set_service_protocol.srf
+global type f_set_service_protocol from function_object
+end type
+
+forward prototypes
+global function boolean f_set_service_protocol (long al_interface_key, long al_message_type, string as_description, string as_message)
+end prototypes
+
+global function boolean f_set_service_protocol (long al_interface_key, long al_message_type, string as_description, string as_message);/* 
+* Funktion/Event: f_set_service_protocol
+* Beschreibung: 	Schreibt einen Protokolleintrag f$$HEX1$$fc00$$ENDHEX$$r einen Dienst in die DB
+* Besonderheit: 	keine
+*
+* Argumente:
+* 	Name					Beschreibung
+*	al_intferace_key	Der Key des Dienstes (aus sys_sap_interfaces)
+*	al_message_type	Die Art des Protokolleintrags (zb. 1=Hinweis, 2=Fehler)
+*	as_description		Die Kurzbeschreibung des Eintrags
+*	as_message			Der Eintrag an sich
+*
+* Aenderungshistorie:
+* 	Version 		Wer			Wann				Was und warum
+*	1.0 			D.Bunk		27.02.2008		Erstellung
+*
+* Return Codes:
+*	true		Alles OK
+*	false		Fehler ist aufgetreten
+*/
+Long lSequence
+DateTime dtTimeStamp
+
+// Timestamp setzen
+dtTimeStamp = DateTime(today(),now())
+
+// Sequence ermitteln
+lSequence = f_sequence("seq_sys_sap_protocol",sqlca)
+if lSequence = -1 then return false
+
+// Daten in DB eintragen
+INSERT INTO sys_sap_protocol 
+(
+nprotocol_key,
+ninterface_key,
+cdescription,
+cmessage,
+nmessage_type,
+dtimestamp
+)
+VALUES
+(
+:lSequence,
+:al_interface_key,
+:as_description,
+:as_message,
+:al_message_type,
+:dtTimeStamp
+);
+
+if sqlca.sqlcode <> 0 then
+	// Fehler
+	return false
+else
+	// Alles OK
+	commit;
+	return true
+end if
+end function
+

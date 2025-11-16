@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_getcurrentdirectory.srf
+$PBExportComments$Ermitteln des Programmverzeichnisses
+global type f_getcurrentdirectory from function_object
+end type
+
+forward prototypes
+global function string f_getcurrentdirectory ()
+end prototypes
+
+global function string f_getcurrentdirectory ();string	ls_dir
+ulong		li_size
+
+
+ls_dir  = Space (254)
+li_size = GetCurrentDirectoryA (60,ls_dir)
+
+if li_size > 0 then
+	return ls_dir
+Else
+	return "error"
+end if
+
+
+
+
+end function
+

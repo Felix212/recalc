@@ -1,0 +1,65 @@
+HA$PBExportHeader$f_time_difference.srf
+global type f_time_difference from function_object
+end type
+
+forward prototypes
+global function string f_time_difference (string stimebefore, string sdeparture)
+end prototypes
+
+global function string f_time_difference (string stimebefore, string sdeparture);// -------------------------------------
+// Zeitunterschied vor Abflug in hh:mm
+// -------------------------------------
+	integer	iHour, &
+				iMinute
+	long		lSeconds,lSeconds1,lSeconds2
+	Time		tReturn
+// ----------------------------
+// Stunden Departure ermitteln
+// ----------------------------
+	iHour 	= integer(mid(sDeparture,1,2))
+// ----------------------------
+// Minuten Departure ermitteln
+// ----------------------------
+	iMinute 	= integer(mid(sDeparture,4,2))	
+// ----------------------------
+// Sekunden Departure ermitteln
+// ----------------------------
+	lSeconds1 	 = iHour   * 3600
+	lSeconds1 	+= iMinute * 60
+
+// -----------------------------------
+// Stunden TimeBefore ermitteln
+// -----------------------------------
+	iHour 	= integer(mid(sTimeBefore,1,2))
+// -----------------------------------
+// Minuten TimeBefore ermitteln
+// -----------------------------------
+	iMinute 	= integer(mid(sTimeBefore,4,2))	
+// -----------------------------------
+// Sekunden TimeBefore ermitteln
+// -----------------------------------
+	lSeconds2 	 = iHour   * 3600
+	lSeconds2 	+= iMinute * 60
+	
+	lSeconds =  lSeconds1 - lSeconds2
+// -----------------------------------
+// Departure = 01:00		( 3600)
+// Before    = 23:00		(82800)
+// -----------------------------------	
+	If lSeconds < 0 Then
+		lSeconds = 86400 - lSeconds2 + lSeconds1
+	End if	
+		
+// ----------------------------------------------
+// Formatierung hh:mm (nur innerhalb 24 Stunden)
+// ----------------------------------------------
+	If lSeconds <= 86400 Then
+		return string(RelativeTime(time("00:00"),lSeconds),"hh:mm")
+	Else
+		return "00:00"
+	End if	
+	
+	
+
+end function
+

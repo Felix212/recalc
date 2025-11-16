@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_string_to_array.srf
+global type f_string_to_array from function_object
+end type
+
+forward prototypes
+global function long f_string_to_array (string sstring, string sseparator, ref string soutputarray[])
+end prototypes
+
+global function long f_string_to_array (string sstring, string sseparator, ref string soutputarray[]);/*
+* Methode: f_string_to_array
+*
+* Argument(e): 
+*  sstring			String, vom dem das Array extrahiert werden soll
+*  sseparator		Separator
+*  soutputarray[]	String-Array, das gef$$HEX1$$fc00$$ENDHEX$$llt wird
+*
+* Beschreibung:	Erzeugt aus einem Separator getrennten String ein Array von Strings
+*
+* Aenderungshistorie:
+*  Version 		Wer			Wann 			Was und warum
+*  1.0				I.H$$HEX1$$fc00$$ENDHEX$$bler		07.09.2010 		Erstellung
+*
+* Return: long 	Gr$$HEX2$$f600df00$$ENDHEX$$e des Arrays soutputarray
+* - 1 wenn $$HEX1$$fc00$$ENDHEX$$bergebener String null oder leer ist
+*/
+
+Long lPosEnd, lPosStart = 1, lSeparatorLen, lCounter = 1
+
+IF isNull(sString) OR len(trim(sString)) = 0 THEN	RETURN -1
+
+IF UpperBound(sOutputArray) > 0 THEN sOutputArray = {""}
+lSeparatorLen = len(sSeparator)
+
+lPosEnd = Pos (sString, sSeparator, 1)
+
+DO WHILE lPosEnd > 0
+     sOutputArray[lCounter] = Mid (sString, lPosStart, lPosEnd - lPosStart)
+     lPosStart = lPosEnd + lSeparatorLen
+     lPosEnd = Pos (sString, sSeparator, lPosStart)
+     lCounter++
+LOOP
+
+sOutputArray[lCounter] = Right (sString, Len(sString) - lPosStart + 1)
+
+RETURN lCounter
+end function
+

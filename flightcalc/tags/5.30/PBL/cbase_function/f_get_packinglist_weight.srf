@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_get_packinglist_weight.srf
+global type f_get_packinglist_weight from function_object
+end type
+
+forward prototypes
+global function decimal f_get_packinglist_weight (long lpackinglist_index_key, datetime dtvalid_from, datetime dtvalid_to)
+end prototypes
+
+global function decimal f_get_packinglist_weight (long lpackinglist_index_key, datetime dtvalid_from, datetime dtvalid_to);// ---------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------
+decimal	decWeight
+datetime	dtToday
+
+dtToday = datetime(today())
+
+SELECT cen_packinglists.nweight
+ INTO :decWeight  
+ FROM cen_packinglists
+WHERE cen_packinglists.npackinglist_index_key = :lpackinglist_index_key 
+   AND cen_packinglists.dvalid_from <= :dtvalid_from
+   AND cen_packinglists.dvalid_to   >= :dtvalid_from  ;
+
+if sqlca.sqlcode <> 0 then
+	//
+	// Packinglist hat wohl keine Geschichte
+	//
+	SELECT cen_packinglists.nweight  
+	 INTO :decWeight  
+	 FROM cen_packinglists
+	WHERE cen_packinglists.npackinglist_index_key = :lpackinglist_index_key 
+		AND cen_packinglists.dvalid_from <= :dtToday
+		AND cen_packinglists.dvalid_to   >= :dtToday  ;
+
+	if sqlca.sqlcode <> 0 then
+		return decWeight
+	else
+		f_db_error(sqlca, "f_get_packinglist_weight")
+		return setnull(decWeight)
+	end if
+else
+	return decWeight
+end if
+
+
+end function
+

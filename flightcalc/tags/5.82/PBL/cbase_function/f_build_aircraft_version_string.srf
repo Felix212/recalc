@@ -1,0 +1,51 @@
+HA$PBExportHeader$f_build_aircraft_version_string.srf
+global type f_build_aircraft_version_string from function_object
+end type
+
+forward prototypes
+global function string f_build_aircraft_version_string (long lkey)
+end prototypes
+
+global function string f_build_aircraft_version_string (long lkey);string 	sAirline, &
+			sAcType, &
+			sGalleyVersion, &
+			sConfig, &
+			sReturn
+		
+
+//dw_aircraft.GetItemString(lFind, "cen_airlines_cairline") + " " + &
+//dw_aircraft.GetItemString(lFind, "cactype") + " [" + &
+//dw_aircraft.GetItemString(lFind, "cgalleyversion") + "] " + &
+//dw_aircraft.GetItemString(lFind, "cconfiguration")
+  SELECT cen_airlines.cairline,   
+         cen_aircraft.cactype,   
+         cen_aircraft.cconfiguration,   
+         cen_aircraft.cgalleyversion  
+    INTO :sAirline,   
+         :sActype,   
+         :sConfig,   
+         :sGalleyVersion  
+    FROM cen_aircraft,   
+         cen_airlines  
+   WHERE ( cen_aircraft.nairline_owner_key = cen_airlines.nairline_key ) and  
+         ( ( cen_aircraft.naircraft_key = :lkey ) )   ;
+
+
+	if sqlca.sqlcode = 0 then
+		
+		sReturn = sAirline + "  " + sActype + "  [" + sGalleyVersion + "]  " + sConfig
+		
+	elseif sqlca.sqlcode = 100 then
+		
+		sReturn = "Not Found"
+		
+	else
+		
+		sReturn = "Error"
+		
+	end if 
+
+
+return sReturn
+end function
+

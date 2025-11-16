@@ -1,0 +1,35 @@
+HA$PBExportHeader$f_getdateformat.srf
+global type f_getdateformat from function_object
+end type
+
+forward prototypes
+global function string f_getdateformat (long luserid)
+end prototypes
+
+global function string f_getdateformat (long luserid);	String sDateformat  							
+	
+	SELECT 				sys_dateformats.cdateformat  
+	INTO 					:sDateformat  							
+	FROM 					sys_countries,   
+							sys_dateformats,   
+							sys_login,   
+							sys_three_letter_codes,   
+							sys_units  
+   WHERE 				sys_dateformats.nformat_key = sys_countries.nformat_key and  
+							sys_three_letter_codes.ncountry_key = sys_countries.ncountry_key  and  
+							sys_units.ntlc_key = sys_three_letter_codes.ntlc_key  and  
+							sys_login.cunit = sys_units.cunit  and  
+							sys_login.nuser_id = :luserid    
+	USING SQLCA   ;
+	
+
+	IF SQLCA.SQLCODE = 0 Then
+		return sDateformat
+	ELSE
+		return ""
+	END IF
+
+
+
+end function
+

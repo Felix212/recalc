@@ -1,0 +1,189 @@
+HA$PBExportHeader$dw_jobs2generate_new.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=128 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=char(40) updatewhereclause=yes name=ctext dbname="cen_airlines.ctext" )
+ column=(type=char(3) updatewhereclause=yes name=cclient dbname="loc_jobs_once.cclient" )
+ column=(type=char(4) updatewhereclause=yes name=cunit dbname="loc_jobs_once.cunit" )
+ column=(type=decimal(0) updatewhereclause=yes name=nairline_key dbname="loc_jobs_once.nairline_key" )
+ column=(type=number updatewhereclause=yes name=nactiv dbname="nactiv" )
+ column=(type=decimal(0) updatewhereclause=yes name=njob_key dbname="loc_jobs_once.njobs_once_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=njob_type dbname="loc_jobs_once.njob_type" )
+ column=(type=number updatewhereclause=yes name=ndays_offset dbname="ndays_offset" )
+ column=(type=decimal(0) updatewhereclause=yes name=npax_type dbname="loc_jobs_once.npax_type" )
+ column=(type=decimal(0) updatewhereclause=yes name=nprio dbname="loc_jobs_once.nprio" )
+ column=(type=char(256) updatewhereclause=yes name=loc_jobs_once_cdescription dbname="loc_jobs_once.cdescription" )
+ column=(type=char(10) updatewhereclause=yes name=cairline dbname="cen_airlines.cairline" )
+ column=(type=number updatewhereclause=yes name=nairline_job_key dbname="nairline_job_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nparameter dbname="loc_jobs_once.nparameter" )
+ column=(type=decimal(0) updatewhereclause=yes name=njob_prio dbname="loc_jobs_once.njob_prio" )
+ column=(type=char(10) updatewhereclause=yes name=cinstance dbname="loc_jobs_once.cinstance" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_units_ntlc_key dbname="sys_units.ntlc_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_jobs_nairline_qp_key dbname="loc_jobs_once.nairline_qp_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nuse_spml dbname="loc_jobs_once.nuse_spml" )
+ column=(type=char(30) updatewhereclause=yes name=cset dbname="loc_jobs_once.cset" )
+ column=(type=decimal(0) updatewhereclause=yes name=nmealdistribution dbname="loc_jobs_once.nmealdistribution" )
+ column=(type=number updatewhereclause=yes name=njob_kind dbname="njob_kind" )
+ column=(type=decimal(0) updatewhereclause=yes name=norders_transfer dbname="loc_jobs_once.norders_transfer" )
+ column=(type=decimal(0) updatewhereclause=yes name=ncheckpt dbname="loc_jobs_once.ncheckpt" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_airlines_ntb dbname="cen_airlines.ntb" )
+ column=(type=decimal(0) updatewhereclause=yes name=ndocument_generation dbname="loc_jobs_once.ndocument_generation" )
+ column=(type=char(20) updatewhereclause=yes name=loc_jobs_once_cassigned_instance dbname="loc_jobs_once.cassigned_instance" )
+ retrieve="  SELECT cen_airlines.ctext,   
+         loc_jobs_once.cclient,   
+         loc_jobs_once.cunit,   
+         loc_jobs_once.nairline_key,   
+         1 nactiv,   
+         loc_jobs_once.njobs_once_key,   
+         loc_jobs_once.njob_type,   
+         trunc(loc_jobs_once.dgeneration_date) - trunc(sysdate) ndays_offset,   
+         loc_jobs_once.npax_type,   
+         loc_jobs_once.nprio,   
+         loc_jobs_once.cdescription,   
+         cen_airlines.cairline,   
+         0 nairline_job_key,   
+         loc_jobs_once.nparameter,   
+         loc_jobs_once.njob_prio,   
+         loc_jobs_once.cinstance,   
+         sys_units.ntlc_key,   
+         loc_jobs_once.nairline_qp_key,   
+         loc_jobs_once.nuse_spml,   
+         loc_jobs_once.cset,   
+         loc_jobs_once.NMEALDISTRIBUTION,   
+         2 njob_kind,
+		NORDERS_TRANSFER,
+		NCHECKPT,
+		cen_airlines.ntb,
+		loc_jobs_once.NDOCUMENT_GENERATION,
+		loc_jobs_once.cassigned_instance cassigned_instance
+    FROM loc_jobs_once,   
+         sys_units,   
+         cen_airlines  
+   WHERE ( loc_jobs_once.cunit = sys_units.cunit ) and  
+         ( loc_jobs_once.nairline_key = cen_airlines.nairline_key ) and  
+	    ( trunc(dnot_run_before) <= trunc(sysdate)) and
+         ( ( loc_jobs_once.nstatus = 0 ) AND  
+         (:arg_jobkind = 2 OR  
+         :arg_jobkind = 3) )    
+union all
+ SELECT cen_airlines.ctext,   
+         loc_airline_jobs.cclient,   
+         loc_airline_jobs.cunit,   
+         loc_airline_jobs.nairline_key,   
+         loc_airline_jobs.nactiv,   
+         loc_jobs.njob_key,   
+         loc_jobs.njob_type,   
+         loc_jobs.ndays_offset,   
+         loc_jobs.npax_type,   
+         loc_jobs.nprio,   
+         loc_jobs.cdescription,   
+         cen_airlines.cairline,   
+         loc_airline_jobs.nairline_job_key,   
+         loc_jobs.nparameter,   
+         loc_jobs.njob_prio,   
+         sys_units.cinstance,   
+         sys_units.ntlc_key,   
+         loc_jobs.nairline_qp_key,   
+         loc_jobs.nuse_spml,   
+         loc_jobs.cset , 
+         loc_jobs.NMEALDISTRIBUTION,   
+		1 njob_kind,
+		NORDERS_TRANSFER,
+		NCHECKPT,
+		cen_airlines.ntb,
+		loc_jobs.NDOCUMENT_GENERATION,
+		loc_jobs.cassigned_instance cassigned_instance       
+    FROM loc_airline_jobs,   
+         cen_airlines,   
+         loc_jobs,   
+         sys_units  
+   WHERE ( cen_airlines.nairline_key = loc_airline_jobs.nairline_key ) and  
+         ( loc_jobs.nairline_job_key = loc_airline_jobs.nairline_job_key ) and  
+         ( loc_airline_jobs.cunit = sys_units.cunit )   AND  
+         (:arg_jobkind = 1 OR  
+         :arg_jobkind = 3)     
+
+
+" arguments=(("arg_jobkind", number)) )
+text(band=header alignment="2" text="Cen Airlines
+Ctext" border="0" color="33554432" x="5" y="4" height="112" width="1499" html.valueishtml="0"  name=cen_airlines_ctext_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Cclient" border="0" color="33554432" x="1509" y="4" height="112" width="475" html.valueishtml="0"  name=loc_jobs_once_cclient_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Cunit" border="0" color="33554432" x="1989" y="4" height="112" width="475" html.valueishtml="0"  name=loc_jobs_once_cunit_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Nairline Key" border="0" color="33554432" x="2469" y="4" height="112" width="475" html.valueishtml="0"  name=loc_jobs_once_nairline_key_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Nactiv" border="0" color="33554432" x="2949" y="4" height="56" width="439" html.valueishtml="0"  name=nactiv_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Njobs Once Key" border="0" color="33554432" x="3392" y="4" height="112" width="512" html.valueishtml="0"  name=loc_jobs_once_njobs_once_key_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Njob Type" border="0" color="33554432" x="3909" y="4" height="112" width="475" html.valueishtml="0"  name=loc_jobs_once_njob_type_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Ndays Offset" border="0" color="33554432" x="4389" y="4" height="56" width="439" html.valueishtml="0"  name=ndays_offset_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Npax Type" border="0" color="33554432" x="4832" y="4" height="112" width="475" html.valueishtml="0"  name=loc_jobs_once_npax_type_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Nprio" border="0" color="33554432" x="5312" y="4" height="112" width="475" html.valueishtml="0"  name=loc_jobs_once_nprio_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Cdescription" border="0" color="33554432" x="5792" y="4" height="112" width="475" html.valueishtml="0"  name=loc_jobs_once_cdescription_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Cen Airlines
+Cairline" border="0" color="33554432" x="6290" y="8" height="112" width="471" html.valueishtml="0"  name=cen_airlines_cairline_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Nairline Job Key" border="0" color="33554432" x="6770" y="8" height="56" width="581" html.valueishtml="0"  name=nairline_job_key_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Nparameter" border="0" color="33554432" x="7360" y="8" height="112" width="471" html.valueishtml="0"  name=loc_jobs_once_nparameter_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Njob Prio" border="0" color="33554432" x="7840" y="8" height="112" width="471" html.valueishtml="0"  name=loc_jobs_once_njob_prio_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Sys Units
+Cinstance" border="0" color="33554432" x="8320" y="8" height="112" width="402" html.valueishtml="0"  name=sys_units_cinstance_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Sys Units
+Ntlc Key" border="0" color="33554432" x="8727" y="8" height="112" width="439" html.valueishtml="0"  name=sys_units_ntlc_key_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Nairline Qp Key" border="0" color="33554432" x="9170" y="8" height="112" width="549" html.valueishtml="0"  name=loc_jobs_once_nairline_qp_key_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Nuse Spml" border="0" color="33554432" x="9723" y="8" height="112" width="475" html.valueishtml="0"  name=loc_jobs_once_nuse_spml_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+Cset" border="0" color="33554432" x="10203" y="8" height="112" width="1134" html.valueishtml="0"  name=loc_jobs_once_cset_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Loc Jobs Once
+njob_kind" border="0" color="33554432" x="11346" y="0" height="112" width="1134" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="72" width="1499" format="[general]" html.valueishtml="0"  name=ctext visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="1509" y="4" height="72" width="146" format="[general]" html.valueishtml="0"  name=cclient visible="1" edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="1989" y="4" height="72" width="183" format="[general]" html.valueishtml="0"  name=cunit visible="1" edit.limit=4 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="2469" y="4" height="72" width="439" format="[general]" html.valueishtml="0"  name=nairline_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2949" y="4" height="72" width="439" format="[general]" html.valueishtml="0"  name=nactiv visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="3392" y="4" height="72" width="439" format="[general]" html.valueishtml="0"  name=njob_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="3909" y="4" height="72" width="439" format="[general]" html.valueishtml="0"  name=njob_type visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="4389" y="4" height="72" width="439" format="[general]" html.valueishtml="0"  name=ndays_offset visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="4832" y="4" height="72" width="439" format="[general]" html.valueishtml="0"  name=npax_type visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="5312" y="4" height="72" width="475" format="[general]" html.valueishtml="0"  name=nprio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="5792" y="4" height="72" width="475" format="[general]" html.valueishtml="0"  name=loc_jobs_once_cdescription visible="1" edit.limit=256 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="33554432" x="6290" y="8" height="60" width="471" format="[general]" html.valueishtml="0"  name=cairline visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="33554432" x="6770" y="8" height="72" width="439" format="[general]" html.valueishtml="0"  name=nairline_job_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="33554432" x="7360" y="8" height="72" width="439" format="[general]" html.valueishtml="0"  name=nparameter visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=15 alignment="1" tabsequence=32766 border="0" color="33554432" x="7840" y="8" height="72" width="439" format="[general]" html.valueishtml="0"  name=njob_prio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=17 alignment="1" tabsequence=32766 border="0" color="33554432" x="8727" y="8" height="72" width="439" format="[general]" html.valueishtml="0"  name=sys_units_ntlc_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=18 alignment="1" tabsequence=32766 border="0" color="33554432" x="9170" y="8" height="72" width="439" format="[general]" html.valueishtml="0"  name=loc_jobs_nairline_qp_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=19 alignment="1" tabsequence=32766 border="0" color="33554432" x="9723" y="8" height="72" width="439" format="[general]" html.valueishtml="0"  name=nuse_spml visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="0" color="33554432" x="10203" y="8" height="72" width="1134" format="[general]" html.valueishtml="0"  name=cset visible="1" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=22 alignment="0" tabsequence=32766 border="0" color="33554432" x="11342" y="0" height="56" width="1819" format="[general]" html.valueishtml="0"  name=njob_kind visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="65535" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="33554432" x="8334" y="8" height="56" width="343" format="[general]" html.valueishtml="0"  name=cinstance visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="if( njob_type =170,5, njob_type )"border="0" color="33554432" x="3845" y="16" height="56" width="183" format="[GENERAL]" html.valueishtml="0"  name=comp_njob_type visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="33554432" x="13161" y="0" height="56" width="1819" format="[general]" html.valueishtml="0"  name=nmealdistribution visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="0" color="33554432" x="14981" y="0" height="56" width="1819" format="[general]" html.valueishtml="0"  name=norders_transfer visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=24 alignment="0" tabsequence=32766 border="0" color="33554432" x="16800" y="0" height="56" width="1819" format="[general]" html.valueishtml="0"  name=ncheckpt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=25 alignment="0" tabsequence=32766 border="0" color="33554432" x="18619" y="0" height="56" width="1819" format="[general]" html.valueishtml="0"  name=cen_airlines_ntb visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=detail alignment="0" expression="if( njob_type =180, 1, 2)"border="0" color="33554432" x="233" y="4" height="76" width="256" format="[GENERAL]" html.valueishtml="0"  name=compute_sapjob visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )
+column(band=detail id=26 alignment="0" tabsequence=32766 border="0" color="33554432" x="20439" y="0" height="56" width="1819" format="[general]" html.valueishtml="0"  name=ndocument_generation visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=27 alignment="0" tabsequence=32766 border="0" color="33554432" x="22258" y="0" height="56" width="462" format="[general]" html.valueishtml="0"  name=loc_jobs_once_cassigned_instance visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="1" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

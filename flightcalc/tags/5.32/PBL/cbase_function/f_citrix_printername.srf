@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_citrix_printername.srf
+global type f_citrix_printername from function_object
+end type
+
+forward prototypes
+global function integer f_citrix_printername (ref string sprinter)
+end prototypes
+
+global function integer f_citrix_printername (ref string sprinter);// ------------------------------------------------
+// Die Session ID im gespeicherten Druckernamen
+// gegen die aktuelle austauschen
+// ------------------------------------------------
+Integer 	iPos
+
+iPos = Pos(sPrinter, "in session")
+
+if iPos > 0 then
+	
+	sPrinter = Mid(sPrinter, 1, iPos - 1) + "in session " + string(s_app.iCitrixSessionID)
+
+end if 
+
+return 0
+end function
+

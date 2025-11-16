@@ -1,0 +1,103 @@
+HA$PBExportHeader$dw_generate_handling_meals_dr_packets.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=nsorter dbname="nsorter" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_detail_key dbname="cen_meal_cover_dr.nhandling_detail_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_key dbname="cen_meal_cover_dr.nhandling_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nprio dbname="nprio" )
+ column=(type=decimal(0) updatewhereclause=yes name=nairline_key dbname="cen_meal_cover_dr.nairline_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=naircraft_key dbname="cen_meal_cover_dr.naircraft_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=naircraft_default dbname="cen_meal_cover_dr.naircraft_default" )
+ column=(type=datetime updatewhereclause=yes name=dvalid_from dbname="cen_meal_cover_dr.dvalid_from" )
+ column=(type=datetime updatewhereclause=yes name=dvalid_to dbname="cen_meal_cover_dr.dvalid_to" )
+ column=(type=char(5) updatewhereclause=yes name=ctime_from dbname="cen_meal_cover_dr.ctime_from" )
+ column=(type=char(5) updatewhereclause=yes name=ctime_to dbname="cen_meal_cover_dr.ctime_to" )
+ column=(type=decimal(0) updatewhereclause=yes name=npax_from dbname="npax_from" )
+ column=(type=decimal(0) updatewhereclause=yes name=npax_to dbname="npax_to" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_foreign_key dbname="cen_meals.nhandling_foreign_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_type_key dbname="cen_meal_cover_dr.nhandling_type_key" )
+ column=(type=char(30) updatewhereclause=yes name=cen_handling_ctext dbname="cen_handling.ctext" )
+ column=(type=decimal(0) updatewhereclause=yes name=nairline_owner_key dbname="cen_aircraft.nairline_owner_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_meal_cover_nowner_only dbname="nowner_only" )
+ column=(type=number updatewhereclause=yes name=nsky_quantity dbname="nsky_quantity" )
+ retrieve=" SELECT distinct   1 nSorter,
+			cen_meal_cover_dr.nhandling_detail_key,   
+         	cen_meal_cover_dr.nhandling_key,   
+         	1 nprio,   
+         	cen_meal_cover_dr.nairline_key,   
+         	cen_meal_cover_dr.naircraft_key,   
+         	cen_meal_cover_dr.naircraft_default,   
+         	cen_meal_cover_dr.dvalid_from,   
+         	cen_meal_cover_dr.dvalid_to,   
+         	cen_meal_cover_dr.ctime_from,   
+         	cen_meal_cover_dr.ctime_to,   
+         	1 npax_from,   
+         	9999 npax_to,   
+          	cen_meals.nhandling_key  nhandling_foreign_key,   
+         	:arg_nhandlingjoker nhandling_type_key,   
+         	cen_handling.ctext,   
+         	cen_aircraft.nairline_owner_key,   
+         	0 nowner_only,   
+         	-1 nsky_quantity  
+    FROM cen_meal_cover_dr,   
+         	cen_handling,   
+         	cen_aircraft,
+ 			cen_meals ,    
+         	cen_meals_packages,
+         	cen_class_name
+WHERE 	( cen_meals_packages.nhandling_meal_key = cen_meals.nhandling_meal_key ) and  
+      		( cen_meals.nclass_number = cen_class_name.nclass_number) and
+      		( cen_class_name.nairline_key = :arg_nairline_key) and
+			( cen_meals.nmodule_type = :arg_nmodule_type) and	
+      		(  ( cen_class_name.cclass||' - '|| cen_meals_packages.nairline_packages_key in	(:arg_cairline_class_packages_keys) ) or
+        		   ( 'A-L-L-E'||' - '|| cen_meals_packages.nairline_packages_key in (:arg_cairline_class_packages_keys) )) and   
+  			( cen_meal_cover_dr.nhandling_key = cen_handling.nhandling_key ) and  
+         	( cen_meal_cover_dr.naircraft_key = cen_aircraft.naircraft_key ) and  
+         	( cen_meal_cover_dr.nhandling_key = :arg_nhandling_key ) AND  
+         	( cen_meal_cover_dr.dvalid_from <= :arg_datum ) AND  
+         	( cen_meal_cover_dr.dvalid_to >= :arg_datum ) AND  
+         	( cen_meal_cover_dr.ctime_from <= :arg_ctime ) AND  
+         	( cen_meal_cover_dr.ctime_to >= :arg_ctime )   AND
+			( cen_meals.dvalid_from <= :arg_datum ) AND  
+			( cen_meals.dvalid_to >= :arg_datum )  
+" arguments=(("arg_nhandling_key", number),("arg_datum", date),("arg_ctime", string),("arg_cairline", string),("arg_nflight_number", number),("arg_ctlc_from", string),("arg_nairline_key", number),("arg_cairline_class_packages_keys", stringlist),("arg_nhandlingjoker", number),("arg_nmodule_type", number)) )
+text(band=header alignment="2" text="Cen Meals
+Nhandling Key" border="0" color="33554432" x="5" y="4" height="128" width="366" html.valueishtml="0"  name=cen_meals_nhandling_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="370" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nhandling_detail_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="2898" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nhandling_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="5426" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nprio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="7954" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nairline_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="10482" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=naircraft_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="13010" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=naircraft_default visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="15538" y="0" height="76" width="352" format="[shortdate] [time]" html.valueishtml="0"  name=dvalid_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="15890" y="0" height="76" width="352" format="[shortdate] [time]" html.valueishtml="0"  name=dvalid_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="33554432" x="16242" y="0" height="76" width="160" format="[general]" html.valueishtml="0"  name=ctime_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="16402" y="0" height="76" width="160" format="[general]" html.valueishtml="0"  name=ctime_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="33554432" x="16562" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=npax_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="19090" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=npax_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="33554432" x="21618" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nhandling_foreign_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="33554432" x="24146" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nhandling_type_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="33554432" x="26674" y="0" height="76" width="1024" format="[general]" html.valueishtml="0"  name=cen_handling_ctext visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="33554432" x="27698" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nairline_owner_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="0" color="33554432" x="30226" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=cen_meal_cover_nowner_only visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="33554432" x="32754" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nsky_quantity visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="35282" y="0" height="76" width="2528" format="[general]" html.valueishtml="0"  name=nsorter visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+text(band=foreground alignment="0" text="$$HEX1$$c400$$ENDHEX$$nderungen an allen diesem Datawindows durchf$$HEX1$$fc00$$ENDHEX$$hren (ROWSCOPY)
+dw_generate_handling_meals
+dw_generate_handling_meals_dr_packets
+" border="0" color="255" x="87" y="508" height="384" width="3090" html.valueishtml="0"  name=t_2 visible="0"  font.face="Tahoma" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

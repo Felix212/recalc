@@ -1,0 +1,28 @@
+HA$PBExportHeader$f_get_tlc_string.srf
+global type f_get_tlc_string from function_object
+end type
+
+forward prototypes
+global function string f_get_tlc_string (long lkey)
+end prototypes
+
+global function string f_get_tlc_string (long lkey);//
+// f_get_tlc_string
+//
+// liefert Three-Letter-Code-String von Key
+//
+string	sTLC
+
+select 	sys_three_letter_codes.ctlc
+into		:sTLC 
+from 		sys_three_letter_codes
+where 	sys_three_letter_codes.ntlc_key = :lKey;
+
+if sqlca.sqlcode <> 0 then
+	return ""
+end if
+
+return sTLC
+
+end function
+

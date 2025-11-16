@@ -1,0 +1,77 @@
+HA$PBExportHeader$f_check_itemlist_type.srf
+global type f_check_itemlist_type from function_object
+end type
+
+forward prototypes
+global function long f_check_itemlist_type (ref string sitemlistype)
+end prototypes
+
+global function long f_check_itemlist_type (ref string sitemlistype);/*********************************************************************************************
+* Objekt : f_check_itemlist_type
+* Methode:  (Event)
+* Autor  : Ulrich Paudler [UP]
+* Datum  : 15.07.2009
+*
+* Argument(e):	none
+* Return: none
+*
+*
+*
+*
+*
+***********************************************************************************************
+* Modifikationen:
+* Datum			Version    Autor				Kommentar
+*-----------------------------------------------------------------------------------------------
+*15.07.2009		1.1		Ulrich Paudler	SetTrans-> SetTransObject
+************************************************************************************************/
+// -------------------------------------------------------------------
+// Hole Packinglist-Level-Key aus einem Text und normalisiere den Text
+// -------------------------------------------------------------------
+DataStore 	dsTemp
+Long 			i
+Long			lKey
+Long			lCount
+String 		searchstring
+String		searchpattern
+
+lKey 		= -1
+lCount 	= 0
+
+searchpattern = Upper(sitemlistype)
+
+//Die Sonderzeichen m$$HEX1$$fc00$$ENDHEX$$ssen ersetzt werden
+f_mask_special_characters(searchpattern)
+
+searchpattern = ".*" + searchpattern + ".*"
+
+dsTemp = Create DataStore
+dsTemp.dataobject = "dw_search_itemlist_type"
+// 15.07.2009 Ulrich Paudler [UP]
+dsTemp.setTransObject(SQLCA)
+
+dsTemp.retrieve(s_app.smandant, s_app.ilanguage)
+
+for i = 1 to dsTemp.rowCount()
+	searchstring = Upper(dsTemp.getItemString(i, "compute_text"))
+
+	if Match(searchstring, searchpattern) then
+		if lCount = 0 then
+			sitemlistype = dsTemp.getItemString(i, "compute_text")
+			lKey = dsTemp.getItemNumber(i, "npackinglist_key")
+			lCount++
+		else
+			lkey = -5
+			sitemlistype = ""
+			exit
+		end if
+	end if
+	
+next
+
+Destroy(dsTemp)
+
+return lkey
+
+end function
+

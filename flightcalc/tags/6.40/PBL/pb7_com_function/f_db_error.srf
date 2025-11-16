@@ -1,0 +1,57 @@
+HA$PBExportHeader$f_db_error.srf
+$PBExportComments$Displays a standard error window for database errors.
+global type f_db_error from function_object
+end type
+
+forward prototypes
+global function integer f_db_error (transaction at_error_object, string as_error_msg)
+end prototypes
+
+global function integer f_db_error (transaction at_error_object, string as_error_msg);///////////////////////////////////////////////////////////////////////////
+//
+// Function:	f_db_error
+//
+//	Purpose:
+//
+// 	Function f_db_error is passed a transaction object (i.e. SQLCA). If
+//		the transaction object's sqlcode identifies an error, the function
+//		then displays a window containing an error message passed from the
+//		application in addition to the error message pertaining to the
+//		specific RDBMS currently in use.
+// 
+// 	The window also allows the user to print the message
+//
+//
+// Arguments:
+// 				at_error_object 		: transaction object (i.e. SQLCA )
+//					as_error_msg 	 		: string (application specific message)
+//
+// Returns : integer 
+//
+//	DATE			NAME			REVISION
+// ----		------------------------------------------------------------
+//	Powersoft Corporation	INITIAL VERSION
+/////////////////////////////////////////////////////////////////////////
+
+string ls_string
+if at_error_object.sqlcode = 0 then return 0
+
+ls_string = as_error_msg + "~r~n~r~n"
+ls_string = ls_string + "Transaction Error Code : " + string(at_error_object.sqlcode) + "~r~n"
+ls_string = ls_string + "Database Error Code    : " + string(at_error_object.sqldbcode)+ "~r~n"
+ls_string = ls_string + "DBMS                   : " + at_error_object.dbms+ "~r~n"
+ls_string = ls_string + "Database               : " + at_error_object.database+ "~r~n"
+ls_string = ls_string + "User ID                : " + at_error_object.userid+ "~r~n"
+ls_string = ls_string + "DBParm                 : " + at_error_object.dbparm+ "~r~n"
+ls_string = ls_string + "Login ID               : " + at_error_object.logid+ "~r~n"
+ls_string = ls_string + "ServerName             : " + at_error_object.servername+ "~r~n"
+ls_string = ls_string + "AutoCommit             : " + f_boolean_to_string(at_error_object.autocommit)+ "~r~n"
+ls_string = ls_string + "Database Error Message : " + at_error_object.sqlerrtext + "~r~n"
+
+f_log("DBERROR", ls_string)
+
+return 1
+
+		
+end function
+

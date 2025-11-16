@@ -1,0 +1,17 @@
+HA$PBExportHeader$lpdata.srs
+global type lpdata from structure
+	unsignedlong		dwsignature
+	unsignedlong		dwstrucversion
+	unsignedlong		dwfileversionms
+	unsignedlong		dwfileversionls
+	unsignedlong		dwproductversionms
+	unsignedlong		dwproductversionls
+	unsignedlong		dwfileflagsmask
+	unsignedlong		dwfileflags
+	unsignedlong		dwfileos
+	unsignedlong		dwfiletype
+	unsignedlong		dwfilesubtype
+	unsignedlong		dwfiledatems
+	unsignedlong		dwfiledatels
+end type
+

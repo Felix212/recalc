@@ -1,0 +1,52 @@
+HA$PBExportHeader$f_citrix_get_acrobat_printer.srf
+global type f_citrix_get_acrobat_printer from function_object
+end type
+
+forward prototypes
+global function string f_citrix_get_acrobat_printer ()
+end prototypes
+
+global function string f_citrix_get_acrobat_printer ();// -----------------------------------------------------------
+// Funktion zur Ermittlung des Acrobat Druckernamens
+// ----------------------------------------------------------
+
+
+Integer 	i, iRet
+String	sPrinterList, sPrinters[], sPrinter
+integer 	iPos
+
+sPrinterList = f_get_printer_list(";")	
+
+
+Do While sPrinterList <> ""
+	sPrinter = f_get_token(sPrinterList,";")
+	sPrinters[Upperbound(sPrinters) + 1]  = sPrinter
+Loop
+
+// -------------------------------------------------
+// Die Liste der Drucker durchlaufen
+// -------------------------------------------------
+For i = 1 to Upperbound(sPrinters)
+	
+	// -------------------------------------------------
+	// Pr$$HEX1$$fc00$$ENDHEX$$fen, ob der Drucker zu meiner Workstation
+	// geh$$HEX1$$f600$$ENDHEX$$rt
+	// -------------------------------------------------
+	if Pos(Upper(sPrinters[i]), Upper(s_app.sHost)) > 0 then
+	
+		// ------------------------------------------------------
+		// R$$HEX1$$fc00$$ENDHEX$$ckgabe des Druckernamens, wenn es der Acrobat ist
+		// 
+		// ------------------------------------------------------
+		iPos = Pos(Upper(sPrinters[i]), "ACROBAT PDFWRITER")
+		if iPos > 0 then 
+			return sPrinters[i]
+		end if
+		
+	end if
+	
+Next
+
+return "Acrobat not installed"
+end function
+

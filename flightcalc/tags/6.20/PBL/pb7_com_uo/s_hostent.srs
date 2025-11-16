@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_hostent.srs
+$PBExportComments$pbhostent is the structure returned by gethostby winsock user object functions
+global type s_hostent from structure
+	string		h_name
+	string		h_aliases[]
+	integer		h_addrtype
+	integer		h_length
+	unsignedlong		h_addr_list[]
+end type
+

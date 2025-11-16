@@ -1,0 +1,96 @@
+HA$PBExportHeader$dw_textfile_cen_out.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(1) updatewhereclause=yes name=cheader dbname="cheader" )
+ column=(type=char(4) updatewhereclause=yes name=csales_org dbname="csales_org" )
+ column=(type=char(2) updatewhereclause=yes name=csales_channel dbname="csales_channel" )
+ column=(type=char(2) updatewhereclause=yes name=cdivision dbname="cdivision" )
+ column=(type=decimal(0) updatewhereclause=yes name=nreference dbname="nreference" )
+ column=(type=char(5) updatewhereclause=yes name=ccust_acronym dbname="ccust_acronym" )
+ column=(type=decimal(0) updatewhereclause=yes name=nflight_number dbname="nflight_number" )
+ column=(type=char(1) updatewhereclause=yes name=csuffix dbname="csuffix" )
+ column=(type=datetime updatewhereclause=yes name=dref_date dbname="dref_date" )
+ column=(type=char(10) updatewhereclause=yes name=ccustomer dbname="ccustomer" )
+ column=(type=char(10) updatewhereclause=yes name=crecipient dbname="crecipient" )
+ column=(type=datetime updatewhereclause=yes name=ddelivery_date dbname="ddelivery_date" )
+ column=(type=decimal(2) updatewhereclause=yes name=nairport_fee_proz dbname="nairport_fee_proz" )
+ column=(type=decimal(2) updatewhereclause=yes name=nairport_fee dbname="nairport_fee" )
+ column=(type=char(15) updatewhereclause=yes name=caircraft dbname="caircraft" )
+ column=(type=char(7) updatewhereclause=yes name=crouting dbname="crouting" )
+ column=(type=char(1) updatewhereclause=yes name=cflight_indicator dbname="cflight_indicator" )
+ column=(type=char(10) updatewhereclause=yes name=ccompany dbname="ccompany" )
+ column=(type=char(12) updatewhereclause=yes name=cpo_number dbname="cpo_number" )
+ retrieve="select CHEADER           ,
+		CSALES_ORG        ,
+		CSALES_CHANNEL    ,
+		CDIVISION         ,
+		NREFERENCE        ,
+		CCUST_ACRONYM     ,
+		NFLIGHT_NUMBER    ,
+		CSUFFIX     ,
+		DREF_DATE         ,
+		CCUSTOMER         ,
+		CRECIPIENT        ,
+		DDELIVERY_DATE    ,
+		NAIRPORT_FEE_PROZ ,
+		NAIRPORT_FEE      ,
+		CAIRCRAFT         ,
+		CROUTING          ,
+		CFLIGHT_INDICATOR ,
+		CCOMPANY           ,
+		CPO_NUMBER        
+ from table(CBASE_SAP.PF_GET_IF401_HEADER(:arg_nresult_key, :arg_ndoc_number_master))
+" arguments=(("arg_nresult_key", number),("arg_ndoc_number_master", number)) )
+text(band=header alignment="2" text="Cheader" border="0" color="33554432" x="9" y="8" height="64" width="219" html.valueishtml="0"  name=cheader_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Csales Org" border="0" color="33554432" x="238" y="8" height="64" width="283" html.valueishtml="0"  name=csales_org_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Csales Channel" border="0" color="33554432" x="530" y="8" height="64" width="398" html.valueishtml="0"  name=csales_channel_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cdivision" border="0" color="33554432" x="937" y="8" height="64" width="229" html.valueishtml="0"  name=cdivision_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nreference" border="0" color="33554432" x="1175" y="8" height="64" width="329" html.valueishtml="0"  name=nreference_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ccust Acronym" border="0" color="33554432" x="1513" y="8" height="64" width="389" html.valueishtml="0"  name=ccust_acronym_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nflight Number" border="0" color="33554432" x="1911" y="8" height="64" width="389" html.valueishtml="0"  name=nflight_number_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Dref Date" border="0" color="33554432" x="2309" y="8" height="64" width="603" html.valueishtml="0"  name=dref_date_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ccustomer" border="0" color="33554432" x="2921" y="8" height="64" width="302" html.valueishtml="0"  name=ccustomer_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Crecipient" border="0" color="33554432" x="3232" y="8" height="64" width="302" html.valueishtml="0"  name=crecipient_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ddelivery Date" border="0" color="33554432" x="3543" y="8" height="64" width="603" html.valueishtml="0"  name=ddelivery_date_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nairport Fee Proz" border="0" color="33554432" x="4155" y="8" height="64" width="457" html.valueishtml="0"  name=nairport_fee_proz_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nairport Fee" border="0" color="33554432" x="4622" y="8" height="64" width="329" html.valueishtml="0"  name=nairport_fee_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cflight Indicator" border="0" color="33554432" x="4960" y="8" height="64" width="411" html.valueishtml="0"  name=cflight_indicator_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cpo Number" border="0" color="33554432" x="5381" y="8" height="64" width="357" html.valueishtml="0"  name=cpo_number_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Caircraft" border="0" color="33554432" x="5746" y="4" height="76" width="398" html.valueishtml="0"  name=caircraft_t visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+text(band=header alignment="0" text="Crouting" border="0" color="33554432" x="6153" y="4" height="76" width="178" html.valueishtml="0"  name=crouting_t visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+text(band=header alignment="0" text="Ccompany" border="0" color="33554432" x="6341" y="4" height="76" width="261" html.valueishtml="0"  name=ccompany_t visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+text(band=header alignment="0" text="Csuffix" border="0" color="33554432" x="6610" y="4" height="76" width="242" html.valueishtml="0"  name=csuffix_t visible="1"  font.face="Tahoma" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="76" width="219" format="[general]" html.valueishtml="0"  name=cheader visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="238" y="8" height="76" width="283" format="[general]" html.valueishtml="0"  name=csales_org visible="1" edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="530" y="8" height="76" width="398" format="[general]" html.valueishtml="0"  name=csales_channel visible="1" edit.limit=2 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="937" y="8" height="76" width="229" format="[general]" html.valueishtml="0"  name=cdivision visible="1" edit.limit=2 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1175" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=nreference visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="1513" y="8" height="76" width="389" format="[general]" html.valueishtml="0"  name=ccust_acronym visible="1" edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="1911" y="8" height="76" width="389" format="[general]" html.valueishtml="0"  name=nflight_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="2309" y="8" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=dref_date visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="33554432" x="2921" y="8" height="76" width="302" format="[general]" html.valueishtml="0"  name=ccustomer visible="1" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="3232" y="8" height="76" width="302" format="[general]" html.valueishtml="0"  name=crecipient visible="1" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="33554432" x="3543" y="8" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=ddelivery_date visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="33554432" x="4155" y="8" height="76" width="457" format="[general]" html.valueishtml="0"  name=nairport_fee_proz visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="33554432" x="4622" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=nairport_fee visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="33554432" x="4960" y="8" height="76" width="411" format="[general]" html.valueishtml="0"  name=cflight_indicator visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="33554432" x="5381" y="8" height="76" width="357" format="[general]" html.valueishtml="0"  name=cpo_number visible="1" edit.limit=12 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="33554432" x="5746" y="0" height="64" width="398" format="[general]" html.valueishtml="0"  name=caircraft visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="33554432" x="6153" y="0" height="64" width="178" format="[general]" html.valueishtml="0"  name=crouting visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="0" color="33554432" x="6341" y="0" height="64" width="261" format="[general]" html.valueishtml="0"  name=ccompany visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="6610" y="0" height="64" width="242" format="[general]" html.valueishtml="0"  name=csuffix visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,13 @@
+HA$PBExportHeader$s_product_log.srs
+global type s_product_log from structure
+	long		lResultKey
+	long		lTransaction
+	long		lProduct
+	long		lDuration
+	string		sWorkstation
+	string		sUser
+	long		lLabelQuantity
+	long		lDistribution
+	string		sLabelAreas
+end type
+

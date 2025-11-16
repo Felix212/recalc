@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_getownername.srf
+global type f_getownername from function_object
+end type
+
+forward prototypes
+global function string f_getownername (long lownerid)
+end prototypes
+
+global function string f_getownername (long lownerid);/* 
+-------------------------------------------------------------
+Diese Funktion gibt den Owner-Namen zur$$HEX1$$fc00$$ENDHEX$$ck
+Wird z.B. ben$$HEX1$$f600$$ENDHEX$$tigt um den Namen in der Statusbar anzuzeigen
+------------------------------------------------------------- 
+*/
+
+STRING		sOwnerName
+
+
+SELECT 	ctext  
+INTO 		:sOwnerName  
+FROM 		sys_groups  
+WHERE 	sys_groups.nowner_id = :lOwnerID   
+USING SQLCA;
+
+IF SQLCA.SQLCODE <> 0 OR IsNull(sOwnerName) THEN
+	sOwnerName = ""
+END IF
+
+RETURN sOwnerName
+end function
+

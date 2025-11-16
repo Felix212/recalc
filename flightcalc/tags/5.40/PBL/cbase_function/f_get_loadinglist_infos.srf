@@ -1,0 +1,43 @@
+HA$PBExportHeader$f_get_loadinglist_infos.srf
+global type f_get_loadinglist_infos from function_object
+end type
+
+forward prototypes
+global function s_handling_info f_get_loadinglist_infos (string sloadinglist, datetime dtcheck)
+end prototypes
+
+global function s_handling_info f_get_loadinglist_infos (string sloadinglist, datetime dtcheck);
+Long 		lKey
+s_handling_info	strReturn
+
+select cen_loadinglist_index.nloadinglist_index_key, 
+		 cen_loadinglist_index.nloadinglist_key, 
+		 cen_loadinglist_index.ctext
+
+    INTO :strReturn.lIndexKey,
+	 		:strReturn.lType,
+	 		:strReturn.sText	 		
+    FROM cen_loadinglist_index  
+   WHERE cen_loadinglist_index.cloadinglist = :sloadinglist and
+	      cen_loadinglist_index.dvalid_from <= :dtCheck and 
+	      cen_loadinglist_index.dvalid_to >= :dtCheck ;
+	
+if sqlca.sqlcode = 0 then
+	return strReturn
+elseif sqlca.sqlcode = 100 then
+	strReturn.lIndexKey	= -1
+	strReturn.lType		= -1
+	strReturn.sText		= "not Found"
+	Return strReturn
+else
+	f_db_error(sqlca, "f_get_loadinglist_infos()")
+	strReturn.lIndexKey	= -1
+	strReturn.lType		= -1
+	strReturn.sText		= "Error"
+	Return strReturn
+end if
+	
+	
+
+end function
+

@@ -1,0 +1,15 @@
+HA$PBExportHeader$f_set_orga_string.srf
+global type f_set_orga_string from function_object
+end type
+
+forward prototypes
+global function integer f_set_orga_string (datawindow odw, string sstatictext)
+end prototypes
+
+global function integer f_set_orga_string (datawindow odw, string sstatictext);
+
+oDW.Modify(sStaticText + ".text = '" + s_app.sOrga + "'")
+
+return 0
+end function
+

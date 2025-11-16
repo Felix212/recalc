@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_get_unit_name.srf
+$PBExportComments$Betriebsnamen ermitteln
+global type f_get_unit_name from function_object
+end type
+
+forward prototypes
+global function string f_get_unit_name (string sunit)
+end prototypes
+
+global function string f_get_unit_name (string sunit);// -----------------------------------------
+// Langnamen des Betriebs holen
+// -----------------------------------------
+
+String 		sText
+
+SELECT sys_units.ctext  
+  INTO :sText  
+  FROM sys_units  
+ WHERE sys_units.cunit = :sUnit;
+ 
+if sqlca.sqlcode = 0 then
+	return sText
+elseif sqlca.sqlcode = 100 then
+	f_log2csv(0,3,"Not found select sys_units: (" + sUnit + ")")
+	return sUnit + "not found!"
+else
+	f_log2csv(0,3,"Error select sys_units: (" + sUnit + "): " + sqlca.sqlerrtext)
+	return "Error"
+end if
+
+
+end function
+

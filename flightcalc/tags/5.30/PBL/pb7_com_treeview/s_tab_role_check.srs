@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_tab_role_check.srs
+global type s_tab_role_check from structure
+	userobject		oTabpage
+	long		lRoleID
+end type
+

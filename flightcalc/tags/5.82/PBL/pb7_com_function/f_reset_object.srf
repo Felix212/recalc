@@ -1,0 +1,54 @@
+HA$PBExportHeader$f_reset_object.srf
+$PBExportComments$Diese Funktion resetet (l$$HEX1$$f600$$ENDHEX$$scht) bestimmte Objekte im DataWindow. Wird z.B. ben$$HEX1$$f600$$ENDHEX$$tigt, um Stauorte im Report-DW zu l$$HEX1$$f600$$ENDHEX$$schen, bevor ein Retrieve stattfindet.
+global type f_reset_object from function_object
+end type
+
+forward prototypes
+global function integer f_reset_object (datawindow dwtoreset, string sobjectprefixtokill)
+end prototypes
+
+global function integer f_reset_object (datawindow dwtoreset, string sobjectprefixtokill);// --------------------------------------------------------------------------------
+// Diese Funktion resetet (l$$HEX1$$f600$$ENDHEX$$scht) bestimmte Objekte
+// im DataWindow. Die Funktion wird ben$$HEX1$$f600$$ENDHEX$$tigt, um die
+// Textobjekte (sprich Stauorte) vor dem Retrieve
+// zu vernichten. Sonst haben wir Dopplungen im DW,
+// da die Objekte nicht auf den normalen Reset 
+// ansprechen.
+// Der R$$HEX1$$fc00$$ENDHEX$$ckgabewert ist die Anzahl der gel$$HEX1$$f600$$ENDHEX$$schten
+// Objekte
+//
+//
+// 	Parameter:		
+//				dwToReset					DataWindow in welchem gel$$HEX1$$f600$$ENDHEX$$scht wird
+//				sObjectPrefixToKill		Zeichenkette, die die zu l$$HEX1$$f600$$ENDHEX$$schenden
+//												Objekte spezifiziert 
+//												Beispiel:	t_	
+//																l$$HEX1$$f600$$ENDHEX$$scht alle static Textfelder												
+//
+// --------------------------------------------------------------------------------
+
+String	sAllDWObjects
+String	sObjectToKill
+Integer	iPosInString, iTabPosInString, iAnz
+
+sAllDWObjects = dwtoreset.Describe("DataWindow.Objects")
+
+iPosInString = Pos(sAllDWObjects, sobjectprefixtokill, 1)
+
+Do While iPosInString > 0
+	
+	iTabPosInString 	= Pos (sAllDWObjects, "~t", iPosInString)		// wo ist der Tab
+	sObjectToKill 		= Mid(sAllDWObjects, iPosInString, iTabPosInString - iPosInString)
+	sAllDWObjects		= Mid(sAllDWObjects, iTabPosInString)
+	
+	dwtoreset.Modify("destroy " + sObjectToKill)
+	
+	iPosInString = Pos(sAllDWObjects, sobjectprefixtokill, 1)
+
+	iAnz ++
+Loop
+
+return iAnz
+
+end function
+

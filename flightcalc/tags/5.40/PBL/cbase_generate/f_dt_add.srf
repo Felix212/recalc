@@ -1,0 +1,74 @@
+HA$PBExportHeader$f_dt_add.srf
+$PBExportComments$Addiert x Sekunden zu einem Datetime und gibt eine Datetime zur$$HEX1$$fc00$$ENDHEX$$ck
+global type f_dt_add from function_object
+end type
+
+forward prototypes
+global function datetime f_dt_add (datetime dt, long diff)
+end prototypes
+
+global function datetime f_dt_add (datetime dt, long diff);/* ### Event: f_dt_add *************************************************
+ *
+ * Beschreibung : Liefert die Uhrzeit als Datetime zur$$HEX1$$fc00$$ENDHEX$$ck, die diff Sekunden 
+ *                nach einem Datetime Wert liegt.
+ *
+ * Aenderungshistorie
+ *  Version  Wer                        Wann        Was und warum
+ *   1.0     H.Rothenbach /LSY IS       23.02.2007  Erstellung
+ *
+ * ### END Eventdoku ***************************************************
+ */
+integer tage,pm
+long zeit,a
+time t1
+date d1
+
+if diff>0 then
+	pm=1
+else
+	diff= -1 * diff
+	pm=0
+end if
+
+if diff>=86400 then
+	zeit=mod(diff,86400)
+	tage=(diff - zeit) / 86400
+else
+	tage=0
+	zeit=diff
+end if
+
+if pm=0 then
+	zeit = -1 * zeit
+	tage = -1 * tage
+end if
+
+if pm=0 then
+	a=secondsafter(time("00:00:00"),time(dt))
+	
+	if a< -1* zeit then
+		t1=relativetime(time("23:59:59"), zeit + a +1)
+		tage=tage -1
+	else
+		t1=relativetime(time(dt),zeit)		
+	end if
+else
+	a=secondsafter(time(dt),time("23:59:59"))
+	
+	if a< zeit then
+		t1=relativetime(time("00:00:00"), zeit - a -1)
+		tage=tage +1
+	else
+		t1=relativetime(time(dt),zeit)		
+	end if
+	
+end if
+	
+d1=relativedate(date(dt),tage)
+
+return datetime(d1,t1)
+
+
+
+end function
+

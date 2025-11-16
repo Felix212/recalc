@@ -1,0 +1,42 @@
+HA$PBExportHeader$f_airline_to_number.srf
+global type f_airline_to_number from function_object
+end type
+
+forward prototypes
+global function long f_airline_to_number (string sval)
+end prototypes
+
+global function long f_airline_to_number (string sval);// -----------------------------------------------
+// Airline Text in Airline Key umwandeln
+// -----------------------------------------------
+
+Long lReturn
+Long lOwner
+
+SELECT cen_airlines.nairline_key , 
+       cen_airlines.nowner_id
+  INTO :lReturn , 
+       :lOwner
+  FROM cen_airlines  
+ WHERE (cen_airlines.cairline = :sVal ) ;
+
+
+if sqlca.sqlcode = 0 then
+	
+	if f_check_owner_id(lOwner) = True or IsNull(lOwner) then
+		return lReturn
+	else
+		return -1
+	end if
+	
+elseif sqlca.sqlcode = 100 then
+	return -1
+else
+	uf.mbox("Achtung", "DB-Error: ${" + String(sqlca.sqlcode) + "}~r~r${" + sqlca.sqlerrtext + "}", StopSign!)
+	return -1
+end if
+	
+
+
+end function
+

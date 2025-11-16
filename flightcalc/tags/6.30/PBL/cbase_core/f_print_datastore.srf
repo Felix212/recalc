@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_print_datastore.srf
+$PBExportComments$Druckvorschau f$$HEX1$$fc00$$ENDHEX$$r datastores
+global type f_print_datastore from function_object
+end type
+
+forward prototypes
+global function integer f_print_datastore (datastore odw)
+end prototypes
+
+global function integer f_print_datastore (datastore odw);s_print_preview 	sPreview
+window wprint
+
+
+IF Handle(GetApplication()) = 0 THEN
+	// ---------------------------
+   // Running in PB environment
+	// ---------------------------
+	
+	oDW.GetFullState(sPreview.bData)
+	OpenWithParm ( w_report_preview, sPreview )
+	
+	
+ELSE
+  // ---------------------------------	
+  // Running in standalone executable
+  // ---------------------------------
+  
+  oDW.Print()
+  
+END IF
+
+
+return 0
+
+	
+	
+
+
+end function
+

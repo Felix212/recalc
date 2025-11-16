@@ -1,0 +1,70 @@
+HA$PBExportHeader$f_bc_protocol_result.srf
+$PBExportComments$Funktion erzeugt Eintrag in Mastertabelle des Business-Connector-Protokolls
+global type f_bc_protocol_result from function_object
+end type
+
+forward prototypes
+global function boolean bc_protocol ()
+global function boolean f_bc_protocol_result (s_bc_protocol sbcp, transaction ttrans)
+end prototypes
+
+global function boolean bc_protocol ();return True
+end function
+
+global function boolean f_bc_protocol_result (s_bc_protocol sbcp, transaction ttrans);// ----------------------------------------------
+// BC Protokol in Datenbank
+// ----------------------------------------------
+// sbcp.iImportType		1-6
+// 							1 = Aircraftstamm
+// 							2 = Sammelst$$HEX1$$fc00$$ENDHEX$$ckliste
+// 							3 = Zusatzbeladeliste
+// 							4 = Einzelst$$HEX1$$fc00$$ENDHEX$$ckliste
+// 							5 = Artikel
+// 							6 = St$$HEX1$$fc00$$ENDHEX$$cklistentypen
+//							 	0 = BC-Start
+//								99 = BC-Ende
+// sbcp.iImport_Modus	1-3	neu-update-delete
+// sbcp.iUser_Group		1-2	admin-anwender
+// sbcp.iMessage_Type	1-2	fehler-information
+// ----------------------------------------------
+	Long 	lSequence
+	datetime dtNow
+	
+	dtNow = datetime(today(),now())
+	
+	lSequence = f_Sequence ("seq_sys_bc_promaster",ttrans)
+	If  lSequence = -1 Then
+		return False
+	End if	
+		
+   INSERT INTO sys_bc_promaster
+         ( nprotokol_key,   
+           cclient,   
+           dbc_import_date,  
+			  dbc_import_time,
+           nbc_import_type,   
+           nbc_import_modus,   
+           nbc_user_group,   
+           nbc_message_type,   
+           nbc_quantity)  
+   VALUES (:lSequence,   
+           :sbcp.sclient,   
+           :sbcp.dtimport_date, 
+			  :dtNow,
+           :sbcp.iImportType,    
+           :sbcp.iImport_Modus,   
+           :sbcp.iUser_Group,   
+           :sbcp.iMessage_Type,          
+           :sbcp.lQuantity)  using ttrans;
+
+
+
+	If TTRANS.SQLCODE <> 0 Then
+		return False
+	Else
+		commit using ttrans;
+	End if
+
+	return True
+end function
+

@@ -1,0 +1,35 @@
+HA$PBExportHeader$f_get_printer.srf
+$PBExportComments$Gibt den Namen des aktuell gew$$HEX1$$e400$$ENDHEX$$hlten Druckers zur$$HEX1$$fc00$$ENDHEX$$ck
+global type f_get_printer from function_object
+end type
+
+forward prototypes
+global function string f_get_printer ()
+end prototypes
+
+global function string f_get_printer ();/*
+* Objekt : f_get_printer (Function)
+* Autor  : Dirk Bunk
+* Datum  : 16.11.2012
+*
+* Argument(e):
+*   keine
+*
+* Beschreibung: Gibt den Namen des aktuell gew$$HEX1$$e400$$ENDHEX$$hlten Druckers zur$$HEX1$$fc00$$ENDHEX$$ck.	
+*
+* $$HEX1$$c400$$ENDHEX$$nderungshistorie:
+*   Version    Wer          Wann          Was und warum
+*   1.0        Dirk Bunk    16.11.2012    Erstellung
+*
+* Return: 
+*   Der Name des aktuell gew$$HEX1$$e400$$ENDHEX$$hlten Druckers.
+*/
+
+string ls_Printer = ""
+
+ls_Printer = PrintGetPrinter()
+ls_Printer = Left(ls_Printer, Pos(ls_Printer, "~t") - 1)
+
+return ls_Printer
+end function
+

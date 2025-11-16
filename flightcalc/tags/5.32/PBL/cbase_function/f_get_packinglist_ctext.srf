@@ -1,0 +1,108 @@
+HA$PBExportHeader$f_get_packinglist_ctext.srf
+$PBExportComments$St$$HEX1$$fc00$$ENDHEX$$cklistentext f$$HEX1$$fc00$$ENDHEX$$r aktuelle G$$HEX1$$fc00$$ENDHEX$$ltigkeit, falls nicht gefunden: irgendeine G$$HEX1$$fc00$$ENDHEX$$ltigkeit
+global type f_get_packinglist_ctext from function_object
+end type
+
+forward prototypes
+global function string f_get_packinglist_ctext (string spackinglist, datetime drefdate)
+end prototypes
+
+global function string f_get_packinglist_ctext (string spackinglist, datetime drefdate);// ---------------------------------------------
+// Hole Packinglist-Key aus einem Text
+// ---------------------------------------------
+long lKey
+
+SELECT cen_packinglist_index.npackinglist_index_key
+ INTO :lKey  
+ FROM cen_packinglist_index
+WHERE cen_packinglist_index.cclient 			= :s_app.smandant 
+  AND	cen_packinglist_index.cpackinglist		= :sPackinglist ;
+
+if sqlca.sqlcode <> 0 then
+	return "Error"
+else
+//	return lKey
+
+
+// ---------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------
+string	sText
+datetime	dtToday
+long		lDetailKey
+
+dtToday = datetime(today())
+
+SELECT cen_packinglists.ctext  
+ INTO :sText  
+ FROM cen_packinglists
+WHERE cen_packinglists.npackinglist_index_key = :lkey 
+   AND cen_packinglists.dvalid_from <= :drefdate
+   AND cen_packinglists.dvalid_to   >= :drefdate  ;
+
+if sqlca.sqlcode <> 0 then
+	//
+	// Packinglist hat wohl keine Geschichte
+	// 2. Versuch mit Datum heute
+	//
+	SELECT cen_packinglists.ctext  
+	 INTO :sText  
+	 FROM cen_packinglists
+	WHERE cen_packinglists.npackinglist_index_key = :lkey 
+		AND cen_packinglists.dvalid_from <= :dtToday
+		AND cen_packinglists.dvalid_to   >= :dtToday  ;
+
+	if sqlca.sqlcode = 0 then
+		return sText
+
+	elseif sqlca.sqlcode = 100 then
+		//
+		// Immer noch nichts gefunden
+		// 3. Versuch mit dem erstbesten Treffer
+		//
+		declare cdetail2 cursor for 
+		select cen_packinglists.npackinglist_detail_key,
+				 cen_packinglists.ctext 
+		from   cen_packinglist_index, 
+				 cen_packinglists 
+		where  cen_packinglist_index.npackinglist_index_key = cen_packinglists.npackinglist_index_key and
+				 cen_packinglist_index.npackinglist_index_key = :lkey
+		order by cen_packinglists.npackinglist_detail_key		;
+		
+		open cdetail2;
+		if sqlca.sqlcode <> 0 then
+			sText  = "Text N/A"
+			close cdetail2;
+			return sText
+		end if
+		
+		fetch cdetail2 into :lDetailKey, :sText;
+		
+		if sqlca.sqlcode = 0 then
+			close cdetail2;
+			return sText
+		elseif sqlca.sqlcode = 100 then
+			sText  = "Text N/A"
+			close cdetail2;
+			return sText
+		else
+			f_db_error(sqlca, "f_get_packinglist_ctext")
+			sText = "Error"
+			close cdetail2;
+			return sText
+		end if
+		
+	else
+		return "Error"
+	end if
+else
+	return sText
+end if
+
+
+
+end if
+
+
+end function
+

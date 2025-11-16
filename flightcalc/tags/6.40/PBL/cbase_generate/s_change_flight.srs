@@ -1,0 +1,42 @@
+HA$PBExportHeader$s_change_flight.srs
+global type s_change_flight from structure
+	long		lresultkey
+	long		laircraftkey
+	long		lversion_group_key
+	long		lhandlingtypekey
+	string		sdeparturetime
+	date		ddeparture
+	boolean		bsuccess
+	string		smessage
+	uo_generate_datastore		dssingle
+	uo_generate_datastore		dspax
+	uo_generate_datastore		dspriormeals
+	boolean		bmeals
+	uo_generate_datastore		dspriorextra
+	uo_generate_datastore		dsnewmeals
+	uo_generate_datastore		dsnewextra
+	boolean		bdomealcalculation
+	boolean		bextra
+	boolean		bnewspaper
+	long		lcurrentrow
+	integer		imode
+	long		lairlinekey
+	integer		istatus
+	uo_generate_datastore		dsnewspml
+	uo_generate_datastore		dspriorspml
+	uo_generate_datastore		dspriorpax
+	uo_generate_datastore		dsnewspmldetail
+	uo_generate_datastore		dscurrentmeals
+	uo_generate_datastore		dscurrentextra
+	window		wparentwindow
+	integer		itimeadjustment
+	string		sramptime
+	string		skitchentime
+	uo_generate_datastore		dsoldmeals
+	uo_generate_datastore		dsoldextra
+	long		lpl_levels[]
+	uo_generate_datastore		dspackets
+	uo_generate_datastore		dsCenMealsDetDeduction
+	uo_generate_datastore		dsCenExternalPreorder
+end type
+

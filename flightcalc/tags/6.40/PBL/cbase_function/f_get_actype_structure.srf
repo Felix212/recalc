@@ -1,0 +1,45 @@
+HA$PBExportHeader$f_get_actype_structure.srf
+global type f_get_actype_structure from function_object
+end type
+
+forward prototypes
+global function str_actype f_get_actype_structure (long lkey)
+end prototypes
+
+global function str_actype f_get_actype_structure (long lkey);str_actype strRet
+
+
+  SELECT cen_aircraft.cactype,   
+         cen_aircraft.cconfiguration,   
+         cen_aircraft.cgalleyversion,
+			cen_aircraft.nairline_owner_key
+			
+    INTO :strRet.cactype,   
+         :strRet.cconfig,   
+         :strRet.cgalleyversion,
+			:strRet.lOwner
+			
+    FROM cen_aircraft  
+   WHERE cen_aircraft.naircraft_key = :lkey   ;
+
+
+if sqlca.sqlcode = 100 then
+	
+		strRet.cactype        = "Not found"
+      strRet.cconfig        = ""
+      strRet.cgalleyversion = ""
+		strRet.lOwner			 = -1
+		
+elseif sqlca.sqlcode <> 0 then
+	
+	strRet.cactype        = "ERROR"
+   strRet.cconfig        = ""
+   strRet.cgalleyversion = ""
+	strRet.lOwner			 = -1	
+	f_db_error(sqlca, "f_get_actype_structure() ")
+	
+end if
+	
+return strRet
+end function
+

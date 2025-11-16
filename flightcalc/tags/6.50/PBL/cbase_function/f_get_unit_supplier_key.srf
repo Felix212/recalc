@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_get_unit_supplier_key.srf
+$PBExportComments$Ermittelt Supplier-Key zu Cunit
+global type f_get_unit_supplier_key from function_object
+end type
+
+forward prototypes
+global function Long f_get_unit_supplier_key (string sunit)
+end prototypes
+
+global function Long f_get_unit_supplier_key (string sunit);// -----------------------------------------
+// Ermittle lSupllier_key zu Betrieb
+// -----------------------------------------
+ 
+long lSupp_Key
+
+SELECT sys_units.nSupplier_key
+  INTO :lsupp_key
+  FROM sys_units  
+ WHERE sys_units.cunit = :sUnit;
+ 
+if sqlca.sqlcode = 0 then
+	return lSupp_key
+elseif sqlca.sqlcode = 100 then
+	return 0
+else
+	f_db_error(sqlca, "f_get_unit_supplier_key")
+	return -1
+end if
+
+
+end function
+

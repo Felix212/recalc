@@ -1,0 +1,55 @@
+HA$PBExportHeader$f_get_supplier_units_for_unit.srf
+global type f_get_supplier_units_for_unit from function_object
+end type
+
+forward prototypes
+global function integer f_get_supplier_units_for_unit (string arg_cunit, ref string arg_csupp_units[])
+end prototypes
+
+global function integer f_get_supplier_units_for_unit (string arg_cunit, ref string arg_csupp_units[]);/* 
+* Funktion/Event: f_get_supplier_units_for_unit
+* Beschreibung: 	Ermittelt alle Betriebe, die dem Supplierer des $$HEX1$$fc00$$ENDHEX$$bergebenen Betriebes geh$$HEX1$$f600$$ENDHEX$$ren
+* Besonderheit: 	arg_csupp_units wird als Referenzvariable $$HEX1$$fc00$$ENDHEX$$bergeben
+*
+* Argumente:
+* 	Name					Beschreibung
+* 	arg_cunit				Betrieb, f$$HEX1$$fc00$$ENDHEX$$r den die SupplierUnits ermittelt werden soll
+*  arg_csupp_units[]	Array f$$HEX1$$fc00$$ENDHEX$$r die Supplierunits
+**
+* Aenderungshistorie:
+* 	Version 		Wer				Wann				Was und warum
+*	1.0 			H. Rothenbach	01.09.2008		Erstellung
+*
+* Return Codes:
+*	 1		Alles OK
+*	0		Fehler ist aufgetreten
+*/
+
+string ls_unit
+long ll_supplier_key
+
+ ll_supplier_key = f_get_unit_supplier_key(arg_cunit)
+ 
+ if ll_supplier_key <= 0 then return 0
+ 
+  DECLARE SupplierUnits CURSOR FOR  
+  SELECT sys_units.cunit  
+    FROM sys_units  
+   WHERE sys_units.nsupplier_key =  :ll_supplier_key            ;
+
+open SupplierUnits;
+
+if sqlca.sqlcode<>0 then return 0
+
+do 
+	fetch SupplierUnits into :ls_unit;
+	if 	sqlca.sqlcode = 0 then
+		arg_csupp_units[upperbound(arg_csupp_units) +1] = ls_unit
+	end if
+loop until sqlca.sqlcode<>0
+
+close SupplierUnits;
+
+return 1
+end function
+

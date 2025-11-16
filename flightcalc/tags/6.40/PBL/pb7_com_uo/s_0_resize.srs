@@ -1,0 +1,15 @@
+HA$PBExportHeader$s_0_resize.srs
+global type s_0_resize from structure
+	dragobject		do2resize
+	boolean		bh2resize
+	boolean		bw2resize
+	boolean		bx2resize
+	boolean		by2resize
+	boolean		bmidx2resize
+	boolean		bmidy2resize
+	integer		ih2resize
+	integer		iw2resize
+	integer		ix2resize
+	integer		iy2resize
+end type
+

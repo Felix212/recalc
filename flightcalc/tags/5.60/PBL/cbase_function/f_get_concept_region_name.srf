@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_get_concept_region_name.srf
+global type f_get_concept_region_name from function_object
+end type
+
+forward prototypes
+global function string f_get_concept_region_name (long lkey)
+end prototypes
+
+global function string f_get_concept_region_name (long lkey);String sRegion
+
+select cText
+  into :sRegion
+  from cen_conc_region
+ where nconc_reg_key = :lkey;
+  
+if sqlca.sqlcode = 0 then
+	return sRegion
+elseif sqlca.sqlcode = 100 then
+	return "not found"
+else
+	f_db_error(sqlca, "f_get_concept_region_name")
+	return "error"
+end if
+end function
+

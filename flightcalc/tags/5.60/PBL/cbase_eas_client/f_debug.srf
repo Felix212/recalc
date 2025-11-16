@@ -1,0 +1,14 @@
+HA$PBExportHeader$f_debug.srf
+global type f_debug from function_object
+end type
+
+forward prototypes
+global function integer f_debug (string stext)
+end prototypes
+
+global function integer f_debug (string stext);
+//OutputDebugStringA(String(now()) + " - " +  sText +"~n")
+
+return 0
+end function
+

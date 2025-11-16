@@ -1,0 +1,57 @@
+HA$PBExportHeader$f_mandant_setprofilestring.srf
+$PBExportComments$Profilestring schreibt in die Datenbank und gilt f$$HEX1$$fc00$$ENDHEX$$r kompletten Mandanten
+global type f_mandant_setprofilestring from function_object
+end type
+
+forward prototypes
+global function boolean f_mandant_setprofilestring (transaction arg_sqlca, string arg_mandant, string arg_section, string arg_key, string arg_value)
+end prototypes
+
+global function boolean f_mandant_setprofilestring (transaction arg_sqlca, string arg_mandant, string arg_section, string arg_key, string arg_value);/* 
+* Funktion/Event: f_mandant_setprofilestring
+* Beschreibung: 	Schreiben eines Wertes in die CEN_SETUP
+* Besonderheit: 	keine
+*
+**
+* Aenderungshistorie:
+* 	Version 		Wer					Wann				Was und warum
+*	1.0 			H.Rothenbach		29.10.2008		Erstellung
+*
+*/
+
+INSERT INTO cen_setup  
+         (cclient,   
+          csection,   
+          ckey,   
+          cvalue )
+  VALUES (:arg_mandant,   
+         :arg_section,   
+         :arg_key,   
+         :arg_value)  
+using arg_sqlca;
+			 
+If arg_sqlca.SQLCode <> 0 Then
+	
+	Update	cen_setup 
+	Set 		cValue 		= :arg_value
+	where	cclient		= :arg_mandant	and
+				cSection		= :arg_section		and
+				cKey			= :arg_key 
+	using 		arg_sqlca;
+	
+	If arg_sqlca.SQLCode <> 0 Then
+		uf.mbox("Ups","")
+		return False
+	End if	
+End if
+
+commit using arg_sqlca;
+
+If arg_sqlca.SQLCode <> 0 Then
+	uf.mbox("Ups Commit","")
+	return False
+End if	
+	
+return True
+end function
+

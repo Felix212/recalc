@@ -1,0 +1,10 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_log_zippen\\cbase_log_zippen.pbl" "";
+@end;
+@begin Objects
+ "cbase_log_zippen\\f_service_alive.srf" "cbase_log_zippen\\cbase_log_zippen.pbl";
+ "cbase_log_zippen\\dw_services_alive.srd" "cbase_log_zippen\\cbase_log_zippen.pbl";
+ "cbase_log_zippen\\uo_files_zippen.sru" "cbase_log_zippen\\cbase_log_zippen.pbl";
+ "cbase_log_zippen\\str_findresult.srs" "cbase_log_zippen\\cbase_log_zippen.pbl";
+@end;

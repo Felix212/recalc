@@ -1,0 +1,17 @@
+HA$PBExportHeader$s_distrib_items.srs
+global type s_distrib_items from structure
+	long		lcount
+	long		llength
+	string		sitem
+	s_distrib_item_props		str_prop
+	long		lshortage
+	s_distrib_item_sub		str_cont[]
+	string		cpackinglist
+	string		ctext
+	string		sparent
+	boolean		bcontent
+	boolean		bbold
+	boolean		bdistributed
+	long		lleg
+end type
+

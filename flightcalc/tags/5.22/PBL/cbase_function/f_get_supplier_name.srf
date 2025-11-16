@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_get_supplier_name.srf
+global type f_get_supplier_name from function_object
+end type
+
+forward prototypes
+global function string f_get_supplier_name (long al_supplier_key)
+end prototypes
+
+global function string f_get_supplier_name (long al_supplier_key);// -----------------------------------------
+// Pr$$HEX1$$fc00$$ENDHEX$$fen, ob's den Lieferanten gibt
+// -----------------------------------------
+
+String 		sText
+
+SELECT cen_supplier.csupplier 
+  INTO :sText  
+  FROM cen_supplier  
+ WHERE cen_supplier.nsupplier_key = :al_supplier_key;
+ 
+if sqlca.sqlcode = 0 then
+	return sText
+elseif sqlca.sqlcode = 100 then
+	return String(al_supplier_key) + "not found!"
+else
+	f_db_error(sqlca, "f_get_supplier_name")
+	return "Error"
+end if
+
+
+end function
+

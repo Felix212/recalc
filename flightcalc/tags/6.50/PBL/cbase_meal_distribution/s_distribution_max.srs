@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_distribution_max.srs
+global type s_distribution_max from structure
+	decimal { 2 }		lquantity
+	long		lheight
+	long		lwidth
+	long		lcalculate
+	decimal { 2 }		lblocked
+end type
+

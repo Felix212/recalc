@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_dep_time.srs
+global type s_dep_time from structure
+	string		stime
+	date		ddate
+	integer		ioffset
+	decimal{2}		doffset
+end type
+

@@ -1,0 +1,13 @@
+HA$PBExportHeader$f_news_to_string.srf
+global type f_news_to_string from function_object
+end type
+
+forward prototypes
+global function string f_news_to_string (long lnewskey, datetime dtvalidfrom, datetime dtvalidto)
+end prototypes
+
+global function string f_news_to_string (long lnewskey, datetime dtvalidfrom, datetime dtvalidto);
+
+return ""
+end function
+

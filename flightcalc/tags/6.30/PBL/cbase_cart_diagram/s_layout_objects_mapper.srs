@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_layout_objects_mapper.srs
+global type s_layout_objects_mapper from structure
+	long		loldobjectkey
+	long		lnewobjectkey
+	long		lnewrow
+	blob		loldblob
+end type
+

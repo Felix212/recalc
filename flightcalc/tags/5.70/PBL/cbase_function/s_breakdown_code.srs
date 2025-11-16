@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_breakdown_code.srs
+global type s_breakdown_code from structure
+	long		laccountkey
+	string		scode
+	string		sdescription
+end type
+

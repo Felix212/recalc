@@ -1,0 +1,46 @@
+HA$PBExportHeader$f_get_airline_opcode.srf
+global type f_get_airline_opcode from function_object
+end type
+
+forward prototypes
+global function string f_get_airline_opcode (long al_nopcode_key)
+end prototypes
+
+global function string f_get_airline_opcode (long al_nopcode_key);
+// -----------------------------------------------------------------------------------------------------------------------------------------
+// Objekt : f_get_airline_opcode
+// Methode:  (Event)
+// Autor  :
+// -----------------------------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// none
+// -----------------------------------------------------------------------------------------------------------------------------------------
+// Return: none
+// -----------------------------------------------------------------------------------------------------------------------------------------
+//  Beschreibung: Airline-Opcode-Key in Text umwandeln
+// -----------------------------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum    	     Version		Autor              			     Kommentar
+// -----------------------------------------------------------------------------------------------------------------------------------------
+//  03.07.2012	1.00			Thomas Brackmann		Erstellung
+// -----------------------------------------------------------------------------------------------------------------------------------------
+
+String ls_return
+
+SELECT	COPCODE
+INTO 		:ls_return
+FROM 	CEN_AIRLINE_OPCODES
+WHERE 	NOPCODE_KEY = :al_nopcode_key;
+
+IF 			SQLCA.SQLCODE 	= 	0 		THEN
+			RETURN ls_return
+ELSEIF 	SQLCA.SQLCODE 	= 	100 	THEN
+			RETURN "N/A"
+ELSE
+			RETURN "N/A"
+END IF
+	
+
+
+end function
+

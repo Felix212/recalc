@@ -1,0 +1,50 @@
+HA$PBExportHeader$f_dt_diff.srf
+$PBExportComments$Liefert die Anzahl Secunden zwischen zwei $$HEX1$$fc00$$ENDHEX$$bergebene Datetime variablen
+global type f_dt_diff from function_object
+end type
+
+forward prototypes
+global function long f_dt_diff (datetime dt1, datetime dt2)
+end prototypes
+
+global function long f_dt_diff (datetime dt1, datetime dt2);/* ### Event: f_dt_diff *************************************************
+ *
+ * Beschreibung : Liefert die Anzahl der Sekunden zur$$HEX1$$fc00$$ENDHEX$$ck, die zwischen 
+ *                zwei Datetimes am gleichen Tag oder an aufeinaderfolgenden
+ *                Tagen liegt.
+ *
+ * Aenderungshistorie
+ *  Version  Wer                        Wann        Was und warum
+ *   1.0     H.Rothenbach /LSY IS       23.02.2007  Erstellung
+ *
+ * ### END Eventdoku ***************************************************
+ */
+/*
+long i
+
+if date(dt1)=date(dt2) then
+	i=secondsafter(time(dt1),time(dt2))	
+elseif date(dt1)>date(dt2) then
+	i=secondsafter(time(dt1),time(dt2))	- 86400
+else
+	i=secondsafter(time(dt1),time(dt2))	+ 86400
+end if
+*/
+long i,j
+
+if date(dt1)=date(dt2) then
+	i=secondsafter(time(dt1),time(dt2))	
+elseif date(dt1)>date(dt2) then
+	j=daysafter(date(dt2),date(dt1)) * 24 * 60 *60
+	
+	i=secondsafter(time(dt1),time(dt2))	- j
+else
+	j=daysafter(date(dt1),date(dt2)) * 24 * 60 *60
+	i=secondsafter(time(dt1),time(dt2))	+ j
+end if
+
+return i
+
+
+end function
+

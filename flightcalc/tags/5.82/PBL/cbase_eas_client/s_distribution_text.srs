@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_distribution_text.srs
+global type s_distribution_text from structure
+	string		squantity
+	string		stext
+	string		spackinglist
+	string		smealcode
+end type
+

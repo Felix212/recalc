@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_account_text.srf
+$PBExportComments$lies langname (ctext) aus Cen_Airline_Accounts zu naccount_key
+global type f_get_account_text from function_object
+end type
+
+forward prototypes
+global function string f_get_account_text (long laccountkey)
+end prototypes
+
+global function string f_get_account_text (long laccountkey);string sText
+
+select ctext into :sText 
+  from cen_airline_accounts 
+ where naccount_key = :lAccountKey;
+ 
+if sqlca.sqlcode = 0 then
+	return sText
+elseif sqlca.sqlcode = 100 then
+	return "not found"
+else
+	f_db_error(sqlca, "f_get_account_text")
+	return "Error"
+end if
+
+return ""
+
+
+end function
+

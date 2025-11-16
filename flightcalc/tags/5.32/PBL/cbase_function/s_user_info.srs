@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_user_info.srs
+global type s_user_info from structure
+	long		lUserId
+	string		sUser
+	string		sUserFirstName
+	string		sUserLastName
+	string		sUnit
+	string		sUnitFullName
+end type
+

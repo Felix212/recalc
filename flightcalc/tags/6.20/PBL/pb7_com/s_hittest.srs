@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_hittest.srs
+global type s_hittest from structure
+	s_point		str_pt
+	long		l_flags
+	long		l_hitem
+end type
+

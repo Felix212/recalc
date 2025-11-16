@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_get_unit_name.srf
+global type f_get_unit_name from function_object
+end type
+
+forward prototypes
+global function string f_get_unit_name (string sunit)
+end prototypes
+
+global function string f_get_unit_name (string sunit);// -----------------------------------------
+// Pr$$HEX1$$fc00$$ENDHEX$$fen, ob's den Betrieb gibt
+// -----------------------------------------
+
+String 		sText
+
+SELECT sys_units.ctext  
+  INTO :sText  
+  FROM sys_units  
+ WHERE sys_units.cunit = :sUnit;
+ 
+if sqlca.sqlcode = 0 then
+	return sText
+elseif sqlca.sqlcode = 100 then
+	return sUnit + "not found!"
+else
+	f_db_error(sqlca, "f_get_unit_name")
+	return "Error"
+end if
+
+
+end function
+

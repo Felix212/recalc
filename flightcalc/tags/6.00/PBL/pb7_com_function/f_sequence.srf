@@ -1,0 +1,55 @@
+HA$PBExportHeader$f_sequence.srf
+$PBExportComments$Autoincrement f$$HEX1$$fc00$$ENDHEX$$r Oracle
+global type f_sequence from function_object
+end type
+
+forward prototypes
+global function long f_sequence (string ssequencename, transaction ttrans)
+end prototypes
+
+global function long f_sequence (string ssequencename, transaction ttrans);// ------------------------
+// Autoincrement f$$HEX1$$fc00$$ENDHEX$$r Oracle
+// ------------------------
+	long 						lNextID
+	string 					sSQL
+	DynamicStagingArea	dsaSQLSA
+	
+	
+	dsaSQLSA = Create DynamicStagingArea
+	
+	// ein wenig Dynamic SQL
+	
+	DECLARE cur_AutoInc DYNAMIC CURSOR FOR dsaSQLSA ;
+		
+	sSQL =  "Select " + sSequenceName + ".nextval from dual"
+	
+	PREPARE dsaSQLSA FROM :sSQL USING ttrans ;
+	
+	OPEN DYNAMIC cur_AutoInc ;
+
+	
+	If tTrans.SQLCODE <> 0 Then
+		lNextID = -1
+	else
+		FETCH cur_AutoInc INTO :lNextID ;
+		
+	End if	
+	
+	CLOSE 	cur_AutoInc ;
+	Destroy 	dsaSQLSA
+	return lNextId
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+end function
+

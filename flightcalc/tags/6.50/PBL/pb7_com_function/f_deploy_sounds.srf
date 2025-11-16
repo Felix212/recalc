@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_deploy_sounds.srf
+global type f_deploy_sounds from function_object
+end type
+
+forward prototypes
+global subroutine f_deploy_sounds ()
+end prototypes
+
+global subroutine f_deploy_sounds ();	String 	sTempPath
+	long		lLen,lReturn
+	uo_logo_export	uo_exp
+// -----------------------------------
+// Verteilung der Sounds ins Tempdir.
+// -----------------------------------
+	sTempPath 	= Space(200)
+	lLen		 	= Len(sTempPath)
+	
+
+	sTempPath = f_gettemppath()
+	
+	uo_exp = create uo_logo_export
+	
+	uo_exp.uf_export_sounds(sTempPath)
+	
+	destroy uo_logo_export
+	
+
+
+
+end subroutine
+

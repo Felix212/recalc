@@ -1,0 +1,6 @@
+HA$PBExportHeader$str_columns.srs
+global type str_columns from structure
+	string		cobject_name
+	string		ccolumn
+end type
+

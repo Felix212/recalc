@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_trcartstowage.srs
+$PBExportComments$Assign Stowage to TR Cart Page
+global type s_trcartstowage from structure
+	string		sstowage
+	integer		iprintpage
+end type
+

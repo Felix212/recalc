@@ -1,0 +1,11 @@
+HA$PBExportHeader$f_jetzt.srf
+global type f_jetzt from function_object
+end type
+
+forward prototypes
+global function datetime f_jetzt ()
+end prototypes
+
+global function datetime f_jetzt ();return datetime(today(), now())
+end function
+

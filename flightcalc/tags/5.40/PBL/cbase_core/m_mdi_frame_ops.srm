@@ -1,0 +1,172 @@
+HA$PBExportHeader$m_mdi_frame_ops.srm
+$PBExportComments$Master Men$$HEX1$$fc00$$ENDHEX$$
+forward
+global type m_mdi_frame_ops from menu
+end type
+type m_datei from menu within m_mdi_frame_ops
+end type
+type m_beenden from menu within m_datei
+end type
+type m_datei from menu within m_mdi_frame_ops
+m_beenden m_beenden
+end type
+type m_fenster from menu within m_mdi_frame_ops
+end type
+type m_lap from menu within m_fenster
+end type
+type m_neben from menu within m_fenster
+end type
+type m_symboleanordnen from menu within m_fenster
+end type
+type m_fenster from menu within m_mdi_frame_ops
+m_lap m_lap
+m_neben m_neben
+m_symboleanordnen m_symboleanordnen
+end type
+global type m_mdi_frame_ops from menu
+m_datei m_datei
+m_fenster m_fenster
+end type
+end forward
+
+global type m_mdi_frame_ops from menu
+m_datei m_datei
+m_fenster m_fenster
+end type
+global m_mdi_frame_ops m_mdi_frame_ops
+
+type variables
+
+end variables
+
+on m_mdi_frame_ops.create
+m_mdi_frame_ops=this
+call super::create
+this.text = "m_mdi_frame"
+this.m_datei=create m_datei
+this.m_fenster=create m_fenster
+this.Item[UpperBound(this.Item)+1]=this.m_datei
+this.Item[UpperBound(this.Item)+1]=this.m_fenster
+end on
+
+on m_mdi_frame_ops.destroy
+call super::destroy
+destroy(this.m_datei)
+destroy(this.m_fenster)
+end on
+
+type m_datei from menu within m_mdi_frame_ops
+m_beenden m_beenden
+end type
+
+on m_datei.create
+call super::create
+this.text = "&Datei      "
+this.microhelp = "Datei"
+this.toolbaritemorder = 1
+this.m_beenden=create m_beenden
+this.Item[UpperBound(this.Item)+1]=this.m_beenden
+end on
+
+on m_datei.destroy
+call super::destroy
+destroy(this.m_beenden)
+end on
+
+type m_beenden from menu within m_datei
+event clicked ( )
+end type
+
+event clicked;Close (parentwindow)
+end event
+
+on m_beenden.create
+call super::create
+this.text = "&Beenden~tAlt+F4"
+this.shortcut = 627
+this.microhelp = "Programm beenden."
+this.toolbaritemname = "..\resource\Exit.ico"
+this.toolbaritemtext = "Anwendung beenden"
+this.toolbaritemorder = 1
+this.toolbaritemspace = 1
+end on
+
+on m_beenden.destroy
+call super::destroy
+end on
+
+type m_fenster from menu within m_mdi_frame_ops
+m_lap m_lap
+m_neben m_neben
+m_symboleanordnen m_symboleanordnen
+end type
+
+on m_fenster.create
+call super::create
+this.text = "&Fenster     "
+this.microhelp = "Fenster     "
+this.m_lap=create m_lap
+this.m_neben=create m_neben
+this.m_symboleanordnen=create m_symboleanordnen
+this.Item[UpperBound(this.Item)+1]=this.m_lap
+this.Item[UpperBound(this.Item)+1]=this.m_neben
+this.Item[UpperBound(this.Item)+1]=this.m_symboleanordnen
+end on
+
+on m_fenster.destroy
+call super::destroy
+destroy(this.m_lap)
+destroy(this.m_neben)
+destroy(this.m_symboleanordnen)
+end on
+
+type m_lap from menu within m_fenster
+end type
+
+event clicked;parentwindow.ArrangeSheets(CASCADE!)
+end event
+
+on m_lap.create
+call super::create
+this.text = "&$$HEX1$$dc00$$ENDHEX$$berlappend~tCtrl+F5"
+this.shortcut = 372
+this.microhelp = "Fenster anordnen."
+end on
+
+on m_lap.destroy
+call super::destroy
+end on
+
+type m_neben from menu within m_fenster
+end type
+
+event clicked;parentwindow.ArrangeSheets(TILE!)
+end event
+
+on m_neben.create
+call super::create
+this.text = "&Nebeneinander~tCtrl+F4"
+this.shortcut = 371
+this.microhelp = "Fenster anordnen."
+end on
+
+on m_neben.destroy
+call super::destroy
+end on
+
+type m_symboleanordnen from menu within m_fenster
+end type
+
+event clicked;parentwindow.ArrangeSheets(ICONS!)
+end event
+
+on m_symboleanordnen.create
+call super::create
+this.text = "&Symbole anordnen"
+this.microhelp = "Fenster anordnen."
+end on
+
+on m_symboleanordnen.destroy
+call super::destroy
+end on
+

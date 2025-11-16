@@ -1,0 +1,15 @@
+HA$PBExportHeader$n_printer.srx
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type n_printer from CORBAObject
+end type
+global n_printer n_printer
+
+forward prototypes
+  public:
+function Long getsession () alias for "getsession"
+function Long print2pdf (Blob a_data) alias for "print2pdf"
+subroutine printpdf (Blob blobdata,String filename) alias for "printpdf"
+function String getpdfdocpath () alias for "getpdfdocpath"
+subroutine writelog (String logmsg) alias for "writelog"
+                    end prototypes
+

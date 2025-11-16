@@ -1,0 +1,26 @@
+HA$PBExportHeader$f_get_spml_key.srf
+global type f_get_spml_key from function_object
+end type
+
+forward prototypes
+global function long f_get_spml_key (string sspml, long lairlinekey)
+end prototypes
+
+global function long f_get_spml_key (string sspml, long lairlinekey);Long lID
+
+select cen_airline_spml.nspml_key
+  into :lID
+  from sys_spml, cen_airline_spml
+ where sys_spml.nspml_key = cen_airline_spml.nspml_key and
+ 		 cen_airline_spml.nairline_key = :lAirlineKey
+	and	 sys_spml.cspml = :sSPML; 
+
+if sqlca.sqlcode = 0 then
+	return lID
+elseif sqlca.sqlcode = 100 then
+	return -1
+else
+	return -1
+end if
+end function
+

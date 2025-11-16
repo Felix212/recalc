@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_get_account_inv_key.srf
+global type f_get_account_inv_key from function_object
+end type
+
+forward prototypes
+global function long f_get_account_inv_key (string saccount, long lairline, datetime dttermin, string sunit)
+end prototypes
+
+global function long f_get_account_inv_key (string saccount, long lairline, datetime dttermin, string sunit);
+// -----------------------------------------
+// abrechnungscode mit abrechnungsempf$$HEX1$$e400$$ENDHEX$$nger
+// -----------------------------------------
+
+Long	lKey
+
+SELECT cen_airline_accounts.naccount_key 
+  INTO :lKey 
+  FROM cen_airline_accounts,
+       cen_invoice_code_def
+ WHERE cen_airline_accounts.naccount_key = cen_invoice_code_def.naccount_key
+   AND cen_invoice_code_def.dvalid_from <= :dtTermin
+   AND cen_invoice_code_def.dvalid_to >= :dtTermin
+	AND cen_invoice_code_def.cunit = :sUnit
+	AND cen_airline_accounts.nairline_key = :lAirline 
+   AND cen_airline_accounts.caccount = :sAccount;
+ 
+if sqlca.sqlcode = 0 then
+	return lKey
+elseif sqlca.sqlcode = 100 then
+	return -100
+else
+	f_db_error(sqlca, "f_get_account_inv_key")
+	return -1
+end if
+
+
+return 0
+
+end function
+

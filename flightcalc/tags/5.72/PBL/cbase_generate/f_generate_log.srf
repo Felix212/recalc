@@ -1,0 +1,23 @@
+HA$PBExportHeader$f_generate_log.srf
+global type f_generate_log from function_object
+end type
+
+forward prototypes
+global subroutine f_generate_log (string slogfile, string smessage)
+end prototypes
+
+global subroutine f_generate_log (string slogfile, string smessage);// ----------------------------------------------------
+// Logging
+// ----------------------------------------------------
+	integer iFile
+	string  sPrefix
+	
+	sPrefix = string(today(),"dd.mm.yyyy") + "   " + string(now(), "hh:mm:ss" ) + " " 
+	
+	iFile = FileOpen( sLogFile, LineMode!, Write!, Shared!)
+	FileWrite(iFile,  sPrefix + sMessage)
+	FileClose(iFile)
+	
+	return
+end subroutine
+

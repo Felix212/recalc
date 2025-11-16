@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_get_traffic_area_name.srf
+global type f_get_traffic_area_name from function_object
+end type
+
+forward prototypes
+global function string f_get_traffic_area_name (long larea)
+end prototypes
+
+global function string f_get_traffic_area_name (long larea);String sArea
+
+select cText
+  into :sArea
+  from cen_traffic_areas 
+ where narea_key = :lArea;
+  
+if sqlca.sqlcode = 0 then
+	return sArea
+elseif sqlca.sqlcode = 100 then
+	return "not found"
+else
+	f_db_error(sqlca, "f_get_traffic_area_name")
+	return "error"
+end if
+end function
+

@@ -1,0 +1,13 @@
+HA$PBExportHeader$f_log.srf
+global type f_log from function_object
+end type
+
+forward prototypes
+global function integer f_log (string arg_loguser, string arg_msg)
+end prototypes
+
+global function integer f_log (string arg_loguser, string arg_msg);f_Log2Csv(0,1,"[f_log] "+arg_msg)	
+
+return 0
+end function
+

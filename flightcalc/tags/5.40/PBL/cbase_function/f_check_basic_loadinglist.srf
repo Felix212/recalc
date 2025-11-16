@@ -1,0 +1,38 @@
+HA$PBExportHeader$f_check_basic_loadinglist.srf
+global type f_check_basic_loadinglist from function_object
+end type
+
+forward prototypes
+global function long f_check_basic_loadinglist (string sbasic, long laircraftkey)
+end prototypes
+
+global function long f_check_basic_loadinglist (string sbasic, long laircraftkey);// -----------------------------------------------------
+// Basic Loadinglist pr$$HEX1$$fc00$$ENDHEX$$fen
+// -----------------------------------------------------
+
+long lCount
+
+SELECT Count(*)
+    INTO :lCount 
+    FROM cen_loadinglist_index  
+   WHERE ( cen_loadinglist_index.cloadinglist = :sBasic ) AND  
+         ( cen_loadinglist_index.naircraft_key = :lAircraftKey ) AND  
+         ( cen_loadinglist_index.nloadinglist_key = 1 )   ;
+
+
+if sqlca.sqlcode = 0 and lCount > 0 then
+	return 0
+	
+elseif sqlca.sqlcode = 0 and lCount > 0 then
+	return 1
+elseif sqlca.sqlcode = 100 then
+	return 2
+else
+	f_db_error(sqlca, "f_check_basic_loadinglist")
+	return -1
+end if
+
+
+
+end function
+

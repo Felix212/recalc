@@ -1,0 +1,12 @@
+HA$PBExportHeader$dw_generate_airline_forecast.srd
+release 7;
+datawindow(units=1 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=24 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=elapse dbname="cen_class_forecast.elapse" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_class_forecast~" ) COMPUTE(NAME=~"0 elapse~")WHERE(    EXP1 =~"cen_class_forecast.nairline_key~"   OP =~"=~"    EXP2 =~":arg_airlinekey~" ) ) ARG(NAME = ~"arg_airlinekey~" TYPE = number) " arguments=(("arg_airlinekey", number)) )
+line(band=header x1="5" y1="3" x2="5" y2="23"  name=l_5 pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="6" y1="3" x2="497" y2="3"  name=l_anchor pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

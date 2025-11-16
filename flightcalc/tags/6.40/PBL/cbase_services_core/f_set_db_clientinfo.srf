@@ -1,0 +1,43 @@
+HA$PBExportHeader$f_set_db_clientinfo.srf
+global type f_set_db_clientinfo from function_object
+end type
+
+forward prototypes
+global function integer f_set_db_clientinfo (string arg_instance, transaction arg_trans)
+end prototypes
+
+global function integer f_set_db_clientinfo (string arg_instance, transaction arg_trans);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_set_db_clientinfo
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e): 
+// string			arg_instance	instance info stored in DB
+// transaction	arg_trans		transaction who should be used
+// --------------------------------------------------------------------------------------------------------------------
+// Return: integer 
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung: 
+//
+//
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  01.09.2022	   1.0      H.Rothenbach   Erstellung
+//
+// --------------------------------------------------------------------------------------------------------------------
+
+integer i
+
+select f_set_clientinfo(:arg_instance) into :i from dual using arg_trans;
+
+if arg_trans.SQLCODE <> 0 then
+	guoLog.uf_error("[f_set_db_clientinfo] Error setting 'Client Info' "+ string( arg_trans.SQLCODE) + " " +  arg_trans.SQLERRTEXT)
+end if
+
+return i
+
+
+end function
+

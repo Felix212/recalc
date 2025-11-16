@@ -1,0 +1,50 @@
+HA$PBExportHeader$dw_ais_prtconfig_cl.srd
+$PBExportComments$Print-Konfiguration f$$HEX1$$fc00$$ENDHEX$$r das AllergenInfoSheet f$$HEX1$$fc00$$ENDHEX$$r einen Flug
+release 10;
+datawindow(units=1 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=24 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nclass_sort dbname="cen_eu_allg_sheet.nclass_sort" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=cclass dbname="cen_eu_allg_sheet.cclass" )
+ column=(type=number update=yes updatewhereclause=yes name=ncopies dbname="ncopies" )
+ column=(type=number update=yes updatewhereclause=yes name=nprint_code_desc dbname="nprint_code_desc" values="	1/	0" )
+ column=(type=number update=yes updatewhereclause=yes name=ncopies_code_desc dbname="ncopies_code_desc" )
+ retrieve="SELECT DISTINCT
+	ais.nclass_sort,
+	ais.cclass_name cclass,
+	NVL(prt.ncopies, 1) ncopies,
+	NVL(prt.nprint_code_desc, 0) nprint_code_desc,
+	NVL(prt.ncopies_code_desc, 0) ncopies_code_desc
+FROM		cen_eu_allg_sheet ais,
+			cen_airl_allg_prtconfig_cl prt
+WHERE	1=1
+AND		ais.nresult_or_flight_key = :arg_nresult_key
+AND		ais.ntransaction = :arg_ntransaction
+AND		ais.nversion = :arg_nversion
+AND		prt.nairline_key (+) = :arg_nairline_key
+AND		prt.nrouting_id (+) = :arg_nrouting_id
+AND		prt.cclass (+) = ais.cclass_name
+ORDER BY ais.nclass_sort
+
+/*
+F$$HEX1$$fc00$$ENDHEX$$r ein Allergensheet f$$HEX1$$fc00$$ENDHEX$$r einen Flug werden f$$HEX1$$fc00$$ENDHEX$$r alle in cen_eu_allg_sheet vorkommenden Klassen 
+die Klassen- und Routing-spezifischen Printeinstellungen aus cen_airl_allg_prtconfig_cl gelesen.
+Wenn keine Einstellungen existieren, werden Default-Werte genommen:
+1 Kopie des Allergensheets und keine Code Description hinter der Klasse
+*/" arguments=(("arg_nresult_key", number),("arg_ntransaction", number),("arg_nversion", number),("arg_nairline_key", number),("arg_nrouting_id", number)) )
+column(band=detail id=4 alignment="2" tabsequence=20 border="0" color="33554432" x="101" y="5" height="14" width="108" format="[general]" html.valueishtml="0"  name=nprint_code_desc visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="2" tabsequence=10 border="0" color="33554432" x="4" y="4" height="15" width="92" format="[general]" html.valueishtml="0"  name=ncopies visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189),rgb(255,255,255))" )
+column(band=detail id=5 alignment="2" tabsequence=30 border="0" color="33554432" x="214" y="4" height="15" width="92" format="[general]" html.valueishtml="0"  name=ncopies_code_desc visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189),rgb(255,255,255))" )
+column(band=detail id=1 alignment="0" tabsequence=40 border="0" color="33554432" x="321" y="5" height="13" width="58" format="[general]" html.valueishtml="0"  name=nclass_sort visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

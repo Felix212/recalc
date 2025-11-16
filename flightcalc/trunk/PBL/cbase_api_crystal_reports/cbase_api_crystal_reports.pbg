@@ -1,0 +1,11 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_api_crystal_reports\\cbase_api_crystal_reports.pbl" "";
+@end;
+@begin Objects
+ "cbase_api_crystal_reports\\uo_crystal_report_viewer_en_115.sru" "cbase_api_crystal_reports\\cbase_api_crystal_reports.pbl";
+ "cbase_api_crystal_reports\\uo_crystal_report.sru" "cbase_api_crystal_reports\\cbase_api_crystal_reports.pbl";
+ "cbase_api_crystal_reports\\uo_crystal_report_viewer_110.sru" "cbase_api_crystal_reports\\cbase_api_crystal_reports.pbl";
+ "cbase_api_crystal_reports\\uo_crystal_report_viewer_115.sru" "cbase_api_crystal_reports\\cbase_api_crystal_reports.pbl";
+ "cbase_api_crystal_reports\\uo_crystal_report_viewer_interface.sru" "cbase_api_crystal_reports\\cbase_api_crystal_reports.pbl";
+@end;

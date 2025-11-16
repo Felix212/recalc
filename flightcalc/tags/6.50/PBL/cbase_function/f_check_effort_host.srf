@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_check_effort_host.srf
+global type f_check_effort_host from function_object
+end type
+
+forward prototypes
+global function string f_check_effort_host (string s_arg_effort)
+end prototypes
+
+global function string f_check_effort_host (string s_arg_effort);//
+// f_get_effort_host
+//
+// Holt die Produktgruppe (C3-Parameter)
+//
+string sEffort
+
+select ceffort_host into :sEffort from sys_effort_host where ceffort_host = :s_arg_effort;
+
+if sqlca.sqlcode = 0 then
+	return sEffort
+elseif sqlca.sqlcode = 100 then
+	return ""
+else
+	f_db_error(sqlca, "f_get_effort_host")
+	return ""
+end if
+
+return ""
+
+end function
+

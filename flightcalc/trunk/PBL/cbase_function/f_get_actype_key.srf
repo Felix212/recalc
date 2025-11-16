@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_actype_key.srf
+global type f_get_actype_key from function_object
+end type
+
+forward prototypes
+global function long f_get_actype_key (long lowner_key, string sactype)
+end prototypes
+
+global function long f_get_actype_key (long lowner_key, string sactype);// ------------------------------------------------------
+// den Airkraft Key ermitteln
+// ------------------------------------------------------
+
+	long lKey
+	
+	SELECT naircraft_key   
+	  INTO :lKey
+	  FROM cen_aircraft 
+	 WHERE cactype = :sactype and
+	 		 nairline_owner_key = :lowner_key;
+	 
+	If sqlca.sqlcode = 0 then
+		return lKey
+	Else
+		return -1
+	End if
+
+
+end function
+

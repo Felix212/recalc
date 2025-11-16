@@ -1,0 +1,11 @@
+HA$PBExportHeader$str_labeltypes.srs
+global type str_labeltypes from structure
+	long		llabeltype
+	blob		blayout
+	string		sprinter
+	integer		imaxperlabel
+	boolean		bbelly
+	integer		imealcode
+	datetime		dvalid_from
+end type
+

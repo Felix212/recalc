@@ -1,0 +1,15 @@
+HA$PBExportHeader$f_get_row_color.srf
+global type f_get_row_color from function_object
+end type
+
+forward prototypes
+global function long f_get_row_color ()
+end prototypes
+
+global function long f_get_row_color ();
+return s_app.lRowSelectionColor
+
+
+
+end function
+

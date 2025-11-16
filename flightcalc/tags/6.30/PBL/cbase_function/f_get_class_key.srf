@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_get_class_key.srf
+global type f_get_class_key from function_object
+end type
+
+forward prototypes
+global function long f_get_class_key (string sclass, long lairlinekey)
+end prototypes
+
+global function long f_get_class_key (string sclass, long lairlinekey);
+Long lClass
+
+SELECT cen_class_name.nclass_number
+ INTO :lClass  
+ FROM cen_class_name  
+WHERE ( cen_class_name.nairline_key = :lAirlineKey ) AND  
+		( cen_class_name.cclass = :sClass );
+
+
+if sqlca.sqlcode = 100 then
+	return -1
+elseif sqlca.sqlcode = 0 then
+	return lClass
+else
+	f_db_error(sqlca, "f_check_classname")
+	return -1
+end if
+
+
+end function
+

@@ -1,0 +1,63 @@
+HA$PBExportHeader$f_adjust_datawindow_paperformat.srf
+global type f_adjust_datawindow_paperformat from function_object
+end type
+
+forward prototypes
+global function integer f_adjust_datawindow_paperformat (ref datawindow dwo)
+end prototypes
+
+global function integer f_adjust_datawindow_paperformat (ref datawindow dwo);/* 
+* Funktion/Event: f_adjust_datawindow_paperformat
+* Beschreibung: 	Formatiert einen CBASE Report f$$HEX1$$fc00$$ENDHEX$$r das eingestellte Papierformat
+* Besonderheit: 	keine
+*
+* Argumente:
+* 	Name						Beschreibung
+*	dwo						Das DataWindow, das formatiert werden soll
+*
+* Aenderungshistorie:
+* 	Version 		Wer			Wann			Was und warum
+*	1.0 			D.Bunk		03.02.09		Erstellung
+*
+* Return Codes:
+*	0		Alles OK
+*/	
+
+integer iUseLetterFormat
+integer iLetterOffset = 65
+integer iHeight
+
+/*************************************************
+Papierformat einstellen
+		 DIN-A4: Paper.Size=9 / Zoom=100
+Letter-Format: Paper.Size=1 / Zoom=94 (Querformat)
+*************************************************/
+
+//05.05.2009 DB: LetterFormatFlag aus cen_setup und nicht aus loc_unit_setup holen
+//iUseLetterFormat = integer(f_unitprofilestring("Default", "UseLetterFormat", "0", s_app.sWerk))
+iUseLetterFormat = integer(f_mandant_profilestring(sqlca, s_app.smandant, "PaperFormat", "UseLetterFormat", "0"))
+
+if iUseLetterFormat = 1 then
+	
+	// Welche Orientation ? 1 = Landscape	2 = Portrait
+	if	Integer(dwo.Describe("datawindow.print.Orientation")) = 1 then
+		//Den Platzgewinn durch Letterformat mitber$$HEX1$$fc00$$ENDHEX$$cksichtigen
+		iHeight = Integer(dwo.Describe("r_detail.Height")) + iLetterOffset
+		dwo.Modify("r_detail.Height=" + String(iHeight))
+		
+		dwo.Modify("datawindow.print.paper.size=1")
+		dwo.Modify("datawindow.zoom=94")
+		
+	elseif Integer(dwo.Describe("datawindow.print.Orientation")) = 2 then
+		//Den Platzverlust durch Letterformat mitber$$HEX1$$fc00$$ENDHEX$$cksichtigen
+		iHeight = Integer(dwo.Describe("r_detail.Height")) - iLetterOffset
+		dwo.Modify("r_detail.Height=" + String(iHeight))
+		
+		dwo.Modify("datawindow.print.paper.size=1")
+		
+	end if
+end if
+
+return 0
+end function
+

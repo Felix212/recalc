@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_check_mealcode.srf
+global type f_check_mealcode from function_object
+end type
+
+forward prototypes
+global function integer f_check_mealcode (string scode)
+end prototypes
+
+global function integer f_check_mealcode (string scode);
+String sText
+
+  SELECT cen_mealcodes.cmeal_control_code  
+    INTO :stext  
+    FROM cen_mealcodes  
+   WHERE cen_mealcodes.cmeal_control_code = :sCode ;
+
+
+if sqlca.sqlcode = 0 then
+	return 0
+elseif sqlca.sqlcode = 100 then
+	return 1
+else
+	f_db_error(sqlca, "f_check_mealcode")
+	return -1
+end if
+
+
+end function
+

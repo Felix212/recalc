@@ -1,0 +1,35 @@
+HA$PBExportHeader$s_change_multiple_legs.srs
+global type s_change_multiple_legs from structure
+	boolean		bsuccess
+	string		sairline
+	string		sactype
+	long		lairlinekey
+	string		sgalleyversion
+	long		laircraftkey
+	boolean		bmeals
+	boolean		bextra
+	date		ddeparture
+	string		sdeparture_time
+	long		lhandlingkey
+	long		lownerkey
+	string		sowner
+	string		shandlingtext
+	string		shandlingdescription
+	long		lflightnumber
+	string		ssuffix
+	boolean		bcanceld
+	boolean		bremove_canneclliation
+	integer		istatus
+	long		lresultkey
+	long		lversiongroupkey
+	datastore		dspax
+	string		sversionstring
+	integer		iflight_status
+	boolean		bdo_meal_calculation
+	long		lcountlegs
+	long		lgroupkey
+	boolean		bchangemultiplelegs
+	long		llegnumber
+	string		sregistration
+end type
+

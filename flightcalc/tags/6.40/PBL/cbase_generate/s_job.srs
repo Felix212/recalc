@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_job.srs
+global type s_job from structure
+	boolean		bsuccessful
+	string		sreturn
+	string		smessage
+	integer		ioffset
+	integer		igenerierung
+end type
+

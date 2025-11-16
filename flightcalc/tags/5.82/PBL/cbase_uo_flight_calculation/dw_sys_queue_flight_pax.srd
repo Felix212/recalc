@@ -1,0 +1,160 @@
+HA$PBExportHeader$dw_sys_queue_flight_pax.srd
+release 10;
+datawindow(units=1 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=45 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=24 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=njob_nr dbname="sys_queue_flight_calc.njob_nr" )
+ column=(type=decimal(0) updatewhereclause=yes name=nresult_key dbname="sys_queue_flight_calc.nresult_key" )
+ column=(type=char(6) updatewhereclause=yes name=cairline dbname="cen_out.cairline" )
+ column=(type=decimal(0) updatewhereclause=yes name=nflight_number dbname="cen_out.nflight_number" )
+ column=(type=char(3) updatewhereclause=yes name=csuffix dbname="cen_out.csuffix" )
+ column=(type=char(4) updatewhereclause=yes name=cunit dbname="cen_out.cunit" )
+ column=(type=char(3) updatewhereclause=yes name=cen_out_ctlc_from dbname="cen_out.ctlc_from" )
+ column=(type=char(3) updatewhereclause=yes name=cen_out_ctlc_to dbname="cen_out.ctlc_to" )
+ column=(type=char(3) updatewhereclause=yes name=cclient dbname="cen_out.cclient" )
+ column=(type=decimal(0) updatewhereclause=yes name=nstatus dbname="cen_out.nstatus" )
+ column=(type=decimal(0) updatewhereclause=yes name=nqueued_release_interface dbname="cen_out.nqueued_release_interface" )
+ column=(type=decimal(0) updatewhereclause=yes name=nstatus_release dbname="cen_out.nstatus_release" )
+ column=(type=decimal(0) updatewhereclause=yes name=nsupplier dbname="cen_out.nsupplier" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_queue_flight_pax_njob_nr dbname="sys_queue_flight_pax.njob_nr" )
+ column=(type=char(10) updatewhereclause=yes name=sys_queue_flight_pax_cclass dbname="sys_queue_flight_pax.cclass" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_queue_flight_pax_npax dbname="sys_queue_flight_pax.npax" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_nairline_key dbname="cen_out.nairline_key" )
+ column=(type=char(10) updatewhereclause=yes name=cen_out_cactype dbname="cen_out.cactype" )
+ column=(type=char(10) updatewhereclause=yes name=cen_out_cgalleyversion dbname="cen_out.cgalleyversion" )
+ column=(type=char(20) updatewhereclause=yes name=cen_out_cconfiguration dbname="cen_out.cconfiguration" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_nairline_owner_key dbname="cen_out.nairline_owner_key" )
+ column=(type=char(6) updatewhereclause=yes name=cen_out_cairline_owner dbname="cen_out.cairline_owner" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_naircraft_key dbname="cen_out.naircraft_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nfunction dbname="sys_queue_flight_calc.nfunction" values="Check	1/ToCube	2/DeleteCube	3/" )
+ column=(type=number updatewhereclause=yes name=anz_spml dbname="anz_spml" )
+ retrieve="  SELECT sys_queue_flight_calc.njob_nr,   
+         sys_queue_flight_calc.nresult_key,   
+         cen_out.cairline,   
+         cen_out.nflight_number,   
+         cen_out.csuffix,   
+         cen_out.cunit,   
+         cen_out.ctlc_from,   
+         cen_out.ctlc_to,   
+         cen_out.cclient,   
+         cen_out.nstatus,   
+         cen_out.nqueued_release_interface,   
+         cen_out.nstatus_release,   
+         cen_out.nsupplier,   
+         sys_queue_flight_pax.njob_nr,   
+         sys_queue_flight_pax.cclass,   
+         sys_queue_flight_pax.npax,   
+         cen_out.nairline_key,   
+         cen_out.cactype,   
+         cen_out.cgalleyversion,   
+         cen_out.cconfiguration,   
+         cen_out.nairline_owner_key,   
+         cen_out.cairline_owner,   
+         cen_out.naircraft_key,   
+         sys_queue_flight_calc.nfunction,   
+         sum(sys_queue_flight_spml.nquantity) anz_spml  
+    FROM sys_queue_flight_calc,   
+         cen_out,   
+         sys_queue_flight_pax,   
+         sys_queue_flight_spml  
+   WHERE ( sys_queue_flight_calc.nresult_key = cen_out.nresult_key ) and  
+         ( sys_queue_flight_pax.njob_nr = sys_queue_flight_calc.njob_nr ) and  
+         ( sys_queue_flight_pax.njob_nr = sys_queue_flight_spml.njob_nr (+)) and  
+         ( sys_queue_flight_pax.cclass = sys_queue_flight_spml.cclass (+)) and  
+         ( ( sys_queue_flight_pax.njob_nr = :arg_jobnr ) )   
+group by  sys_queue_flight_calc.njob_nr,   
+         sys_queue_flight_calc.nresult_key,   
+         cen_out.cairline,   
+         cen_out.nflight_number,   
+         cen_out.csuffix,   
+         cen_out.cunit,   
+         cen_out.ctlc_from,   
+         cen_out.ctlc_to,   
+         cen_out.cclient,   
+         cen_out.nstatus,   
+         cen_out.nqueued_release_interface,   
+         cen_out.nstatus_release,   
+         cen_out.nsupplier,   
+         sys_queue_flight_pax.njob_nr,   
+         sys_queue_flight_pax.cclass,   
+         sys_queue_flight_pax.npax,   
+         cen_out.nairline_key,   
+         cen_out.cactype,   
+         cen_out.cgalleyversion,   
+         cen_out.cconfiguration,   
+         cen_out.nairline_owner_key,   
+         cen_out.cairline_owner,   
+         cen_out.naircraft_key,   
+         sys_queue_flight_calc.nfunction
+" arguments=(("arg_jobnr", number)) )
+text(band=header alignment="0" text="" border="6" color="0" x="4" y="4" height="38" width="724" html.valueishtml="0"  name=t_2 visible="1"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+rectangle(band=header x="150" y="23" height="21" width="102"  name=r_5  tag="Flugnummer" visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+line(band=header x1="1" y1="1" x2="1" y2="44"  name=l_4 visible="1" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+bitmap(band=header filename="..\Resource\folder_open_grey.gif" x="18" y="24" height="16" width="16" border="0"  name=p_2 visible="1" )
+line(band=header x1="40" y1="22" x2="40" y2="42"  name=l_10 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="String(Rowcount()) + ~" Rows~""border="0" color="33554432" x="596" y="7" height="14" width="115" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Unit" border="0" color="0" x="44" y="27" height="13" width="30" html.valueishtml="0"  name=t_7 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=header x="41" y="23" height="21" width="39"  name=r_15 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="CModified" border="0" color="0" x="156" y="27" height="13" width="47" html.valueishtml="0"  name=t_10 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="149" y1="24" x2="149" y2="42"  name=l_50 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="250" y1="24" x2="250" y2="42"  name=l_1 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="78" y1="24" x2="78" y2="42"  name=l_11 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+bitmap(band=header filename="..\Resource\headline.gif" x="43" y="7" height="11" width="540" border="0"  name=p_3 visible="1" )
+line(band=header x1="42" y1="22" x2="712" y2="22"  name=l_anchor visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Flight" border="0" color="0" x="81" y="27" height="13" width="55" html.valueishtml="0"  name=t_24  tag="OFF" visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=header x="79" y="23" height="21" width="72"  name=r_78 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Created" border="0" color="0" x="257" y="27" height="13" width="56" html.valueishtml="0"  name=t_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Start" border="0" color="0" x="372" y="27" height="13" width="56" html.valueishtml="0"  name=t_3 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="End" border="0" color="0" x="490" y="27" height="13" width="56" html.valueishtml="0"  name=t_4 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=header x="487" y="23" height="21" width="119"  name=r_7 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="369" y="23" height="21" width="119"  name=r_3 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+line(band=header x1="250" y1="24" x2="250" y2="42"  name=l_7 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="368" y1="24" x2="368" y2="42"  name=l_2 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="486" y1="24" x2="486" y2="43"  name=l_6 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+rectangle(band=header x="251" y="23" height="21" width="119"  name=r_12 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Function" border="0" color="0" x="609" y="27" height="13" width="42" html.valueishtml="0"  name=t_5 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="604" y1="24" x2="604" y2="43"  name=l_9 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="676" y1="24" x2="676" y2="43"  name=l_12 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Error" border="0" color="0" x="681" y="27" height="13" width="31" html.valueishtml="0"  name=t_6 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="712" y1="24" x2="712" y2="43"  name=l_5 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+rectangle(band=header x="677" y="23" height="21" width="37"  name=r_2 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="605" y="23" height="21" width="73"  name=r_22 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="101" y="5" height="13" width="34" format="[general]" html.valueishtml="0"  name=nflight_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=detail x="79" y="1" height="21" width="72"  name=r_6 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+line(band=detail x1="28" y1="0" x2="28" y2="18~tif(GetRow() = RowCount() ,11,120) "  name=l_8 visible="1" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="16777215" )
+line(band=detail x1="29" y1="10" x2="41" y2="10"  name=l_14 visible="1" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="16777215" )
+rectangle(band=detail x="41" y="1" height="21" width="39"  name=r_16 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="8421504" x="44" y="4" height="15" width="33" format="[general]" html.valueishtml="0"  name=cunit visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="82" y="4" height="15" width="16" format="[general]" html.valueishtml="0"  name=cairline visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="138" y="5" height="13" width="9" format="[general]" html.valueishtml="0"  name=csuffix visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=foreground x1="1" y1="1" x2="730" y2="1"  name=l_3 visible="1" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="0" tabsequence=40 border="0" color="0" x="158" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=cclient visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=10 alignment="0" tabsequence=50 border="0" color="0" x="198" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=nstatus visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=11 alignment="0" tabsequence=60 border="0" color="0" x="238" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=nqueued_release_interface visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=12 alignment="0" tabsequence=70 border="0" color="0" x="278" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=nstatus_release visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=13 alignment="0" tabsequence=80 border="0" color="0" x="318" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=nsupplier visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=14 alignment="0" tabsequence=90 border="0" color="0" x="358" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=sys_queue_flight_pax_njob_nr visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=15 alignment="0" tabsequence=100 border="0" color="0" x="398" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=sys_queue_flight_pax_cclass visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )
+column(band=detail id=16 alignment="0" tabsequence=110 border="0" color="0" x="438" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=sys_queue_flight_pax_npax visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )
+column(band=detail id=25 alignment="0" tabsequence=190 border="0" color="0" x="478" y="4" height="13" width="36" html.valueishtml="0"  name=anz_spml visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )
+column(band=detail id=17 alignment="0" tabsequence=120 border="0" color="0" x="518" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=cen_out_nairline_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=18 alignment="0" tabsequence=130 border="0" color="0" x="558" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=cen_out_cactype visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=19 alignment="0" tabsequence=140 border="0" color="0" x="598" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=cen_out_cgalleyversion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=20 alignment="0" tabsequence=150 border="0" color="0" x="638" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=cen_out_cconfiguration visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=21 alignment="0" tabsequence=160 border="0" color="0" x="678" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=cen_out_nairline_owner_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=22 alignment="0" tabsequence=170 border="0" color="0" x="718" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=cen_out_cairline_owner visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=23 alignment="0" tabsequence=180 border="0" color="0" x="758" y="4" height="13" width="36" format="[general]" html.valueishtml="0"  name=cen_out_naircraft_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=24 alignment="0" tabsequence=32766 border="0" color="0" x="798" y="4" height="15" width="36" format="[general]" html.valueishtml="0"  name=nfunction visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

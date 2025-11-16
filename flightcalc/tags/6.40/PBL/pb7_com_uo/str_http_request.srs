@@ -1,0 +1,12 @@
+HA$PBExportHeader$str_http_request.srs
+$PBExportComments$Struktur, die Informationen eines HTTP-Requests beinhaltet.
+global type str_http_request from structure
+	blob		bdata
+	string		stype
+	long		lsize
+	string		srawheaders
+	string		scompid
+	boolean		error
+	string		status
+end type
+

@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_get_system_dir.srf
+$PBExportComments$Gibt das aktuelle Systemverzeichnis zur$$HEX1$$fc00$$ENDHEX$$ck
+global type f_get_system_dir from function_object
+end type
+
+forward prototypes
+global function string f_get_system_dir ()
+end prototypes
+
+global function string f_get_system_dir ();/*
+* Objekt : f_get_system_dir
+* Autor  : Dirk Bunk
+* Datum  : 13.12.2012
+*
+* Argument(e):
+*   keine
+*
+* Beschreibung: Gibt das aktuelle Systemverzeichnis zur$$HEX1$$fc00$$ENDHEX$$ck (Z.B. C:\Windows\System32).	
+*
+* $$HEX1$$c400$$ENDHEX$$nderungshistorie:
+*   Version    Wer          Wann          Was und warum
+*   1.0        Dirk Bunk    13.12.2012    Erstellung
+*
+* Return: 
+*   Das aktuelle Systemverzeichnis.
+*/
+
+string ls_SystemDir
+
+try
+	ls_SystemDir = Space(1024)
+	GetSystemDirectoryA(ls_SystemDir, 1024)
+	ls_SystemDir = Trim(ls_SystemDir)
+catch (RuntimeError ex)
+	ls_SystemDir = ""
+end try
+
+return ls_SystemDir
+end function
+

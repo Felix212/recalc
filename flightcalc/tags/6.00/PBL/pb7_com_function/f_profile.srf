@@ -1,0 +1,99 @@
+HA$PBExportHeader$f_profile.srf
+$PBExportComments$Application Profile auslesen
+global type f_profile from function_object
+end type
+
+forward prototypes
+global function boolean f_profile ()
+end prototypes
+
+global function boolean f_profile ();// ------------------------------------------
+// Profile auslesen !
+// ------------------------------------------
+If not FileExists(s_App.sProfile) Then
+	return False
+End if
+ 
+// ------------------------------------------
+// Datenbank 1 St. Connection
+// ------------------------------------------
+s_app.sServerName 		= ProfileString(s_App.sProfile,"Database","Server","")
+s_app.sDBMS 				= ProfileString(s_App.sProfile,"Database","DBMS","ODBC")
+s_app.sDBParm 				= ProfileString(s_App.sProfile,"Database","DBPARM","")
+s_app.sDatabase 			= ProfileString(s_App.sProfile,"Database","Database","")
+ 
+// ------------------------------------------
+// Test-Datenbank
+// ------------------------------------------	
+s_app.sTest_ServerName 	= ProfileString(s_App.sProfile,"Database","TestServer","")
+
+// ------------------------------------------
+// Sprache	Default 1 = Deutsch
+// ------------------------------------------
+s_app.iLanguage		= ProfileInt(s_App.sProfile,"Language","Current",1)
+
+// ------------------------------------------------
+// AutoTranslate ist immer an  (Bleyer,06.09.2001)
+// AutoTranslate ist immer AUS (F$$HEX1$$f600$$ENDHEX$$rster,22.09.2003)
+// -------------------------------------------------
+s_app.bAutotranslate = false 
+
+// ------------------------------------------
+// Die lokale IP-Adresse
+// Hat nicht richtig funktioniert
+// am 27.06.05 gegen neues
+// uo_wsock32 getaucht
+// ------------------------------------------
+//uo_winsock	uoWS
+//string		sIP
+//uoWS = Create uo_winsock	
+//if uoWS.localhostname(sIP) = 0 Then
+//	s_app.sHost	= sIP
+//else
+//	s_app.sHost	= "unknown"
+//end if
+//
+//If uoWS.localip(sIP) = 0 Then
+//	//Messagebox("22222222222", sIP)
+//	s_app.sClientIP = sIP
+//else
+//	// dann speichern wir zumindest den Hostnamen
+//	// Messagebox("333333", sIP)
+//	s_app.sClientIP = s_app.sHost
+//end if
+//
+//destroy uoWS
+
+uo_wsock32		uoWS
+string			sIP
+String 			sValues[]
+ContextKeyword lcxKey
+Integer 			i, iReturn
+
+uoWS = Create uo_wsock32
+
+
+s_app.sHost			= uoWS.uf_gethostname()
+
+
+s_app.sClientIP 	= uoWS.uf_getip()
+
+destroy uoWS
+
+// ------------------------------------------
+// Farbe f$$HEX1$$fc00$$ENDHEX$$r die Zeilenmarkierung in den
+// Reports
+// ------------------------------------------	
+integer iRed, iGreen, iBlue
+
+iRed 		= ProfileInt(s_App.sProfile,"RowSelection","RVALUE",224)
+iGreen 	= ProfileInt(s_App.sProfile,"RowSelection","GVALUE",224)
+iBlue 	= ProfileInt(s_App.sProfile,"RowSelection","BVALUE",224)
+
+s_app.lRowSelectionColor = RGB(iRed, iGreen, iBlue)
+
+return True
+
+
+end function
+

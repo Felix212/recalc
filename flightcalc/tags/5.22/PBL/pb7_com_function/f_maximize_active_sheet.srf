@@ -1,0 +1,44 @@
+HA$PBExportHeader$f_maximize_active_sheet.srf
+$PBExportComments$Maximiert das aktuelle Sheet in einer MDI-Applikation. Aufruf : ... (w_frame)
+global type f_maximize_active_sheet from function_object
+end type
+
+forward prototypes
+global subroutine f_maximize_active_sheet (window frame)
+end prototypes
+
+global subroutine f_maximize_active_sheet (window frame);//
+// Maximiert das momentan aktive Sheet in einer mdi-Anwendung
+//
+//	Aufruf : f_maximize_active_sheet ( frame_window )
+//
+int handle_mdi_1, handle_active, i, clindex
+window active
+mdiclient client
+
+if IsValid(Frame) then
+	if (Frame.WindowType = MDI!) or (Frame.WindowType = MDIHelp!) then
+		clindex = -1
+		for i = LowerBound(Frame.Control) to UpperBound(Frame.Control)
+			if TypeOf(Frame.Control[i]) = mdiclient! then
+				client = Frame.Control[i]
+				clindex = i
+				exit
+			end if
+		next
+		if clindex > -1 then
+			handle_mdi_1 = Handle(client)
+			if IsNull(handle_mdi_1) or handle_mdi_1 = 0 then return
+			active = frame.GetActiveSheet()
+			if IsValid(active) then
+				handle_active = Handle(active)
+				if IsNull(handle_active) or handle_active = 0 then return
+				Post(handle_mdi_1,549,handle_active,0)
+			end if
+		end if
+	end if
+end if
+
+
+end subroutine
+

@@ -1,0 +1,28 @@
+HA$PBExportHeader$f_get_packinglist_key.srf
+global type f_get_packinglist_key from function_object
+end type
+
+forward prototypes
+global function long f_get_packinglist_key (string spackinglist)
+end prototypes
+
+global function long f_get_packinglist_key (string spackinglist);// ---------------------------------------------
+// Hole Packinglist-Key aus einem Text
+// ---------------------------------------------
+long lKey
+
+SELECT cen_packinglist_index.npackinglist_index_key
+ INTO :lKey  
+ FROM cen_packinglist_index
+WHERE cen_packinglist_index.cclient 			= :s_app.smandant 
+  AND	cen_packinglist_index.cpackinglist		= :sPackinglist ;
+
+if sqlca.sqlcode <> 0 then
+	return 0
+else
+	return lKey
+end if
+
+
+end function
+

@@ -1,0 +1,39 @@
+HA$PBExportHeader$f_get_importfile_errortext.srf
+global type f_get_importfile_errortext from function_object
+end type
+
+forward prototypes
+global function string f_get_importfile_errortext (integer arg_error)
+end prototypes
+
+global function string f_get_importfile_errortext (integer arg_error);choose case arg_error
+	case -1 
+	 	return  "No rows or startrow value supplied is greater than the number of rows in the file"
+	case -2
+		return  "Empty file or input data does not match number of columns or required column type"
+	case -3 
+		return  "Invalid argument"
+	case -4 
+		return  "Invalid input"
+	case -5 
+		return  "Could not open the file"
+	case -6 
+		return  "Could not close the file"
+	case -7 
+		return  "Error reading the text"
+	case -8 
+		return  "Unsupported file name suffix (must be *.txt, *.csv, *.dbf or *.xml)"
+	case -10 
+		return  "Unsupported dBase file format (not version 2 or 3)"
+	case -11 
+		return  "XML Parsing Error; XML parser libraries not found or XML not well formed"
+	case -12 
+		return  "XML Template does not exist or does not match the DataWindow"
+	case -15 
+		return  "File size exceeds limit"
+	case else
+		return "Import Error " + string( arg_error )
+end choose
+
+end function
+

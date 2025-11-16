@@ -1,0 +1,11 @@
+HA$PBExportHeader$html_menue.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type html_menue from structure
+  public:
+    String		sjavascript
+    String		slayers
+    String		shtml
+    Integer		istatus
+    String		sstatus
+end type
+

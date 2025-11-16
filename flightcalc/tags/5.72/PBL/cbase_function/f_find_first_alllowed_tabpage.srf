@@ -1,0 +1,53 @@
+HA$PBExportHeader$f_find_first_alllowed_tabpage.srf
+$PBExportComments$Findes die erste TabPage mit Berechtigung anhand des Strings aus f_check_tab_rights
+global type f_find_first_alllowed_tabpage from function_object
+end type
+
+forward prototypes
+global function integer f_find_first_alllowed_tabpage (string as_tabnames, long al_tabpagecnt)
+end prototypes
+
+global function integer f_find_first_alllowed_tabpage (string as_tabnames, long al_tabpagecnt);/*************************************************************
+* Objekt : f_find_first_alllowed_tabpage
+* Methode:  (funktion)
+* Autor  : Ludwin Feiten [LF]
+* Datum  : 05.01.2008
+*
+* Argument(e):	String:	s_tabnames		Stringmuster '12X4X67`
+					long	al_tabPageCnt	Anzahl m$$HEX1$$f600$$ENDHEX$$glicher TabPages ( upperbound(tab.control) )
+* Return: integer								erste Position ohne 'X'
+*
+*
+* Bemerkung
+* Beispiel f_find_first_alllowed_tabpage( ls_tabnames, upperbound(tab_1.control) )
+*
+*************************************************************
+* Modifikationen:
+* Datum    Version        Autor              Kommentar
+*------------------------------------------------------------
+*
+*************************************************************/
+
+long		ll_pos,&
+			ll_found
+string		ls_chr			
+
+for ll_pos = 1 to al_tabPageCnt									
+	ll_found = pos(as_tabnames,string(ll_pos))					// Pr$$HEX1$$fc00$$ENDHEX$$fen, ob die nummmer der TabPage im String aufgef$$HEX1$$fc00$$ENDHEX$$hrt ist
+	if ll_found > 0 and ll_found <= al_tabPageCnt then
+		return ll_pos
+	end if
+next
+
+return 0
+
+//
+//for ll_pos = 1 to Len(s_tabnames)
+//	ls_chr = mid(s_tabnames, ll_pos, 1)
+//	if upper(ls_chr) <> 'X' then
+//		return ll_pos
+//	end if
+//next
+//return 0
+end function
+

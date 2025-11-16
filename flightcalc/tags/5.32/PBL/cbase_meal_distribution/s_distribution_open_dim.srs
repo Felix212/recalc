@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_distribution_open_dim.srs
+global type s_distribution_open_dim from structure
+	long		lIndexKey
+	long		lX
+	long		lY
+end type
+

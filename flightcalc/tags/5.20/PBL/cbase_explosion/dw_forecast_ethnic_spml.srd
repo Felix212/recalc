@@ -1,0 +1,22 @@
+HA$PBExportHeader$dw_forecast_ethnic_spml.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nfcspml_key dbname="cen_forecast_spml.nfcspml_key" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_forecast_flights~" )  TABLE(NAME=~"cen_forecast_spml~" )  TABLE(NAME=~"sys_spml~" ) COLUMN(NAME=~"cen_forecast_spml.nfcspml_key~")    JOIN (LEFT=~"cen_forecast_spml.nfcflight_key~"    OP =~"=~"RIGHT=~"cen_forecast_flights.nfcflight_key~" )    JOIN (LEFT=~"cen_forecast_spml.nspml_key~"    OP =~"=~"RIGHT=~"sys_spml.nspml_key~" )WHERE(    EXP1 =~"~~~"CEN_FORECAST_FLIGHTS~~~".~~~"NAIRLINE_KEY~~~"~"   OP =~"=~"    EXP2 =~":nairline_key~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CEN_FORECAST_FLIGHTS~~~".~~~"NFLIGHT_NUMBER~~~"~"   OP =~"=~"    EXP2 =~":nflight_number~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"CEN_FORECAST_FLIGHTS~~~".~~~"CCLASS~~~"~"   OP =~"=~"    EXP2 =~":cclass~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"SYS_SPML~~~".~~~"CSPML~~~"~"   OP =~"=~"    EXP2 =~":cspml~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"TRUNC(:dflightdate)~"   OP =~"between~"    EXP2 =~"TRUNC(~~~"CEN_FORECAST_FLIGHTS~~~".~~~"DVALID_FROM~~~") and TRUNC(~~~"CEN_FORECAST_FLIGHTS~~~".~~~"DVALID_TO~~~")~" ) ) ARG(NAME = ~"nairline_key~" TYPE = number)  ARG(NAME = ~"nflight_number~" TYPE = number)  ARG(NAME = ~"cclass~" TYPE = string)  ARG(NAME = ~"cspml~" TYPE = string)  ARG(NAME = ~"dflightdate~" TYPE = datetime) " arguments=(("nairline_key", number),("nflight_number", number),("cclass", string),("cspml", string),("dflightdate", datetime)) )
+text(band=header alignment="2" text="nfcspml_key" border="0" color="33554432" x="5" y="8" height="52" width="603" html.valueishtml="0"  name=dvalid_to_t visible="1"  font.face="Microsoft Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=0 border="0" color="33554432" x="5" y="0" height="52" width="603" html.valueishtml="0"  name=nfcspml_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Microsoft Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

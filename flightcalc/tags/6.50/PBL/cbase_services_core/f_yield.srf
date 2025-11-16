@@ -1,0 +1,15 @@
+HA$PBExportHeader$f_yield.srf
+global type f_yield from function_object
+end type
+
+forward prototypes
+global function boolean f_yield (long i_lroleid)
+end prototypes
+
+global function boolean f_yield (long i_lroleid);if f_profile_string2(gs_Profile, "CBASE_Service", "DisableYield", "0", "0: run yield(); 1: don't run yield()") = "0" then
+   yield()
+end if
+
+return true
+end function
+

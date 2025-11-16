@@ -1,0 +1,24 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "pb7_jaguar\\pb7_jaguar.pbl" "";
+@end;
+@begin Objects
+ "pb7_jaguar\\usersettings.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\logon_history.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\n_cbase.srx" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\n_interface.srx" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\n_disk.srx" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\n_base64.srx" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\dbconnect.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\html_menue.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\n_user.srx" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\n_printer.srx" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\dbresult.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\n_cbase_connect.sru" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\stringseq.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\s_all_flight_infos.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\cbase_stream.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\bcdbinaryseq.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\p_cbase_proxy.srj" "pb7_jaguar\\pb7_jaguar.pbl";
+ "pb7_jaguar\\html_menu_settings.srs" "pb7_jaguar\\pb7_jaguar.pbl";
+@end;

@@ -1,0 +1,54 @@
+HA$PBExportHeader$f_get_actype.srf
+global type f_get_actype from function_object
+end type
+
+forward prototypes
+global function string f_get_actype (long laircraft)
+end prototypes
+
+global function string f_get_actype (long laircraft);// ------------------------------------------------------
+// f$$HEX1$$fc00$$ENDHEX$$r einen Airkraft Key nen Text zusammenbasteln
+// ------------------------------------------------------
+
+string 	sACType, &
+			sGalleyVersion, &
+			sConfiguration, &
+			sAirline
+ 
+ 
+//SELECT cen_aircraft.cactype,   
+//		cen_aircraft.cconfiguration,   
+//		cen_aircraft.cgalleyversion  
+// INTO :sACType,   
+//		:sConfiguration,   
+//		:sGalleyVersion  
+// FROM cen_aircraft  
+//WHERE cen_aircraft.naircraft_key = :lAircraft   ;
+
+
+SELECT cen_aircraft.cactype,   
+		cen_aircraft.cconfiguration,   
+		cen_aircraft.cgalleyversion,
+		cen_airlines.cairline
+ INTO :sACType,   
+		:sConfiguration,   
+		:sGalleyVersion,
+		:sAirline
+ FROM cen_aircraft, cen_airlines 
+WHERE (cen_aircraft.nairline_owner_key = cen_airlines.nairline_key) and 
+		(cen_aircraft.naircraft_key = :lAircraft);
+
+
+
+if sqlca.sqlcode = 0 then
+	return "[" + sAirline + "]" + " " + sACType + " - " + sGalleyVersion + "     [" +  sConfiguration+ "]"
+elseif sqlca.sqlcode = 100 then
+	return "not found"
+else
+	return "Error"
+	
+end if
+
+
+end function
+

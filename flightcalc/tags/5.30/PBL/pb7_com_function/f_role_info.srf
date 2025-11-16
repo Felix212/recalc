@@ -1,0 +1,80 @@
+HA$PBExportHeader$f_role_info.srf
+global type f_role_info from function_object
+end type
+
+forward prototypes
+global subroutine f_role_info (window w_window, long lrole_id, long lhelp_id)
+end prototypes
+
+global subroutine f_role_info (window w_window, long lrole_id, long lhelp_id);// ------------------------------------------------
+// $$HEX1$$dc00$$ENDHEX$$bertrag der Rollen und Hilfe Informationen
+// ------------------------------------------------
+	string 				sArea
+	string 				w_title
+	string				w_class_name
+	ClassDefinition 	cd_windef
+	string 				sLibname
+	
+	w_title 			= w_window.title
+	w_class_name	= w_window.Classname()
+	
+
+	cd_windef = FindClassDefinition(w_class_name)
+	sLibname	 = cd_windef.LibraryName
+	
+// ------------------------------------------------
+// Lokale 	Rollen von 		1			-	9.999
+// Zentrale Rollen von		10.000 	- 19.999
+// System 	Rollen von		20.000 	- 29.999	
+// ------------------------------------------------	
+	If lRole_id >= 1 and lRole_id <= 9999 Then
+		sArea = "Local"
+	ElseIf lRole_id >= 10000 and lRole_id <= 19999 Then		
+		sArea = "Central"
+	ElseIf lRole_id >= 20000 and lRole_id <= 29999 Then		
+		sArea = "System"		
+	Else
+		sArea = "Error"		
+	End if	
+		
+	
+	If s_app.bDebug Then
+		INSERT INTO sys_role_info  
+				( cw_class_name,   
+				  cw_title,   
+				  nw_role_id,   
+				  nw_help_id,   
+				  carea,
+				  cLibrary)  
+	  VALUES ( :w_class_name,   
+				  :w_title,   
+				  :lrole_id,   
+				  :lhelp_id,   
+				  :sArea,
+				  :sLibname)
+		USING SQLCA;
+	
+		If SQLCA.SQLCode <> 0 Then
+			UPDATE sys_role_info  
+			  SET cw_class_name 	= :w_class_name,
+					cw_title 		= :w_title,
+					nw_role_id 		= :lrole_id,   
+					nw_help_id 		= :lhelp_id,   
+					carea 			= :sArea ,
+					cLibrary			= :sLibname
+			WHERE cw_class_name 	= :w_class_name
+			USING SQLCA;
+			
+			If SQLCA.SQLCode <> 0 Then
+				rollback using sqlca;
+			else
+				commit USING SQLCA;
+			end if
+			
+			
+		else
+			commit USING SQLCA;
+		End if
+	End if
+end subroutine
+

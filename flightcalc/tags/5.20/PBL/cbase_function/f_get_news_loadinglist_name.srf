@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_get_news_loadinglist_name.srf
+global type f_get_news_loadinglist_name from function_object
+end type
+
+forward prototypes
+global function string f_get_news_loadinglist_name (string sloadinglist)
+end prototypes
+
+global function string f_get_news_loadinglist_name (string sloadinglist);
+string sText
+
+datetime	dtToday
+
+dtToday = Datetime(Today(), Time("00:00"))
+
+select cen_news_ll_index.ctext
+    INTO :stext  
+    FROM cen_news_ll_index  
+   WHERE cen_news_ll_index.cnews_ll = :sloadinglist and
+	      cen_news_ll_index.dvalid_from <= :dtToday and 
+	      cen_news_ll_index.dvalid_to >= :dtToday ;
+	
+	if sqlca.sqlcode = 0 then
+		return sText
+	elseif sqlca.sqlcode = 100 then
+		Return "Not found!"
+	else
+		f_db_error(sqlca, "f_get_news_loadinglist_name()")
+		Return "Error"
+	end if
+	
+	
+end function
+

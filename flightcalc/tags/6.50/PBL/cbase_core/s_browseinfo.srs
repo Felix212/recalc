@@ -1,0 +1,12 @@
+HA$PBExportHeader$s_browseinfo.srs
+global type s_browseinfo from structure
+	long		howner
+	long		pidlroot
+	string		pszdisplayname
+	string		lpsztitle
+	long		ulflags
+	long		lpfn
+	long		lparam
+	long		iimage
+end type
+

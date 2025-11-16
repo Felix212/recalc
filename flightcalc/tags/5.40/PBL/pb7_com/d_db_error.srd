@@ -1,0 +1,11 @@
+HA$PBExportHeader$d_db_error.srd
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 0 print.margin.right = 0 print.margin.top = 0 print.margin.bottom = 0 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=113 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=161 color="553648127"  height.autosize=yes)
+table(column=(type=char(500) updatewhereclause=no name=message dbname="Message" )
+ )
+compute(band=header alignment="0" expression="~"Database error message - ~" + string(today(),~"dd.mm.yyyy~") + ~" - ~" + string(now(), ~"HH:MM:SS~")"border="0" color="0" x="28" y="24" height="77" width="2862" format="[general]"  name=smessage  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="23" y="24" height="129" width="2743" format="[general]"  name=message height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )

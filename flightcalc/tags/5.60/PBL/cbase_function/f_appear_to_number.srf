@@ -1,0 +1,49 @@
+HA$PBExportHeader$f_appear_to_number.srf
+global type f_appear_to_number from function_object
+end type
+
+forward prototypes
+global function integer f_appear_to_number (datawindow odw, long lrow, string sfreq)
+end prototypes
+
+global function integer f_appear_to_number (datawindow odw, long lrow, string sfreq);// -------------------------------------------
+// Aus den einen String ( 1-3-567)
+// die Werte in die Felder nfreq1 bis nfreq7 
+// eintragen
+// -------------------------------------------
+
+Integer 	i, &
+			iCount
+
+
+
+if Pos(sFreq, "8") > 0 or Pos(sFreq, "9") > 0 then
+	oDw.SetItem(lRow, "nappearance1", 1)
+	oDw.SetItem(lRow, "nappearance2", 1)
+	oDw.SetItem(lRow, "nappearance3", 1)
+	oDw.SetItem(lRow, "nappearance4", 1)
+	oDw.SetItem(lRow, "nappearance5", 1)
+	oDw.SetItem(lRow, "nappearance6", 1)
+	oDw.SetItem(lRow, "nappearance7", 1)
+	iCount ++
+	return iCount
+end if
+
+For i = 1 to 7
+	
+	if Pos(sFreq, String(i)) > 0 then	
+		oDw.SetItem(lRow, "nappearance" + string(i), 1)
+		iCount ++
+	else
+		oDw.SetItem(lRow, "nappearance" + string(i), 0)
+	end if
+	
+Next
+
+
+return iCount
+
+
+
+end function
+

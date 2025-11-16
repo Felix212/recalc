@@ -1,0 +1,45 @@
+HA$PBExportHeader$f_validatedwcoordinate.srf
+$PBExportComments$Powerbuilder hat Spr$$HEX1$$fc00$$ENDHEX$$nge in der Skalierung der Ma$$HEX1$$df00$$ENDHEX$$e. Dies liegt an der R$$HEX1$$fc00$$ENDHEX$$ckrechnung auf Pixel. Diese Funktion bekommt ein Koordinate in 1/1000 cm und liefert eine g$$HEX1$$fc00$$ENDHEX$$ltige Position in 1/1000 cm im DW zur$$HEX1$$fc00$$ENDHEX$$ck.
+global type f_validatedwcoordinate from function_object
+end type
+
+forward prototypes
+global function integer f_validatedwcoordinate (integer lkoordinate)
+end prototypes
+
+global function integer f_validatedwcoordinate (integer lkoordinate);Integer iMoeglich, iRet
+// ------------------------------------
+// Powerbuilder hat Spr$$HEX1$$fc00$$ENDHEX$$nge in der 
+// Skalierung der Ma$$HEX1$$df00$$ENDHEX$$e. Dies liegt an
+// der R$$HEX1$$fc00$$ENDHEX$$ckrechnung auf Pixel
+//
+// Beispiel:	160 mm kann nicht dar-
+//					gestellt werden. Er rundet
+//					ab auf 158,7 mm
+//
+// Hieraus kann folgende Rechnung (Drei-
+// satz) abgeleitet werden
+//
+//	100 Pixel = 26,45 cm (2645 1/1000 cm)
+// Hieraus kann ein Faktor errechnet werden
+//
+//			2645
+//			----  = 26,45
+//			100
+//
+// Man Teilt nun die eingebene Breite 
+// durch diesen Faktor und erh$$HEX1$$e400$$ENDHEX$$lt eine
+// Zahl (ggf. Komma) mit Int gerundet
+// ergibt sich die n$$HEX1$$e400$$ENDHEX$$chst kleinere Ganz-
+// zahl, welche wiederum mit dem Faktor
+// multipliziert wird und man erh$$HEX1$$e400$$ENDHEX$$lt die
+// darstellbare Gr$$HEX2$$f600df00$$ENDHEX$$e im DW
+// ------------------------------------
+
+iMoeglich	= Round((lkoordinate / 26.45), 0)
+iRet			= Round((iMoeglich   * 26.45), 0)
+
+return iRet
+
+end function
+

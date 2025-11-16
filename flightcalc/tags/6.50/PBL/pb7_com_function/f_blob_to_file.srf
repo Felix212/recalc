@@ -1,0 +1,66 @@
+HA$PBExportHeader$f_blob_to_file.srf
+$PBExportComments$Funktion schreibt den Inhalt einer Blob-Variable in eine Datei
+global type f_blob_to_file from function_object
+end type
+
+forward prototypes
+global function long f_blob_to_file (string sfilename, blob bfilebuffer)
+end prototypes
+
+global function long f_blob_to_file (string sfilename, blob bfilebuffer);// -------------------------------------------------
+// Diese Funktion speichert einen Blob in eine Datei
+// welcher $$HEX1$$fc00$$ENDHEX$$bergeben wurde.
+//
+// der R$$HEX1$$fc00$$ENDHEX$$ckgabewert ist die Anzahl der geschriebenen
+// Bytes
+// -------------------------------------------------
+	Blob		bBuffer
+	Long		lFileLength, &
+				lBytesWrite, &
+				lAnzSchreibLoops, &
+				l
+				
+	Integer	iFileHandleSource
+	
+	SetPointer(Hourglass!)
+	
+	// ----------------
+	// Dateigr$$HEX2$$f600df00$$ENDHEX$$e
+	// ----------------
+	If Len(bfilebuffer) <= 0 or isnull(Len(bfilebuffer)) Then
+		uf.mbox ("Fehler","Dateigr$$HEX2$$f600df00$$ENDHEX$$e der Ausgabedatei ist null!")
+	End if	
+
+	lFileLength = Len(bfilebuffer)
+	
+	iFileHandleSource = FileOpen(sfilename, StreamMode!, Write!, LockReadWrite!, Replace!)
+	
+	If iFileHandleSource = -1 Then
+		uf.mbox ("Fehler","Ausgabedatei kann nicht geschrieben werden!~r${" + sfilename + "}" )
+	End if
+	
+	// ------------------------------------------
+	// Wir schreiben den Blob
+	//
+	// FileRead und Write verarbeitet nur Chunks 
+	// mit 32K ggf. mehrere Loops
+	// ------------------------------------------
+
+	lAnzSchreibLoops = Mod (lFileLength, 32765)
+	If lAnzSchreibLoops = 0 Then
+		lAnzSchreibLoops = lFileLength / 32765
+	elseif lAnzSchreibLoops > 0 Then 
+		lAnzSchreibLoops = (lFileLength / 32765) + 1
+	end if
+
+	For l = 1 To lAnzSchreibLoops
+		bBuffer   = BlobMid(bfilebuffer, (((l - 1) * 32765) + 1), 32765)
+		lBytesWrite = lBytesWrite + FileWrite(iFileHandleSource, bBuffer) 
+	next
+
+	FileClose(iFileHandleSource)
+	
+	return lBytesWrite
+
+end function
+

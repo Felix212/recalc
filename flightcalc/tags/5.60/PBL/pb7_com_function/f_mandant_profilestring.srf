@@ -1,0 +1,54 @@
+HA$PBExportHeader$f_mandant_profilestring.srf
+$PBExportComments$Profilestring wird aus Datenbank gelesen und gilt f$$HEX1$$fc00$$ENDHEX$$r kompletten Mandanten
+global type f_mandant_profilestring from function_object
+end type
+
+forward prototypes
+global function string f_mandant_profilestring (transaction arg_sqlca, string arg_mandant, string arg_section, string arg_key, string arg_default)
+end prototypes
+
+global function string f_mandant_profilestring (transaction arg_sqlca, string arg_mandant, string arg_section, string arg_key, string arg_default);//
+/* 
+* Funktion/Event: f_mandant_profilestring
+* Beschreibung: 	Lesen eines Wertes aus der cen_setup
+* Besonderheit: 	keine
+*
+**
+* Aenderungshistorie:
+* 	Version 		Wer					Wann				Was und warum
+*	1.0 			H.Rothenbach		29.10.2008		Erstellung
+*/
+string	sValue
+
+Select 	cValue 
+into 		:sValue 
+from		cen_setup
+where	cclient		= :arg_mandant  	and
+			cSection		= :arg_Section		and
+			cKey			= :arg_Key
+using 		arg_sqlca;
+			
+			
+If arg_sqlca.SQLCode = 100 Then
+	//Wert nicht gefunden, dann default eintragen und zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+	sValue = arg_default
+	
+	INSERT INTO cen_setup  
+				 (cclient,   
+				  csection,   
+				  ckey,   
+				  cvalue )
+   	VALUES ( :arg_mandant,   
+				 :arg_Section,   
+				 :arg_Key,   
+				 :arg_Default) 
+ 	using arg_sqlca;
+ 
+	f_check_sql(arg_sqlca,"Insert into cen_setup","Insert")
+End if
+
+return sValue
+
+
+end function
+

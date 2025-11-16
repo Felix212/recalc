@@ -1,0 +1,12 @@
+HA$PBExportHeader$s_layout_detail_mapper.srs
+global type s_layout_detail_mapper from structure
+	long		lnewlayoutdetailkey
+	long		loldlayoutdetailkey
+	long		loldcontentkey
+	long		lnewcontentkey
+	long		lolddetailkey
+	long		lnewdetailkey
+	long		loldlayoutkey
+	long		lnewlayoutkey
+end type
+

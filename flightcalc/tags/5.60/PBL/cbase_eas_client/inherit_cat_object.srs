@@ -1,0 +1,9 @@
+HA$PBExportHeader$inherit_cat_object.srs
+global type inherit_cat_object from structure
+	string		sname
+	string		sdescription
+	long		luserobjectkey
+	date		dValidFrom
+	date		dValidTo
+end type
+

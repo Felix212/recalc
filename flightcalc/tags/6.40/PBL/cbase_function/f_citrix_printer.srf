@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_citrix_printer.srf
+global type f_citrix_printer from function_object
+end type
+
+forward prototypes
+global function integer f_citrix_printer (string sprinter)
+end prototypes
+
+global function integer f_citrix_printer (string sprinter);// ------------------------------------------------
+// Druckerliste im "Citrix-Mode" auf die Drucker
+// reduzieren, die zur eigenen Workstation geh$$HEX1$$f600$$ENDHEX$$ren
+// ------------------------------------------------
+Integer 	i
+String	sReturn[]
+integer iFile
+
+if s_app.iTrace = 1 then 
+	
+	iFile = FileOpen(f_gettemppath() + "cbase_citrix_printer_list.log", LineMode!, Write!, Shared!)
+	FileWrite(iFile, "Asking for - " + s_app.sHost + " - " + sPrinter)
+	
+end if
+
+if Pos(sPrinter, s_app.sHost) > 0 then
+	
+	if s_app.iTrace = 1 then FileWrite(iFile, "Printer is mine")
+	if s_app.iTrace = 1 then FileClose(iFile)
+		
+	return 1
+else
+	
+	if s_app.iTrace = 1 then FileWrite(iFile, "Printer belongs to different Client")
+	if s_app.iTrace = 1 then FileClose(iFile)
+	
+	return -1
+end if 
+
+return 0
+end function
+

@@ -1,0 +1,68 @@
+HA$PBExportHeader$dw_cen_out_browser_finalpax_pax.srd
+release 10;
+datawindow(units=1 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=24 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nresult_key dbname="cen_out_pax.nresult_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nclass_number dbname="cen_out_pax.nclass_number" )
+ column=(type=char(10) updatewhereclause=yes name=cclass dbname="cen_out_pax.cclass" )
+ column=(type=decimal(0) updatewhereclause=yes name=nversion dbname="cen_out_pax.nversion" )
+ column=(type=decimal(0) updatewhereclause=yes name=npax dbname="cen_out_pax.npax" )
+ column=(type=decimal(0) updatewhereclause=yes name=npax_spml dbname="cen_out_pax.npax_spml" )
+ column=(type=decimal(0) updatewhereclause=yes name=npax_airline dbname="cen_out_pax.npax_airline" )
+ retrieve="  SELECT 
+         cen_out_pax.nresult_key,   
+         cen_out_pax.nclass_number,   
+         cen_out_pax.cclass,   
+         cen_out_pax.nversion,   
+         cen_out_pax.npax,   
+         cen_out_pax.npax_spml,   
+         cen_out_pax.npax_airline  
+    FROM cen_out,   
+         cen_out_pax  
+   WHERE ( cen_out_pax.nresult_key = cen_out.nresult_key ) and  
+         ( cen_out.ddeparture = :arg_departure ) AND  
+         ( (0 = :arg_UseRampTime  AND  
+         cen_out.csort_time >= :arg_TimeFrom AND  
+         cen_out.csort_time <= :arg_TimeTo ) OR
+         (1 = :arg_UseRampTime  AND  
+         cen_out.cramp_time >= :arg_TimeFrom AND  
+         cen_out.cramp_time <= :arg_TimeTo )) AND  
+         ( cen_out.cclient = :arg_client ) AND  
+         (1 = :arg_wildcard OR  
+         cen_out.cunit in ( :arg_unit) ) AND  
+         cen_out.nflight_number >= :arg_flight_from AND  
+         cen_out.nflight_number <= :arg_flight_to AND  
+         cen_out.nairline_key = :arg_airlinekey    
+" arguments=(("arg_departure", date),("arg_client", string),("arg_wildcard", number),("arg_unit", stringlist),("arg_TimeFrom", string),("arg_TimeTo", string),("arg_UseRampTime", number),("arg_flight_from", number),("arg_flight_to", number),("arg_airlinekey", number))  sort="nresult_key A nclass_number A " )
+line(band=header x1="1" y1="1" x2="1153" y2="1"  name=l_3 visible="1" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+rectangle(band=detail x="152" y="40~t1" height="21" width="966"  name=r_gruen visible="1~tif (nleg_number > 1,1,0)" brush.hatch="6" brush.color="31060702" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="31522520" )
+rectangle(band=detail x="152" y="50~t1" height="21" width="966"  name=r_gelb visible="1~tif(currentRow() = getrow(),1,0)" brush.hatch="6" brush.color="29229055" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="31522520" )
+rectangle(band=detail x="3" y="92" height="21" width="130"  name=r_status visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="3" y="92" height="21" width="16"  name=r_label visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+compute(band=detail alignment="2" expression="/*  If (compute_label_errors = 1,~"$$HEX1$$fc00$$ENDHEX$$~",~"$$HEX1$$fb00$$ENDHEX$$~") */"border="0" color="0~t If (compute_label_errors = 1,rgb(0,202,0),rgb(255,0,0))" x="4" y="95" height="15" width="14" format="[GENERAL]" html.valueishtml="0"  name=compute_label visible="0~t If (compute_label_errors = 2,0,1)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+rectangle(band=detail x="18" y="92" height="21" width="16"  name=r_grafik visible="0" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="48" y="92" height="21" width="16"  name=r_info visible="0" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="33" y="92" height="21" width="16"  name=r_doc visible="0" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+compute(band=detail alignment="2" expression="/*  If (compute_grafik_errors = 1,~"$$HEX1$$fc00$$ENDHEX$$~",~"$$HEX1$$fb00$$ENDHEX$$~") */"border="0" color="0~t If (compute_grafik_errors = 1,rgb(0,202,0),rgb(255,0,0))" x="19" y="95" height="15" width="14" format="[GENERAL]" html.valueishtml="0"  name=compute_grafik visible="0~t If (compute_grafik_errors = 2,0,1)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression="/*  If (compute_doc_errors = 1,~"$$HEX1$$fc00$$ENDHEX$$~",~"$$HEX1$$fb00$$ENDHEX$$~") */"border="0" color="0~t If (compute_doc_errors = 1,rgb(0,202,0),rgb(255,0,0))" x="34" y="95" height="15" width="14" format="[GENERAL]" html.valueishtml="0"  name=compute_docs visible="0~t If (compute_doc_errors = 2,0,1)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression="/*  If (compute_info_errors = 1,~"$$HEX1$$fc00$$ENDHEX$$~",~"$$HEX1$$fb00$$ENDHEX$$~") */"border="0" color="0~t If (compute_info_errors = 1,rgb(0,202,0),rgb(255,0,0))" x="49" y="95" height="15" width="14" format="[GENERAL]" html.valueishtml="0"  name=compute_info visible="0~t If (compute_info_errors = 2,0,1)"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="2" y="3" height="19" width="64" format="[general]" html.valueishtml="0"  name=nresult_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="69" y="3" height="19" width="64" format="[general]" html.valueishtml="0"  name=nclass_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="136" y="3" height="19" width="64" format="[general]" html.valueishtml="0"  name=cclass visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="203" y="3" height="19" width="64" format="[general]" html.valueishtml="0"  name=nversion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="270" y="3" height="19" width="64" format="[general]" html.valueishtml="0"  name=npax visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="337" y="3" height="19" width="64" format="[general]" html.valueishtml="0"  name=npax_spml visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="404" y="3" height="19" width="64" format="[general]" html.valueishtml="0"  name=npax_airline visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

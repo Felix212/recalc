@@ -1,0 +1,157 @@
+HA$PBExportHeader$dw_generate_cfs_schedule.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=number update=yes updatewhereclause=yes key=yes name=next_cat_key dbname="sky_ext_cat_sched.next_cat_key" )
+ column=(type=number update=yes updatewhereclause=yes name=ncat_key dbname="sky_ext_cat_sched.ncat_key" )
+ column=(type=number update=yes updatewhereclause=yes name=nstatus dbname="sky_ext_cat_sched.nstatus" )
+ column=(type=number update=yes updatewhereclause=yes name=ncat_group_key dbname="sky_ext_cat_sched.ncat_group_key" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=cairline dbname="sky_ext_cat_sched.cairline" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nflight_number dbname="sky_ext_cat_sched.nflight_number" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=csuffix dbname="sky_ext_cat_sched.csuffix" )
+ column=(type=datetime update=yes updatewhereclause=yes name=ddeparture dbname="sky_ext_cat_sched.ddeparture" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=cdeparture_time dbname="sky_ext_cat_sched.cdeparture_time" )
+ column=(type=char(6) update=yes updatewhereclause=yes name=cairline_owner dbname="sky_ext_cat_sched.cairline_owner" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=cactype dbname="sky_ext_cat_sched.cactype" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=cgalleyversion dbname="sky_ext_cat_sched.cgalleyversion" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cconfiguration dbname="sky_ext_cat_sched.cconfiguration" )
+ column=(type=number update=yes updatewhereclause=yes name=nleg_number dbname="sky_ext_cat_sched.nleg_number" )
+ column=(type=char(4) update=yes updatewhereclause=yes name=cunit dbname="sky_ext_cat_sched.cunit" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=ctlc_from dbname="sky_ext_cat_sched.ctlc_from" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=ctlc_to dbname="sky_ext_cat_sched.ctlc_to" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=chandling_type_text dbname="sky_ext_cat_sched.chandling_type_text" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=crouting dbname="sky_ext_cat_sched.crouting" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dtimestamp dbname="sky_ext_cat_sched.dtimestamp" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cchanged dbname="sky_ext_cat_sched.cchanged" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=cfs_departure_time dbname="cfs_departure_time" )
+ column=(type=number update=yes updatewhereclause=yes name=nfs_aircraft_key dbname="nfs_aircraft_key" )
+ column=(type=number update=yes updatewhereclause=yes name=nvalid_flight dbname="nvalid_flight" )
+ column=(type=number updatewhereclause=yes name=nfs_offset dbname="nfs_offset" )
+ column=(type=number updatewhereclause=yes name=nfs_tlc_from dbname="nfs_tlc_from" )
+ column=(type=number updatewhereclause=yes name=nfs_tlc_to dbname="nfs_tlc_to" )
+ column=(type=number updatewhereclause=yes name=nschedrow dbname="nschedrow" )
+ column=(type=number updatewhereclause=yes name=nfind_schedule dbname="nfind_schedule" )
+ column=(type=number updatewhereclause=yes name=nfind_loading dbname="nfind_loading" )
+ column=(type=number updatewhereclause=yes name=noffset_days dbname="sky_ext_cat_sched.noffset_days" )
+ retrieve="  SELECT sky_ext_cat_sched.next_cat_key,   
+         sky_ext_cat_sched.ncat_key,   
+         sky_ext_cat_sched.nstatus,   
+         sky_ext_cat_sched.ncat_group_key,   
+         sky_ext_cat_sched.cairline,   
+         sky_ext_cat_sched.nflight_number,   
+         sky_ext_cat_sched.csuffix,   
+         sky_ext_cat_sched.ddeparture,   
+         sky_ext_cat_sched.cdeparture_time,   
+         sky_ext_cat_sched.cairline_owner,   
+         sky_ext_cat_sched.cactype,   
+         sky_ext_cat_sched.cgalleyversion,   
+         sky_ext_cat_sched.cconfiguration,   
+         sky_ext_cat_sched.nleg_number,   
+         sky_ext_cat_sched.cunit,   
+         sky_ext_cat_sched.ctlc_from,   
+         sky_ext_cat_sched.ctlc_to,   
+         sky_ext_cat_sched.chandling_type_text,   
+         sky_ext_cat_sched.crouting,   
+         sky_ext_cat_sched.dtimestamp,   
+         sky_ext_cat_sched.cchanged,   
+         '--:--' cfs_departure_time,   
+         0 nfs_aircraft_key,   
+         -1 nvalid_flight,   
+         0.00  nfs_offset,   
+         0 nfs_tlc_from,   
+         0 nfs_tlc_to,   
+         0 nschedrow,   
+         0 nfind_schedule,   
+         0 nfind_loading ,
+		NOFFSET_DAYS 
+    FROM sky_ext_cat_sched  
+   WHERE ( sky_ext_cat_sched.cairline = :cairline ) AND  
+         ( sky_ext_cat_sched.ddeparture = :ddeparture )    
+union all
+select -1 * rcl.ncfs_leg_key,
+       -1 * rcl.ncfs_leg_key,
+       0,
+       -100 * rc.ncfs_key - rcl.ncfs_group_key,
+       ca.cairline,
+       rcl.nflight_number,
+       rcl.csuffix,
+       :ddeparture,
+       ' ',
+       ' ',
+       ' ',
+       ' ',
+       ' ',
+       rcl.nleg_number,
+       rcl.cunit,
+       stlc1.ctlc,
+       stlc2.ctlc,
+       ' ',
+       ' ',
+       sysdate,
+       ' ',
+       '--:--' cfs_departure_time,   
+         0 nfs_aircraft_key,   
+         -1 nvalid_flight,   
+         0.00  nfs_offset,   
+         0 nfs_tlc_from,   
+         0 nfs_tlc_to,   
+         0 nschedrow,   
+         0 nfind_schedule,   
+         0 nfind_loading,
+		0 NOFFSET_DAYS  
+from cen_rplan_cfs rc, 
+     cen_rplan_cfs_legs rcl, 
+     cen_airlines ca,
+     sys_three_letter_codes stlc1,
+     sys_three_letter_codes stlc2
+where rc.ncfs_key = rcl.ncfs_key and 
+      rc.nroutingplan_index = :nroutingplan_index and 
+      rcl.ndummy=1 and 
+      ca.nairline_key=rcl.nairline_key and
+      rcl.ntlc_from = stlc1.ntlc_key and
+      rcl.ntlc_to = stlc2.ntlc_key and
+ rcl.cunit = :cunit" update="sky_ext_cat_sched" updatewhere=1 updatekeyinplace=no arguments=(("cairline", string),("ddeparture", date),("nroutingplan_index", number),("cunit", string))  sort="ncat_group_key A nleg_number A " )
+column(band=detail id=1 alignment="1" tabsequence=10 border="2" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=next_cat_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="2" color="33554432" x="338" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ncat_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="2" color="33554432" x="672" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nstatus visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=40 border="2" color="33554432" x="1006" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ncat_group_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="2" color="33554432" x="1408" y="4" height="76" width="192" format="[general]" html.valueishtml="0"  name=cairline visible="1" edit.limit=6 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=60 border="2" color="33554432" x="1614" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nflight_number visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="2" color="33554432" x="2007" y="4" height="76" width="110" format="[general]" html.valueishtml="0"  name=csuffix visible="1" edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="2" color="33554432" x="2185" y="4" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=ddeparture visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=90 border="2" color="33554432" x="2793" y="4" height="76" width="165" format="[general]" html.valueishtml="0"  name=cdeparture_time visible="1" edit.limit=5 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=100 border="2" color="33554432" x="3241" y="4" height="76" width="192" format="[general]" html.valueishtml="0"  name=cairline_owner visible="1" edit.limit=6 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=110 border="2" color="33554432" x="3634" y="4" height="76" width="302" format="[general]" html.valueishtml="0"  name=cactype visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=120 border="2" color="33554432" x="3941" y="4" height="76" width="302" format="[general]" html.valueishtml="0"  name=cgalleyversion visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=130 border="2" color="33554432" x="4320" y="4" height="76" width="576" format="[general]" html.valueishtml="0"  name=cconfiguration visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=140 border="2" color="33554432" x="4905" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nleg_number visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=150 border="2" color="33554432" x="5248" y="4" height="76" width="137" format="[general]" html.valueishtml="0"  name=cunit visible="1" edit.limit=4 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=160 border="2" color="33554432" x="5390" y="4" height="76" width="110" format="[general]" html.valueishtml="0"  name=ctlc_from visible="1" edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=170 border="2" color="33554432" x="5646" y="4" height="76" width="110" format="[general]" html.valueishtml="0"  name=ctlc_to visible="1" edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=180 border="2" color="33554432" x="5833" y="4" height="76" width="850" format="[general]" html.valueishtml="0"  name=chandling_type_text visible="1" edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=190 border="2" color="33554432" x="6688" y="4" height="76" width="110" format="[general]" html.valueishtml="0"  name=crouting visible="1" edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=200 border="2" color="33554432" x="6912" y="4" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=dtimestamp visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="0" tabsequence=210 border="2" color="33554432" x="7520" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cchanged visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="0" tabsequence=220 border="2" color="33554432" x="8649" y="4" height="76" width="905" format="[general]" html.valueishtml="0"  name=cfs_departure_time visible="1" edit.limit=32 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="1" tabsequence=230 border="2" color="33554432" x="9559" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nfs_aircraft_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="1" tabsequence=240 border="2" color="33554432" x="9966" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nvalid_flight visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="0" tabsequence=250 border="2" color="33554432" x="10299" y="0" height="64" width="361" format="[general]" html.valueishtml="0"  name=nfs_offset visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="0" tabsequence=260 border="0" color="33554432" x="10661" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nfs_tlc_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="0" tabsequence=270 border="0" color="33554432" x="12795" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nfs_tlc_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="0" tabsequence=280 border="2" color="33554432" x="14930" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nschedrow visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=29 alignment="0" tabsequence=290 border="2" color="33554432" x="17065" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nfind_schedule visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=30 alignment="0" tabsequence=300 border="2" color="33554432" x="19200" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nfind_loading visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=31 alignment="0" tabsequence=310 border="0" color="33554432" x="21367" y="0" height="64" width="617" html.valueishtml="0"  name=noffset_days visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

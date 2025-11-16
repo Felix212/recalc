@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_check_sql.srf
+$PBExportComments$Checkt den Sqlcode der angegebenen Transaktion, $$HEX1$$f600$$ENDHEX$$ffnet evtl. ein Fehlerfenster und gibt True (kein Fehler) oder False (SQL-Fehler) zur$$HEX1$$fc00$$ENDHEX$$ck
+global type f_check_sql from function_object
+end type
+
+forward prototypes
+global function boolean f_check_sql (transaction tra, string title, string at)
+end prototypes
+
+global function boolean f_check_sql (transaction tra, string title, string at);// ----------------------------------------------------------------------------
+// f_check_sql ( trans, title, at )
+//
+// checkt den sqlcode der transcation <transaction>, wenn der nicht 0 ist
+//	wird eine Fehlermeldung mit dem Titel <title> und der Message
+//	Sql-Fehler bei <at> : fehlertext
+// ausgegeben.
+//
+//	Returnwert :	True, falls kein SQL-Fehler
+//						False, falls SQL-Fehler
+//
+//	Seiteneffekt :	Bei SQL-Fehler wird ein Rollback durchgef$$HEX1$$fc00$$ENDHEX$$hrt
+// ----------------------------------------------------------------------------
+
+if tra.sqlcode <> 0 then
+	//f_error_box(title,'SQL-Fehler bei ' + at + ' : ' + tra.sqlerrtext )
+	rollback using tra ;
+	return FALSE
+else
+	return TRUE
+end if
+end function
+

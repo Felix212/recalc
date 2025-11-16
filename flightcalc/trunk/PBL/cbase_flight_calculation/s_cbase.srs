@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_cbase.srs
+global type s_cbase from structure
+	integer		icitrix
+	string		sapplicationname
+	string		scommandparam
+	string		sadditionalsystem
+	string		is_RemoteDesktopDefaultprinter
+end type
+

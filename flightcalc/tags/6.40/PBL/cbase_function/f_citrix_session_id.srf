@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_citrix_session_id.srf
+global type f_citrix_session_id from function_object
+end type
+
+forward prototypes
+global function integer f_citrix_session_id ()
+end prototypes
+
+global function integer f_citrix_session_id ();// -----------------------------------------------------------
+// Funktion zur Ermittlung der Citrix Session ID 
+// anhand des Druckernames
+//
+// ein folgender Druckername wird erwartet
+//
+// HP Laserjet III (from WXP-FRAZB4-444) in session 7
+// ----------------------------------------------------------
+
+Integer 	i, iRet
+String	sPrinterList, sPrinters[], sPrinter
+integer 	iPos
+
+sPrinterList = f_get_printer_list(";")	
+
+
+Do While sPrinterList <> ""
+	sPrinter = f_get_token(sPrinterList,";")
+	sPrinters[Upperbound(sPrinters) + 1]  = sPrinter
+Loop
+
+// -------------------------------------------------
+// Die Liste der Drucker durchlaufen
+// -------------------------------------------------
+For i = 1 to Upperbound(sPrinters)
+		
+	// -------------------------------------------------
+	// Pr$$HEX1$$fc00$$ENDHEX$$fen, ob der Drucker zu meine Workstation
+	// geh$$HEX1$$f600$$ENDHEX$$rt
+	// -------------------------------------------------
+	if Pos(Upper(sPrinters[i]), Upper(s_app.sHost)) > 0 then
+	
+		// ------------------------------------------------------
+		// R$$HEX1$$fc00$$ENDHEX$$ckgabe des Wertes nach "in session" als Session ID
+		// ------------------------------------------------------
+		iPos = Pos(sPrinters[i], "in session")
+		if iPos > 0 then 
+			iRet = Integer(Mid(sPrinters[i],iPos + Len("in session")))
+			return iRet
+		end if
+		
+	end if
+	
+Next
+
+return 0
+end function
+

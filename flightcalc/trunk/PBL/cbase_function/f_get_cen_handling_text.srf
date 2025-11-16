@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_cen_handling_text.srf
+global type f_get_cen_handling_text from function_object
+end type
+
+forward prototypes
+global function string f_get_cen_handling_text (long lkey)
+end prototypes
+
+global function string f_get_cen_handling_text (long lkey);
+string sText
+
+  SELECT cen_handling.ctext  
+    INTO :stext  
+    FROM cen_handling
+   WHERE cen_handling.nhandling_key = :lKey   ;
+	
+	
+	if sqlca.sqlcode = 0 then
+		return sText
+	elseif sqlca.sqlcode = 100 then
+		Return "Handling Key: " + String(lKey) + " not found!"
+	else
+		f_db_error(sqlca, "f_get_cen_handling_text()")
+		Return "Error"
+	end if
+	
+	
+end function
+

@@ -1,0 +1,38 @@
+HA$PBExportHeader$f_get_packinglist_dates.srf
+global type f_get_packinglist_dates from function_object
+end type
+
+forward prototypes
+global function long f_get_packinglist_dates (long lpackinglist_index_key, long lpackinglist_detail_key, ref datetime dtvalid_from, ref datetime dtvalid_to)
+end prototypes
+
+global function long f_get_packinglist_dates (long lpackinglist_index_key, long lpackinglist_detail_key, ref datetime dtvalid_from, ref datetime dtvalid_to);// ---------------------------------
+// 
+// ---------------------------------
+
+SELECT cen_packinglists.dvalid_from, 
+       cen_packinglists.dvalid_to
+ INTO :dtvalid_from, 
+ 		:dtvalid_to
+ FROM cen_packinglists
+WHERE  cen_packinglists.npackinglist_index_key = :lpackinglist_index_key 
+   AND cen_packinglists.npackinglist_detail_key = :lpackinglist_detail_key ;
+	
+if sqlca.sqlcode = 0 then
+
+	return 0
+
+elseif sqlca.sqlcode = 100 then
+	return -1
+	
+else
+	f_db_error(sqlca, "f_get_packinglist_text")
+	return -1
+end if
+
+
+return 0
+
+
+end function
+

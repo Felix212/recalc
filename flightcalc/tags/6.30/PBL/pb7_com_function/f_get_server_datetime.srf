@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_get_server_datetime.srf
+global type f_get_server_datetime from function_object
+end type
+
+forward prototypes
+global function datetime f_get_server_datetime ()
+end prototypes
+
+global function datetime f_get_server_datetime ();
+datetime dtRet
+
+SELECT SYSDATE INTO :dtRet FROM DUAL;
+
+if sqlca.sqlcode = 0 then
+	return dtRet
+else
+	f_db_error(sqlca, "f_get_server_datetime")
+	return(Datetime(today(), now()))
+end if
+
+
+
+
+
+
+end function
+

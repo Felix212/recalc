@@ -1,0 +1,14 @@
+HA$PBExportHeader$str_finddata.srs
+global type str_finddata from structure
+	unsignedlong		dwfileattributes
+	str_filedatetime		ftcreationtime
+	str_filedatetime		ftlastaccesstime
+	str_filedatetime		ftlastwritetime
+	unsignedlong		nfilesizehigh
+	unsignedlong		nfilesizelow
+	unsignedlong		dwreserved0
+	unsignedlong		dwreserved1
+	character		cfilename[260]
+	character		calternatefilename[14]
+end type
+

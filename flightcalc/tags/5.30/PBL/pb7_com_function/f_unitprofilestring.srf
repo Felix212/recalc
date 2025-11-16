@@ -1,0 +1,46 @@
+HA$PBExportHeader$f_unitprofilestring.srf
+$PBExportComments$Profilestring aus Datenbank
+global type f_unitprofilestring from function_object
+end type
+
+forward prototypes
+global function string f_unitprofilestring (string ssection, string skey, string sdefault, string sunit)
+end prototypes
+
+global function string f_unitprofilestring (string ssection, string skey, string sdefault, string sunit);string	sValue
+
+if isNull(sDefault) or sDefault = "" then
+	sDefault = " "
+end if
+
+Select 	cValue 
+into 		:sValue 
+from		loc_unit_setup
+where		cunit		= :sUnit	and
+			cSection		= :sSection			and
+			cKey			= :sKey;
+			
+			
+If SQLCA.SQLCode = 100 Then
+	sValue = sDefault
+	
+//	INSERT INTO loc_unit_setup  
+//          (cunit,   
+//          csection,   
+//          ckey,   
+//          cvalue )
+//   VALUES (:sUnit,   
+//          :sSection,   
+//          :sKey,   
+//          :sDefault)  ;
+//			 
+//	f_check_sql(sqlca,"Insert into loc_setup","Insert")
+	
+End if
+
+
+return Trim(sValue)
+
+
+end function
+

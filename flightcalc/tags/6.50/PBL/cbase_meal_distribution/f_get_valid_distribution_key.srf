@@ -1,0 +1,71 @@
+HA$PBExportHeader$f_get_valid_distribution_key.srf
+$PBExportComments$Ermittle passenden Distribution Key zu G$$HEX1$$fc00$$ENDHEX$$ltigkeit
+global type f_get_valid_distribution_key from function_object
+end type
+
+forward prototypes
+global function long f_get_valid_distribution_key (long al_distribtution_key, date adt_refdate)
+end prototypes
+
+global function long f_get_valid_distribution_key (long al_distribtution_key, date adt_refdate);
+// --------------------------------------------------------------------------------
+// Objekt : f_get_valid_distribution_key
+// Methode:  (Event)
+// Autor  : Oliver H$$HEX1$$f600$$ENDHEX$$fer
+// Datum  : 24.08.2015
+//
+// Argument(e):
+// none
+//
+// Beschreibung:		Ermittle Distribution Key
+//
+// Aenderungshistorie:
+// Version 		Wer			Wann			Was und warum
+// 1.0 			O.Hoefer	24.08.2015		Erstellung
+//
+//
+// Return: none
+//
+// --------------------------------------------------------------------------------
+
+Long	ll_Distribution_key
+
+
+If isnull(al_distribtution_key) then
+	return -1
+end if
+
+If al_distribtution_key < 1 then
+	return -1
+end if
+
+
+Select	da.ndistribution_key 
+into		:ll_Distribution_key        
+From		cen_distribution da, cen_distribution db, cen_airlines
+Where		da.nairline_key = cen_airlines.nairline_key
+AND		da.nairline_key = db.nairline_key
+And		db.ndistribution_key = :al_distribtution_key
+And		db.ctext = da.ctext
+And		:adt_refdate Between da.dvalid_from And da.dvalid_to;
+
+// Order By da.dvalid_from Desc
+//
+//da.nairline_key,
+//       da.cdescription,
+//       cen_airlines.ctext,
+//       da.nmcd,
+//       da.naccumulate,
+//       da.nmixed,
+//       da.dvalid_from,
+//       da.dvalid_to
+
+if SQLCA.SQLCode = 0 then
+	return ll_Distribution_key
+Else
+	return -1
+end if
+
+return 	ll_Distribution_key
+end function
+

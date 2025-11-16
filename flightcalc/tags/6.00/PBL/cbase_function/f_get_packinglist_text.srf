@@ -1,0 +1,86 @@
+HA$PBExportHeader$f_get_packinglist_text.srf
+global type f_get_packinglist_text from function_object
+end type
+
+forward prototypes
+global function string f_get_packinglist_text (long lpackinglist_index_key, datetime dtvalid_from)
+end prototypes
+
+global function string f_get_packinglist_text (long lpackinglist_index_key, datetime dtvalid_from);// ---------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------
+string	sText
+datetime	dtToday
+long		lDetailKey
+
+dtToday = datetime(today())
+
+SELECT cen_packinglists.ctext  
+ INTO :sText  
+ FROM cen_packinglists
+WHERE cen_packinglists.npackinglist_index_key = :lpackinglist_index_key 
+   AND cen_packinglists.dvalid_from <= :dtvalid_from
+   AND cen_packinglists.dvalid_to   >= :dtvalid_from  ;
+
+if sqlca.sqlcode <> 0 then
+	//
+	// Packinglist hat wohl keine Geschichte
+	// 2. Versuch mit Datum heute
+	//
+	SELECT cen_packinglists.ctext  
+	 INTO :sText  
+	 FROM cen_packinglists
+	WHERE cen_packinglists.npackinglist_index_key = :lpackinglist_index_key 
+		AND cen_packinglists.dvalid_from <= :dtToday
+		AND cen_packinglists.dvalid_to   >= :dtToday  ;
+
+	if sqlca.sqlcode = 0 then
+		return sText
+
+	elseif sqlca.sqlcode = 100 then
+		//
+		// Immer noch nichts gefunden
+		// 3. Versuch mit dem erstbesten Treffer
+		//
+		declare cdetail2 cursor for 
+		select cen_packinglists.npackinglist_detail_key,
+				 cen_packinglists.ctext, 
+		from   cen_packinglist_index, 
+				 cen_packinglists, 
+		where  cen_packinglist_index.npackinglist_index_key = cen_packinglists.npackinglist_index_key and
+				 cen_packinglist_index.npackinglist_index_key = :lpackinglist_index_key
+		order by cen_packinglists.npackinglist_detail_key;
+		
+		open cdetail2;
+		if sqlca.sqlcode <> 0 then
+			sText  = "Text N/A"
+			close cdetail2;
+			return sText
+		end if
+		
+		fetch cdetail2 into :lDetailKey, :sText;
+		
+		if sqlca.sqlcode = 0 then
+			close cdetail2;
+			return sText
+		elseif sqlca.sqlcode = 100 then
+			sText  = "Text N/A"
+			close cdetail2;
+			return sText
+		else
+			f_db_error(sqlca, "f_get_packinglist_text")
+			sText = "Error"
+			close cdetail2;
+			return sText
+		end if
+		
+	else
+		return "Error"
+	end if
+else
+	return sText
+end if
+
+
+end function
+

@@ -1,0 +1,13 @@
+HA$PBExportHeader$s_xml_data.srs
+global type s_xml_data from structure
+	string		stype
+	string		stag
+	boolean		bbool
+	string		sstring
+	long		lnumber
+	blob		bblob
+	date		ddate
+	datetime		dtdatetime
+	oleobject		oObject
+end type
+

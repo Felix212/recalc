@@ -1,0 +1,11 @@
+HA$PBExportHeader$f_shortdate.srf
+global type f_shortdate from function_object
+end type
+
+forward prototypes
+global function string f_shortdate ()
+end prototypes
+
+global function string f_shortdate ();return s_app.sshortdateformat
+end function
+

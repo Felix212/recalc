@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_choose_column.srs
+global type s_choose_column from structure
+	uo_tree_detail_datawindow		odw
+	long		lreturn
+	datastore		dslist
+	datastore		dsheader
+	datastore		dsdetail
+end type
+

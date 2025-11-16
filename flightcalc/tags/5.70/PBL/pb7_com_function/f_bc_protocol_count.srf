@@ -1,0 +1,141 @@
+HA$PBExportHeader$f_bc_protocol_count.srf
+$PBExportComments$Funktion z$$HEX1$$e400$$ENDHEX$$hlt Protokolleintr$$HEX1$$e400$$ENDHEX$$ge des Business-Connector-Protokolls
+global type f_bc_protocol_count from function_object
+end type
+
+forward prototypes
+global function boolean bc_protocol ()
+global function boolean f_bc_protocol_count (datetime dtmasterdate)
+end prototypes
+
+global function boolean bc_protocol ();return True
+end function
+
+global function boolean f_bc_protocol_count (datetime dtmasterdate);s_bc_protocol sbcp
+long lCount
+	
+integer AIRCRAFTROOT 				= 1
+integer LOADINGLIST		 			= 2
+integer SUPPLEMENTLOADINGLIST 	= 3
+integer PACKINGLIST					= 4
+integer ARTICEL						= 5
+integer ITEMLISTTYPE					= 6
+
+integer START					= 0
+integer ENDE					= 99
+
+integer NEW						= 1
+integer UPDATED				= 2
+integer DELETED				= 3
+
+integer USER					= 1
+integer ADMIN					= 2
+
+integer BCINFO					= 1
+integer BCERROR				= 2
+integer BCSYSTEM				= 3
+
+// -------------------------------------------
+// Administrator AIRCRAFTROOT NEW Info +Error
+// -------------------------------------------
+	sbcp.sclient						= s_app.smandant   
+	sbcp.dtimport_date				= dtMasterDate
+	sbcp.iImportType					= AIRCRAFTROOT
+	sbcp.iImport_Modus				= NEW 
+	sbcp.iUser_Group					= ADMIN
+	sbcp.iMessage_Type				= BCINFO
+	
+	select count(*) into :lCount 
+	  from sys_bc_protocol 
+	 where nbc_user_group	= :ADMIN 			AND
+			 nbc_import_type 	= :AIRCRAFTROOT 	AND 
+			 nbc_import_modus = :NEW 				AND
+			 nbc_message_type = :BCINFO			AND
+			 cclient				= :s_app.smandant AND
+			 dbc_import_date	= :dtmasterdate;
+	If SQLCA.SQLCODE = 0 Then
+		sbcp.lquantity	= lCount 
+		f_bc_protocol_result(sbcp,sqlca)
+	Else
+		Messagebox("Fehler",SQLCA.SQLERRTEXT)
+		Return False
+	End if	
+
+	sbcp.sclient						= s_app.smandant   
+	sbcp.dtimport_date				= dtMasterDate
+	sbcp.iImportType					= AIRCRAFTROOT
+	sbcp.iImport_Modus				= NEW 
+	sbcp.iUser_Group					= ADMIN
+	sbcp.iMessage_Type				= BCERROR
+	
+	select count(*) into :lCount 
+	  from sys_bc_protocol 
+	 where nbc_user_group	= :ADMIN 			AND
+			 nbc_import_type 	= :AIRCRAFTROOT 	AND 
+			 nbc_import_modus = :NEW 				AND
+			 nbc_message_type = :BCERROR			AND
+			 cclient				= :s_app.smandant AND
+			 dbc_import_date	= :dtmasterdate;
+			 
+			 
+	If SQLCA.SQLCODE = 0 Then
+		sbcp.lquantity	= lCount 
+		f_bc_protocol_result(sbcp,sqlca)
+	Else
+		Messagebox("Fehler",SQLCA.SQLERRTEXT)
+		Return False
+	End if	
+
+// -------------------------------------------
+// Anwender AIRCRAFTROOT NEW Info +Error
+// -------------------------------------------
+	sbcp.sclient						= s_app.smandant   
+	sbcp.dtimport_date				= dtMasterDate
+	sbcp.iImportType					= AIRCRAFTROOT
+	sbcp.iImport_Modus				= NEW 
+	sbcp.iUser_Group					= USER
+	sbcp.iMessage_Type				= BCINFO
+	select count(*) into :lCount 
+	  from sys_bc_protocol 
+	 where nbc_user_group	= :USER	 			AND
+			 nbc_import_type 	= :AIRCRAFTROOT 	AND 
+			 nbc_import_modus = :NEW 				AND
+			 nbc_message_type = :BCINFO			AND
+			 cclient				= :s_app.smandant AND
+			 dbc_import_date	= :dtmasterdate;
+	If SQLCA.SQLCODE = 0 Then
+		sbcp.lquantity	= lCount 
+		f_bc_protocol_result(sbcp,sqlca)
+	Else
+		Messagebox("Fehler",SQLCA.SQLERRTEXT)
+		Return False
+	End if	
+
+	sbcp.sclient						= s_app.smandant   
+	sbcp.dtimport_date				= dtMasterDate
+	sbcp.iImportType					= AIRCRAFTROOT
+	sbcp.iImport_Modus				= NEW 
+	sbcp.iUser_Group					= USER
+	sbcp.iMessage_Type				= BCERROR
+	
+	select count(*) into :lCount 
+	  from sys_bc_protocol 
+	 where nbc_user_group	= :USER	 			AND
+			 nbc_import_type 	= :AIRCRAFTROOT 	AND 
+			 nbc_import_modus = :NEW 				AND
+			 nbc_message_type = :BCERROR			AND
+			 cclient				= :s_app.smandant AND
+			 dbc_import_date	= :dtmasterdate;
+			 
+			 
+	If SQLCA.SQLCODE = 0 Then
+		sbcp.lquantity	= lCount 
+		f_bc_protocol_result(sbcp,sqlca)
+	Else
+		Messagebox("Fehler",SQLCA.SQLERRTEXT)
+		Return False
+	End if	
+	
+Return True
+end function
+

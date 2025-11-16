@@ -1,0 +1,10 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_json\\cbase_json.pbl" "";
+@end;
+@begin Objects
+ "cbase_json\\n_string.sru" "cbase_json\\cbase_json.pbl";
+ "cbase_json\\uo_json_object.sru" "cbase_json\\cbase_json.pbl";
+ "cbase_json\\uo_json_array.sru" "cbase_json\\cbase_json.pbl";
+ "cbase_json\\uo_json_keyvalue.sru" "cbase_json\\cbase_json.pbl";
+@end;

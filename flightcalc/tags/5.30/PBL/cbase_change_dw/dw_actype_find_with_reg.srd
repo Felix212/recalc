@@ -1,0 +1,59 @@
+HA$PBExportHeader$dw_actype_find_with_reg.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=cen_aircraft_naircraft_key dbname="cen_aircraft.naircraft_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_aircraft_nairline_owner_key dbname="cen_aircraft.nairline_owner_key" )
+ column=(type=char(10) updatewhereclause=yes name=cen_airlines_cairline dbname="cen_airlines.cairline" )
+ column=(type=char(10) updatewhereclause=yes name=cen_aircraft_cactype dbname="cen_aircraft.cactype" )
+ column=(type=char(20) updatewhereclause=yes name=cen_aircraft_cconfiguration dbname="cen_aircraft.cconfiguration" )
+ column=(type=char(10) updatewhereclause=yes name=cen_aircraft_cgalleyversion dbname="cen_aircraft.cgalleyversion" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_aircraft_configurations_nconfiguration_key dbname="cen_aircraft_configurations.nconfiguration_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_aircraft_configurations_ngroup_key dbname="cen_aircraft_configurations.ngroup_key" )
+ column=(type=char(10) updatewhereclause=yes name=cen_aircraft_configurations_cclass dbname="cen_aircraft_configurations.cclass" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_aircraft_configurations_nversion dbname="cen_aircraft_configurations.nversion" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_aircraft~" )  TABLE(NAME=~"cen_aircraft_registrations~" )  TABLE(NAME=~"cen_aircraft_configurations~" )  TABLE(NAME=~"cen_airlines~" ) COLUMN(NAME=~"cen_aircraft.naircraft_key~") COLUMN(NAME=~"cen_aircraft.nairline_owner_key~") COLUMN(NAME=~"cen_airlines.cairline~") COLUMN(NAME=~"cen_aircraft.cactype~") COLUMN(NAME=~"cen_aircraft.cconfiguration~") COLUMN(NAME=~"cen_aircraft.cgalleyversion~") COLUMN(NAME=~"cen_aircraft_configurations.nconfiguration_key~") COLUMN(NAME=~"cen_aircraft_configurations.ngroup_key~") COLUMN(NAME=~"cen_aircraft_configurations.cclass~") COLUMN(NAME=~"cen_aircraft_configurations.nversion~")    JOIN (LEFT=~"cen_aircraft_registrations.naircraft_key~"    OP =~"=~"RIGHT=~"cen_aircraft.naircraft_key~" )    JOIN (LEFT=~"cen_aircraft_configurations.naircraft_key~"    OP =~"=~"RIGHT=~"cen_aircraft.naircraft_key~" )    JOIN (LEFT=~"cen_airlines.nairline_key~"    OP =~"=~"RIGHT=~"cen_aircraft.nairline_owner_key~" )WHERE(    EXP1 =~"cen_aircraft.cactype~"   OP =~"=~"    EXP2 =~":cactype~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_airlines.cairline~"   OP =~"=~"    EXP2 =~":cacowner~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_aircraft_registrations.cregistration~"   OP =~"=~"    EXP2 =~":creg~" ) ) ARG(NAME = ~"cacowner~" TYPE = string)  ARG(NAME = ~"cactype~" TYPE = string)  ARG(NAME = ~"creg~" TYPE = string) " arguments=(("cacowner", string),("cactype", string),("creg", string)) )
+text(band=header alignment="2" text="Cen Aircraft
+Naircraft Key" border="0" color="33554432" x="5" y="4" height="128" width="343" html.valueishtml="0"  name=cen_aircraft_naircraft_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Aircraft
+Nairline Owner Key" border="0" color="33554432" x="352" y="4" height="128" width="507" html.valueishtml="0"  name=cen_aircraft_nairline_owner_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Airlines
+Cairline" border="0" color="33554432" x="864" y="4" height="128" width="471" html.valueishtml="0"  name=cen_airlines_cairline_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Aircraft
+Cactype" border="0" color="33554432" x="1339" y="4" height="128" width="311" html.valueishtml="0"  name=cen_aircraft_cactype_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Aircraft
+Cconfiguration" border="0" color="33554432" x="1655" y="4" height="128" width="576" html.valueishtml="0"  name=cen_aircraft_cconfiguration_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Aircraft
+Cgalleyversion" border="0" color="33554432" x="2240" y="4" height="128" width="375" html.valueishtml="0"  name=cen_aircraft_cgalleyversion_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Aircraft Configurations
+Nconfiguration Key" border="0" color="33554432" x="2624" y="4" height="128" width="704" html.valueishtml="0"  name=cen_aircraft_configurations_nconfiguration_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Aircraft Configurations
+Ngroup Key" border="0" color="33554432" x="3333" y="4" height="128" width="704" html.valueishtml="0"  name=cen_aircraft_configurations_ngroup_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Aircraft Configurations
+Cclass" border="0" color="33554432" x="4041" y="4" height="128" width="704" html.valueishtml="0"  name=cen_aircraft_configurations_cclass_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Aircraft Configurations
+Nversion" border="0" color="33554432" x="4750" y="4" height="128" width="704" html.valueishtml="0"  name=cen_aircraft_configurations_nversion_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cen_aircraft_naircraft_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="352" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cen_aircraft_nairline_owner_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="864" y="4" height="60" width="471" format="[general]" html.valueishtml="0"  name=cen_airlines_cairline visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1339" y="4" height="76" width="302" format="[general]" html.valueishtml="0"  name=cen_aircraft_cactype visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1655" y="4" height="76" width="576" format="[general]" html.valueishtml="0"  name=cen_aircraft_cconfiguration visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="2240" y="4" height="76" width="302" format="[general]" html.valueishtml="0"  name=cen_aircraft_cgalleyversion visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="2624" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cen_aircraft_configurations_nconfiguration_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="3333" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cen_aircraft_configurations_ngroup_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="4041" y="4" height="76" width="302" format="[general]" html.valueishtml="0"  name=cen_aircraft_configurations_cclass visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="4750" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cen_aircraft_configurations_nversion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

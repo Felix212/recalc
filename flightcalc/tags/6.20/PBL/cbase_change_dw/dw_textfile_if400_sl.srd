@@ -1,0 +1,47 @@
+HA$PBExportHeader$dw_textfile_if400_sl.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(18) updatewhereclause=yes name=cen_packinglist_index_cpackinglist dbname="cen_packinglist_index.cpackinglist" )
+ column=(type=char(5) updatewhereclause=yes name=cen_packinglists_cunit dbname="cen_packinglists.cunit" )
+ column=(type=decimal(3) updatewhereclause=yes name=cen_packinglists_nweight dbname="cen_packinglists.nweight" )
+ column=(type=char(5) updatewhereclause=yes name=cen_packinglists_cunit_weight dbname="cen_packinglists.cunit_weight" )
+ column=(type=char(40) updatewhereclause=yes name=cen_packinglists_ctext dbname="cen_packinglists.ctext" )
+ column=(type=char(40) updatewhereclause=yes name=cen_packinglists_ctext_short dbname="cen_packinglists.ctext_short" )
+ column=(type=char(40) updatewhereclause=yes name=cen_packinglists_ctext_short2 dbname="cen_packinglists.ctext_short2" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_packinglist_index~" )  TABLE(NAME=~"cen_packinglists~" ) COLUMN(NAME=~"cen_packinglist_index.cpackinglist~") COLUMN(NAME=~"cen_packinglists.cunit~") COLUMN(NAME=~"cen_packinglists.nweight~") COLUMN(NAME=~"cen_packinglists.cunit_weight~") COLUMN(NAME=~"cen_packinglists.ctext~") COLUMN(NAME=~"cen_packinglists.ctext_short~") COLUMN(NAME=~"cen_packinglists.ctext_short2~")    JOIN (LEFT=~"cen_packinglists.npackinglist_index_key~"    OP =~"=~"RIGHT=~"cen_packinglist_index.npackinglist_index_key~" )WHERE(    EXP1 =~"sysdate~"   OP =~"between~"    EXP2 =~"cen_packinglists.dvalid_from and cen_packinglists.dvalid_to~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_packinglist_index.npackinglist_index_key~"   OP =~"=~"    EXP2 =~":arg_plik~" ) ) ARG(NAME = ~"arg_plik~" TYPE = number) " arguments=(("arg_plik", number)) )
+text(band=header alignment="2" text="Cen Packinglist Index
+Cpackinglist" border="0" color="33554432" x="9" y="8" height="128" width="549" html.valueishtml="0"  name=cen_packinglist_index_cpackinglist_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Packinglists
+Cunit" border="0" color="33554432" x="567" y="8" height="128" width="416" html.valueishtml="0"  name=cen_packinglists_cunit_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Packinglists
+Nweight" border="0" color="33554432" x="992" y="8" height="128" width="416" html.valueishtml="0"  name=cen_packinglists_nweight_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Packinglists
+Cunit Weight" border="0" color="33554432" x="1417" y="8" height="128" width="416" html.valueishtml="0"  name=cen_packinglists_cunit_weight_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Packinglists
+Ctext" border="0" color="33554432" x="1842" y="8" height="128" width="1125" html.valueishtml="0"  name=cen_packinglists_ctext_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Packinglists
+Ctext Short" border="0" color="33554432" x="2976" y="8" height="128" width="1125" html.valueishtml="0"  name=cen_packinglists_ctext_short_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Packinglists
+Ctext Short2" border="0" color="33554432" x="4110" y="8" height="128" width="1125" html.valueishtml="0"  name=cen_packinglists_ctext_short2_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="76" width="549" format="[general]" html.valueishtml="0"  name=cen_packinglist_index_cpackinglist visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="567" y="8" height="76" width="416" format="[general]" html.valueishtml="0"  name=cen_packinglists_cunit visible="1" edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="992" y="8" height="76" width="416" format="[general]" html.valueishtml="0"  name=cen_packinglists_nweight visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1417" y="8" height="76" width="416" format="[general]" html.valueishtml="0"  name=cen_packinglists_cunit_weight visible="1" edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1842" y="8" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cen_packinglists_ctext visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="2976" y="8" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cen_packinglists_ctext_short visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="4110" y="8" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cen_packinglists_ctext_short2 visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

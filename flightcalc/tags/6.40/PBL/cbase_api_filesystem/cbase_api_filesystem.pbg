@@ -1,0 +1,9 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_api_filesystem\\cbase_api_filesystem.pbl" "";
+@end;
+@begin Objects
+ "cbase_api_filesystem\\uo_windows_networking_functions.sru" "cbase_api_filesystem\\cbase_api_filesystem.pbl";
+ "cbase_api_filesystem\\str_findresult.srs" "cbase_api_filesystem\\cbase_api_filesystem.pbl";
+ "cbase_api_filesystem\\uo_files.sru" "cbase_api_filesystem\\cbase_api_filesystem.pbl";
+@end;

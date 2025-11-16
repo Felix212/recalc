@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_user_parameters.srs
+global type s_user_parameters from structure
+	long		lUserID
+	String		slastname
+	String		sFirstname
+	String		sDepartment
+end type
+

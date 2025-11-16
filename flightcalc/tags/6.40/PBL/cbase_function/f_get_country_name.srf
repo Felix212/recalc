@@ -1,0 +1,21 @@
+HA$PBExportHeader$f_get_country_name.srf
+global type f_get_country_name from function_object
+end type
+
+forward prototypes
+global function string f_get_country_name (long lcountry)
+end prototypes
+
+global function string f_get_country_name (long lcountry);string sCountry
+
+select ccountry_ger into :sCountry from sys_countries where ncountry_key = :lCountry;
+
+if sqlca.sqlcode = 0 then
+	return sCountry
+else
+	f_db_error(sqlca, "f_get_country_name")
+	return "Error"
+end if
+
+end function
+

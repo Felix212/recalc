@@ -1,0 +1,41 @@
+HA$PBExportHeader$f_print_datastore_preview.srf
+global type f_print_datastore_preview from function_object
+end type
+
+forward prototypes
+global function integer f_print_datastore_preview (datastore odw, s_print_preview spreview)
+end prototypes
+
+global function integer f_print_datastore_preview (datastore odw, s_print_preview spreview);window wprint
+
+// oDW.GetFullState(sPreview.bData)
+// OpenSheetWithParm ( wPrint, sPreview , "w_report_preview" , w_mdi_master, 0, Original!)
+
+IF /*Handle(GetApplication()) = 0 or*/ s_app.iReport_Preview = 1 THEN
+	// ---------------------------
+   // Running in PB environment
+	// ---------------------------
+	
+	oDW.GetFullState(sPreview.bData)
+	OpenSheetWithParm ( wPrint, sPreview , "w_report_preview" , w_mdi_master, 0, Original!)
+	
+ELSE
+  // ---------------------------------	
+  // Running in standalone executable
+  // ---------------------------------
+  
+  //Papierformat einstellen
+  f_adjust_datastore_paperformat(oDW)
+  
+  oDW.Print()
+  
+END IF
+
+return 0
+
+	
+	
+
+
+end function
+

@@ -1,0 +1,28 @@
+HA$PBExportHeader$f_checkdefault.srf
+global type f_checkdefault from function_object
+end type
+
+forward prototypes
+global function long f_checkdefault (datawindow dwtocheck)
+end prototypes
+
+global function long f_checkdefault (datawindow dwtocheck);Long		lAnzahl = 0, lNext
+
+lNext = 1
+Do While lNext > 0
+	
+	lNext 	= dwToCheck.Find("ndefault=1", lNext, dwToCheck.RowCount())
+	if lNext > 0 Then
+		lAnzahl	++
+		lNext    ++
+	end if
+	if lNext > dwToCheck.RowCount() Then
+		lNext = 0
+	end if
+Loop
+
+
+return lAnzahl
+
+end function
+

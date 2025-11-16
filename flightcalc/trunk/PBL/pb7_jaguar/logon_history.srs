@@ -1,0 +1,11 @@
+HA$PBExportHeader$logon_history.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type logon_history from structure
+  public:
+    String		sfrom
+    String		sto
+    String		sinnerhtml
+    Long		isuccessful
+    String		serror
+end type
+

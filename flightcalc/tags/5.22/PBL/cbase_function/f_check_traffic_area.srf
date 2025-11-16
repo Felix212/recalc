@@ -1,0 +1,43 @@
+HA$PBExportHeader$f_check_traffic_area.srf
+global type f_check_traffic_area from function_object
+end type
+
+forward prototypes
+global function long f_check_traffic_area (string sareashort)
+end prototypes
+
+global function long f_check_traffic_area (string sareashort);Long lAreaKey
+
+
+DECLARE GetArea CURSOR FOR  
+SELECT cen_traffic_areas.narea_key  
+ FROM cen_traffic_areas  
+WHERE cen_traffic_areas.cshort = :sAreaShort;
+
+Open GetArea;
+
+if sqlca.sqlcode = 0 then
+	
+	fetch GetArea into :lAreaKey;
+	
+	if sqlca.sqlcode <> 0 then
+		lAreaKey = -1
+	end if
+	
+	
+elseif sqlca.sqlcode = 100 then
+	
+	lAreaKey = -1
+	
+else
+	
+	f_db_error(sqlca, "")
+	lAreaKey = -1
+	
+end if
+
+Close GetArea;
+
+return lAreaKey
+end function
+

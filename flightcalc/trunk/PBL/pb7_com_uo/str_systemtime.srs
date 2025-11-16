@@ -1,0 +1,12 @@
+HA$PBExportHeader$str_systemtime.srs
+global type str_systemtime from structure
+	unsignedinteger		ui_wyear
+	unsignedinteger		ui_wmonth
+	unsignedinteger		ui_wdayofweek
+	unsignedinteger		ui_wday
+	unsignedinteger		ui_whour
+	unsignedinteger		ui_wminute
+	unsignedinteger		ui_wsecond
+	unsignedinteger		ui_wmilliseconds
+end type
+

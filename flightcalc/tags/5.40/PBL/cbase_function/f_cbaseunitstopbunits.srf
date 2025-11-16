@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_cbaseunitstopbunits.srf
+global type f_cbaseunitstopbunits from function_object
+end type
+
+forward prototypes
+global function integer f_cbaseunitstopbunits (integer iunits, integer ikoordinatentype)
+end prototypes
+
+global function integer f_cbaseunitstopbunits (integer iunits, integer ikoordinatentype);// --------------------------------------
+// iKoordinatenType 1 => X-Koordiante
+// iKoordinatenType 2 => Y-Koordiante
+// --------------------------------------
+Integer	iRet
+
+// ------------------------------------
+//
+// 	y:	1 Pixel	= 4 Units
+//		x:	1 Pixel	= 4,57 Units
+//		
+//		Y ist unkompliziert, da immer 
+//		gerade
+//
+//		X dagegen rundet auf 5
+// ------------------------------------
+
+Choose case iKoordinatenType
+	case 1
+		iRet = PixelsToUnits(iunits, XPixelsToUnits!) 
+	case 2
+		iRet = PixelsToUnits(iunits, YPixelsToUnits!)
+end choose
+	
+
+
+
+
+
+return iRet
+end function
+

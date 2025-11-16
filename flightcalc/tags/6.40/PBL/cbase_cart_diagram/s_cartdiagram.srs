@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_cartdiagram.srs
+global type s_cartdiagram from structure
+	long		lindex_key
+	long		ldetail_key
+	long		lairline_key
+	string		sunit
+	long		lindex_key_new
+	long		ldetail_key_new
+end type
+

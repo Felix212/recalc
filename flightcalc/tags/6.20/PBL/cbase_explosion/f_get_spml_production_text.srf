@@ -1,0 +1,55 @@
+HA$PBExportHeader$f_get_spml_production_text.srf
+global type f_get_spml_production_text from function_object
+end type
+
+forward prototypes
+global function string f_get_spml_production_text (date arg_departure, string arg_spml, long arg_handling_meal_keys[])
+end prototypes
+
+global function string f_get_spml_production_text (date arg_departure, string arg_spml, long arg_handling_meal_keys[]);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_get_spml_production_text
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// arg_departure					Departure Date
+// arg_spml							SPML Text like AVML
+// arg_handling_meal_keys[]	MEAL Keys for SPML Class
+// --------------------------------------------------------------------------------------------------------------------
+// Return: Produktion Text of SPML
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung:
+//
+//
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  08.11.2021	   1.0      H.Rothenbach   Erstellung
+//
+// --------------------------------------------------------------------------------------------------------------------
+
+datastore lds
+string ls_ret
+
+lds = create datastore
+lds.dataobject = "dw_get_spml_production_text"
+lds.settransobject(SQLCA)
+
+// 07.03.2023 HR: Wir checken dass wir mindestens einen Eintrag hier haben, da es sonst Probleme mit dem SQL Parsen gibt
+if upperbound(arg_handling_meal_keys) = 0 then
+	arg_handling_meal_keys[1] = -1
+end if
+
+// 07.03.2023 HR: AlmID 9086: Flight Browser is picking the wrong validity for a SPML Defintion
+lds.retrieve(arg_departure, arg_spml, arg_handling_meal_keys )
+
+if lds.rowcount()>0 then
+	ls_ret = lds.getitemstring(1, "cmindescription" )	
+else
+	 setnull( ls_ret)
+end if
+
+return ls_ret
+end function
+

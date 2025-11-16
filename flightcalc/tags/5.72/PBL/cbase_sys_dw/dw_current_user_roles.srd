@@ -1,0 +1,53 @@
+HA$PBExportHeader$dw_current_user_roles.srd
+$PBExportComments$Alle Informationen rund um den User.
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(3) updatewhereclause=yes name=cclient dbname="sys_login.cclient" )
+ column=(type=char(4) updatewhereclause=yes name=cunit dbname="sys_login.cunit" )
+ column=(type=char(10) updatewhereclause=yes name=cdepartment dbname="sys_login.cdepartment" )
+ column=(type=decimal(0) updatewhereclause=yes name=nrole_id dbname="sys_login_roles.nrole_id" )
+ column=(type=decimal(0) updatewhereclause=yes name=nread dbname="sys_login_roles.nread" )
+ column=(type=decimal(0) updatewhereclause=yes name=nwrite dbname="sys_login_roles.nwrite" )
+ column=(type=decimal(0) updatewhereclause=yes name=ndelete dbname="sys_login_roles.ndelete" )
+ column=(type=decimal(0) updatewhereclause=yes name=nprint dbname="sys_login_roles.nprint" )
+ column=(type=decimal(0) updatewhereclause=yes name=nuser_id dbname="sys_login.nuser_id" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_units_ntlc_key dbname="sys_units.ntlc_key" )
+ column=(type=char(30) updatewhereclause=yes name=cregion dbname="sys_units.cregion" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sys_login~" )  TABLE(NAME=~"sys_login_roles~" )  TABLE(NAME=~"sys_units~" ) COLUMN(NAME=~"sys_login.cclient~") COLUMN(NAME=~"sys_login.cunit~") COLUMN(NAME=~"sys_login.cdepartment~") COLUMN(NAME=~"sys_login_roles.nrole_id~") COLUMN(NAME=~"sys_login_roles.nread~") COLUMN(NAME=~"sys_login_roles.nwrite~") COLUMN(NAME=~"sys_login_roles.ndelete~") COLUMN(NAME=~"sys_login_roles.nprint~") COLUMN(NAME=~"sys_login.nuser_id~") COLUMN(NAME=~"sys_units.ntlc_key~") COLUMN(NAME=~"sys_units.cregion~")    JOIN (LEFT=~"sys_login_roles.nuser_id~"    OP =~"=~"RIGHT=~"sys_login.nuser_id~" )    JOIN (LEFT=~"sys_login.cunit~"    OP =~"=~"RIGHT=~"sys_units.cunit~" )WHERE(    EXP1 =~"sys_LOGIN.CUSERNAME~"   OP =~"=~"    EXP2 =~":arg_username~" ) ) ARG(NAME = ~"arg_username~" TYPE = string) " arguments=(("arg_username", string)) )
+text(band=header alignment="2" text="Cen Login
+Cclient" border="0" color="0" x="9" y="8" height="128" width="265"  name=sys_login_cclient_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Login
+Cunit" border="0" color="0" x="283" y="8" height="128" width="265"  name=sys_login_cunit_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Login
+Cdepartment" border="0" color="0" x="558" y="8" height="128" width="338"  name=sys_login_cdepartment_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Login Roles
+Nrole Id" border="0" color="0" x="905" y="8" height="128" width="434"  name=sys_login_roles_nrole_id_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Login Roles
+Nread" border="0" color="0" x="1349" y="8" height="128" width="434"  name=sys_login_roles_nread_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Login Roles
+Nwrite" border="0" color="0" x="1792" y="8" height="128" width="434"  name=sys_login_roles_nwrite_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Login Roles
+Ndelete" border="0" color="0" x="2235" y="8" height="128" width="434"  name=sys_login_roles_ndelete_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Login Roles
+Nprint" border="0" color="0" x="2679" y="8" height="128" width="434"  name=sys_login_roles_nprint_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Login
+Nuser Id" border="0" color="0" x="3122" y="8" height="128" width="329"  name=sys_login_nuser_id_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Sys Units Ntlc Key" border="0" color="0" x="3461" y="4" height="76" width="1152"  name=t_1  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="9" y="8" height="76" width="265" format="[general]"  name=cclient edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="283" y="8" height="76" width="265" format="[general]"  name=cunit edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="558" y="8" height="76" width="338" format="[general]"  name=cdepartment edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="905" y="8" height="76" width="434" format="[general]"  name=nrole_id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="1349" y="8" height="76" width="434" format="[general]"  name=nread edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="1792" y="8" height="76" width="434" format="[general]"  name=nwrite edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="2235" y="8" height="76" width="434" format="[general]"  name=ndelete edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="0" x="2679" y="8" height="76" width="434" format="[general]"  name=nprint edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="0" x="3122" y="8" height="76" width="329" format="[general]"  name=nuser_id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="3461" y="0" height="64" width="1152" format="[general]"  name=sys_units_ntlc_key edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=0 border="0" color="0" x="4626" y="0" height="64" width="800"  name=cregion  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Sys Units Cregion" border="0" color="0" x="4622" y="4" height="76" width="805"  name=t_2  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

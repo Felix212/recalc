@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_get_breakdown_code.srf
+global type f_get_breakdown_code from function_object
+end type
+
+forward prototypes
+global function s_breakdown_code f_get_breakdown_code (string scode)
+end prototypes
+
+global function s_breakdown_code f_get_breakdown_code (string scode);s_breakdown_code strReturn
+
+SELECT sys_accounts.nsysaccount_key,   
+		sys_accounts.ccode,   
+		sys_accounts.cdescription  
+ INTO :strReturn.laccountkey,   
+		:strReturn.scode,   
+		:strReturn.sdescription  
+ FROM sys_accounts  
+WHERE sys_accounts.ccode = :sCode;
+
+if sqlca.sqlcode <> 0 then
+	strReturn.laccountkey 	= -1
+	strReturn.scode			= "ERROR"
+	strReturn.sdescription 	= sqlca.sqlerrtext  
+end if
+
+
+
+return strReturn
+end function
+

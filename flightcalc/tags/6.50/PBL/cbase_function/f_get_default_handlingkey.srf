@@ -1,0 +1,26 @@
+HA$PBExportHeader$f_get_default_handlingkey.srf
+global type f_get_default_handlingkey from function_object
+end type
+
+forward prototypes
+global function long f_get_default_handlingkey (long lairlinekey)
+end prototypes
+
+global function long f_get_default_handlingkey (long lairlinekey);Long  lKey
+
+SELECT cen_handling_types.nhandling_type_key  
+  INTO :lKey
+  FROM cen_handling_types  
+ WHERE ( cen_handling_types.ctext = '*' ) AND  
+	 	 ( cen_handling_types.nairline_key = :lairlinekey )   ;
+
+if sqlca.sqlcode = 100 then
+	return -1
+elseif sqlca.sqlcode = 0 then
+	return lKey
+else
+	f_db_error(sqlca, "f_get_default_handlingkey")
+	return -1
+end if
+end function
+

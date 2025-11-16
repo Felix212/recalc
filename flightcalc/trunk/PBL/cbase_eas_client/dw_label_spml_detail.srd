@@ -1,0 +1,131 @@
+HA$PBExportHeader$dw_label_spml_detail.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=192 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=96 color="536870912" )
+table(column=(type=char(10) updatewhereclause=yes name=cspml dbname="cen_out_spml.cspml" )
+ column=(type=char(40) updatewhereclause=yes name=cname dbname="cen_out_spml.cname" )
+ column=(type=char(40) updatewhereclause=yes name=cadd_text dbname="cen_out_spml.cadd_text" )
+ column=(type=char(40) updatewhereclause=yes name=cremark dbname="cen_out_spml.cremark" )
+ column=(type=decimal(3) updatewhereclause=yes name=nquantity dbname="cen_out_spml_detail.nquantity" )
+ column=(type=char(18) updatewhereclause=yes name=cpackinglist dbname="cen_out_spml_detail.cpackinglist" )
+ column=(type=char(80) updatewhereclause=yes name=cproduction_text dbname="cen_out_spml_detail.cproduction_text" )
+ column=(type=char(6) updatewhereclause=yes name=cen_out_cairline dbname="cen_out.cairline" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_nflight_number dbname="cen_out.nflight_number" )
+ column=(type=char(3) updatewhereclause=yes name=cen_out_csuffix dbname="cen_out.csuffix" )
+ column=(type=datetime updatewhereclause=yes name=ddeparture dbname="cen_out.ddeparture" )
+ column=(type=char(5) updatewhereclause=yes name=cdeparture_time dbname="cen_out.cdeparture_time" )
+ column=(type=char(3) updatewhereclause=yes name=ctlc_to dbname="cen_out.ctlc_to" )
+ column=(type=char(6) updatewhereclause=yes name=cen_out_cairline_owner dbname="cen_out.cairline_owner" )
+ column=(type=char(10) updatewhereclause=yes name=cen_out_cactype dbname="cen_out.cactype" )
+ column=(type=char(5) updatewhereclause=yes name=cramp_time dbname="cen_out.cramp_time" )
+ column=(type=char(5) updatewhereclause=yes name=ckitchen_time dbname="cen_out.ckitchen_time" )
+ column=(type=char(10) updatewhereclause=yes name=cclass dbname="cen_out_spml.cclass" )
+ column=(type=char(32) updatewhereclause=yes name=cworkstation dbname="cworkstation" )
+ column=(type=char(32) updatewhereclause=yes name=carea dbname="carea" )
+ column=(type=decimal(0) updatewhereclause=yes name=npackinglist_index_key dbname="cen_out_spml_detail.npackinglist_index_key" )
+ column=(type=char(128) updatewhereclause=yes name=clocal_text1 dbname="clocal_text1" )
+ column=(type=number updatewhereclause=yes name=nprint dbname="nprint" values="	1/	0" )
+ column=(type=char(40) updatewhereclause=yes name=cen_out_spml_cseat dbname="cen_out_spml.cseat" )
+ column=(type=char(128) updatewhereclause=yes name=clocal_text2 dbname="clocal_text2" )
+ column=(type=number updatewhereclause=yes name=nprint_spml2 dbname="nprint_spml2" )
+ column=(type=number updatewhereclause=yes name=nlabel_type_key_spml dbname="nlabel_type_key_spml" )
+ column=(type=char(72) updatewhereclause=yes name=cleg_number dbname="cleg_number" )
+ retrieve="  SELECT cen_out_spml.cspml,   
+         cen_out_spml.cname,   
+         cen_out_spml.cadd_text,   
+         cen_out_spml.cremark,   
+         cen_out_spml_detail.nquantity,   
+         cen_out_spml_detail.cpackinglist,   
+         cen_out_spml_detail.cproduction_text,   
+         cen_out.cairline,   
+         cen_out.nflight_number,   
+         cen_out.csuffix,   
+         cen_out.ddeparture,   
+         cen_out.cdeparture_time,   
+         cen_out.ctlc_to,   
+         cen_out.cairline_owner,   
+         cen_out.cactype,   
+         cen_out.cramp_time,   
+         cen_out.ckitchen_time,   
+         cen_out_spml.cclass,   
+         '                    ' cworkstation,   
+         '                    ' carea,   
+         cen_out_spml_detail.npackinglist_index_key,   
+         '                                          ' clocal_text1,   
+         0 nprint,   
+         cen_out_spml.cseat,   
+         '                                          ' clocal_text2,   
+         0 nprint_spml2,   
+         -1 nlabel_type_key_spml,   
+         'Leg ' || cen_out.nleg_number as cleg_number
+    FROM cen_out_spml,   
+         cen_out_spml_detail,   
+         cen_out  
+   WHERE ( cen_out_spml_detail.nmaster_key = cen_out_spml.nmaster_key ) and  
+         ( cen_out.nresult_key = cen_out_spml.nresult_key ) and  
+         ( ( cen_out_spml.nresult_key in ( :nresult_key ) ) AND  
+         ( cen_out_spml_detail.nbilling_status <> 2 ) )   
+ORDER BY cen_out.nleg_number ASC,   
+         cen_out_spml.nclass_number ASC,   
+         cen_out_spml_detail.cmeal_control_code ASC,   
+         cen_out_spml.cspml ASC   
+" arguments=(("nresult_key", numberlist)) )
+text(band=header alignment="0" text="Rows:" border="0" color="33554432" x="46" y="28" height="52" width="183" html.valueishtml="0"  name=t_12 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="RowCount()"border="0" color="8388608" x="251" y="28" height="52" width="215" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Flight" border="0" color="33554432" x="398" y="116" height="52" width="206" html.valueishtml="0"  name=t_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="DepDay" border="0" color="33554432" x="635" y="116" height="52" width="219" html.valueishtml="0"  name=t_2 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="DepTime" border="0" color="33554432" x="896" y="116" height="52" width="229" html.valueishtml="0"  name=t_3 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Ramp" border="0" color="33554432" x="1147" y="116" height="52" width="160" html.valueishtml="0"  name=t_4 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Kitchen" border="0" color="33554432" x="1326" y="116" height="52" width="219" html.valueishtml="0"  name=t_5 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Destination" border="0" color="33554432" x="1573" y="116" height="52" width="302" html.valueishtml="0"  name=t_6 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Nquantity" border="0" color="33554432" x="2258" y="116" height="52" width="274" html.valueishtml="0"  name=cen_out_spml_detail_nquantity_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cpackinglist" border="0" color="33554432" x="2793" y="116" height="52" width="370" html.valueishtml="0"  name=cen_out_spml_detail_cpackinglist_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="SPML" border="0" color="33554432" x="2555" y="116" height="52" width="201" html.valueishtml="0"  name=cen_out_spml_cspml_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Destination" border="0" color="33554432" x="1911" y="116" height="52" width="311" html.valueishtml="0"  name=t_7 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cremark" border="0" color="33554432" x="4091" y="116" height="52" width="389" html.valueishtml="0"  name=cen_out_spml_cremark_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cproduction Text" border="0" color="33554432" x="4494" y="116" height="52" width="462" html.valueishtml="0"  name=cen_out_spml_detail_cproduction_text_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Cadd Text" border="0" color="33554432" x="3657" y="116" height="52" width="411" html.valueishtml="0"  name=cen_out_spml_cadd_text_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Name" border="0" color="33554432" x="3200" y="116" height="52" width="434" html.valueishtml="0"  name=cen_out_spml_cname_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="cworkstation" border="0" color="33554432" x="4987" y="116" height="52" width="389" html.valueishtml="0"  name=t_9 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="carea" border="0" color="33554432" x="5467" y="116" height="52" width="389" html.valueishtml="0"  name=t_10 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Class" border="0" color="33554432" x="219" y="116" height="52" width="151" html.valueishtml="0"  name=t_8 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Print" border="0" color="33554432" x="50" y="116" height="52" width="151" html.valueishtml="0"  name=t_11 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Local Text" border="0" color="33554432" x="5957" y="116" height="52" width="389" html.valueishtml="0"  name=t_13 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="0" color="33554432" x="110" y="24" height="52" width="64" format="[general]" html.valueishtml="0"  name=nprint visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="1605" y="16" height="68" width="238" format="[general]" html.valueishtml="0"  name=ctlc_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" cen_out_cairline + ~" ~" + string( cen_out_nflight_number , ~"000~") +  cen_out_csuffix "border="0" color="33554432" x="402" y="16" height="68" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_flight visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="String(day(ddeparture), ~"00~") "border="0" color="33554432" x="672" y="16" height="68" width="183" format="[GENERAL]" html.valueishtml="0"  name=compute_dep_day visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="33554432" x="923" y="16" height="68" width="155" format="[general]" html.valueishtml="0"  name=cdeparture_time visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="33554432" x="1152" y="16" height="68" width="155" format="[general]" html.valueishtml="0"  name=cramp_time visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="33554432" x="1349" y="16" height="68" width="155" format="[general]" html.valueishtml="0"  name=ckitchen_time visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="33554432" x="2281" y="16" height="68" width="215" format="[general]" html.valueishtml="0"  name=nquantity visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="33554432" x="2775" y="16" height="68" width="338" format="[general]" html.valueishtml="0"  name=cpackinglist visible="1" edit.limit=18 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="2555" y="16" height="68" width="192" format="[general]" html.valueishtml="0"  name=cspml visible="1" edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" cen_out_cairline_owner + ~" ~" +  cen_out_cactype "border="0" color="33554432" x="1925" y="16" height="68" width="293" format="[GENERAL]" html.valueishtml="0"  name=compute_actype visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="4091" y="16" height="68" width="389" format="[general]" html.valueishtml="0"  name=cremark visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="4494" y="16" height="68" width="462" format="[general]" html.valueishtml="0"  name=cproduction_text visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="3657" y="16" height="68" width="411" format="[general]" html.valueishtml="0"  name=cadd_text visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="3200" y="16" height="68" width="434" format="[general]" html.valueishtml="0"  name=cname visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="33554432" x="4978" y="16" height="64" width="462" format="[general]" html.valueishtml="0"  name=cworkstation visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="0" color="33554432" x="5458" y="16" height="64" width="462" format="[general]" html.valueishtml="0"  name=carea visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="2" tabsequence=32766 border="0" color="33554432" x="210" y="16" height="68" width="165" format="[general]" html.valueishtml="0"  name=cclass visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="0" tabsequence=32766 border="0" color="33554432" x="5952" y="16" height="64" width="549" format="[general]" html.valueishtml="0"  name=clocal_text1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="0" tabsequence=32766 border="0" color="33554432" x="6501" y="24" height="52" width="549" format="[general]" html.valueishtml="0"  name=cen_out_spml_cseat visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="0" tabsequence=32766 border="0" color="33554432" x="8288" y="20" height="52" width="549" format="[general]" html.valueishtml="0"  name=clocal_text2 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="0" tabsequence=32766 border="0" color="33554432" x="7703" y="16" height="52" width="549" format="[general]" html.valueishtml="0"  name=nprint_spml2 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="0" tabsequence=32766 border="0" color="33554432" x="7090" y="20" height="52" width="549" format="[general]" html.valueishtml="0"  name=nlabel_type_key_spml visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="0" tabsequence=0 border="0" color="33554432" x="8837" y="20" height="52" width="352" html.valueishtml="0"  name=cleg_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

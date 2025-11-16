@@ -1,0 +1,15 @@
+HA$PBExportHeader$f_time_format.srf
+global type f_time_format from function_object
+end type
+
+forward prototypes
+global function integer f_time_format (datawindow odw, long lrow, string stimefield, string stime)
+end prototypes
+
+global function integer f_time_format (datawindow odw, long lrow, string stimefield, string stime);
+
+odw.SetItem(lRow, sTimeField, String(Time(sTime), "hh:mm"))
+
+return 0
+end function
+

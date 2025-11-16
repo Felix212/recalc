@@ -1,0 +1,20 @@
+HA$PBExportHeader$s_distribution_split.srs
+global type s_distribution_split from structure
+	long		lpercentage
+	long		lquantity
+	long		lrow
+	long		lpltype
+	string		spltype
+	string		smealcontrolcode
+	string		sproductiontext
+	long		lheight
+	long		lwidth
+	string		spackinglist
+	long		lspml
+	long		lloadquantity
+	long		lrest
+	string		sclass
+	long		lclassnumber
+	string		sRemark
+end type
+

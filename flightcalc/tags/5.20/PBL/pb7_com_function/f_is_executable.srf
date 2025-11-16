@@ -1,0 +1,42 @@
+HA$PBExportHeader$f_is_executable.srf
+global type f_is_executable from function_object
+end type
+
+forward prototypes
+global function boolean isexecutable (window w_exec, picturebutton pb_exec)
+global function boolean f_is_executable (window w_exec, picturebutton pb_exec)
+end prototypes
+
+global function boolean isexecutable (window w_exec, picturebutton pb_exec);// ----------------------------------------------------------
+// Ist der Picturebutton im sichtbaren Bereich des Fensters
+// ----------------------------------------------------------
+	If pb_exec.x > w_exec.width Then
+		return False
+	End if
+	
+
+	If pb_exec.y > w_exec.height Then
+		return False
+	End if
+	
+	
+
+end function
+
+global function boolean f_is_executable (window w_exec, picturebutton pb_exec);// ----------------------------------------------------------
+// Ist der Picturebutton im sichtbaren Bereich des Fensters
+// ----------------------------------------------------------
+	If pb_exec.x > w_exec.width Then
+		return False
+	End if
+	
+
+	If pb_exec.y > w_exec.height Then
+		return False
+	End if
+	
+	
+	return True
+
+end function
+

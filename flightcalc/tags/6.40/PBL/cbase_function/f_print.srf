@@ -1,0 +1,41 @@
+HA$PBExportHeader$f_print.srf
+global type f_print from function_object
+end type
+
+forward prototypes
+global function integer f_print (datawindow odw)
+end prototypes
+
+global function integer f_print (datawindow odw);s_print_preview 	sPreview
+window wprint
+
+
+IF Handle(GetApplication()) = 0 or s_app.iReport_Preview = 1 THEN
+	// ----------------------------------
+   // Running in PB environment or Setup
+	// ----------------------------------
+	oDW.GetFullState(sPreview.bData)
+	
+		 
+	OpenSheetWithParm ( wPrint, sPreview , "w_report_preview" , w_mdi_master, 0, Original!)
+ELSE
+  // ---------------------------------	
+  // Running in standalone executable
+  // ---------------------------------
+  
+  //Papierformat einstellen
+  f_adjust_datawindow_paperformat(oDW)
+  
+  oDW.Print()
+  
+END IF
+
+
+return 0
+
+	
+	
+
+
+end function
+

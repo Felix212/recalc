@@ -1,0 +1,42 @@
+HA$PBExportHeader$f_get_vat_infos.srf
+global type f_get_vat_infos from function_object
+end type
+
+forward prototypes
+global function s_vat f_get_vat_infos (long largvat)
+end prototypes
+
+global function s_vat f_get_vat_infos (long largvat);s_vat strReturn
+
+
+  SELECT sys_vat.nvat_key,   
+         sys_vat.cname,   
+         sys_countries.ncountry_key,   
+         sys_countries.ccountry_ger,  
+         sys_countries.ccountry_uk  
+    INTO :strReturn.lVatKey,   
+         :strReturn.sVat,   
+         :strReturn.lCountryKey,   
+         :strReturn.sCountry_ger,
+			:strReturn.sCountry_uk
+    FROM sys_countries,   
+         sys_vat  
+   WHERE ( sys_vat.ncountry_key = sys_countries.ncountry_key ) and  
+         ( ( sys_vat.nvat_key = :lArgVat )) ;
+			
+			
+if sqlca.sqlcode <> 0 then
+	
+	strReturn.lVatKey = -1
+	strReturn.sVat		= String(sqlca.sqlcode)   
+	strReturn.lCountryKey	= -1
+	strReturn.sCountry_ger 		= String(sqlca.sqlerrtext)
+	strReturn.sCountry_uk 		= String(sqlca.sqlerrtext)
+
+end if
+
+
+return strReturn
+
+end function
+

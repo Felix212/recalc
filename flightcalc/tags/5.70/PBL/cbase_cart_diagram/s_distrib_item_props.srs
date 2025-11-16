@@ -1,0 +1,11 @@
+HA$PBExportHeader$s_distrib_item_props.srs
+global type s_distrib_item_props from structure
+	string		stext
+	string		smeal_control_code
+	string		sclass
+	long		lspml
+	long		llimit
+	long		lremaining
+	long		ldontdistribute
+end type
+

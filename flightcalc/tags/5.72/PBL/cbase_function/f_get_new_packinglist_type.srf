@@ -1,0 +1,45 @@
+HA$PBExportHeader$f_get_new_packinglist_type.srf
+global type f_get_new_packinglist_type from function_object
+end type
+
+forward prototypes
+global function string f_get_new_packinglist_type (long lpackinglist_key)
+end prototypes
+
+global function string f_get_new_packinglist_type (long lpackinglist_key);// ---------------------------------------------
+// Hole St$$HEX1$$fc00$$ENDHEX$$cklisten Typ
+// 2 = Esl
+// 3 = Artikel
+// ---------------------------------------------
+	String	sText1, sText2, sText3, sText4, sText5
+
+	select ctext, ctext1, ctext2, ctext3, ctext3 
+	into :sText1, :sText2, :sText3, :sText4, :sText5
+	from cen_packinglist_types 
+	where npackinglist_key = :lpackinglist_key;
+
+	
+	
+	if sqlca.sqlcode <> 0 then
+		return "N/A"
+	else
+		Choose Case s_app.iLanguage
+				
+			case 1
+				return sText1
+			case 2
+				return sText2
+			case 3
+				return sText3
+			case 4
+				return sText4
+			case 5
+				return sText5
+			
+		End Choose
+		
+	end if
+
+Return ""
+end function
+

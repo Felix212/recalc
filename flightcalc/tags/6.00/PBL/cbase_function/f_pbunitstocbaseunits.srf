@@ -1,0 +1,54 @@
+HA$PBExportHeader$f_pbunitstocbaseunits.srf
+global type f_pbunitstocbaseunits from function_object
+end type
+
+forward prototypes
+global function integer f_pbunitstocbaseunits (integer iunits, integer ikoordinatentype, double dzoomfaktor)
+end prototypes
+
+global function integer f_pbunitstocbaseunits (integer iunits, integer ikoordinatentype, double dzoomfaktor);// --------------------------------------
+// iKoordinatenType 1 => X-Koordiante
+// iKoordinatenType 2 => Y-Koordiante
+// --------------------------------------
+Integer	iRet, iVorkomma, iOnTop
+
+Double  	dNachkomma, dFaktor, dX
+
+// ------------------------------------
+//		1 Unit ist 1/32 vom Systemfont
+//
+// 	y:	1 Pixel	= 4 Units
+//		x:	1 Pixel	= 4,57 Units
+//		
+//		Y ist unkompliziert, da immer 
+//		gerade
+//
+//		X dagegen rundet auf 5
+// ------------------------------------
+
+
+Choose case iKoordinatenType
+	case 1
+		dFaktor 	  = iUnits / 32
+		iVorkomma  = Int(dFaktor)
+		dNachkomma = dFaktor - iVorkomma
+		iOnTop	  = 0
+	
+		if dNachkomma > 0 Then
+			if dNachkomma > 0 AND dNachkomma <= 0.5 Then
+				iOnTop = 1
+			end if
+		end if
+		
+		dX 	= iUnits / 4.57
+		iRet 	= Int(dX * dZoomFaktor) + iOnTop
+		
+	case 2
+		iRet 	= UnitsToPixels(iunits, YUnitsToPixels!)
+end choose
+	
+
+
+return iRet
+end function
+

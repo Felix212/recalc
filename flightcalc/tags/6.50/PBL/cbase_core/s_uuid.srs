@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_uuid.srs
+$PBExportComments$Structure for UUID
+global type s_uuid from structure
+	unsignedlong		data1
+	unsignedinteger		data2
+	unsignedinteger		data3
+	unsignedinteger		data4[4]
+end type
+

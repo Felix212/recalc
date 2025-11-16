@@ -1,0 +1,49 @@
+HA$PBExportHeader$f_profile_string2.srf
+global type f_profile_string2 from function_object
+end type
+
+forward prototypes
+global function string f_profile_string2 (string arg_file, string arg_section, string arg_key, string arg_default, string arg_kommentar)
+end prototypes
+
+global function string f_profile_string2 (string arg_file, string arg_section, string arg_key, string arg_default, string arg_kommentar);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_profile_string2
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// arg_file			Profilename
+// arg_section		Section in der INI
+// arg_key			Key in der INI
+// arg_default		Default wenn in INI nicht vorhanden
+// arg_kommentar Zusatzlich wird bei fehlendem Eintrag das Kommentar vorher eingetragen
+// --------------------------------------------------------------------------------------------------------------------
+// Return: Key aus der INI
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung: Anpassung der Powerbuilder Funktion PROFILESTRING mit der Erweiterung des 
+//                       Schreibens des Default-Wertes in die INI, falls er nicht vorhanden ist
+//
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  08.10.2021	   1.0      H.Rothenbach   Erstellung
+//
+// --------------------------------------------------------------------------------------------------------------------
+string a
+
+a=ProfileString(arg_file, arg_section, arg_key, "NoTSeTNoTSeTNoTSeTNoTSeTNoTSeT")
+
+if a="NoTSeTNoTSeTNoTSeTNoTSeTNoTSeT" then
+	a = arg_default
+	
+	if arg_kommentar > " " then
+		SetProfileString(arg_file, arg_section, "#"+arg_key, arg_kommentar)
+	end if
+	
+	SetProfileString(arg_file, arg_section, arg_key, a)
+end if
+
+return a
+end function
+

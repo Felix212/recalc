@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_textsize.srs
+global type s_textsize from structure
+	long		cx
+	long		cy
+end type
+

@@ -1,0 +1,67 @@
+HA$PBExportHeader$f_get_pax_query_text.srf
+global type f_get_pax_query_text from function_object
+end type
+
+forward prototypes
+global function string f_get_pax_query_text (long lkey)
+end prototypes
+
+global function string f_get_pax_query_text (long lkey);string sText, sText1, sText2, sText3, sText4
+
+SELECT cen_pax_query_periods.ctext, 
+		cen_pax_query_periods.ctext1,
+		cen_pax_query_periods.ctext2, 
+		cen_pax_query_periods.ctext3, 
+		cen_pax_query_periods.ctext4 
+ INTO  :sText,  
+		 :sText1,  
+		 :sText2,   
+		 :sText3,   
+		 :sText4  
+
+ FROM cen_pax_query_periods  
+WHERE cen_pax_query_periods.nquery = :lKey   ;
+
+if sqlca.sqlcode = 0 then
+	
+	choose case s_app.iLanguage 
+		case 1
+			return sText
+	
+		case 2
+			return sText1
+	
+		case 3
+			return sText2
+	
+		case 4
+			return sText3
+	
+		case 5
+			return sText4
+			
+	end choose
+	
+elseif sqlca.sqlcode = 100 then
+	
+	  SELECT cen_airline_qp.cquery_period  
+		 INTO :sText
+		 FROM cen_airline_qp  
+		WHERE cen_airline_qp.nairline_qp_key = :lKey   ;
+
+		if sqlca.sqlcode = 0 then
+			return sText
+		elseif sqlca.sqlcode = 100 then
+			Return String(lKey) + " not found!"
+		else
+			f_db_error(sqlca, "f_get_product_group()")
+			Return "Error"
+		end if
+else
+	f_db_error(sqlca, "f_get_product_group()")
+	Return "Error"
+end if
+
+	
+end function
+

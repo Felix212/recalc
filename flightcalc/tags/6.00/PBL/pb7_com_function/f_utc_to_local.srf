@@ -1,0 +1,35 @@
+HA$PBExportHeader$f_utc_to_local.srf
+global type f_utc_to_local from function_object
+end type
+
+forward prototypes
+global function string f_utc_to_local (string stime, integer ioffset)
+end prototypes
+
+global function string f_utc_to_local (string stime, integer ioffset);// --------------------------------
+// Zeitwert mit Offset verrechnen
+// -------------------------------
+integer	iHour, &
+			iMinute
+			
+			
+if isnull(iOffset) then iOffset = 0
+
+// Stunden ermitteln
+iHour 	= integer(mid(sTime,1,2))
+// Stunden ermitteln
+iMinute 	= integer(mid(sTime,4,2))	
+
+// Stunden um das Offset erh$$HEX1$$f600$$ENDHEX$$hen
+iHour 	+= iOffset
+
+if iHour < 0 then iHour += 24
+if iHour >= 24 then iHour -= 24
+
+sTime = string(iHour,"00") + ":" + string(iMinute,"00")
+
+return sTime
+
+
+end function
+

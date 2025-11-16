@@ -1,0 +1,17 @@
+HA$PBExportHeader$n_disk.srx
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type n_disk from CORBAObject
+end type
+global n_disk n_disk
+
+forward prototypes
+  public:
+subroutine removedir (String as_directory) alias for "removedir"
+function String setpath (String as_pathstr) alias for "setpath"
+subroutine writelog (String logmsg) alias for "writelog"
+function Integer dirlist (REF String as_files[],Boolean ab_subdir_include,String as_rootdir,String as_filetype,String as_dir) alias for "dirlist"
+function String getjagpath () alias for "getjagpath"
+function Integer file2disk (String as_file,Blob ab_file) alias for "file2disk"
+function Long deployfile (Long lwebapp,String sextension,String sfilename,String ssubpath,Blob bfile) alias for "deployfile"
+                            end prototypes
+

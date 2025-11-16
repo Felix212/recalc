@@ -1,0 +1,15 @@
+HA$PBExportHeader$f_null.srf
+global type f_null from function_object
+end type
+
+forward prototypes
+global function string f_null (string arg_check)
+end prototypes
+
+global function string f_null (string arg_check);if isnull(arg_check) then
+	return "<NULL>"
+else
+	return arg_check
+end if
+end function
+

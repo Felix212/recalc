@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_freq_to_string.srf
+global type f_freq_to_string from function_object
+end type
+
+forward prototypes
+global function string f_freq_to_string (datawindow odw, long lrow)
+end prototypes
+
+global function string f_freq_to_string (datawindow odw, long lrow);// -------------------------------------
+// Aus den Feldern nfreq1 bis nfreq7
+// einen String basteln ( 1-3-567)
+// -------------------------------------
+
+String sFreq
+Integer i
+
+For i = 1 to 7
+	
+	
+	
+	//messagebox("", "nfreq" + string(i) + "    " + odw.tag)
+	
+	
+	if oDw.GetItemNumber(lRow, "nfreq" + string(i)) = 1 then
+		sFreq += String(i) //+ " " 
+	else
+		sFreq += "-"
+	end if
+
+Next
+
+return sFreq
+end function
+

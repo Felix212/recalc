@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_esl.srs
+global type s_esl from structure
+	string		sesltext
+	string		sesltype
+	string		spackinglist
+	string		sunit
+	string		saddontext
+end type
+

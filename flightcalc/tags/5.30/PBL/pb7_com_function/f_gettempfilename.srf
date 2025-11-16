@@ -1,0 +1,42 @@
+HA$PBExportHeader$f_gettempfilename.srf
+global type f_gettempfilename from function_object
+end type
+
+forward prototypes
+global function string f_gettempfilename (string spath, string sprefix)
+end prototypes
+
+global function string f_gettempfilename (string spath, string sprefix);// --------------------------------------------------------------------------
+// Diese Funktion ermittelt einen eindeutigen Dateinamen f$$HEX1$$fc00$$ENDHEX$$r eine
+// Temp-Datei und erstellt eine Datei mit der L$$HEX1$$e400$$ENDHEX$$nge 0
+//
+// Argumente:
+//		sPath 	= 	Verzeichnis in dem die Temp-Datei erzeugt
+//						wird
+//		sPrefix	=	Wird der Temp-Datei vorrangestellt
+//
+//	R$$HEX1$$fc00$$ENDHEX$$ckgabe:		Temp-Dateiname bei Erfolg
+//						NULL bei Mi$$HEX1$$df00$$ENDHEX$$erfolg
+//
+// Beispiel:		c:\temp\	und bmp		=> erzeugt bmp1.tmp, bmp2.tmp, etc.
+// --------------------------------------------------------------------------
+
+string 		sTempFile, &
+				sBuffer, &
+				sRefPath, &
+				sRefPrefix
+
+sRefPath		= sPath
+sRefPrefix	= sPrefix
+sBuffer		= Space(256)
+
+if GetTempFileName(sRefPath, sRefPrefix, 0, sBuffer) > 0 Then
+	sTempFile = trim(sBuffer)
+else
+	setNull(sTempFile)
+end if
+            
+
+return sTempFile
+end function
+

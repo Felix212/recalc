@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_get_unit_key.srf
+global type f_get_unit_key from function_object
+end type
+
+forward prototypes
+global function long f_get_unit_key (string sunit)
+end prototypes
+
+global function long f_get_unit_key (string sunit);// -----------------------------------------
+// NTLC Key der K$$HEX1$$fc00$$ENDHEX$$che
+// -----------------------------------------
+
+Long	lKey
+
+SELECT sys_units.ntlc_key
+  INTO :lKey 
+  FROM sys_units  
+ WHERE sys_units.cunit = :sUnit;
+ 
+if sqlca.sqlcode = 0 then
+	return lKey
+elseif sqlca.sqlcode = 100 then
+	return -100
+else
+	f_db_error(sqlca, "f_get_unit_key")
+	return -1
+end if
+
+
+return 0
+
+end function
+

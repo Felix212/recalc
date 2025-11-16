@@ -1,0 +1,17 @@
+HA$PBExportHeader$s_flight_select.srs
+global type s_flight_select from structure
+	string		sairline
+	date		ddeparture_date
+	time		tdeparture_time_from
+	time		tdeparture_time_to
+	integer		iflight_from
+	integer		iflight_to
+	string		sstrecke
+	long		llayoutkey
+	integer		icabin
+	integer		iflight_info
+	boolean		bPrint_flightinfo
+	boolean		bPrintgalley_diagram
+	boolean		bPrintcatering_objects
+end type
+

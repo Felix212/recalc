@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_get_account_key.srf
+global type f_get_account_key from function_object
+end type
+
+forward prototypes
+global function long f_get_account_key (string saccount, long lairline)
+end prototypes
+
+global function long f_get_account_key (string saccount, long lairline);// -----------------------------------------
+// AbrechnungsCode pr$$HEX1$$fc00$$ENDHEX$$fen
+// -----------------------------------------
+
+Long	lKey
+
+select naccount_key into :lKey from cen_airline_accounts where nairline_key = :lAirline and caccount = :sAccount;
+ 
+if sqlca.sqlcode = 0 then
+	return lKey
+elseif sqlca.sqlcode = 100 then
+	return -100
+else
+	f_db_error(sqlca, "f_get_account_key")
+	return -1
+end if
+
+
+return 0
+
+end function
+

@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_get_airline_key.srf
+global type f_get_airline_key from function_object
+end type
+
+forward prototypes
+global function long f_get_airline_key (string sval)
+end prototypes
+
+global function long f_get_airline_key (string sval);// -----------------------------------------------
+// Airline Text in Airline Key umwandeln
+// -----------------------------------------------
+
+	Long lReturn
+
+	SELECT nairline_key
+	  INTO :lReturn  
+	  FROM cen_airlines  
+	 WHERE cairline = :sVal and
+			 cclient  = :s_app.smandant;
+	
+	
+	if sqlca.sqlcode = 0 then
+		return lReturn
+	else
+		return -1
+	end if
+	
+
+
+end function
+

@@ -1,0 +1,36 @@
+HA$PBExportHeader$f_trace.srf
+global type f_trace from function_object
+end type
+
+forward prototypes
+global function integer f_trace (string trace_text)
+end prototypes
+
+global function integer f_trace (string trace_text);string	sFileName, sUser, sHost
+string	sApplication, sDebugDirectory
+integer	iTraceFile
+String	ls_File
+
+RegistryGet("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\WINLOGON","DefaultUserName",sUser)
+RegistryGet("HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\ComputerName\ComputerName","ComputerName",sHost)
+
+sHost = lower(sHost)
+sUser = lower(sUser)
+
+
+sFileName 			= ProfileString ("CBASE_DOCUMENT_ENGINE.ini", "TRACE", "LOGFILE", "trace_" + string(today(),"yyyy-mm-dd") + ".txt")	
+sDebugDirectory 	= ProfileString ("CBASE_DOCUMENT_ENGINE.ini", "TRACE", "DIRECTORY", "c:\temp\")	
+
+If trim(sinstance) > "" then sFileName = sinstance + "_" + sFileName
+
+ls_File = sLogPath + sinstance + "_" + string(Today(), "yyyymmdd") + "_" +  "cbase_document_engine"  + ".log"
+
+//iTraceFile	= FileOpen(sDebugDirectory + sFileName, LineMode!, Write!, LockWrite!, Append!)
+iTraceFile	= FileOpen(ls_File, LineMode!, Write!, LockWrite!, Append!)
+FileWrite(iTraceFile, sHost + "|" + sUser + "|" + s_app.sVersion + "|" + String(Today())+"|"+String(Now())+"|" + trace_text)
+
+FileClose( iTraceFile)
+
+return 0
+end function
+

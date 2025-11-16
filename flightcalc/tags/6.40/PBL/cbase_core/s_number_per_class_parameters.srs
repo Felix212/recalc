@@ -1,0 +1,14 @@
+HA$PBExportHeader$s_number_per_class_parameters.srs
+global type s_number_per_class_parameters from structure
+	long		lairline_key
+	string		sclass_array[]
+	boolean		bpax_number_required
+	boolean		bversion_required
+	boolean		bsuccessful
+	string		sclass
+	integer		iclass_number
+	integer		ipax_number
+	integer		iversion
+	s_number_per_class		strno_per_class_array[]
+end type
+

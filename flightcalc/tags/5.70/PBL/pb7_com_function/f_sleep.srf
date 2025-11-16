@@ -1,0 +1,21 @@
+HA$PBExportHeader$f_sleep.srf
+$PBExportComments$Wartet angegebene Sekunden
+global type f_sleep from function_object
+end type
+
+forward prototypes
+global subroutine f_sleep (integer isec)
+end prototypes
+
+global subroutine f_sleep (integer isec);time t_time1,t_time2
+
+t_time1 = now()
+t_time2 = now()
+t_time2 = relativetime(t_time2,isec)
+
+Do while secondsafter(t_time1,t_time2) >= 0
+	t_time1 = now()
+Loop
+
+end subroutine
+

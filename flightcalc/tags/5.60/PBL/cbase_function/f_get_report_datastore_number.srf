@@ -1,0 +1,61 @@
+HA$PBExportHeader$f_get_report_datastore_number.srf
+global type f_get_report_datastore_number from function_object
+end type
+
+forward prototypes
+global function boolean f_get_report_datastore_number (ref datastore odw)
+end prototypes
+
+global function boolean f_get_report_datastore_number (ref datastore odw);// ---------------------------------------------------------------------------
+// Report Nummer ermitteln, falls t_report_number vorhanden.
+// ---------------------------------------------------------------------------	
+Long 		lReport_Number
+String	sName
+
+If not isvalid(oDW.Object.t_printed) Then Return False
+
+sName = oDW.DataObject
+
+SELECT sys_application_report.ncounter  
+  INTO :lReport_Number  
+  FROM sys_application_report  
+ WHERE ( sys_application_report.cclient = :s_app.smandant) AND  
+		 ( sys_application_report.cunit = :s_app.swerk) AND  
+		 ( sys_application_report.cdatawindow = :sName)   ;
+		 
+
+// ---------------------------------------------------------------------------
+// Tabelleneintrag anlegen !
+// ---------------------------------------------------------------------------	
+If SQLCA.SQLCODE = 100 Then
+	INSERT INTO sys_application_report  
+		(cclient,   
+		 cunit,   
+		 cdatawindow,   
+		 ncounter)  
+	VALUES
+		(:s_app.smandant,   
+		 :s_app.swerk,   
+		 :sName,   
+		 1);
+			 
+	lReport_Number = 1
+// ---------------------------------------------------------------------------
+// Report Nummer hoch z$$HEX1$$e400$$ENDHEX$$hlen !
+// ---------------------------------------------------------------------------	
+Elseif SQLCA.SQLCODE = 0 Then
+	lReport_Number ++
+	UPDATE sys_application_report  
+		SET ncounter = :lReport_Number  
+	WHERE (sys_application_report.cclient = :s_app.smandant) AND  
+			(sys_application_report.cunit = :s_app.swerk) AND  
+			(sys_application_report.cdatawindow = :sName);
+	
+End if	
+
+COMMIT;
+oDW.Object.t_printed.text 	= "No:" + string(lReport_Number) + "   " + oDW.Object.t_printed.text 
+
+Return True
+end function
+

@@ -1,0 +1,36 @@
+HA$PBExportHeader$f_log2csv.srf
+$PBExportComments$Log - Funktion in CSV - Datei
+global type f_log2csv from function_object
+end type
+
+forward prototypes
+global function integer f_log2csv (long ljob, integer iinfotype, string smessage)
+end prototypes
+
+global function integer f_log2csv (long ljob, integer iinfotype, string smessage);// ----------------------------------------------------
+// Logging im CSV-Format
+// Infotype		0 = Erfolg
+// 				1 = Information
+//					2 = Fehler
+//					3 = SQL Fehler
+// ----------------------------------------------------
+integer iFile
+string  sLogMessage
+
+guoLog.uf_allways(smessage)
+
+//redirect all logging functions (with messages to send to graylog) to 
+//f_write_log2csv( sLogPathFilename + "_" + String(Today(), "yyyymmdd") + ".log", ljob, iinfotype, smessage)
+/*
+// ----------------------------------------------------
+// Message verfeinern
+// ----------------------------------------------------
+sLogMessage = sInstance + "," + string(today(),"YYYY-MM-DD") + "," + string(now(), "hh:mm:ss") + "," + sMessage
+
+iFile = FileOpen(sLogPathFilename + "_" + String(Today(), "yyyymmdd") + ".log", LineMode!, Write!, Shared!)
+FileWrite(iFile,sLogMessage)
+FileClose(iFile)
+*/
+Return 0
+end function
+

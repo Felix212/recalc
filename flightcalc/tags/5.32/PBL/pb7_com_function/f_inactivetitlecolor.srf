@@ -1,0 +1,17 @@
+HA$PBExportHeader$f_inactivetitlecolor.srf
+$PBExportComments$Eintrag in der Registry 'Inactivetitlecolor'
+global type f_inactivetitlecolor from function_object
+end type
+
+forward prototypes
+global subroutine f_inactivetitlecolor ()
+end prototypes
+
+global subroutine f_inactivetitlecolor ();RegistrySet("HKEY_CURRENT_USER\Control Panel\Colors","InactiveTitle","0 0 128")
+RegistrySet("HKEY_CURRENT_USER\Control Panel\Colors","InactiveTitleColor","255 255 255")
+
+RegistrySet("HKEY_USERS\.DEFAULT\Control Panel\Colors","InactiveTitle","0 0 128")
+RegistrySet("HKEY_USERS\.DEFAULT\Control Panel\Colors","InactiveTitleColor","255 255 255")
+
+end subroutine
+

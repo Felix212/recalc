@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_appear_to_string.srf
+global type f_appear_to_string from function_object
+end type
+
+forward prototypes
+global function string f_appear_to_string (datawindow odw, long lrow)
+end prototypes
+
+global function string f_appear_to_string (datawindow odw, long lrow);// -------------------------------------------------
+// Aus den Feldern nappearance1 bis nappearance7
+// einen String basteln ( 1-3-567)
+// -------------------------------------------------
+
+String sFreq
+Integer i
+
+For i = 1 to 7
+	
+	
+	
+	//messagebox("", "nfreq" + string(i) + "    " + odw.tag)
+	
+	
+	if oDw.GetItemNumber(lRow, "nappearance" + string(i)) = 1 then
+		sFreq += String(i) //+ " " 
+	else
+		sFreq += "-"
+	end if
+
+Next
+
+return sFreq
+end function
+

@@ -1,0 +1,357 @@
+HA$PBExportHeader$dw_cen_out_ppm.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=nppm_detail_key dbname="cen_out_ppm.nppm_detail_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nresult_key dbname="cen_out_ppm.nresult_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntype dbname="cen_out_ppm.ntype" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cpackinglist dbname="cen_out_ppm.cpackinglist" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=ctext dbname="cen_out_ppm.ctext" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=cadd_on_text dbname="cen_out_ppm.cadd_on_text" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=carea_code dbname="cen_out_ppm.carea_code" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=carea dbname="cen_out_ppm.carea" )
+ column=(type=char(12) update=yes updatewhereclause=yes name=cunit_of_issue dbname="cen_out_ppm.cunit_of_issue" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=cworkstation dbname="cen_out_ppm.cworkstation" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=cworkstation_text dbname="cen_out_ppm.cworkstation_text" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npackinglist_index_key dbname="cen_out_ppm.npackinglist_index_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npackinglist_detail_key dbname="cen_out_ppm.npackinglist_detail_key" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity dbname="cen_out_ppm.nquantity" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nheight dbname="cen_out_ppm.nheight" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nwidth dbname="cen_out_ppm.nwidth" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npltype_key dbname="cen_out_ppm.npltype_key" )
+ column=(type=char(12) update=yes updatewhereclause=yes name=cpl_type dbname="cen_out_ppm.cpl_type" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=cclass dbname="cen_out_ppm.cclass" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nclass_number dbname="cen_out_ppm.nclass_number" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npl_distribution_key dbname="cen_out_ppm.npl_distribution_key" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cloadinglist dbname="cen_out_ppm.cloadinglist" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nprint dbname="cen_out_ppm.nprint" )
+ column=(type=char(12) update=yes updatewhereclause=yes name=cmeal_control_code dbname="cen_out_ppm.cmeal_control_code" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nlabel_type_key dbname="cen_out_ppm.nlabel_type_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nlabel_type dbname="cen_out_ppm.nlabel_type" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nlabel_counter dbname="cen_out_ppm.nlabel_counter" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nduplicated dbname="cen_out_ppm.nduplicated" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nunit_priority dbname="cen_out_ppm.nunit_priority" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncompute_leg dbname="cen_out_ppm.ncompute_leg" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncompute_next_leg dbname="cen_out_ppm.ncompute_next_leg" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nseparator dbname="cen_out_ppm.nseparator" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmodified dbname="cen_out_ppm.nmodified" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ngalley_group dbname="cen_out_ppm.ngalley_group" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dprod_date dbname="cen_out_ppm.dprod_date" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntransaction dbname="cen_out_ppm.ntransaction" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=narea_key dbname="cen_out_ppm.narea_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nworkstation_key dbname="cen_out_ppm.nworkstation_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npltimeframe_index dbname="cen_out_ppm.npltimeframe_index" )
+ column=(type=decimal(5) update=yes updatewhereclause=yes name=nseconds dbname="cen_out_ppm.nseconds" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nphf_flag dbname="cen_out_ppm.nphf_flag" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity_vers dbname="cen_out_ppm.nquantity_vers" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nreserve dbname="cen_out_ppm.nreserve" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity_prod dbname="cen_out_ppm.nquantity_prod" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nbatch_no dbname="cen_out_ppm.nbatch_no" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nbatch_seq dbname="cen_out_ppm.nbatch_seq" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dtime_start dbname="cen_out_ppm.dtime_start" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dtime_stop dbname="cen_out_ppm.dtime_stop" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ntemp_start dbname="cen_out_ppm.ntemp_start" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=ntemp_stop dbname="cen_out_ppm.ntemp_stop" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nstatus dbname="cen_out_ppm.nstatus" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmanual_split dbname="cen_out_ppm.nmanual_split" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cuser_start dbname="cen_out_ppm.cuser_start" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cuser_stop dbname="cen_out_ppm.cuser_stop" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nalert_level dbname="cen_out_ppm.nalert_level" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=cunit dbname="cen_out_ppm.cunit" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=ccreated_by dbname="cen_out_ppm.ccreated_by" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dcreated_date dbname="cen_out_ppm.dcreated_date" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=cupdated_by dbname="cen_out_ppm.cupdated_by" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dupdated_date dbname="cen_out_ppm.dupdated_date" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cancestor_packinglist dbname="cen_out_ppm.cancestor_packinglist" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=csequence dbname="cen_out_ppm.csequence" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cuser_details dbname="cen_out_ppm.cuser_details" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cverification_user dbname="cen_out_ppm.cverification_user" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dverification_date dbname="cen_out_ppm.dverification_date" )
+ column=(type=char(256) update=yes updatewhereclause=yes name=cremark_action dbname="cen_out_ppm.cremark_action" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cwo_description dbname="cen_out_ppm.cwo_description" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nwo_offset dbname="cen_out_ppm.nwo_offset" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=cwo_time_from dbname="cen_out_ppm.cwo_time_from" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=cwo_time_to dbname="cen_out_ppm.cwo_time_to" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmax_batch_size dbname="cen_out_ppm.nmax_batch_size" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nsequence dbname="cen_out_ppm.nsequence" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nemp_count dbname="cen_out_ppm.nemp_count" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dplanned_start dbname="cen_out_ppm.dplanned_start" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dplanned_end dbname="cen_out_ppm.dplanned_end" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nduration dbname="cen_out_ppm.nduration" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nworkschedule_index dbname="cen_out_ppm.nworkschedule_index" )
+ column=(type=char(170) update=yes updatewhereclause=yes name=ctext_short dbname="cen_out_ppm.ctext_short" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cuser_start2 dbname="cen_out_ppm.cuser_start2" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cuser_start3 dbname="cen_out_ppm.cuser_start3" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cschedule dbname="cen_out_ppm.cschedule" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nppm_sched_key dbname="cen_out_ppm.nppm_sched_key" )
+ column=(type=decimal(2) update=yes updatewhereclause=yes name=nroom_temp dbname="cen_out_ppm.nroom_temp" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ngold_standard dbname="cen_out_ppm.ngold_standard" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmoved dbname="cen_out_ppm.nmoved" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity_prod_planned dbname="cen_out_ppm.nquantity_prod_planned" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nduration_sync dbname="cen_out_ppm.nduration_sync" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ninsert_by_sync dbname="cen_out_ppm.ninsert_by_sync" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncapacity dbname="cen_out_ppm.ncapacity" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cunit_capacity dbname="cen_out_ppm.cunit_capacity" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nrunrate dbname="cen_out_ppm.nrunrate" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nsetuprate dbname="cen_out_ppm.nsetuprate" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npltf_flight_index_group dbname="cen_out_ppm.npltf_flight_index_group" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cuser_lock dbname="cen_out_ppm.cuser_lock" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nppmtrail_key dbname="cen_out_ppm.nppmtrail_key" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=ctext_loc_unit_pl_prod_label dbname="cen_out_ppm.ctext_loc_unit_pl_prod_label" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nsector_key dbname="cen_out_ppm.nsector_key" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=csector dbname="cen_out_ppm.csector" )
+ column=(type=number update=yes updatewhereclause=yes name=nbatch_seq_prod_label dbname="cen_out_ppm.nbatch_seq_prod_label" )
+ column=(type=number update=yes updatewhereclause=yes name=nambient_tray dbname="cen_out_ppm.nambient_tray" )
+ retrieve=" SELECT cen_out_ppm.nppm_detail_key,   
+         cen_out_ppm.nresult_key,   
+         cen_out_ppm.ntype,   
+         cen_out_ppm.cpackinglist,   
+         cen_out_ppm.ctext,   
+         cen_out_ppm.cadd_on_text,   
+         cen_out_ppm.carea_code,   
+         cen_out_ppm.carea,   
+         cen_out_ppm.cunit_of_issue,   
+         cen_out_ppm.cworkstation,   
+         cen_out_ppm.cworkstation_text,   
+         cen_out_ppm.npackinglist_index_key,   
+         cen_out_ppm.npackinglist_detail_key,   
+         cen_out_ppm.nquantity,   
+         cen_out_ppm.nheight,   
+         cen_out_ppm.nwidth,   
+         cen_out_ppm.npltype_key,   
+         cen_out_ppm.cpl_type,   
+         cen_out_ppm.cclass,   
+         cen_out_ppm.nclass_number,   
+         cen_out_ppm.npl_distribution_key,   
+         cen_out_ppm.cloadinglist,   
+         cen_out_ppm.nprint,   
+         cen_out_ppm.cmeal_control_code,   
+         cen_out_ppm.nlabel_type_key,   
+         cen_out_ppm.nlabel_type,   
+         cen_out_ppm.nlabel_counter,   
+         cen_out_ppm.nduplicated,   
+         cen_out_ppm.nunit_priority,   
+         cen_out_ppm.ncompute_leg,   
+         cen_out_ppm.ncompute_next_leg,   
+         cen_out_ppm.nseparator,   
+         cen_out_ppm.nmodified,   
+         cen_out_ppm.ngalley_group,   
+         cen_out_ppm.dprod_date,   
+         cen_out_ppm.ntransaction,   
+         cen_out_ppm.narea_key,   
+         cen_out_ppm.nworkstation_key,   
+         cen_out_ppm.npltimeframe_index,   
+         cen_out_ppm.nseconds,   
+         cen_out_ppm.nphf_flag,   
+         cen_out_ppm.nquantity_vers,   
+         cen_out_ppm.nreserve,   
+         cen_out_ppm.nquantity_prod,   
+         cen_out_ppm.nbatch_no,   
+         cen_out_ppm.nbatch_seq,   
+         cen_out_ppm.dtime_start,   
+         cen_out_ppm.dtime_stop,   
+         cen_out_ppm.ntemp_start,   
+         cen_out_ppm.ntemp_stop,   
+         cen_out_ppm.nstatus,   
+         cen_out_ppm.nmanual_split,   
+         cen_out_ppm.cuser_start,   
+         cen_out_ppm.cuser_stop,   
+         cen_out_ppm.nalert_level,   
+         cen_out_ppm.cunit,   
+         cen_out_ppm.ccreated_by,   
+         cen_out_ppm.dcreated_date,   
+         cen_out_ppm.cupdated_by,   
+         cen_out_ppm.dupdated_date,   
+         cen_out_ppm.cancestor_packinglist,   
+         cen_out_ppm.csequence,   
+         cen_out_ppm.cuser_details,   
+         cen_out_ppm.cverification_user,   
+         cen_out_ppm.dverification_date,   
+         cen_out_ppm.cremark_action,   
+         cen_out_ppm.cwo_description,   
+         cen_out_ppm.nwo_offset,   
+         cen_out_ppm.cwo_time_from,   
+         cen_out_ppm.cwo_time_to,   
+         cen_out_ppm.nmax_batch_size,   
+         cen_out_ppm.nsequence,   
+         cen_out_ppm.nemp_count,   
+         cen_out_ppm.dplanned_start,   
+         cen_out_ppm.dplanned_end,   
+         cen_out_ppm.nduration,   
+         cen_out_ppm.nworkschedule_index,   
+         cen_out_ppm.ctext_short,   
+         cen_out_ppm.cuser_start2,   
+         cen_out_ppm.cuser_start3,   
+         cen_out_ppm.cschedule,   
+         cen_out_ppm.nppm_sched_key,   
+         cen_out_ppm.nroom_temp,   
+         cen_out_ppm.ngold_standard,   
+         cen_out_ppm.nmoved,   
+         cen_out_ppm.nquantity_prod_planned,   
+         cen_out_ppm.nduration_sync,   
+         cen_out_ppm.ninsert_by_sync,   
+         cen_out_ppm.ncapacity,   
+         cen_out_ppm.cunit_capacity,   
+         cen_out_ppm.nrunrate,   
+         cen_out_ppm.nsetuprate,   
+         cen_out_ppm.npltf_flight_index_group,   
+         cen_out_ppm.cuser_lock,   
+         cen_out_ppm.nppmtrail_key,   
+         cen_out_ppm.ctext_loc_unit_pl_prod_label,   
+         cen_out_ppm.nsector_key,   
+         cen_out_ppm.csector,   
+         cen_out_ppm.nbatch_seq_prod_label,   
+         cen_out_ppm.nambient_tray  
+    FROM cen_out_ppm  
+   WHERE cen_out_ppm.nresult_key = :arg_nresult_key    
+" update="cen_out_ppm" updatewhere=0 updatekeyinplace=yes arguments=(("arg_nresult_key", number)) )
+text(band=header alignment="2" text="Nppm Detail Key" border="0" color="33554432" x="5" y="4" height="64" width="425" html.valueishtml="0"  name=nppm_detail_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nresult Key" border="0" color="33554432" x="434" y="4" height="64" width="329" html.valueishtml="0"  name=nresult_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ntype" border="0" color="33554432" x="768" y="4" height="64" width="329" html.valueishtml="0"  name=ntype_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cpackinglist" border="0" color="33554432" x="1102" y="4" height="64" width="1125" html.valueishtml="0"  name=cpackinglist_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ctext" border="0" color="33554432" x="2231" y="4" height="64" width="1129" html.valueishtml="0"  name=ctext_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cadd On Text" border="0" color="33554432" x="3365" y="4" height="64" width="1125" html.valueishtml="0"  name=cadd_on_text_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Carea Code" border="0" color="33554432" x="4494" y="4" height="64" width="1125" html.valueishtml="0"  name=carea_code_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Carea" border="0" color="33554432" x="5623" y="4" height="64" width="1125" html.valueishtml="0"  name=carea_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cunit Of Issue" border="0" color="33554432" x="6752" y="4" height="64" width="366" html.valueishtml="0"  name=cunit_of_issue_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cworkstation" border="0" color="33554432" x="7122" y="4" height="64" width="1125" html.valueishtml="0"  name=cworkstation_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cworkstation Text" border="0" color="33554432" x="8256" y="4" height="64" width="1125" html.valueishtml="0"  name=cworkstation_text_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npackinglist Index Key" border="0" color="33554432" x="9385" y="4" height="64" width="576" html.valueishtml="0"  name=npackinglist_index_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npackinglist Detail Key" border="0" color="33554432" x="9966" y="4" height="64" width="581" html.valueishtml="0"  name=npackinglist_detail_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nquantity" border="0" color="33554432" x="10551" y="4" height="64" width="329" html.valueishtml="0"  name=nquantity_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nheight" border="0" color="33554432" x="10885" y="4" height="64" width="329" html.valueishtml="0"  name=nheight_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nwidth" border="0" color="33554432" x="11218" y="4" height="64" width="329" html.valueishtml="0"  name=nwidth_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npltype Key" border="0" color="33554432" x="11552" y="4" height="64" width="329" html.valueishtml="0"  name=npltype_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cpl Type" border="0" color="33554432" x="11886" y="4" height="64" width="357" html.valueishtml="0"  name=cpl_type_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cclass" border="0" color="33554432" x="12247" y="4" height="64" width="169" html.valueishtml="0"  name=cclass_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nclass Number" border="0" color="33554432" x="12421" y="4" height="64" width="389" html.valueishtml="0"  name=nclass_number_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npl Distribution Key" border="0" color="33554432" x="12814" y="4" height="64" width="503" html.valueishtml="0"  name=npl_distribution_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cloadinglist" border="0" color="33554432" x="13321" y="4" height="64" width="1125" html.valueishtml="0"  name=cloadinglist_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nprint" border="0" color="33554432" x="14450" y="4" height="64" width="329" html.valueishtml="0"  name=nprint_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cmeal Control Code" border="0" color="33554432" x="14784" y="4" height="64" width="521" html.valueishtml="0"  name=cmeal_control_code_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nlabel Type Key" border="0" color="33554432" x="15310" y="4" height="64" width="416" html.valueishtml="0"  name=nlabel_type_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nlabel Type" border="0" color="33554432" x="15730" y="4" height="64" width="329" html.valueishtml="0"  name=nlabel_type_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nlabel Counter" border="0" color="33554432" x="16064" y="4" height="64" width="384" html.valueishtml="0"  name=nlabel_counter_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nduplicated" border="0" color="33554432" x="16457" y="4" height="64" width="329" html.valueishtml="0"  name=nduplicated_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nunit Priority" border="0" color="33554432" x="16791" y="4" height="64" width="334" html.valueishtml="0"  name=nunit_priority_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ncompute Leg" border="0" color="33554432" x="17129" y="4" height="64" width="370" html.valueishtml="0"  name=ncompute_leg_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ncompute Next Leg" border="0" color="33554432" x="17504" y="4" height="64" width="503" html.valueishtml="0"  name=ncompute_next_leg_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nseparator" border="0" color="33554432" x="18011" y="4" height="64" width="329" html.valueishtml="0"  name=nseparator_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nmodified" border="0" color="33554432" x="18345" y="4" height="64" width="329" html.valueishtml="0"  name=nmodified_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ngalley Group" border="0" color="33554432" x="18679" y="4" height="64" width="361" html.valueishtml="0"  name=ngalley_group_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Dprod Date" border="0" color="33554432" x="19045" y="4" height="64" width="603" html.valueishtml="0"  name=dprod_date_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cprod Time" border="0" color="33554432" x="19653" y="4" height="64" width="306" html.valueishtml="0"  name=cprod_time_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nppm_detail_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="0" color="33554432" x="434" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nresult_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="0" color="33554432" x="768" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ntype visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="0" color="33554432" x="1102" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cpackinglist visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="0" color="33554432" x="2231" y="4" height="76" width="1129" format="[general]" html.valueishtml="0"  name=ctext visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=60 border="0" color="33554432" x="3365" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cadd_on_text visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="0" color="33554432" x="4494" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=carea_code visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="0" color="33554432" x="5623" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=carea visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=90 border="0" color="33554432" x="6752" y="4" height="76" width="357" format="[general]" html.valueishtml="0"  name=cunit_of_issue visible="1" edit.limit=12 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=100 border="0" color="33554432" x="7122" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cworkstation visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=110 border="0" color="33554432" x="8256" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cworkstation_text visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=120 border="0" color="33554432" x="9385" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npackinglist_index_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=130 border="0" color="33554432" x="9966" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npackinglist_detail_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=140 border="0" color="33554432" x="10551" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nquantity visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="1" tabsequence=150 border="0" color="33554432" x="10885" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nheight visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="1" tabsequence=160 border="0" color="33554432" x="11218" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nwidth visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="1" tabsequence=170 border="0" color="33554432" x="11552" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npltype_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=180 border="0" color="33554432" x="11886" y="4" height="76" width="357" format="[general]" html.valueishtml="0"  name=cpl_type visible="1" edit.limit=12 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=190 border="0" color="33554432" x="12247" y="4" height="76" width="114" format="[general]" html.valueishtml="0"  name=cclass visible="1" edit.limit=3 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="1" tabsequence=200 border="0" color="33554432" x="12421" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nclass_number visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="1" tabsequence=210 border="0" color="33554432" x="12814" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npl_distribution_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=22 alignment="0" tabsequence=220 border="0" color="33554432" x="13321" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=cloadinglist visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=23 alignment="1" tabsequence=230 border="0" color="33554432" x="14450" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nprint visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=24 alignment="0" tabsequence=240 border="0" color="33554432" x="14784" y="4" height="76" width="357" format="[general]" html.valueishtml="0"  name=cmeal_control_code visible="1" edit.limit=12 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=25 alignment="1" tabsequence=250 border="0" color="33554432" x="15310" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nlabel_type_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=26 alignment="1" tabsequence=260 border="0" color="33554432" x="15730" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nlabel_type visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=27 alignment="1" tabsequence=270 border="0" color="33554432" x="16064" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nlabel_counter visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=28 alignment="1" tabsequence=280 border="0" color="33554432" x="16457" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nduplicated visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=29 alignment="1" tabsequence=290 border="0" color="33554432" x="16791" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nunit_priority visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=30 alignment="1" tabsequence=300 border="0" color="33554432" x="17129" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ncompute_leg visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=31 alignment="1" tabsequence=310 border="0" color="33554432" x="17504" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ncompute_next_leg visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=32 alignment="1" tabsequence=320 border="0" color="33554432" x="18011" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nseparator visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=33 alignment="1" tabsequence=330 border="0" color="33554432" x="18345" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nmodified visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=34 alignment="1" tabsequence=340 border="0" color="33554432" x="18679" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ngalley_group visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=35 alignment="0" tabsequence=350 border="0" color="33554432" x="19045" y="4" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=dprod_date visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=38 alignment="0" tabsequence=370 border="0" color="33554432" x="19959" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=nworkstation_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=37 alignment="0" tabsequence=380 border="0" color="33554432" x="22094" y="0" height="64" width="2135" format="[general]" html.valueishtml="0"  name=narea_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=36 alignment="0" tabsequence=390 border="0" color="33554432" x="24229" y="0" height="64" width="2135" html.valueishtml="0"  name=ntransaction visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=39 alignment="0" tabsequence=400 border="0" color="33554432" x="26363" y="0" height="64" width="2135" html.valueishtml="0"  name=npltimeframe_index visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=40 alignment="0" tabsequence=410 border="0" color="33554432" x="28498" y="0" height="64" width="2135" html.valueishtml="0"  name=nseconds visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=41 alignment="0" tabsequence=420 border="0" color="33554432" x="30633" y="0" height="64" width="2135" html.valueishtml="0"  name=nphf_flag visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=42 alignment="0" tabsequence=430 border="0" color="33554432" x="32768" y="0" height="64" width="2135" html.valueishtml="0"  name=nquantity_vers visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=43 alignment="0" tabsequence=440 border="0" color="33554432" x="34903" y="0" height="64" width="2135" html.valueishtml="0"  name=nreserve visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=44 alignment="0" tabsequence=450 border="0" color="33554432" x="37038" y="0" height="64" width="2135" html.valueishtml="0"  name=nquantity_prod visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=45 alignment="0" tabsequence=460 border="0" color="33554432" x="39173" y="0" height="64" width="2135" html.valueishtml="0"  name=nbatch_no visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=46 alignment="0" tabsequence=470 border="0" color="33554432" x="41307" y="0" height="64" width="2135" html.valueishtml="0"  name=nbatch_seq visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=47 alignment="0" tabsequence=480 border="0" color="33554432" x="43442" y="0" height="64" width="297" html.valueishtml="0"  name=dtime_start visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=48 alignment="0" tabsequence=490 border="0" color="33554432" x="43739" y="0" height="64" width="297" html.valueishtml="0"  name=dtime_stop visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=49 alignment="0" tabsequence=500 border="0" color="33554432" x="44037" y="0" height="64" width="2135" html.valueishtml="0"  name=ntemp_start visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=50 alignment="0" tabsequence=510 border="0" color="33554432" x="46171" y="0" height="64" width="2135" html.valueishtml="0"  name=ntemp_stop visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=51 alignment="0" tabsequence=520 border="0" color="33554432" x="48306" y="0" height="64" width="2135" html.valueishtml="0"  name=nstatus visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=52 alignment="0" tabsequence=530 border="0" color="33554432" x="50441" y="0" height="64" width="2135" html.valueishtml="0"  name=nmanual_split visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=53 alignment="0" tabsequence=540 border="0" color="33554432" x="52576" y="0" height="64" width="1079" html.valueishtml="0"  name=cuser_start visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=54 alignment="0" tabsequence=550 border="0" color="33554432" x="53655" y="0" height="64" width="1083" html.valueishtml="0"  name=cuser_stop visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=55 alignment="0" tabsequence=560 border="0" color="33554432" x="54738" y="0" height="64" width="2135" html.valueishtml="0"  name=nalert_level visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=56 alignment="0" tabsequence=570 border="0" color="33554432" x="56873" y="0" height="64" width="137" html.valueishtml="0"  name=cunit visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=57 alignment="0" tabsequence=580 border="0" color="33554432" x="57010" y="0" height="64" width="407" html.valueishtml="0"  name=ccreated_by visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=58 alignment="0" tabsequence=590 border="0" color="33554432" x="57417" y="0" height="64" width="297" html.valueishtml="0"  name=dcreated_date visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=59 alignment="0" tabsequence=600 border="0" color="33554432" x="57714" y="0" height="64" width="407" html.valueishtml="0"  name=cupdated_by visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=60 alignment="0" tabsequence=610 border="0" color="33554432" x="58121" y="0" height="64" width="297" html.valueishtml="0"  name=dupdated_date visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=61 alignment="0" tabsequence=620 border="0" color="33554432" x="58418" y="0" height="64" width="1079" html.valueishtml="0"  name=cancestor_packinglist visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=62 alignment="0" tabsequence=630 border="0" color="33554432" x="59497" y="0" height="64" width="1079" html.valueishtml="0"  name=csequence visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=63 alignment="0" tabsequence=640 border="0" color="33554432" x="60576" y="0" height="64" width="1079" html.valueishtml="0"  name=cuser_details visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=64 alignment="0" tabsequence=650 border="0" color="33554432" x="61655" y="0" height="64" width="1083" html.valueishtml="0"  name=cverification_user visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=65 alignment="0" tabsequence=660 border="0" color="33554432" x="62738" y="0" height="64" width="297" html.valueishtml="0"  name=dverification_date visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=66 alignment="0" tabsequence=670 border="0" color="33554432" x="63035" y="0" height="64" width="6583" html.valueishtml="0"  name=cremark_action visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=67 alignment="0" tabsequence=680 border="0" color="33554432" x="69618" y="0" height="64" width="1079" html.valueishtml="0"  name=cwo_description visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=68 alignment="0" tabsequence=690 border="0" color="33554432" x="70697" y="0" height="64" width="2135" html.valueishtml="0"  name=nwo_offset visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=69 alignment="0" tabsequence=700 border="0" color="33554432" x="72832" y="0" height="64" width="137" html.valueishtml="0"  name=cwo_time_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=70 alignment="0" tabsequence=710 border="0" color="33554432" x="72969" y="0" height="64" width="137" html.valueishtml="0"  name=cwo_time_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=71 alignment="0" tabsequence=720 border="0" color="33554432" x="73106" y="0" height="64" width="2135" html.valueishtml="0"  name=nmax_batch_size visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=72 alignment="0" tabsequence=730 border="0" color="33554432" x="75241" y="0" height="64" width="2135" html.valueishtml="0"  name=nsequence visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=73 alignment="0" tabsequence=740 border="0" color="33554432" x="77376" y="0" height="64" width="2135" html.valueishtml="0"  name=nemp_count visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=74 alignment="0" tabsequence=750 border="0" color="33554432" x="79511" y="0" height="64" width="297" html.valueishtml="0"  name=dplanned_start visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=75 alignment="0" tabsequence=760 border="0" color="33554432" x="79808" y="0" height="64" width="297" html.valueishtml="0"  name=dplanned_end visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=76 alignment="0" tabsequence=770 border="0" color="33554432" x="80105" y="0" height="64" width="2135" html.valueishtml="0"  name=nduration visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=77 alignment="0" tabsequence=780 border="0" color="33554432" x="82240" y="0" height="64" width="2135" html.valueishtml="0"  name=nworkschedule_index visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=78 alignment="0" tabsequence=790 border="0" color="33554432" x="84375" y="0" height="64" width="4590" html.valueishtml="0"  name=ctext_short visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=79 alignment="0" tabsequence=800 border="0" color="33554432" x="88965" y="0" height="64" width="1083" html.valueishtml="0"  name=cuser_start2 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=80 alignment="0" tabsequence=810 border="0" color="33554432" x="90048" y="0" height="64" width="1079" html.valueishtml="0"  name=cuser_start3 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=81 alignment="0" tabsequence=820 border="0" color="33554432" x="91127" y="0" height="64" width="1083" html.valueishtml="0"  name=cschedule visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=82 alignment="0" tabsequence=830 border="0" color="33554432" x="92210" y="0" height="64" width="2135" html.valueishtml="0"  name=nppm_sched_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=83 alignment="0" tabsequence=840 border="0" color="33554432" x="94345" y="0" height="64" width="2135" html.valueishtml="0"  name=nroom_temp visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=84 alignment="0" tabsequence=850 border="0" color="33554432" x="96480" y="0" height="64" width="2135" html.valueishtml="0"  name=ngold_standard visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=85 alignment="0" tabsequence=860 border="0" color="33554432" x="98615" y="0" height="64" width="2135" html.valueishtml="0"  name=nmoved visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=86 alignment="0" tabsequence=870 border="0" color="33554432" x="100750" y="0" height="64" width="2135" html.valueishtml="0"  name=nquantity_prod_planned visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=87 alignment="0" tabsequence=880 border="0" color="33554432" x="102885" y="0" height="64" width="2135" html.valueishtml="0"  name=nduration_sync visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=88 alignment="0" tabsequence=890 border="0" color="33554432" x="105019" y="0" height="64" width="2135" html.valueishtml="0"  name=ninsert_by_sync visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=89 alignment="0" tabsequence=900 border="0" color="33554432" x="107154" y="0" height="64" width="2135" html.valueishtml="0"  name=ncapacity visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=90 alignment="0" tabsequence=910 border="0" color="33554432" x="109289" y="0" height="64" width="1079" html.valueishtml="0"  name=cunit_capacity visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=91 alignment="0" tabsequence=920 border="0" color="33554432" x="110368" y="0" height="64" width="2135" html.valueishtml="0"  name=nrunrate visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=92 alignment="0" tabsequence=930 border="0" color="33554432" x="112503" y="0" height="64" width="2135" html.valueishtml="0"  name=nsetuprate visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=93 alignment="0" tabsequence=940 border="0" color="33554432" x="114638" y="0" height="64" width="2135" html.valueishtml="0"  name=npltf_flight_index_group visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=94 alignment="0" tabsequence=950 border="0" color="33554432" x="116773" y="0" height="64" width="1083" html.valueishtml="0"  name=cuser_lock visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=95 alignment="0" tabsequence=960 border="0" color="33554432" x="117856" y="0" height="64" width="2135" html.valueishtml="0"  name=nppmtrail_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=96 alignment="0" tabsequence=970 border="0" color="33554432" x="119991" y="0" height="64" width="1083" html.valueishtml="0"  name=ctext_loc_unit_pl_prod_label visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=97 alignment="0" tabsequence=980 border="0" color="33554432" x="121074" y="0" height="64" width="2135" html.valueishtml="0"  name=nsector_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=98 alignment="0" tabsequence=990 border="0" color="33554432" x="123209" y="0" height="64" width="1079" html.valueishtml="0"  name=csector visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=99 alignment="0" tabsequence=1000 border="0" color="33554432" x="124288" y="0" height="64" width="2135" html.valueishtml="0"  name=nbatch_seq_prod_label visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=100 alignment="0" tabsequence=1010 border="0" color="33554432" x="126423" y="0" height="64" width="2135" html.valueishtml="0"  name=nambient_tray visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

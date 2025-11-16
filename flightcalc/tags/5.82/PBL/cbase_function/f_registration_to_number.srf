@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_registration_to_number.srf
+global type f_registration_to_number from function_object
+end type
+
+forward prototypes
+global function long f_registration_to_number (long lacowner, string sreg, string stype)
+end prototypes
+
+global function long f_registration_to_number (long lacowner, string sreg, string stype);long lKey
+
+  
+  SELECT cen_registrations.nregistration_key  
+    INTO :lKey  
+    FROM cen_registrations  
+   WHERE ( cen_registrations.nairline_owner_key = :lACOwner ) AND  
+         ( cen_registrations.cactype = :sType ) AND  
+         ( cen_registrations.cregistration = :sReg )   ;
+
+if sqlca.sqlcode = 0 then
+	return lKey
+elseif sqlca.sqlcode = 100 then	
+	return -1
+else
+	f_db_error(sqlca, "f_registration_to_number")
+	return -1
+end if
+
+return -1
+	
+end function
+

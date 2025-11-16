@@ -1,0 +1,70 @@
+HA$PBExportHeader$f_get_kitchen_time.srf
+global type f_get_kitchen_time from function_object
+end type
+
+forward prototypes
+global function string f_get_kitchen_time (string arg_cunit, long arg_nalckey, integer arg_nflightnumber, string arg_csuffix, integer arg_nrouting, string arg_cdeptime, string arg_cramptime)
+end prototypes
+
+global function string f_get_kitchen_time (string arg_cunit, long arg_nalckey, integer arg_nflightnumber, string arg_csuffix, integer arg_nrouting, string arg_cdeptime, string arg_cramptime);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_get_kitchen_time
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// string arg_cunit
+//  long arg_nalckey
+//  integer arg_nflightnumber
+//  string arg_csuffix
+//  integer arg_nrouting
+//  string arg_cdeptime
+//  string arg_cramptime
+// --------------------------------------------------------------------------------------------------------------------
+// Return: string
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung: Ermittelt die K$$HEX1$$fc00$$ENDHEX$$chenzeit anhand der Rampenzeit
+//
+//
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  15.02.2012	   1.0      H.Rothenbach   Erstellung
+//
+// --------------------------------------------------------------------------------------------------------------------
+
+
+long ll_offset
+time lt_kitchen
+
+ SELECT loc_unit_times_flight.nkitchen_time  
+ INTO :ll_offset  
+ FROM loc_unit_times_flight  
+WHERE ( loc_unit_times_flight.cunit = :arg_cunit ) AND  
+		( loc_unit_times_flight.nairline_key = :arg_nalckey ) AND  
+		( loc_unit_times_flight.nflight_number = :arg_nflightnumber ) AND  
+		( loc_unit_times_flight.csuffix = :arg_csuffix )  ;
+
+if SQLCA.sqlcode=0 then
+	
+else
+  
+	  SELECT loc_unit_times.nkitchen_time  
+		 INTO :ll_offset  
+		 FROM loc_unit_times
+		WHERE  ( loc_unit_times.cunit = :arg_cunit ) AND  
+				( loc_unit_times.nairline_key = :arg_nalckey) and  
+						( loc_unit_times.nrouting_id = :arg_nrouting ) AND  
+						( :arg_cdeptime between loc_unit_times.cfrom and loc_unit_times.cto )   ;
+	if SQLCA.sqlcode=0 then
+		
+	else
+		return arg_cramptime
+	end if
+end if
+
+lt_kitchen = relativetime(time(arg_cramptime), ll_offset * 60)
+
+return string(lt_kitchen, "hh:mm")
+end function
+

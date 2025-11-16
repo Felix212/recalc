@@ -1,0 +1,7 @@
+HA$PBExportHeader$cat_object.srs
+global type cat_object from structure
+	string		stype
+	inherit_cat_object		objects[]
+	long		lobjectkey
+end type
+

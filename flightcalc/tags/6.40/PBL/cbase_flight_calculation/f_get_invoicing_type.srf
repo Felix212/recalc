@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_get_invoicing_type.srf
+$PBExportComments$Ermitteln ob via XML - Schnittstelle oder Cube abgerechnet wird
+global type f_get_invoicing_type from function_object
+end type
+
+forward prototypes
+global function integer f_get_invoicing_type (string sclient)
+end prototypes
+
+global function integer f_get_invoicing_type (string sclient);
+// -----------------------------------------------
+// InvoicingType holen
+// -----------------------------------------------
+
+integer iReturn, iType
+
+SELECT sys_invoicing_type.ntype
+  INTO :iType
+  FROM sys_invoicing_type
+ WHERE sys_invoicing_type.cclient = :sClient;
+
+IF sqlca.sqlcode = 0 THEN iReturn = iType
+
+return iReturn
+
+end function
+

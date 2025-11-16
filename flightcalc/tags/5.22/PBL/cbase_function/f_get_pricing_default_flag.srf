@@ -1,0 +1,55 @@
+HA$PBExportHeader$f_get_pricing_default_flag.srf
+$PBExportComments$hole das pricing_default_flag zur Airline
+global type f_get_pricing_default_flag from function_object
+end type
+
+forward prototypes
+global function long f_get_pricing_default_flag (long al_airline_key)
+end prototypes
+
+global function long f_get_pricing_default_flag (long al_airline_key);
+/* 
+* Funktion: 			f_get_pricing_default_flag
+* Beschreibung: 	Holt Flag zur Airline, ob die Adjustment Area Default sein soll
+* Besonderheit: 	keine
+*
+* Argumente:
+* 	Name						Beschreibung
+*	as_text					klartext zum opcode (copcode)
+*	al_airline_key			airlinekey
+*
+* Aenderungshistorie:
+* 	Version 		Wer			Wann				Was und warum
+*	1.0 			M.N$$HEX1$$fc00$$ENDHEX$$ndel		30.06.2011		Erstellung
+*
+* Return Codes:
+*	nuse_pricing_default	wenn gefunden
+*	-1							sonst
+*/
+
+// hilfsvariable
+long 		lKey
+
+// lesen
+SELECT nuse_pricing_default
+ INTO :lKey  
+FROM cen_airlines  
+WHERE nairline_key = :al_airline_key;
+	
+// erfolgreich: flag zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+if sqlca.sqlcode = 0 then
+	return lKey
+	
+// nicht gefunden: -1 zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+elseif sqlca.sqlcode = 100 then
+	return -1
+	
+// fehler: log schreiben und -1 zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+else
+	f_db_error(sqlca, "f_get_pricing_default_flag()")
+//	f_log2csv(0,1, "Error f_get_country_key: " + sqlca.sqlerrtext)
+	return -1
+end if
+
+end function
+

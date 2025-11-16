@@ -1,0 +1,46 @@
+HA$PBExportHeader$dw_doctype_printers.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=108 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=88 color="536870912" )
+table(column=(type=char(128) updatewhereclause=yes name=sallocatedprinter dbname="sallocatedprinter" )
+ column=(type=decimal(0) updatewhereclause=yes key=yes name=ndoctype_key dbname="cen_document_types.ndoctype_key" )
+ column=(type=char(75) updatewhereclause=yes name=ctext dbname="cen_document_types.ctext" )
+ column=(type=char(75) updatewhereclause=yes name=ctext1 dbname="cen_document_types.ctext1" )
+ column=(type=char(75) updatewhereclause=yes name=ctext2 dbname="cen_document_types.ctext2" )
+ column=(type=char(75) updatewhereclause=yes name=ctext3 dbname="cen_document_types.ctext3" )
+ column=(type=char(75) updatewhereclause=yes name=ctext4 dbname="cen_document_types.ctext4" )
+ column=(type=char(75) updatewhereclause=yes name=ctext5 dbname="cen_document_types.ctext5" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_document_types~" ) COMPUTE(NAME=~"'                                                                                                                        ' sAllocatedPrinter~") COLUMN(NAME=~"cen_document_types.ndoctype_key~") COLUMN(NAME=~"cen_document_types.ctext~") COLUMN(NAME=~"cen_document_types.ctext1~") COLUMN(NAME=~"cen_document_types.ctext2~") COLUMN(NAME=~"cen_document_types.ctext3~") COLUMN(NAME=~"cen_document_types.ctext4~") COLUMN(NAME=~"cen_document_types.ctext5~")) ARG(NAME = ~"ilanguage~" TYPE = number) " update="CEN_DOCUMENT_TYPES" updatewhere=0 updatekeyinplace=no arguments=(("ilanguage", number))  sort="ctext A " )
+text(band=header alignment="0" text="" border="6" color="0" x="18" y="12" height="88" width="1669" html.valueishtml="0"  name=t_4 visible="1"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+line(band=header x1="5" y1="8" x2="5" y2="108"  name=l_4 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+bitmap(band=header filename="..\resource\label.gif" x="46" y="24" height="64" width="73" border="0"  name=p_1 visible="1" )
+line(band=header x1="5" y1="4" x2="1696" y2="4"  name=l_3 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Druckerzuordnung zu Dokumententypen" border="0" color="0" x="165" y="32" height="52" width="1257" html.valueishtml="0"  name=stext_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+rectangle(band=detail x="5" y="4" height="84" width="782"  name=r_34 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="5" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="782" y="4" height="84" width="914"  name=r_2 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="5" pen.color="8421504"  background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="0" tabsequence=50 border="0" color="0" x="795" y="16" height="60" width="887" format="[general]" html.valueishtml="0"  name=sallocatedprinter visible="1" ddlb.limit=0 ddlb.sorted=yes ddlb.allowedit=no ddlb.case=any  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression="f_language() "border="0" color="33554432" x="722" y="184" height="76" width="256" format="[GENERAL]" html.valueishtml="0"  name=clanguage visible="0"  font.face="Microsoft Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+compute(band=detail alignment="0" expression="if ( clanguage = 1, ctext,
+   if ( clanguage = 2, ctext1, 
+      if ( clanguage = 3, ctext2, 
+         if ( clanguage = 4, ctext3, 
+            if ( clanguage = 5, ctext4, ~"~"
+               )
+          )
+       )
+   )
+)"border="0" color="0" x="18" y="16" height="60" width="754" format="[GENERAL]" html.valueishtml="0"  name=ctext visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

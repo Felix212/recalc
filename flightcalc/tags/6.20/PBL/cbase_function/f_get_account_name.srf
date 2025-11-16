@@ -1,0 +1,25 @@
+HA$PBExportHeader$f_get_account_name.srf
+global type f_get_account_name from function_object
+end type
+
+forward prototypes
+global function string f_get_account_name (long laccount, long lairline)
+end prototypes
+
+global function string f_get_account_name (long laccount, long lairline);string sAccount
+
+select caccount into :sAccount from cen_airline_accounts where nairline_key = :lAirline and naccount_key = :lAccount;
+ 
+if sqlca.sqlcode = 0 then
+	return sAccount
+elseif sqlca.sqlcode = 100 then
+	return "not found"
+else
+	f_db_error(sqlca, "f_get_account_nane")
+	return "Error"
+end if
+
+return ""
+
+end function
+

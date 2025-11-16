@@ -1,0 +1,15 @@
+HA$PBExportHeader$s_bc_protocol.srs
+global type s_bc_protocol from structure
+	string		sclient
+	datetime		dtimport_date
+	string		sairline
+	integer		iimporttype
+	integer		iimport_modus
+	integer		iuser_group
+	integer		imessage_type
+	string		smessage_key
+	string		smessage_validation
+	string		smessage
+	long		lquantity
+end type
+

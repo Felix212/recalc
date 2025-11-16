@@ -1,0 +1,75 @@
+HA$PBExportHeader$f_file_to_blob.srf
+global type f_file_to_blob from function_object
+end type
+
+forward prototypes
+global function long f_file_to_blob (string sfilename, ref blob bfilebuffer, boolean bclearblob)
+end prototypes
+
+global function long f_file_to_blob (string sfilename, ref blob bfilebuffer, boolean bclearblob);// ----------------------------------------------
+// Diese Funktion l$$HEX1$$e400$$ENDHEX$$dt eine Datei in einen Blob,
+// welcher per Referenz $$HEX1$$fc00$$ENDHEX$$bergeben wurde.
+//
+// der R$$HEX1$$fc00$$ENDHEX$$ckgabewert ist die Anzahl der gelesenen
+// Bytes
+// 
+// wird bClearBlob gesetzt, so wird der Blob 
+// vor dem einlesen geleert. Andernfalls erfolgt
+// ein Append
+// ----------------------------------------------
+	Blob		bBuffer
+	Long		lFileLength, &
+				lBytesRead, &
+				lBytesRet, &
+				lAnzLeseLoops, &
+				l
+				
+	Integer	iFileHandleSource
+	
+	SetPointer(Hourglass!)
+	
+	// ----------------
+	// Dateigr$$HEX1$$f600$$ENDHEX$$sse
+	// ----------------
+	
+	lFileLength = FileLength(sFileName)
+	
+	// ----------------------------------------------------
+	// FileRead und Write verarbeitet nur Chunks mit 32K
+	// ggf. mehrere Loops
+	// ----------------------------------------------------
+	
+	lAnzLeseLoops = Mod (lFileLength,  32765)
+	If lAnzLeseLoops = 0 Then
+		lAnzLeseLoops = lFileLength /  32765
+	elseif lAnzLeseLoops > 0 Then 
+		lAnzLeseLoops = (lFileLength /  32765) + 1
+	end if
+	
+	//iFileHandleSource  = FileOpen(sFileName, StreamMode!, Read!, LockReadWrite!)
+	iFileHandleSource  = FileOpen(sFileName, StreamMode!, Read!, Shared!)
+	
+	if iFileHandleSource = -1 Then
+		Return -1
+	end if 
+	
+	if bClearBlob Then
+		bFileBuffer = Blob("")
+	end if
+	
+	For l = 1 To lAnzLeseLoops
+		lBytesRead = FileRead(iFileHandleSource, bBuffer) 
+		if lBytesRead <> -1 Then
+			bFileBuffer += bBuffer
+			lBytesRet 	+= lBytesRead
+			bBuffer		 = Blob("")
+		end if
+	Next
+	
+	
+	FileClose(iFileHandleSource)
+	
+	return lBytesRet
+
+end function
+

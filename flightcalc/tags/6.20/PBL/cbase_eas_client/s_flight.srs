@@ -1,0 +1,28 @@
+HA$PBExportHeader$s_flight.srs
+$PBExportComments$Structure mit Fluginformationen.
+global type s_flight from structure
+	string		sairline
+	string		sflightnumber
+	string		ssuffix
+	string		cdeparturetime
+	datetime		dtdeparturedate
+	string		sloadinglist
+	long		lloadinglist_index
+	long		lloadinglist_type
+	string		sbasic_loadinglist
+	string		sactype
+	string		sowner
+	integer		iloadinglist_type
+	long		laircraft_key
+	long		lairline_key
+	string		sdestination
+	long		lschedule_leg
+	long		lroutingplan_leg_number
+	long		lsi_qaq_key
+	string		ssi_qaq
+	string		sconfiguration
+	string		sdeparture
+	string		srouting
+	datetime		dtbestbeforetime
+end type
+

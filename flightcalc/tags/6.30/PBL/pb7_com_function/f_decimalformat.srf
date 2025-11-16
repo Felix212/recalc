@@ -1,0 +1,38 @@
+HA$PBExportHeader$f_decimalformat.srf
+global type f_decimalformat from function_object
+end type
+
+forward prototypes
+global function boolean f_decimalformat ()
+end prototypes
+
+global function boolean f_decimalformat ();	String	sRegKey, sMask, sCountry, sDecCheck
+	
+	sRegKey = "HKEY_CURRENT_USER\Control Panel\International"
+	If RegistryGet(sRegKey, "sDecimal", RegString!, sMask) = -1 Then
+		// ------------------------------------
+		// Bei Fehler, deutsches Datumsformat
+		// ------------------------------------		
+		Return False
+		uf.mbox("Warnung","Das Decimalformat konnte nicht aus der Registry ermittelt werden,~ndas Programm wird beendet.",Stopsign!)
+	Else
+		// -------------------------------------------------
+		// OK, RegistryGet war in Ordnung nun die Pr$$HEX1$$fc00$$ENDHEX$$fung.
+		// -------------------------------------------------
+		
+		//HR 21.10.2008: Pr$$HEX1$$fc00$$ENDHEX$$fung in Deutschland $$HEX1$$fc00$$ENDHEX$$ber ini zusachaltbar
+		sDecCheck = profilestring(s_app.sProfile,"LocalSettings","CheckDecimal","1")
+		Setprofilestring(s_app.sProfile,"LocalSettings","CheckDecimal",sDecCheck)
+		
+		If s_app.sMandant = "002" and sMask <> "," and sDecCheck = "1" Then
+			uf.mbox("Warnung","Sie benutzen ein ung$$HEX1$$fc00$$ENDHEX$$ltiges Decimalformat,~ndas Programm wird beendet.",Stopsign!)
+			Return False			
+		End if	
+		
+		Return True
+	End if	
+		
+		
+
+end function
+

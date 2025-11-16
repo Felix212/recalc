@@ -1,0 +1,20 @@
+HA$PBExportHeader$usersettings.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type usersettings from structure
+  public:
+    String		sstation
+    Integer		iauthorisiert
+    String		sclient
+    String		slastlogin
+    String		slastlogintime
+    Long		lwebapp
+    String		sdateformat
+    Double		dgmtoffset
+    Long		llanguage
+    Long		luserid
+    html_menue		htmlmenue
+    String		stown
+    String		sweathernettown
+    String		sunit
+end type
+

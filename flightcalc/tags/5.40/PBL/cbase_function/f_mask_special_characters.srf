@@ -1,0 +1,24 @@
+HA$PBExportHeader$f_mask_special_characters.srf
+global type f_mask_special_characters from function_object
+end type
+
+forward prototypes
+global function long f_mask_special_characters (ref string sspecialstring)
+end prototypes
+
+global function long f_mask_special_characters (ref string sspecialstring);//Diese Funktion maskiert alle Zeichen, die eine besondere Bedeutung haben. So werden diese z.B. auch bei einer Suche korrekt erkannt.
+f_replace_string(sspecialstring, "\", "\\")
+f_replace_string(sspecialstring, "]", "\]")
+f_replace_string(sspecialstring, "[", "\[")
+f_replace_string(sspecialstring, "^", "\^")
+f_replace_string(sspecialstring, "$", "\$")
+f_replace_string(sspecialstring, ".", "\.")
+f_replace_string(sspecialstring, "*", "\*")
+f_replace_string(sspecialstring, "+", "\+")
+f_replace_string(sspecialstring, "?", "\?")
+
+return 0
+
+
+end function
+

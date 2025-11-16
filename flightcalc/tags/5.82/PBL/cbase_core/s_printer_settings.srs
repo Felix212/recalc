@@ -1,0 +1,12 @@
+HA$PBExportHeader$s_printer_settings.srs
+global type s_printer_settings from structure
+	long		lcurrentpage
+	long		lmaxpage
+	datawindow		odw
+	long		lrange
+	long		lrangeinclude
+	long		lcopies
+	string		sprinter
+	long		lprintpages[]
+end type
+

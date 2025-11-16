@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_catering_order.srs
+global type s_catering_order from structure
+	boolean		bsuccessful
+	boolean		bnew_number
+	boolean		ball_legs
+	long		lResultKey
+end type
+

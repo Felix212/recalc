@@ -1,0 +1,7 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "_work\\_work.pbl" "";
+@end;
+@begin Objects
+ "_work\\uo_empty_pbject_for_work_only.sru" "_work\\_work.pbl";
+@end;

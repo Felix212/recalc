@@ -1,0 +1,53 @@
+HA$PBExportHeader$dw_loc_unit_checkpt_data.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=loc_unit_checkpt_ncheckpoint_key dbname="loc_unit_checkpt.ncheckpoint_key" )
+ column=(type=char(4) updatewhereclause=yes name=loc_unit_checkpt_cunit dbname="loc_unit_checkpt.cunit" )
+ column=(type=char(12) updatewhereclause=yes name=loc_unit_checkpt_ccheckpoint dbname="loc_unit_checkpt.ccheckpoint" )
+ column=(type=char(40) updatewhereclause=yes name=loc_unit_checkpt_ctext dbname="loc_unit_checkpt.ctext" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_unit_checkpt_nworkstationsactiveflag dbname="loc_unit_checkpt.nworkstationsactiveflag" )
+ column=(type=char(5) updatewhereclause=yes name=cen_routing_crouting dbname="cen_routing.crouting" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_unit_checkpt_times_ntimetype dbname="loc_unit_checkpt_times.ntimetype" )
+ column=(type=decimal(0) updatewhereclause=yes name=loc_unit_checkpt_times_ntimeoffset dbname="loc_unit_checkpt_times.ntimeoffset" )
+ column=(type=number updatewhereclause=yes name=loc_unit_checkpt_nsort dbname="loc_unit_checkpt.nsort" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"loc_unit_checkpt~" )  TABLE(NAME=~"loc_unit_checkpt_times~" )  TABLE(NAME=~"cen_routing~" ) COLUMN(NAME=~"loc_unit_checkpt.ncheckpoint_key~") COLUMN(NAME=~"loc_unit_checkpt.cunit~") COLUMN(NAME=~"loc_unit_checkpt.ccheckpoint~") COLUMN(NAME=~"loc_unit_checkpt.ctext~") COLUMN(NAME=~"loc_unit_checkpt.nworkstationsactiveflag~") COLUMN(NAME=~"cen_routing.crouting~") COLUMN(NAME=~"loc_unit_checkpt_times.ntimetype~") COLUMN(NAME=~"loc_unit_checkpt_times.ntimeoffset~") COLUMN(NAME=~"loc_unit_checkpt.nsort~")    JOIN (LEFT=~"loc_unit_checkpt_times.ncheckpoint_key~"    OP =~"=~"RIGHT=~"loc_unit_checkpt.ncheckpoint_key~" )    JOIN (LEFT=~"cen_routing.nrouting_id~"    OP =~"=~"RIGHT=~"loc_unit_checkpt_times.nrouting_id~" )WHERE(    EXP1 =~"loc_unit_checkpt.cunit~"   OP =~"=~"    EXP2 =~":arg_cunit~" ) ) ARG(NAME = ~"arg_cunit~" TYPE = string) " arguments=(("arg_cunit", string))  sort="loc_unit_checkpt_ccheckpoint A cen_routing_crouting A " )
+text(band=header alignment="2" text="Loc Unit Checkpt
+Ncheckpoint Key" border="0" color="33554432" x="5" y="4" height="128" width="430" html.valueishtml="0"  name=loc_unit_checkpt_ncheckpoint_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Unit Checkpt
+Ctext" border="0" color="33554432" x="1312" y="4" height="128" width="1125" html.valueishtml="0"  name=loc_unit_checkpt_ctext_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Unit Checkpt
+Nworkstationsactiveflag" border="0" color="33554432" x="2441" y="4" height="128" width="613" html.valueishtml="0"  name=loc_unit_checkpt_nworkstationsactiveflag_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Routing
+Crouting" border="0" color="33554432" x="3058" y="4" height="128" width="315" html.valueishtml="0"  name=cen_routing_crouting_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Unit Checkpt Times
+Ntimetype" border="0" color="33554432" x="3378" y="4" height="128" width="608" html.valueishtml="0"  name=loc_unit_checkpt_times_ntimetype_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Unit Checkpt Times
+Ntimeoffset" border="0" color="33554432" x="3991" y="4" height="128" width="608" html.valueishtml="0"  name=loc_unit_checkpt_times_ntimeoffset_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Unit Checkpt
+Cunit" border="0" color="33554432" x="439" y="4" height="128" width="137" html.valueishtml="0"  name=loc_unit_checkpt_cunit_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Loc Unit Checkpt
+Ccheckpoint" border="0" color="33554432" x="590" y="4" height="128" width="713" html.valueishtml="0"  name=loc_unit_checkpt_ccheckpoint_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_unit_checkpt_ncheckpoint_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1312" y="4" height="76" width="1125" format="[general]" html.valueishtml="0"  name=loc_unit_checkpt_ctext visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2441" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_unit_checkpt_nworkstationsactiveflag visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="3058" y="4" height="76" width="165" format="[general]" html.valueishtml="0"  name=cen_routing_crouting visible="1" edit.limit=5 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="3378" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_unit_checkpt_times_ntimetype visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="3991" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=loc_unit_checkpt_times_ntimeoffset visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="439" y="4" height="76" width="137" format="[general]" html.valueishtml="0"  name=loc_unit_checkpt_cunit visible="1" edit.limit=4 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="590" y="4" height="76" width="713" format="[general]" html.valueishtml="0"  name=loc_unit_checkpt_ccheckpoint visible="1" edit.limit=12 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=0 border="0" color="33554432" x="4599" y="0" height="64" width="2135" html.valueishtml="0"  name=loc_unit_checkpt_nsort visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

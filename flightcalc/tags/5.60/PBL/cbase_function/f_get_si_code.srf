@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_get_si_code.srf
+global type f_get_si_code from function_object
+end type
+
+forward prototypes
+global function string f_get_si_code (long lsi_key)
+end prototypes
+
+global function string f_get_si_code (long lsi_key);// ------------------------------------------------------
+// f$$HEX1$$fc00$$ENDHEX$$r einen SI Code den Text suchen
+// ------------------------------------------------------
+
+string 	sCode, &
+			sText
+
+SELECT cen_si_codes.csi_code,   
+		cen_si_codes.csi_text  
+ INTO :sCode,   
+		:sText  
+ FROM cen_si_codes  
+WHERE cen_si_codes.nsi_key = :lsi_key   ;
+
+
+if sqlca.sqlcode = 0 then
+	return sCode + " - " + sText
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	return "DB-Error: " + string(sqlca.sqlcode)
+end if
+
+
+end function
+

@@ -1,0 +1,53 @@
+HA$PBExportHeader$f_get_currency_cshort.srf
+$PBExportComments$Ermittelt Kurzcode der W$$HEX1$$e400$$ENDHEX$$hrung zu airline_key, cunit und ddate
+global type f_get_currency_cshort from function_object
+end type
+
+forward prototypes
+global function string f_get_currency_cshort (long al_cost_type_key, integer ai_language)
+end prototypes
+
+global function string f_get_currency_cshort (long al_cost_type_key, integer ai_language);// -----------------------------------------
+// Ermittle Name zu Kostenart-key und Sprache 
+// -----------------------------------------
+
+String 		sText, sText1, sText2, sText3, sText4, sText5
+
+SELECT 	cen_cost_type.ctext,
+			cen_cost_type.ctext2,
+			cen_cost_type.ctext3,
+			cen_cost_type.ctext4,
+			cen_cost_type.ctext5
+  INTO 	:sText1,  
+  			:sText2,  
+			:sText3,  
+			:sText4,  
+			:sText5  
+  FROM cen_cost_type
+ WHERE cen_cost_type.ncost_type_key = :al_cost_type_key;
+ 
+if sqlca.sqlcode = 0 then
+	
+	if ai_language = 2 then
+		sText = sText2
+	elseif ai_language = 3 then
+		sText = sText3
+	elseif ai_language = 4 then
+		sText = sText4
+	elseif ai_language = 5 then	
+		sText = sText5
+	else
+		sText = sText1
+	end if
+	
+	return sText
+elseif sqlca.sqlcode = 100 then
+	return String(al_cost_type_key) + "not found!"
+else
+	f_db_error(sqlca, "f_get_cost_type_name")
+	return "Error"
+end if
+
+
+end function
+

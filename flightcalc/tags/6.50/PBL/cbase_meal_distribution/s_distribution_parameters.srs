@@ -1,0 +1,16 @@
+HA$PBExportHeader$s_distribution_parameters.srs
+global type s_distribution_parameters from structure
+	long		ldistributiontype
+	string		sclass
+	long		lpltype
+	string		smealcontrolcode
+	long		ldirection
+	long		labsolute
+	long		lsplitting
+	long		lmcd
+	long		lalternate
+	long		istatus
+	long		ldistributiondetailkey
+	string		sname
+end type
+

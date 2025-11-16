@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_get_packinglist_detail_key.srf
+global type f_get_packinglist_detail_key from function_object
+end type
+
+forward prototypes
+global function long f_get_packinglist_detail_key (long lpackinglist_index_key, date ddate)
+end prototypes
+
+global function long f_get_packinglist_detail_key (long lpackinglist_index_key, date ddate);// ---------------------------------------------
+// Hole Packinglist-Detail-Key
+// ---------------------------------------------
+	long lKey
+
+	SELECT npackinglist_detail_key
+	  INTO :lKey  
+	  FROM cen_packinglists
+	 WHERE npackinglist_index_key = :lpackinglist_index_key And 
+			 dvalid_from <= :ddate and
+			 dvalid_to >= :ddate;
+	
+	
+	if sqlca.sqlcode <> 0 then
+		return 0
+	else
+		return lKey
+	end if
+
+
+end function
+

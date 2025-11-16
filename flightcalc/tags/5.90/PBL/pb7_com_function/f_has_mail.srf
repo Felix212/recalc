@@ -1,0 +1,19 @@
+HA$PBExportHeader$f_has_mail.srf
+global type f_has_mail from function_object
+end type
+
+forward prototypes
+global function boolean f_has_mail ()
+end prototypes
+
+global function boolean f_has_mail ();// -----------------------------------
+// DefaultProfile aus Registry
+// ----------------------------------
+	string					sMailProfile
+	If RegistryGet("HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows Messaging Subsystem\Profiles","DefaultProfile",RegString!,sMailProfile) <> 1 Then
+		return false
+	End if	
+
+return true
+end function
+

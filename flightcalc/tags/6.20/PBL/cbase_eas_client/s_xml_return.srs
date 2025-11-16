@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_xml_return.srs
+global type s_xml_return from structure
+	oleobject		oobject
+	integer		istatus
+	string		sstatus
+end type
+

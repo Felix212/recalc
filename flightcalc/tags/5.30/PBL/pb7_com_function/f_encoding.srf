@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_encoding.srf
+global type f_encoding from function_object
+end type
+
+forward prototypes
+global subroutine f_encoding (string scsc)
+end prototypes
+
+global subroutine f_encoding (string scsc);string			sEncoding
+
+// ----------------------------
+// Encoding setzen
+// ----------------------------
+sEncoding = f_unitprofilestring( "Default","ENCODING","EncodingANSI", sCSC) 
+If sEncoding = "EncodingANSI" Then
+	eEncoding 		= EncodingANSI!
+	sXMLEncoding 	= '<?xml version="1.0" encoding="iso-8859-1"?>'
+Elseif sEncoding = "EncodingUTF8" Then
+	eEncoding 		=  EncodingUTF8!
+	sXMLEncoding 	= 	'<?xml version="1.0" encoding="iso-8859-1"?>'
+Elseif sEncoding = "EncodingUTF16LE" Then
+	eEncoding 		=  EncodingUTF16LE!
+	sXMLEncoding 	=  '<?xml version="1.0" encoding="iso-8859-1"?>'
+Elseif sEncoding = "EncodingUTF16BE" Then
+	eEncoding 		= EncodingUTF16BE!	
+	sXMLEncoding 	= '<?xml version="1.0" encoding="iso-8859-1"?>'
+Else
+	eEncoding 		= EncodingANSI!
+	sXMLEncoding 	= '<?xml version="1.0" encoding="iso-8859-1"?>'
+End if	
+
+Return
+end subroutine
+

@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_distribution_manual.srs
+global type s_distribution_manual from structure
+	boolean		bsuccessful
+	uo_distribution		uoreturn
+	boolean		bReturnWithoutAbort
+end type
+

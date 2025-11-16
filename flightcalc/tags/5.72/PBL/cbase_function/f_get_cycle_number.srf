@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_cycle_number.srf
+global type f_get_cycle_number from function_object
+end type
+
+forward prototypes
+global function long f_get_cycle_number (long lval)
+end prototypes
+
+global function long f_get_cycle_number (long lval);// -----------------------------------------------
+// Die Nummer der Einzelrotation 
+// -----------------------------------------------
+
+Long lReturn
+
+select nrotation into :lReturn from cen_rotation_names where nrotation_name_key = :lVal ;
+
+if sqlca.sqlcode = 0 then
+	return lReturn
+elseif sqlca.sqlcode = 100 then
+	return -1
+else
+	f_db_error(sqlca, "f_get_cycle_number()")
+	return -2
+end if
+	
+
+
+end function
+

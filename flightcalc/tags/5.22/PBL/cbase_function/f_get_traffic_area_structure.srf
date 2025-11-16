@@ -1,0 +1,50 @@
+HA$PBExportHeader$f_get_traffic_area_structure.srf
+global type f_get_traffic_area_structure from function_object
+end type
+
+forward prototypes
+global function s_city_pairs f_get_traffic_area_structure (long lfrom, long lto, long lairline, date ddeparture)
+end prototypes
+
+global function s_city_pairs f_get_traffic_area_structure (long lfrom, long lto, long lairline, date ddeparture);
+s_city_pairs strRet
+
+
+SELECT cen_traffic_areas.narea_key,
+		 cen_traffic_areas.cshort,
+		 cen_traffic_areas.ctext,
+		 cen_city_pairs.nrefund
+INTO	:strRet.lAreaKey,
+		:strRet.sName,
+		:strRet.sFullName,
+		:strRet.iRefund
+FROM cen_traffic_areas, cen_city_pairs
+WHERE cen_traffic_areas.narea_key = cen_city_pairs.narea_key and
+		cen_city_pairs.ntlc_from = :lfrom and 
+		cen_city_pairs.ntlc_to = :lTo and
+		cen_city_pairs.dvalid_from <= :ddeparture and
+		cen_city_pairs.dvalid_to >= :ddeparture and
+		cen_traffic_areas.ncustomer_key = :lAirline;
+
+ 
+ 
+if sqlca.sqlcode = 0 then
+	return strRet
+elseif sqlca.sqlcode = 100 then
+	strRet.lAreaKey 	= 0
+	strRet.sName    	= " "
+	strRet.sFullName 	= " "
+	strRet.iRefund		= 0
+	return strRet
+else
+	f_db_error(sqlca, "f_get_traffic_area_key")
+	strRet.lAreaKey 	= 0
+	strRet.sName    	= " "
+	strRet.sFullName 	= " "
+	strRet.iRefund		= 0
+	return  strRet
+end if
+
+
+end function
+

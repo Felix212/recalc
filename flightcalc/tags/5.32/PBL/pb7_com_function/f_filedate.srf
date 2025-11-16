@@ -1,0 +1,35 @@
+HA$PBExportHeader$f_filedate.srf
+global type f_filedate from function_object
+end type
+
+forward prototypes
+global function date f_filedate (string sfilename)
+end prototypes
+
+global function date f_filedate (string sfilename);integer result
+oleobject FileObject, FileObjectFile
+datetime dtdatum
+date 		dDatum
+setnull(dDatum)
+If not Fileexists(sfilename) Then
+	return dDatum
+End if	
+	
+FileObject  		= create oleobject
+FileObjectFile		= create oleobject
+
+result 		= FileObject.ConnectToNewObject("Scripting.FileSystemObject")
+If result <> 0 Then
+	return dDatum
+End if	
+
+FileObjectFile		= FileObject.GetFile(sfilename)
+
+dtDatum 				= FileObjectFile.DateLastModified
+
+destroy FileObject
+destroy FileObjectFile
+
+return date(dtDatum)
+end function
+

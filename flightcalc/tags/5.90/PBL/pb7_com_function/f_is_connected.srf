@@ -1,0 +1,66 @@
+HA$PBExportHeader$f_is_connected.srf
+global type f_is_connected from function_object
+end type
+
+forward prototypes
+global function integer f_is_connected ()
+end prototypes
+
+global function integer f_is_connected ();// --------------------------------------------------
+// Pr$$HEX1$$fc00$$ENDHEX$$fen, ob wir noch mit der DB verbunden
+// sind wenn nicht dann neu verbinden
+// --------------------------------------------------
+long lConnected
+
+
+select 1 into :lConnected from dual;
+
+// --------------------------------------------------
+// Hat geklappt 
+// --------------------------------------------------
+if sqlca.sqlcode = 0 then return 0
+ 
+// --------------------------------------------------
+// Hat nicht geklappt, Eintrag ins Log
+// --------------------------------------------------
+if s_app.itrace > 0 then f_trace("f_is_connected(). Connection check failed. SQLCODE: " + string(sqlca.sqlcode) + " - ErrorText: " + sqlca.sqlerrtext)
+
+Open(w_progress)
+
+w_progress.wf_settitle("Datenbankverbindung")
+w_progress.wf_setmessage("Verbindung wird hergestellt")
+w_progress.wf_setstatus("Bitte warten ...")
+w_progress.wf_setposition(1)
+w_progress.wf_setmin(0)
+w_progress.wf_setmax(3)
+
+if isValid(sqlca) then
+	Disconnect using sqlca;
+	//Destroy(sqlca)
+	//sqlca = Create transaction
+end if
+
+SQLCA.DBMS 			= s_app.sDBMS
+SQLCA.LogPass 		= s_app.suserpassword
+SQLCA.LogId 		= s_app.sUser
+SQLCA.AutoCommit 	= False
+SQLCA.DBParm 		= s_app.sDbparm
+
+connect using sqlca;
+
+w_progress.wf_setposition(3)
+
+Close(w_progress) 
+
+if sqlca.sqlcode <> 0 then 
+	// --------------------------------------------------
+	// Reconnect hat nicht geklappt, Eintrag ins Log
+	// --------------------------------------------------
+	if s_app.itrace > 0 then f_trace("f_is_connected(). Reconnect failed. SQLCODE: " + string(sqlca.sqlcode) + " - ErrorText: " + sqlca.sqlerrtext)
+	return -1
+	
+end if
+	
+return 0
+end function
+

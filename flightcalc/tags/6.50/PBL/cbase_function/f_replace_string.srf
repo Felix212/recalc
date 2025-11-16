@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_replace_string.srf
+$PBExportComments$replaces a specific part of a string
+global type f_replace_string from function_object
+end type
+
+forward prototypes
+global function integer f_replace_string (ref string smystring, string sold, string snew)
+end prototypes
+
+global function integer f_replace_string (ref string smystring, string sold, string snew);// Diese Funktion ersetzt einen Teil eines Strings durch einen anderen Teil
+long start_pos = 1
+string old_str, new_str, mystring
+
+mystring = sMyString
+old_str = sOld
+new_str = sNew
+
+// Find the first occurrence of old_str.
+start_pos = Pos(mystring, old_str, start_pos)
+
+// Only enter the loop if you find old_str.
+DO WHILE start_pos > 0
+	// Replace old_str with new_str.
+   mystring = Replace(mystring, start_pos, Len(old_str), new_str)
+   // Find the next occurrence of old_str.
+   start_pos = Pos(mystring, old_str, start_pos+Len(new_str))
+LOOP
+
+sMyString = mystring
+
+return 0
+end function
+

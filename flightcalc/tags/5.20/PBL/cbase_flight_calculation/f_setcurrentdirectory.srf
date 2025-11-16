@@ -1,0 +1,17 @@
+HA$PBExportHeader$f_setcurrentdirectory.srf
+$PBExportComments$Function setzt das aktuelle Windows-Verzeichnis
+global type f_setcurrentdirectory from function_object
+end type
+
+forward prototypes
+global function integer f_setcurrentdirectory (string sdir)
+end prototypes
+
+global function integer f_setcurrentdirectory (string sdir);
+if SetCurrentDirectory(sDir) > 0 Then
+	return 0
+else
+	return -1
+end if
+end function
+

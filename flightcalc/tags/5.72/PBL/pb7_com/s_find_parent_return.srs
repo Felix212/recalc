@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_find_parent_return.srs
+$PBExportComments$Gibt die Ergebnisse von w_find_parent zur$$HEX1$$fc00$$ENDHEX$$ck
+global type s_find_parent_return from structure
+    boolean success
+    window wparent
+end type
+

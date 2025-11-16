@@ -1,0 +1,70 @@
+HA$PBExportHeader$f_createtemppath.srf
+$PBExportComments$Funktion legt ein tempor$$HEX1$$e400$$ENDHEX$$res Verzeichnis an
+global type f_createtemppath from function_object
+end type
+
+forward prototypes
+global function boolean f_createtemppath ()
+end prototypes
+
+global function boolean f_createtemppath ();// ------------------------------------------
+// Temp Verzeichnis erstellen, wenn n$$HEX1$$f600$$ENDHEX$$tig
+// ------------------------------------------
+
+String 	sTempPath, &
+			sCheckPath, &
+			sToken
+ulong  	ulRet
+integer 	i
+
+sTempPath = profilestring(s_app.sprofile,"Temp","Path","c:\Temp\CBASE\")
+
+if RightA(sTempPath, 1) <> "\" Then
+	sTempPath = sTempPath + "\"
+end if
+
+For i = 1 to LenA(Trim(sTempPath))
+	if MidA(sTempPath, I, 1) = CharA(126) then
+		//MessageBox("Achtung", "Im Namen des Temp-Verzeichnisses befindet sich eine Tilde.~r~rBitte verwenden Sie ein anderes Verzeichnis.")
+		uf.mbox("Achtung", "Im Namen des Temp-Verzeichnisses befindet sich eine Tilde.~r~rBitte verwenden Sie ein anderes Verzeichnis.")
+		return false
+	end if
+Next
+
+// ------------------------------------------
+// Nachschau, ob das Verzeichnis vorhanden 
+// ist
+// ------------------------------------------
+//if cbase.iCitrix = 1 then
+//	sCheckPath = sTempPath + s_app.sUser + "\"
+//else
+	sCheckPath = sTempPath
+//end if 
+
+if DirectoryExists (sCheckPath) then return true
+
+// ------------------------------------------
+// Verzeichnis c:\temp\CBASE nicht da, also
+// erstellen wir es
+// ------------------------------------------
+//if cbase.iCitrix = 1 then
+//
+//	CreateDirectory(sTempPath)
+//	
+//	sTempPath = sTempPath + s_app.sUser + "\"
+//	
+//	if CreateDirectory(sTempPath) = -1 then
+//		return False
+//	end if
+//
+//else
+	
+	if CreateDirectory(sTempPath) = -1 then
+		return False
+	end if
+
+//end if 
+
+return true
+end function
+

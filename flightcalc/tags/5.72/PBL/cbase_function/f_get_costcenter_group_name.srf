@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_get_costcenter_group_name.srf
+$PBExportComments$Lies den Klartextnamen zur ccost_center_group aus cen_cost_center_group
+global type f_get_costcenter_group_name from function_object
+end type
+
+forward prototypes
+global function string f_get_costcenter_group_name (string sinput)
+end prototypes
+
+global function string f_get_costcenter_group_name (string sinput);// -----------------------------------------
+// Klartext zur Cost Center Gruppe holen
+// -----------------------------------------
+
+String 		sText
+
+SELECT ccost_center_group_text  
+  INTO :sText  
+  FROM cen_cost_center_groups  
+ WHERE ccost_center_group = :sInput;
+ 
+if sqlca.sqlcode = 0 then
+	return sText
+elseif sqlca.sqlcode = 100 then
+	return sInput + "not found!"
+else
+	f_db_error(sqlca, "f_get_costcenter_group_name")
+	return "Error"
+end if
+
+
+end function
+

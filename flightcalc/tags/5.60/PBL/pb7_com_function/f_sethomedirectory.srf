@@ -1,0 +1,20 @@
+HA$PBExportHeader$f_sethomedirectory.srf
+global type f_sethomedirectory from function_object
+end type
+
+forward prototypes
+global function integer f_sethomedirectory ()
+end prototypes
+
+global function integer f_sethomedirectory ();String	sHomePath
+
+
+sHomePath = s_app.scurrentdirectory
+
+if SetCurrentDirectory(sHomePath) > 0 Then
+	return 0
+else
+	return -1
+end if
+end function
+

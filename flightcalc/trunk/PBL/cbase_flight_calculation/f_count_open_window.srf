@@ -1,0 +1,12 @@
+HA$PBExportHeader$f_count_open_window.srf
+global type f_count_open_window from function_object
+end type
+
+forward prototypes
+global function integer f_count_open_window (window arg_window)
+end prototypes
+
+global function integer f_count_open_window (window arg_window);//DUMMY not needed in service
+return 1
+end function
+

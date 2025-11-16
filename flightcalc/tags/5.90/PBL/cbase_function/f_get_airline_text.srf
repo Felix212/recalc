@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_get_airline_text.srf
+global type f_get_airline_text from function_object
+end type
+
+forward prototypes
+global function string f_get_airline_text (long lval)
+end prototypes
+
+global function string f_get_airline_text (long lval);// -----------------------------------------------
+// Airline-Text f$$HEX1$$fc00$$ENDHEX$$r einen Key ausgeben
+// -----------------------------------------------
+
+String sReturn
+
+SELECT cen_airlines.ctext
+ INTO :sReturn  
+ FROM cen_airlines  
+WHERE cen_airlines.nairline_key = :lVal and cen_airlines.cclient = :s_app.sMandant;
+
+if sqlca.sqlcode = 0 then
+	return sReturn
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	return "N/A"
+end if
+	
+
+
+end function
+

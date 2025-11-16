@@ -1,0 +1,142 @@
+HA$PBExportHeader$f_sendmail.srf
+$PBExportComments$Mail versenden
+global type f_sendmail from function_object
+end type
+
+forward prototypes
+global function boolean f_sendmail (string snotetext, string ssubject, string srecipient[], string sattachmentfile, boolean baddressbook)
+end prototypes
+
+global function boolean f_sendmail (string snotetext, string ssubject, string srecipient[], string sattachmentfile, boolean baddressbook);// -----------------------------------
+// Mail versenden
+// ----------------------------------
+	string					sMailProfile
+	boolean 					bReturnCode = False
+	integer 					i
+	mailSession				mSession
+	mailMessage				mConfirmMsg
+	mailReturnCode			mConfirmRet
+	mailFileDescription  mAttachment
+	
+	mSession = create mailSession		
+
+// -----------------------------------
+// DefaultProfile aus Registry
+// ----------------------------------
+	If RegistryGet("HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows Messaging Subsystem\Profiles","DefaultProfile",RegString!,sMailProfile) <> 1 Then
+		Messagebox("Registry","Es kann kein g$$HEX1$$fc00$$ENDHEX$$ltige Mail-Profil aus der Registry gelesen werden.",Stopsign!)
+	End if	
+// -----------------------------------
+// Mail Logon
+// ----------------------------------
+	mConfirmRet = mSession.mailLogon (sMailProfile,"",mailNewSession!)
+
+	If mConfirmRet = mailReturnSuccess! Then
+		// OK
+	ElseIf mConfirmRet = mailReturnLoginFailure! Then
+		Messagebox("Mail Login","Fehlerhaftes Mail-Login.",Stopsign!)
+		bReturnCode = True
+	ElseIf mConfirmRet = mailReturnInsufficientMemory! Then
+		Messagebox("Mail Login","Zu wenig Speicher.",Stopsign!)
+		bReturnCode = True
+	ElseIf mConfirmRet = mailReturnTooManySessions! Then
+		Messagebox("Mail Login","Zu viele Mail-Sessions.",Stopsign!)
+		bReturnCode = True
+	ElseIf mConfirmRet = mailReturnUserAbort! Then
+		// OK
+		bReturnCode = True
+	Else
+		Messagebox("Mail Login","Unbekannter Mail-Login-Error.",Stopsign!)
+		bReturnCode = True
+	End if	
+// -----------------------------------
+// Ups, Mail Logon mit Fehler
+// ----------------------------------
+	If	bReturnCode Then
+		destroy mSession	
+		return False
+	End if	
+// -----------------------------------
+// Mail Recipient aus Addressbook
+// ----------------------------------
+	If bAddressbook Then
+		mSession.mailAddress(mConfirmMsg)
+		mConfirmMsg.Subject 	= sSubject
+		mConfirmMsg.NoteText = sNoteText
+		If sAttachmentFile <> "" Then	
+			mAttachment.FileType = mailAttach!
+			mAttachment.FileName = sAttachmentFile
+			mAttachment.PathName = sAttachmentFile // sAttachmentPath BUG
+			mAttachment.Position = len(sNotetext) - 1		
+			mConfirmMsg.AttachmentFile[1]	= mAttachment		
+		End if
+// -----------------------------------
+// Mail Recipient aus Array
+// ----------------------------------
+	Else	
+		For i = 1 to Upperbound(sRecipient)
+			mConfirmMsg.Recipient[i].name  = sRecipient[i]
+			mConfirmMsg.Subject 				 = sSubject
+			mConfirmMsg.NoteText 			 = sNoteText
+		Next
+		If sAttachmentFile <> "" Then	
+			mAttachment.FileType = mailAttach!
+			mAttachment.FileName = sAttachmentFile
+			mAttachment.PathName = sAttachmentFile // Achtung BUG PathName
+			mAttachment.Position = len(sNotetext) - 1		
+			mConfirmMsg.AttachmentFile[1]	= mAttachment
+		End if
+	End if	
+// -----------------------------------
+// Mail senden
+// ----------------------------------
+	mConfirmRet = mSession.mailSend (mConfirmMsg)
+
+	If mConfirmRet = mailReturnSuccess! then
+		bReturnCode = True
+		// OK
+	Elseif mConfirmRet = mailReturnFailure! then
+		Messagebox("Mail Send","Return Fehler beim senden.",Stopsign!)
+	Elseif mConfirmRet = mailReturnInsufficientMemory! then		
+		Messagebox("Mail Send","Zu wenig Speicher.",Stopsign!)
+	Elseif mConfirmRet = mailReturnUserAbort! then		
+		Messagebox("Mail Send","Abbruch durch Benutzer.",Stopsign!)
+	Elseif mConfirmRet = mailReturnDiskFull! then		
+		Messagebox("Mail Send","Keine Festplattenkapazit$$HEX1$$e400$$ENDHEX$$t vorhanden.",Stopsign!)
+	Elseif mConfirmRet = mailReturnTooManySessions! then
+		Messagebox("Mail Send","Zu viele Mail-Sessions.",Stopsign!)		
+	Elseif mConfirmRet = mailReturnTooManyFiles! then	
+		Messagebox("Mail Send","Zu viele Dateien.",Stopsign!)		
+	Elseif mConfirmRet = mailReturnTooManyRecipients! then
+		Messagebox("Mail Send","Zu viele Mail-Empf$$HEX1$$e400$$ENDHEX$$nger.",Stopsign!)		
+	Elseif mConfirmRet = mailReturnUnknownRecipient! then	
+		Messagebox("Mail Send","Unbekannter Mail-Empf$$HEX1$$e400$$ENDHEX$$nger.",Stopsign!)		
+	Elseif mConfirmRet = mailReturnAttachmentNotFound! then	
+		Messagebox("Mail Send","Attachment nicht gefunden.",Stopsign!)		
+	Else
+		Messagebox("Mail Send","Unbekannter Mail-Send-Error.",Stopsign!)
+	End if	
+
+// -----------------------------------
+// Mail-Logoff und Object vernichten.
+// ----------------------------------
+	mConfirmRet = mSession.mailLogoff()
+	
+	If mConfirmRet = mailReturnSuccess! then
+		// OK
+	Elseif mConfirmRet = mailReturnFailure! then
+		Messagebox("Mail Logoff","Return Fehler beim senden.",Stopsign!)
+		bReturnCode = False
+	Elseif mConfirmRet = mailReturnInsufficientMemory! then		
+		Messagebox("Mail Logoff","Zu wenig Speicher.",Stopsign!)
+		bReturnCode = False
+	Else
+		Messagebox("MailLogoff","Unbekannter Mail-Send-Error.",Stopsign!)
+		bReturnCode = False
+	End if	
+
+	Destroy mSession	
+	Return  bReturnCode
+
+end function
+

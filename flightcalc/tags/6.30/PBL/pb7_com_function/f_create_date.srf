@@ -1,0 +1,67 @@
+HA$PBExportHeader$f_create_date.srf
+global type f_create_date from function_object
+end type
+
+forward prototypes
+global function date f_create_date (string sdatum)
+end prototypes
+
+global function date f_create_date (string sdatum);// ===============================================================================
+//
+// f_create_date
+//
+// Wichtigste Datumskonvertierungsfunktion f$$HEX1$$fc00$$ENDHEX$$r Service
+// Auf keinen Fall l$$HEX1$$f600$$ENDHEX$$schen!!!
+// (11.04.2003)
+//
+// ===============================================================================
+//
+// Erzeugen eines Datums aus einem String,
+// today +/- ber$$HEX1$$fc00$$ENDHEX$$cksichtigen
+//
+// ===============================================================================
+date		dDatum
+integer 	iDays
+string	sDays
+string	sMonth, sYear, sDay
+
+	If mid(lower(sDatum),1,5) = "today" Then
+		if len(sDatum) > 5 then
+			sDays = mid(sDatum,6,len(sDatum))
+			iDays = integer(sDays)
+			dDatum = Relativedate(today(),iDays)
+		else
+			dDatum = today()
+		end if
+	Else	
+		//
+		// Achtung: Wir $$HEX1$$fc00$$ENDHEX$$bergeben deutsches Format!
+		//	=> dann m$$HEX1$$fc00$$ENDHEX$$ssen wir daf$$HEX1$$fc00$$ENDHEX$$r sorgen, da$$HEX2$$df002000$$ENDHEX$$es korrekt interpretiert wird
+		// Konvertierung: year, month, day
+		//
+		if len(sDatum) = 10 then
+			sYear 	= Mid(sDatum,7,4)
+			sMonth	= Mid(sDatum,4,2)
+			sDay		= Mid(sDatum,1,2)
+		else
+			sYear 	= Mid(sDatum,7,2)
+			sMonth	= Mid(sDatum,4,2)
+			sDay		= Mid(sDatum,1,2)
+		end if
+		// alt:
+		// sDatum = (sYear + "-" + sMonth + "-" + sDay)
+		// dDatum = date(sDatum)
+		dDatum = date(integer(sYear),integer(sMonth),integer(sDay))
+		
+		//
+		// Falls Konvertierung nicht stimmt
+		//
+		if dDatum = Date("1900-01-01") then
+			dDatum = today()
+		end if
+	end if
+
+return dDatum
+
+end function
+

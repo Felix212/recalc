@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_settransobject.srf
+global type f_settransobject from function_object
+end type
+
+forward prototypes
+global function integer f_settransobject (windowobject owindowobject)
+end prototypes
+
+global function integer f_settransobject (windowobject owindowobject);// --------------------------------------------
+// Funktion setzt transobject f$$HEX1$$fc00$$ENDHEX$$r Datawindows
+// UserObjekte und Tabpages werden rekursiv
+// wieder in die Funktion gegeben
+// --------------------------------------------
+Long							i, j
+Tab 							t_p, oSubTabObject
+object  						oObjectType
+UserObject 					oSubUserObject
+datawindow d_w
+
+oObjectType = oWindowObject.TypeOf()
+
+CHOOSE CASE oObjectType
+
+	Case Tab!
+		t_p = oWindowObject
+		oSubTabObject= oWindowObject
+		For j = 1 to Upperbound(oSubTabObject.Control)
+			f_settransobject(oSubTabObject.Control[j])
+		Next
+		
+	Case UserObject!
+		oSubUserObject = oWindowObject
+		
+		For i = 1 to Upperbound(oSubUserObject.Control)
+			f_settransobject(oSubUserObject.Control[i])
+		Next				
+					
+	Case DataWindow!
+		d_w = oWindowObject
+		d_w.SetTransObject(sqlca)
+		if s_app.itrace > 0 then f_trace("     - " + d_w.classname() + " with dataobject " + d_w.dataobject + " connection restored")
+		
+end choose
+
+return 0
+end function
+

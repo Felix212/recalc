@@ -1,0 +1,152 @@
+HA$PBExportHeader$dw_load_definition_cfs_flights.srd
+release 10;
+datawindow(units=1 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=24 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes name=ncfs_leg_key dbname="cen_rplan_cfs_legs.ncfs_leg_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncfs_key dbname="cen_rplan_cfs_legs.ncfs_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncfs_group_key dbname="cen_rplan_cfs_legs.ncfs_group_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncustomer_key dbname="cen_rplan_cfs_legs.ncustomer_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nairline_key dbname="cen_rplan_cfs_legs.nairline_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nflight_number dbname="cen_rplan_cfs_legs.nflight_number" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=csuffix dbname="cen_rplan_cfs_legs.csuffix" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nleg_number dbname="cen_rplan_cfs_legs.nleg_number" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nleg_ident dbname="cen_rplan_cfs_legs.nleg_ident" values="Hinflug	1/Weiterflug	2/R$$HEX1$$fc00$$ENDHEX$$ckflug	3/" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nrouting_id dbname="cen_rplan_cfs_legs.nrouting_id" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntlc_from dbname="cen_rplan_cfs_legs.ntlc_from" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntlc_to dbname="cen_rplan_cfs_legs.ntlc_to" )
+ column=(type=char(3) updatewhereclause=yes name=ctlc_from dbname="sys_three_letter_codes.ctlc" )
+ column=(type=char(3) updatewhereclause=yes name=ctlc_to dbname="sys_three_letter_codes.ctlc" )
+ column=(type=char(4) update=yes updatewhereclause=yes name=cunit dbname="cen_rplan_cfs_legs.cunit" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nequal dbname="cen_rplan_cfs_legs.nequal" values="	1/	0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ndummy dbname="cen_rplan_cfs_legs.ndummy" values="	1/	0" )
+ column=(type=char(10) updatewhereclause=yes name=cen_airlines_cairline dbname="cen_airlines.cairline" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_units_nsupplier_key dbname="sys_units.nsupplier_key" )
+ column=(type=char(256) update=yes updatewhereclause=yes name=cen_rplan_cfs_legs_cvariation_key dbname="cen_rplan_cfs_legs.cvariation_key" )
+ column=(type=char(128) updatewhereclause=yes name=cunit_text dbname="cunit_text" )
+ column=(type=char(128) updatewhereclause=yes name=ctraffic_area dbname="ctraffic_area" )
+ column=(type=char(80) updatewhereclause=yes name=cadditional dbname="cen_rplan_cfs_legs.cadditional" )
+ retrieve="SELECT DISTINCT 
+     cen_rplan_cfs_legs.ncfs_leg_key,   
+         cen_rplan_cfs_legs.ncfs_key,   
+         cen_rplan_cfs_legs.ncfs_group_key,   
+         cen_rplan_cfs_legs.ncustomer_key,   
+         cen_rplan_cfs_legs.nairline_key,   
+         cen_rplan_cfs_legs.nflight_number,   
+         cen_rplan_cfs_legs.csuffix,   
+         cen_rplan_cfs_legs.nleg_number,   
+         cen_rplan_cfs_legs.nleg_ident,   
+         cen_rplan_cfs_legs.nrouting_id,   
+
+         cen_rplan_cfs_legs.ntlc_from,   
+         cen_rplan_cfs_legs.ntlc_to,   
+
+         SYS_THREE_LETTER_CODES_A.CTLC,   
+         SYS_THREE_LETTER_CODES_B.CTLC,   
+
+         cen_rplan_cfs_legs.cunit,   
+         cen_rplan_cfs_legs.nequal,   
+         cen_rplan_cfs_legs.ndummy,   
+         cen_airlines.cairline,   
+         sys_units.nsupplier_key,
+     
+         cen_rplan_cfs_legs.cvariation_key,
+         '                                          ' cunit_text,   
+         '                                                           ' ctraffic_area,
+cen_rplan_cfs_legs.CADDITIONAL
+    FROM 
+         CEN_RPLAN_CFS_LEGS,   
+         cen_airlines,   
+         sys_units,
+
+         SYS_THREE_LETTER_CODES SYS_THREE_LETTER_CODES_A,   
+         SYS_THREE_LETTER_CODES SYS_THREE_LETTER_CODES_B,   
+         CEN_ROUTINGPLAN_HANDLING
+
+   WHERE 1=1
+   and  ( SYS_THREE_LETTER_CODES_A.NTLC_KEY = CEN_RPLAN_CFS_LEGS.NTLC_FROM ) 
+   and  ( SYS_THREE_LETTER_CODES_B.NTLC_KEY = CEN_RPLAN_CFS_LEGS.NTLC_TO )   
+   
+and    ( cen_rplan_cfs_legs.cunit = sys_units.cunit (+)) and  
+         ( cen_rplan_cfs_legs.nairline_key = cen_airlines.nairline_key ) and  
+          ( cen_rplan_cfs_legs.ncfs_key =  :lkey )
+
+and ( CEN_RPLAN_CFS_LEGS.NCFS_LEG_KEY = CEN_ROUTINGPLAN_HANDLING.NROUTINGDETAIL_KEY ) 
+
+and      cen_routingplan_handling.dvalid_from <= :dDateFrom 
+and      cen_routingplan_handling.dvalid_to >= :dDateTo  
+AND      (
+         (cen_routingplan_handling.nfreq1 = 1 OR :lfreq1 = -1) 
+AND      (cen_routingplan_handling.nfreq2 = 1 OR :lfreq2 = -1) 
+AND      (cen_routingplan_handling.nfreq3 = 1 OR :lfreq3 = -1) 
+AND      (cen_routingplan_handling.nfreq4 = 1 OR :lfreq4 = -1) 
+AND      (cen_routingplan_handling.nfreq5 = 1 OR :lfreq5 = -1) 
+AND      (cen_routingplan_handling.nfreq6 = 1 OR :lfreq6 = -1) 
+AND      (cen_routingplan_handling.nfreq7 = 1 OR :lfreq7 = -1) 
+         )    
+
+order by 
+   cen_rplan_cfs_legs.ncfs_group_key,
+   cen_rplan_cfs_legs.nleg_number" arguments=(("lkey", number),("dDateFrom", date),("dDateTo", date),("lfreq1", number),("lfreq2", number),("lfreq3", number),("lfreq4", number),("lfreq5", number),("lfreq6", number),("lfreq7", number))  sort="ncfs_group_key A nleg_number A " )
+group(level=1 header.height=47 trailer.height=0 by=("ncfs_group_key" ) header.color="536870912" trailer.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="102" y="4" height="15" width="1" format="[general]" html.valueishtml="0"  name=csuffix visible="1" edit.limit=2 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189),rgb(255,255,255))" )
+text(band=header.1 alignment="0" text="" border="6" color="0" x="4" y="2" height="43" width="379" html.valueishtml="0"  name=t_header visible="0"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+rectangle(band=header.1 x="225" y="24" height="21" width="147"  name=r_betrieb visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+compute(band=header.1 alignment="0" expression="~"Variation: ~" + String( ncfs_group_key )"border="0" color="0" x="15" y="6" height="13" width="130" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header.1 x1="2" y1="0" x2="384" y2="0"  name=l_3 visible="0" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+rectangle(band=header.1 x="44" y="24" height="21" width="64"  name=r_flugnummer visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+bitmap(band=header.1 filename="..\Resource\Icons\Small\folder.png" x="20" y="27" height="16" width="16" border="0"  name=p_2 visible="1~tif(elapse = 0 , 1, 0)" )
+bitmap(band=header.1 filename="..\Resource\Icons\Small\folder_closed.png" x="20" y="25" height="16" width="16" border="0"  name=p_1 visible="1~tif(elapse = 0 , 0, 1)" )
+line(band=header.1 x1="43" y1="23" x2="43" y2="43"  name=l_5 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header.1 x1="1" y1="0" x2="1" y2="46"  name=l_4 visible="0" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="0" text="Flugnummer" border="0" color="0" x="48" y="28" height="13" width="57" html.valueishtml="0"  name=t_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header.1 x1="106" y1="25" x2="106" y2="43"  name=l_12 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+rectangle(band=header.1 x="107" y="24" height="21" width="42"  name=r_leg visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header.1 alignment="0" text="Leg" border="0" color="0" x="115" y="28" height="13" width="31" html.valueishtml="0"  name=t_cp_plus visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header.1 x1="147" y1="25" x2="147" y2="43"  name=l_19 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="2" text="Von" border="0" color="0" x="151" y="28" height="13" width="32" html.valueishtml="0"  name=t_5 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header.1 alignment="2" text="Nach" border="0" color="0" x="190" y="28" height="13" width="33" html.valueishtml="0"  name=t_6 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=header.1 x="149" y="24" height="21" width="39"  name=r_von visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header.1 x="187" y="24" height="21" width="39"  name=r_nach visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+line(band=header.1 x1="148" y1="25" x2="148" y2="44"  name=l_24 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="0" text="Verkehrsgebiet:" border="0" color="0" x="168" y="6" height="13" width="104" html.valueishtml="0"  name=t_9 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header.1 alignment="0" text="Betrieb" border="0" color="0" x="232" y="28" height="13" width="132" html.valueishtml="0"  name=t_10 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header.1 x1="106" y1="25" x2="106" y2="44"  name=l_1 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header.1 x1="185" y1="25" x2="185" y2="44"  name=l_10 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header.1 x1="224" y1="25" x2="224" y2="44"  name=l_14 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header.1 x1="106" y1="25" x2="106" y2="43"  name=l_7 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+column(band=header.1 id=22 alignment="0" tabsequence=80 border="0" color="0" x="247" y="6" height="13" width="121" format="[general]" html.valueishtml="0"  name=ctraffic_area visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=detail x="44" y="1" height="21" width="329"  name=r_marker visible="1~tif(currentRow() = getrow(),1,0)" brush.hatch="6" brush.color="29229055" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="31522520" )
+line(band=detail x1="27" y1="0" x2="27" y2="16~tif(cf_last_ident = 0 ,26, 11)"  name=l_28 visible="1" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="16777215" )
+line(band=detail x1="27" y1="11" x2="45" y2="11"  name=l_29 visible="1" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="16777215" )
+rectangle(band=detail x="44" y="1" height="21" width="64"  name=r_flight_number  tag="Airline" visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0~t????????????" x="52" y="4" height="15" width="51" format="#000" html.valueishtml="0"  name=nflight_number  tag="Flugnummer" visible="0" edit.limit=4 edit.case=any edit.format="000" edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189),rgb(255,255,255))" )
+compute(band=detail alignment="0" expression="if(nflight_number <> -1, cen_airlines_cairline  + ~" ~" + string(  nflight_number ,~"000~" ) +  if(isnull(csuffix),~" ~",csuffix),~"City-Pair~") "border="0" color="0" x="47" y="4" height="15" width="57" format="[GENERAL]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression=" cen_airlines_cairline "border="0" color="0" x="46" y="4" height="15" width="19" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1~tif (nedit = 1, 1, 0)
+"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="getrow()"border="0" color="0" x="111" y="36" height="16" width="56" format="[GENERAL]" html.valueishtml="0"  name=cf_row visible="0~t0"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29360127" )
+compute(band=detail alignment="0" expression="max (getrow() for group 1)"border="0" color="0" x="178" y="35" height="16" width="56" format="[GENERAL]" html.valueishtml="0"  name=cf_last visible="0"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29360127" )
+compute(band=detail alignment="0" expression="if ( cf_row = cf_last,1,0)"border="0" color="0" x="251" y="41" height="16" width="56" format="[GENERAL]" html.valueishtml="0"  name=cf_last_ident visible="0"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29360127" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="0" x="324" y="46" height="13" width="86" format="[general]" html.valueishtml="0"  name=cunit visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="0" color="0" x="109" y="4" height="13" width="37" format="[general]" html.valueishtml="0"  name=nleg_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189),rgb(255,255,255))" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="153" y="4" height="13" width="30" format="[general]" html.valueishtml="0"  name=ctlc_from visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="0" x="191" y="4" height="13" width="30" format="[general]" html.valueishtml="0"  name=ctlc_to visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="0" x="229" y="5" height="13" width="136" format="[general]" html.valueishtml="0"  name=cunit_text visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=detail x="107" y="1" height="21" width="42"  name=r_nleg_number  tag="Strecke" visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="148" y="1" height="21" width="40"  name=r_ctlc_from  tag="Strecke" visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="187" y="1" height="21" width="39"  name=r_ctlc_to  tag="Strecke" visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="225" y="1" height="21" width="147"  name=r_cunit_text  tag="Strecke" visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="0" color="0" x="375" y="7" height="13" width="22" format="[general]" html.valueishtml="0"  name=cadditional visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=foreground x1="397" y1="23" x2="397" y2="93"  name=l_lineal_vertikal visible="0" pen.style="0" pen.width="1" pen.color="16711680"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

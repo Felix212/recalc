@@ -1,0 +1,36 @@
+HA$PBExportHeader$s_select_tlc.srs
+global type s_select_tlc from structure
+	blob		bdata
+	long		lreturn
+	string		sfilter
+	string		sreturn
+	string		sairline
+	string		sactype
+	long		lairlinekey
+	string		sgalleyversion
+	integer		iwithcancelbutton
+	long		ltype
+	string		sdescription
+	string		stext
+	string		swerk
+	long		laircraftkey
+	long		lkeys[]
+	long		lid
+	string		sreturn1
+	string		sreturn2
+	string		sreturn3
+	string		sreturn4
+	string		stext1[]
+	string		stext2[]
+	datetime		ddate
+	date		ddeparture
+	long		lplkindkey
+	integer		iwithnewbutton
+	boolean		bsuccess
+	boolean		bairlineschanged
+	datetime		dtvalidfrom
+	datetime		dtvalidto
+	datetime		ldetail
+	integer		iall
+end type
+

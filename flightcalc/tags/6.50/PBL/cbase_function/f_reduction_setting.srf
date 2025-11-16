@@ -1,0 +1,48 @@
+HA$PBExportHeader$f_reduction_setting.srf
+$PBExportComments$Read Global Setting for Reduction Calculation (ON/OFF)
+global type f_reduction_setting from function_object
+end type
+
+forward prototypes
+global function boolean f_reduction_setting (transaction atr_sqlca, string as_client)
+end prototypes
+
+global function boolean f_reduction_setting (transaction atr_sqlca, string as_client);/*
+* Objekt : f_reduction_setting
+* Methode:  (Event)
+* Autor  : Oliver H$$HEX1$$f600$$ENDHEX$$fer
+* Datum  : 18.06.2012
+*
+* Argument(e):
+* none
+*
+* Beschreibung:		Read Global Setting (Calc Reduced... ON/OFF)
+*
+* Aenderungshistorie:
+* Version 		Wer			Wann			Was und warum
+* 1.0 			O.Hoefer	18.06.2012		Erstellung
+*
+*
+* Return: none
+*
+*/
+
+String	ls_Value
+
+Select	 	cValue 
+into 			:ls_Value 
+from			cen_setup
+where			cclient		= :as_client 	
+and			cSection		= 'Invoicing'		
+and			cKey			= 'EnableReductionCalc'
+using 		atr_sqlca;
+
+//"Invoicing","EnableReductionCalc"
+
+If ls_Value = "1" Then
+	Return TRUE
+Else
+	Return FALSE
+End If
+end function
+

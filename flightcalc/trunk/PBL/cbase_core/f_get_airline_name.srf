@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_get_airline_name.srf
+$PBExportComments$Den Airlinecode anhand des Airlineschl$$HEX1$$fc00$$ENDHEX$$ssels ermitteln
+global type f_get_airline_name from function_object
+end type
+
+forward prototypes
+global function string f_get_airline_name (long lval)
+end prototypes
+
+global function string f_get_airline_name (long lval);// -----------------------------------------------
+// Airline Key in Airline Text umwandeln
+// -----------------------------------------------
+
+String sReturn
+
+SELECT cen_airlines.cairline
+ INTO :sReturn  
+ FROM cen_airlines  
+WHERE cen_airlines.nairline_key = :lVal;
+
+if sqlca.sqlcode = 0 then
+	return sReturn
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	return "N/A"
+end if
+	
+
+
+end function
+

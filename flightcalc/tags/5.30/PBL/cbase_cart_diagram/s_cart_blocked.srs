@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_cart_blocked.srs
+global type s_cart_blocked from structure
+	integer		iColumn
+	Integer		iRung
+end type
+

@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_help.srf
+global type f_help from function_object
+end type
+
+forward prototypes
+global function integer f_help (long lwindow_handle, string swindow_classname)
+end prototypes
+
+global function integer f_help (long lwindow_handle, string swindow_classname);//
+// f_help
+//
+// sample call
+// f_help( handle(parent), parent.classname())
+//
+string	sPagename
+
+//
+// HtmlHelp (global external function)
+//
+// Parameter: window-handle, helpfilename, invocation, pagename
+//
+// HtmlHelp( handle(parent), "..\help\PBHTMLHelp.chm", HH_DISPLAY_TOPIC, "Welcome.htm" )
+//
+sPagename = swindow_classname + ".htm"
+
+HtmlHelp( lwindow_handle, s_app.sHelpFile, HH_DISPLAY_TOPIC, sPagename)
+
+return 0
+
+end function
+

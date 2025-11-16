@@ -1,0 +1,28 @@
+HA$PBExportHeader$f_handling_to_number.srf
+global type f_handling_to_number from function_object
+end type
+
+forward prototypes
+global function long f_handling_to_number (string shandling, long lairlinekey)
+end prototypes
+
+global function long f_handling_to_number (string shandling, long lairlinekey);// -------------------------------------
+// Aus der Abfertigungsart
+// den nhandling_type_key ermitten 
+// -------------------------------------
+Long lID
+
+SELECT cen_handling_types.nhandling_type_key
+  INTO :lID
+  FROM cen_handling_types  
+ WHERE cen_handling_types.ctext = :sHandling and cen_handling_types.nairline_key = :lAirlineKey  ;
+
+if sqlca.sqlcode = 0 then
+	return lID
+elseif sqlca.sqlcode = 100 then
+	return -1
+else
+	return -1
+end if
+end function
+

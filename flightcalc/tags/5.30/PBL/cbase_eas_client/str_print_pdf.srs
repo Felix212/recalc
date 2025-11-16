@@ -1,0 +1,6 @@
+HA$PBExportHeader$str_print_pdf.srs
+global type str_print_pdf from structure
+	string		sFile
+	string		sPrinter
+end type
+

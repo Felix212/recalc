@@ -1,0 +1,67 @@
+HA$PBExportHeader$f_get_connection_infos.srf
+global type f_get_connection_infos from function_object
+end type
+
+forward prototypes
+global subroutine f_get_connection_infos (string arg_instance, transaction arg_trans, string arg_coninfo)
+end prototypes
+
+global subroutine f_get_connection_infos (string arg_instance, transaction arg_trans, string arg_coninfo);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_get_connection_infos
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// STRING			arg_instance         INSTANCE of the service
+// TRANSACTION	arg_trans			Transaction for the checking
+// STRING			arg_coninfo			Additional Info for the Connection fe. LOG or "" for the standard connection
+// --------------------------------------------------------------------------------------------------------------------
+// Return: the connection infos like SID: 1170 - Port: 54451 - Serial#: 27507 
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung: Collects the connection infos and store it in the tabel SYS_SERVICES_ALIVE if the 
+//                       arg_coninfo is "" (Standard connection)
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  13.10.2021	   1.0      H.Rothenbach   Erstellung
+// --------------------------------------------------------------------------------------------------------------------
+/*
+	We need the global variable 
+
+string					gs_servicename = "cbase_aemi_cube"
+
+the call in the f_connect_xxx function is
+
+f_get_connection_infos(sInstanceName, SQLCA, "")
+f_get_connection_infos(sInstanceName, SQLCA_LOG, "LOG")
+
+*/
+
+string a, b
+
+if arg_coninfo > " " or upper(arg_instance) = "APPLICATION" or upper(arg_instance) = "APP" then
+	a = ""
+	b= ""
+else
+	a = gs_servicename
+	b = arg_instance
+end if
+
+select f_get_cur_sidserial(:a, :b) into :a from dual using arg_trans;
+
+if arg_trans.sqlcode <> 0 then
+	a="f_get_cur_sidserial() not found on database"
+end if
+
+if arg_coninfo > " " then
+	b = "/"+arg_coninfo
+else
+	b=""
+end if
+
+f_set_db_clientinfo(arg_instance + b, arg_trans)
+
+guoLog.uf_allways("[f_get_connection_infos] Connection Info for "+ arg_trans.ServerName +b +": "+a)
+end subroutine
+

@@ -1,0 +1,41 @@
+HA$PBExportHeader$f_getfrequence.srf
+global type f_getfrequence from function_object
+end type
+
+forward prototypes
+global function integer f_getfrequence (date dDAte)
+end prototypes
+
+global function integer f_getfrequence (date dDAte);/***************************************************************************
+Project		:	CBASE Web
+Object		:  uo_service
+Function		:	f_getfrequence
+Author		:	Stefan Stroh
+Description	:	<DESC>
+							liefert den Verkehrstag f$$HEX1$$fc00$$ENDHEX$$r ein Datum
+					</DESC>
+Usage			:	<USAGE>liefert den Verkehrstag f$$HEX1$$fc00$$ENDHEX$$r ein Datum</USAGE>
+****************************************************************************
+Reference	Date			Changed by	Description
+# 001			10/10/2001	ST				First Version
+***************************************************************************/
+
+Integer	iTag
+
+// ------------------------------------------------
+// DayNumber liefert 
+// 1 f$$HEX1$$fc00$$ENDHEX$$r Sonntag
+// 2 f$$HEX1$$fc00$$ENDHEX$$r Montag
+// usw.
+// wir brauchen aber 1 f$$HEX1$$fc00$$ENDHEX$$r Montag etc.
+// ------------------------------------------------
+
+iTag = DayNumber(dDate) - 1
+
+if iTag = 0 then
+	iTag = 7
+end if
+
+return iTag
+end function
+

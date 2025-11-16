@@ -1,0 +1,21 @@
+HA$PBExportHeader$f_check_owner_id.srf
+global type f_check_owner_id from function_object
+end type
+
+forward prototypes
+global function boolean f_check_owner_id (long lid)
+end prototypes
+
+global function boolean f_check_owner_id (long lid);long i
+
+for i = 1 to s_app.ds_user_group.RowCount()
+	
+	if s_app.ds_user_group.GetItemNumber(i, "nowner_id") = lID then
+		return true
+	end if
+	
+Next
+
+return false
+end function
+

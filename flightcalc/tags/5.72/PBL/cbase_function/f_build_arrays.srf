@@ -1,0 +1,53 @@
+HA$PBExportHeader$f_build_arrays.srf
+global type f_build_arrays from function_object
+end type
+
+forward prototypes
+global function integer f_build_arrays (datawindow odw, string scolumn, ref long larray1[], ref long larray2[], ref long larray3[], ref long larray4[], ref long larray5[])
+end prototypes
+
+global function integer f_build_arrays (datawindow odw, string scolumn, ref long larray1[], ref long larray2[], ref long larray3[], ref long larray4[], ref long larray5[]);Long 	lEmptyArray
+Long	lRow
+
+For lRow = 1 to oDW.RowCount()
+	
+	if oDw.GetItemNumber(lRow,"nactionrow") = 1 then
+	
+		if Upperbound(lArray1) < 1000 then
+			lArray1[Upperbound(lArray1) + 1] = oDw.GetItemNumber(lRow, sColumn)
+			continue
+			
+		elseif Upperbound(lArray2) < 1000 then
+			lArray2[Upperbound(lArray2) + 1] = oDw.GetItemNumber(lRow, sColumn)
+			continue
+			
+		elseif Upperbound(lArray3) < 1000 then
+			lArray3[Upperbound(lArray3) + 1] = oDw.GetItemNumber(lRow, sColumn)
+			continue
+			
+		elseif Upperbound(lArray4) < 1000 then
+			lArray4[Upperbound(lArray4) + 1] = oDw.GetItemNumber(lRow, sColumn)
+			continue
+			
+		elseif Upperbound(lArray5) < 1000 then
+			lArray5[Upperbound(lArray5) + 1] = oDw.GetItemNumber(lRow, sColumn)
+			continue
+			
+		else
+			uf.mbox("Achtung", "Mehr als 5000 Eintr$$HEX1$$e400$$ENDHEX$$ge k$$HEX1$$f600$$ENDHEX$$nnen nicht verarbeitet werden!~r~rBitte schr$$HEX1$$e400$$ENDHEX$$nken Sie die Auswahl ein.", StopSign!)
+			return -1	
+		end if
+	
+	end if
+	
+Next
+
+if Upperbound(lArray1) = 0 then lArray1[1] = -1
+if Upperbound(lArray2) = 0 then lArray2[1] = -1
+if Upperbound(lArray3) = 0 then lArray3[1] = -1
+if Upperbound(lArray4) = 0 then lArray4[1] = -1
+if Upperbound(lArray5) = 0 then lArray5[1] = -1
+
+return 0
+end function
+

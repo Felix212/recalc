@@ -1,0 +1,87 @@
+HA$PBExportHeader$f_set_logon_role.srf
+global type f_set_logon_role from function_object
+end type
+
+forward prototypes
+global function integer f_set_logon_role (transaction arg_sqlca)
+end prototypes
+
+global function integer f_set_logon_role (transaction arg_sqlca);// --------------------------------------------------------------------------------
+// Objekt : f_set_logon_role
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------
+// Argument(e):
+// none
+// --------------------------------------------------------------------------------
+// Return: none
+// --------------------------------------------------------------------------------
+//  Beschreibung:
+//
+//
+// --------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor              Kommentar
+// --------------------------------------------------------------------------------
+//  07.12.2009	   1.0      Heiko Rothenbach   Erstellung
+//
+// --------------------------------------------------------------------------------
+
+long		ll_rc
+string	sPass = "LSYcbaseCrypto2008"
+string 	srole
+String	sTemp
+
+
+if s_app.sUser = "cbase" then
+
+	 DECLARE GetRoles CURSOR FOR  
+	  SELECT sys.dba_role_privs.granted_role  
+		 FROM sys.dba_role_privs  
+		WHERE ( sys.dba_role_privs.grantee = Upper(:s_app.sUser) ) AND  
+				( sys.dba_role_privs.granted_role <> 'CBASE_LOGON' )   
+				  ;
+	
+	Open GetRoles;
+	
+	sRole = ""
+	
+	If sqlca.sqlcode = 0 then
+		
+		Do While sqlca.sqlcode = 0
+			Fetch GetRoles into :sTemp;
+			if sqlca.sqlcode = 0 then
+				sRole += sTemp + ", "			
+			end if
+			
+		loop
+		Close GetRoles;	
+	else
+	
+		//Messagebox("DB-ERROR", "DB-Error: ${" + String(sqlca.sqlcode) + "}~r~r${" + sqlca.sqlerrtext + "}", StopSign!)
+	
+	end if
+	
+End if 
+
+
+
+srole = "SET ROLE " + sRole + " CBASE_LOGON IDENTIFIED BY " + sPass
+execute immediate :srole using arg_sqlca; 
+	
+if arg_sqlca.SQLCODE < 0 THEN
+	
+	if arg_sqlca.sqldbcode = 1919 then // Rolle existiert noch nicht, dann nix machen.
+	
+	// 28.04.2009 HR:
+	elseif arg_sqlca.sqldbcode = 1924 then // Rolle existiert noch nicht oder ist nicht zugeordnet, dann auch nix machen.
+		
+	else
+		ll_rc = f_db_error(arg_sqlca, this.classname( ) +  ": Error assigning cbase objects" )
+	end if
+		
+end if
+
+return arg_sqlca.SQLCODE
+end function
+

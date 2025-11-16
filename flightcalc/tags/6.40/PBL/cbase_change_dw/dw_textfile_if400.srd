@@ -1,0 +1,105 @@
+HA$PBExportHeader$dw_textfile_if400.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(4) updatewhereclause=yes name=csales_org dbname="csales_org" )
+ column=(type=char(2) updatewhereclause=yes name=csales_channel dbname="csales_channel" )
+ column=(type=char(2) updatewhereclause=yes name=cdivision dbname="cdivision" )
+ column=(type=char(4) updatewhereclause=yes name=cplant dbname="cplant" )
+ column=(type=char(4) updatewhereclause=yes name=cdelivery_plant dbname="cdelivery_plant" )
+ column=(type=char(18) updatewhereclause=yes name=cmaterial_code dbname="cmaterial_code" )
+ column=(type=char(5) updatewhereclause=yes name=cunit dbname="cunit" )
+ column=(type=decimal(3) updatewhereclause=yes name=ngross_weight dbname="ngross_weight" )
+ column=(type=decimal(3) updatewhereclause=yes name=nnet_weight dbname="nnet_weight" )
+ column=(type=char(5) updatewhereclause=yes name=cweight_unit dbname="cweight_unit" )
+ column=(type=char(9) updatewhereclause=yes name=cmat_group_skypex dbname="cmat_group_skypex" )
+ column=(type=char(1) updatewhereclause=yes name=ctax_classification dbname="ctax_classification" )
+ column=(type=char(3) updatewhereclause=yes name=cmat_group1 dbname="cmat_group1" )
+ column=(type=char(3) updatewhereclause=yes name=cmat_group2 dbname="cmat_group2" )
+ column=(type=char(1) updatewhereclause=yes name=cdelition_flag dbname="cdelition_flag" )
+ column=(type=char(40) updatewhereclause=yes name=ctext_en dbname="ctext_en" )
+ column=(type=char(40) updatewhereclause=yes name=ctext_es dbname="ctext_es" )
+ column=(type=char(40) updatewhereclause=yes name=ctext_pt dbname="ctext_pt" )
+ column=(type=char(2) updatewhereclause=yes name=cmat_state dbname="cmat_state" )
+ column=(type=datetime updatewhereclause=yes name=ddate dbname="ddate" )
+ column=(type=char(3) updatewhereclause=yes name=cspec_code dbname="cspec_code" )
+ retrieve="select CSALES_ORG          ,
+CSALES_CHANNEL      ,
+CDIVISION           ,
+CPLANT              ,
+CDELIVERY_PLANT     ,
+CMATERIAL_CODE      ,
+CUNIT               ,
+NGROSS_WEIGHT       ,
+NNET_WEIGHT         ,
+CWEIGHT_UNIT        ,
+CMAT_GROUP_SKYPEX   ,
+CTAX_CLASSIFICATION ,
+CMAT_GROUP1         ,
+CMAT_GROUP2         ,
+CDELITION_FLAG      ,
+CTEXT_EN            ,
+CTEXT_ES            ,
+CTEXT_PT            ,
+CMAT_STATE          ,
+DDATE               ,
+CSPEC_CODE          
+from table(CBASE_SAP.PF_GET_IF400)
+order by CSALES_ORG, 
+             CMATERIAL_CODE  " )
+text(band=header alignment="2" text="Csales Org" border="0" color="33554432" x="9" y="8" height="64" width="283" html.valueishtml="0"  name=csales_org_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Csales Channel" border="0" color="33554432" x="302" y="8" height="64" width="398" html.valueishtml="0"  name=csales_channel_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cdivision" border="0" color="33554432" x="709" y="8" height="64" width="229" html.valueishtml="0"  name=cdivision_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cplant" border="0" color="33554432" x="946" y="8" height="64" width="165" html.valueishtml="0"  name=cplant_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cdelivery Plant" border="0" color="33554432" x="1120" y="8" height="64" width="384" html.valueishtml="0"  name=cdelivery_plant_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cmaterial Code" border="0" color="33554432" x="1513" y="8" height="64" width="521" html.valueishtml="0"  name=cmaterial_code_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cunit" border="0" color="33554432" x="2043" y="8" height="64" width="165" html.valueishtml="0"  name=cunit_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ngross Weight" border="0" color="33554432" x="2217" y="8" height="64" width="379" html.valueishtml="0"  name=ngross_weight_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nnet Weight" border="0" color="33554432" x="2606" y="8" height="64" width="329" html.valueishtml="0"  name=nnet_weight_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cweight Unit" border="0" color="33554432" x="2944" y="8" height="64" width="329" html.valueishtml="0"  name=cweight_unit_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cmat Group Skypex" border="0" color="33554432" x="3282" y="8" height="64" width="512" html.valueishtml="0"  name=cmat_group_skypex_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ctax Classification" border="0" color="33554432" x="3803" y="8" height="64" width="471" html.valueishtml="0"  name=ctax_classification_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cmat Group1" border="0" color="33554432" x="4283" y="8" height="64" width="343" html.valueishtml="0"  name=cmat_group1_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cmat Group2" border="0" color="33554432" x="4635" y="8" height="64" width="343" html.valueishtml="0"  name=cmat_group2_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cdelition Flag" border="0" color="33554432" x="4987" y="8" height="64" width="352" html.valueishtml="0"  name=cdelition_flag_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ctext En" border="0" color="33554432" x="5349" y="8" height="64" width="1125" html.valueishtml="0"  name=ctext_en_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ctext Es" border="0" color="33554432" x="6482" y="8" height="64" width="1125" html.valueishtml="0"  name=ctext_es_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ctext Pt" border="0" color="33554432" x="7616" y="8" height="64" width="1125" html.valueishtml="0"  name=ctext_pt_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cmat State" border="0" color="33554432" x="8750" y="8" height="64" width="293" html.valueishtml="0"  name=cmat_state_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ddate" border="0" color="33554432" x="9051" y="8" height="64" width="603" html.valueishtml="0"  name=ddate_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cspec Code" border="0" color="33554432" x="9664" y="8" height="64" width="306" html.valueishtml="0"  name=cspec_code_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="76" width="283" format="[general]" html.valueishtml="0"  name=csales_org visible="1" edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="302" y="8" height="76" width="398" format="[general]" html.valueishtml="0"  name=csales_channel visible="1" edit.limit=2 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="709" y="8" height="76" width="229" format="[general]" html.valueishtml="0"  name=cdivision visible="1" edit.limit=2 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="946" y="8" height="76" width="165" format="[general]" html.valueishtml="0"  name=cplant visible="1" edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1120" y="8" height="76" width="384" format="[general]" html.valueishtml="0"  name=cdelivery_plant visible="1" edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="33554432" x="1513" y="8" height="76" width="521" format="[general]" html.valueishtml="0"  name=cmaterial_code visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="2043" y="8" height="76" width="165" format="[general]" html.valueishtml="0"  name=cunit visible="1" edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="2217" y="8" height="76" width="379" format="[general]" html.valueishtml="0"  name=ngross_weight visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="2606" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=nnet_weight visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="33554432" x="2944" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=cweight_unit visible="1" edit.limit=5 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="3282" y="8" height="76" width="512" format="[general]" html.valueishtml="0"  name=cmat_group_skypex visible="1" edit.limit=9 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="33554432" x="3803" y="8" height="76" width="471" format="[general]" html.valueishtml="0"  name=ctax_classification visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="4283" y="8" height="76" width="343" format="[general]" html.valueishtml="0"  name=cmat_group1 visible="1" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="33554432" x="4635" y="8" height="76" width="343" format="[general]" html.valueishtml="0"  name=cmat_group2 visible="1" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="33554432" x="4987" y="8" height="76" width="352" format="[general]" html.valueishtml="0"  name=cdelition_flag visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="33554432" x="5349" y="8" height="76" width="1125" format="[general]" html.valueishtml="0"  name=ctext_en visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="33554432" x="6482" y="8" height="76" width="1125" format="[general]" html.valueishtml="0"  name=ctext_es visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="0" color="33554432" x="7616" y="8" height="76" width="1125" format="[general]" html.valueishtml="0"  name=ctext_pt visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="33554432" x="8750" y="8" height="76" width="293" format="[general]" html.valueishtml="0"  name=cmat_state visible="1" edit.limit=2 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="0" color="33554432" x="9051" y="8" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=ddate visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="0" color="33554432" x="9664" y="8" height="76" width="306" format="[general]" html.valueishtml="0"  name=cspec_code visible="1" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,61 @@
+HA$PBExportHeader$f_rgbtogreyscale.srf
+global type f_rgbtogreyscale from function_object
+end type
+
+forward prototypes
+global function long f_rgbtogreyscale (long lrgb)
+end prototypes
+
+global function long f_rgbtogreyscale (long lrgb);/*
+
+	Diese Funktion ermittelt den $$HEX1$$e400$$ENDHEX$$quivalenten Grauwert 
+	einer RGB-Farbe.
+	
+*/
+
+Integer	iRed, &
+			iGreen, &
+			iBlue
+			
+Integer	iGrey
+
+// ---------------------------------------------------------------			
+// wenn gr$$HEX2$$f600df00$$ENDHEX$$er als Weiss dann halt Weiss. Weil gr$$HEX2$$f600df00$$ENDHEX$$er als
+// Weiss gibt es nicht
+// ---------------------------------------------------------------			
+if lRGB > RGB(255,255,255) Then
+	return RGB(255,255,255) 
+end if
+
+// ---------------------------------------------------------------			
+// wir ermitteln zuerst mal den Rot, Gr$$HEX1$$fc00$$ENDHEX$$n und Blauwert der Farbe
+// Die geht $$HEX1$$fc00$$ENDHEX$$ber Modulo 256
+// ---------------------------------------------------------------
+
+// Rot
+iRed		= Mod(lRGB, 256)		
+lRGB		= lRGB / 256			// den Rest teilen
+
+// Gr$$HEX1$$fc00$$ENDHEX$$n
+iGreen	= Mod(lRGB, 256)
+lRGB		= lRGB / 256
+
+// Blau
+iBlue		= Mod(lRGB, 256)
+lRGB		= lRGB / 256
+
+// -----------------------------
+// nun errechnen wir den Grauwert
+// -----------------------------
+iGrey = 76 * iRed / 255 + 150 * iGreen / 255 + 28 * iBlue / 255
+
+//if isNull(iGrey) then Messagebox ("function ", "isnull " +string(lRGB)) 
+// ---------------------------------------------------------------
+// Nun ist es recht einfach, da Grauwerte nur von 0 bis 255 gehen
+// und immer den gleichen Rot, Gr$$HEX1$$fc00$$ENDHEX$$n und Blauanteil haben
+// ---------------------------------------------------------------
+
+
+RETURN RGB(iGrey,iGrey,iGrey)
+end function
+

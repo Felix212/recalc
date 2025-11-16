@@ -1,0 +1,6 @@
+HA$PBExportHeader$s_dwr.srs
+global type s_dwr from structure
+	string		sdatawindow
+	string		slibrary
+end type
+

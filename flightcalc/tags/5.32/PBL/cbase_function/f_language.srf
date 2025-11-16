@@ -1,0 +1,11 @@
+HA$PBExportHeader$f_language.srf
+global type f_language from function_object
+end type
+
+forward prototypes
+global function integer f_language ()
+end prototypes
+
+global function integer f_language ();return s_app.iLanguage
+end function
+

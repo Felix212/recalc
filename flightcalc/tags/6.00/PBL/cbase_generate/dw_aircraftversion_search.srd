@@ -1,0 +1,218 @@
+HA$PBExportHeader$dw_aircraftversion_search.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=ngroup_key dbname="ngroup_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=naircraft_key dbname="naircraft_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nairline_key dbname="nairline_key" )
+ column=(type=number updatewhereclause=yes name=nclass1 dbname="nclass1" )
+ column=(type=number updatewhereclause=yes name=nclass2 dbname="nclass2" )
+ column=(type=number updatewhereclause=yes name=nclass3 dbname="nclass3" )
+ column=(type=number updatewhereclause=yes name=nclass4 dbname="nclass4" )
+ column=(type=number updatewhereclause=yes name=nclass5 dbname="nclass5" )
+ column=(type=number updatewhereclause=yes name=nclass6 dbname="nclass6" )
+ column=(type=number updatewhereclause=yes name=nclass7 dbname="nclass7" )
+ column=(type=number updatewhereclause=yes name=nclass8 dbname="nclass8" )
+ retrieve=" select  aa.ngroup_key,   
+        aa.naircraft_key,   
+         aa.nairline_key, 
+		sum(aa.nclass_1) nclass1,
+		sum(aa.nclass_2) nclass2,
+		sum(aa.nclass_3) nclass3,
+		sum(aa.nclass_4) nclass4,
+		sum(aa.nclass_5) nclass5,
+		sum(aa.nclass_6) nclass6,
+		sum(aa.nclass_7) nclass7,
+		sum(aa.nclass_8) nclass8
+from (
+SELECT cen_aircraft_configurations.ngroup_key,   
+         cen_aircraft_configurations.naircraft_key,   
+         cen_aircraft_configurations.nairline_key,   
+         cen_aircraft_configurations.cclass,   
+         cen_aircraft_configurations.nversion nclass_1,   
+         0 nclass_2,   
+         0 nclass_3,   
+         0 nclass_4,   
+         0 nclass_5,   
+         0 nclass_6,   
+         0 nclass_7,   
+         0 nclass_8
+    FROM cen_aircraft_configurations,   
+         cen_class_name  
+   WHERE ( cen_class_name.nairline_key = cen_aircraft_configurations.nairline_key ) and  
+         ( cen_class_name.cclass = cen_aircraft_configurations.cclass ) and  
+         ( ( cen_aircraft_configurations.naircraft_key = :naircraft_key ) AND  
+         ( cen_class_name.nclass_number = 1 ) )  
+union all 
+  SELECT cen_aircraft_configurations.ngroup_key,   
+         cen_aircraft_configurations.naircraft_key,   
+         cen_aircraft_configurations.nairline_key,   
+         cen_aircraft_configurations.cclass,   
+		0,         
+		cen_aircraft_configurations.nversion,   
+         0,
+		0,
+		0,
+		0,
+		0,
+		0  
+    FROM cen_aircraft_configurations,   
+         cen_class_name  
+   WHERE ( cen_class_name.nairline_key = cen_aircraft_configurations.nairline_key ) and  
+         ( cen_class_name.cclass = cen_aircraft_configurations.cclass ) and  
+         ( ( cen_aircraft_configurations.naircraft_key = :naircraft_key ) AND  
+         ( cen_class_name.nclass_number = 2 ) ) 
+union all 
+  SELECT cen_aircraft_configurations.ngroup_key,   
+         cen_aircraft_configurations.naircraft_key,   
+         cen_aircraft_configurations.nairline_key,   
+         cen_aircraft_configurations.cclass,   
+		0, 
+		0,       
+		cen_aircraft_configurations.nversion,
+		0,
+		0,
+		0,
+		0,
+		0  
+    FROM cen_aircraft_configurations,   
+         cen_class_name  
+   WHERE ( cen_class_name.nairline_key = cen_aircraft_configurations.nairline_key ) and  
+         ( cen_class_name.cclass = cen_aircraft_configurations.cclass ) and  
+         ( ( cen_aircraft_configurations.naircraft_key = :naircraft_key ) AND  
+         ( cen_class_name.nclass_number = 3 ) ) 
+union all 
+  SELECT cen_aircraft_configurations.ngroup_key,   
+         cen_aircraft_configurations.naircraft_key,   
+         cen_aircraft_configurations.nairline_key,   
+         cen_aircraft_configurations.cclass,   
+		0, 
+		0,       
+		0,
+		cen_aircraft_configurations.nversion,
+		0,
+		0,
+		0,
+		0  
+    FROM cen_aircraft_configurations,   
+         cen_class_name  
+   WHERE ( cen_class_name.nairline_key = cen_aircraft_configurations.nairline_key ) and  
+         ( cen_class_name.cclass = cen_aircraft_configurations.cclass ) and  
+         ( ( cen_aircraft_configurations.naircraft_key = :naircraft_key ) AND  
+         ( cen_class_name.nclass_number = 4 ) ) 
+union all 
+  SELECT cen_aircraft_configurations.ngroup_key,   
+         cen_aircraft_configurations.naircraft_key,   
+         cen_aircraft_configurations.nairline_key,   
+         cen_aircraft_configurations.cclass,   
+		0, 
+		0,       
+		0,
+		0,
+		cen_aircraft_configurations.nversion,
+		0,
+		0,
+		0  
+    FROM cen_aircraft_configurations,   
+         cen_class_name  
+   WHERE ( cen_class_name.nairline_key = cen_aircraft_configurations.nairline_key ) and  
+         ( cen_class_name.cclass = cen_aircraft_configurations.cclass ) and  
+         ( ( cen_aircraft_configurations.naircraft_key = :naircraft_key ) AND  
+         ( cen_class_name.nclass_number = 5 ) ) 
+union all 
+  SELECT cen_aircraft_configurations.ngroup_key,   
+         cen_aircraft_configurations.naircraft_key,   
+         cen_aircraft_configurations.nairline_key,   
+         cen_aircraft_configurations.cclass,   
+		0, 
+		0,       
+		0,
+		0,
+		0,
+		cen_aircraft_configurations.nversion,
+		0,
+		0  
+    FROM cen_aircraft_configurations,   
+         cen_class_name  
+   WHERE ( cen_class_name.nairline_key = cen_aircraft_configurations.nairline_key ) and  
+         ( cen_class_name.cclass = cen_aircraft_configurations.cclass ) and  
+         ( ( cen_aircraft_configurations.naircraft_key = :naircraft_key ) AND  
+         ( cen_class_name.nclass_number = 6 ) ) 
+union all 
+  SELECT cen_aircraft_configurations.ngroup_key,   
+         cen_aircraft_configurations.naircraft_key,   
+         cen_aircraft_configurations.nairline_key,   
+         cen_aircraft_configurations.cclass,   
+		0, 
+		0,       
+		0,
+		0,
+		0,
+		0,
+		cen_aircraft_configurations.nversion,
+		0  
+    FROM cen_aircraft_configurations,   
+         cen_class_name  
+   WHERE ( cen_class_name.nairline_key = cen_aircraft_configurations.nairline_key ) and  
+         ( cen_class_name.cclass = cen_aircraft_configurations.cclass ) and  
+         ( ( cen_aircraft_configurations.naircraft_key = :naircraft_key ) AND  
+         ( cen_class_name.nclass_number = 7 ) ) 
+union all 
+  SELECT cen_aircraft_configurations.ngroup_key,   
+         cen_aircraft_configurations.naircraft_key,   
+         cen_aircraft_configurations.nairline_key,   
+         cen_aircraft_configurations.cclass,   
+		0, 
+		0,       
+		0,
+		0,
+		0,
+		0,
+		0,
+		cen_aircraft_configurations.nversion  
+    FROM cen_aircraft_configurations,   
+         cen_class_name  
+   WHERE ( cen_class_name.nairline_key = cen_aircraft_configurations.nairline_key ) and  
+         ( cen_class_name.cclass = cen_aircraft_configurations.cclass ) and  
+         ( ( cen_aircraft_configurations.naircraft_key = :naircraft_key ) AND  
+         ( cen_class_name.nclass_number = 8 ) ) 
+
+) aa
+
+group by ngroup_key,   
+         naircraft_key,   
+         nairline_key
+order by nclass1, nclass2, nclass3, nclass4, nclass5, nclass6, nclass7, nclass8
+
+
+" arguments=(("naircraft_key", number)) )
+text(band=header alignment="2" text="Ngroup Key" border="0" color="33554432" x="5" y="4" height="64" width="329" html.valueishtml="0"  name=ngroup_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Naircraft Key" border="0" color="33554432" x="338" y="4" height="64" width="334" html.valueishtml="0"  name=naircraft_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nairline Key" border="0" color="33554432" x="677" y="4" height="64" width="329" html.valueishtml="0"  name=nairline_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nclass1" border="0" color="33554432" x="1010" y="4" height="64" width="329" html.valueishtml="0"  name=nclass1_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nclass2" border="0" color="33554432" x="1344" y="4" height="64" width="329" html.valueishtml="0"  name=nclass2_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nclass3" border="0" color="33554432" x="1682" y="4" height="64" width="325" html.valueishtml="0"  name=nclass3_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=ngroup_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="338" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=naircraft_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="677" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nairline_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="1010" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nclass1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1344" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nclass2 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="1682" y="4" height="76" width="325" format="[general]" html.valueishtml="0"  name=nclass3 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=0 border="0" color="33554432" x="2007" y="0" height="64" width="2135" html.valueishtml="0"  name=nclass4 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=0 border="0" color="33554432" x="4142" y="0" height="64" width="2135" html.valueishtml="0"  name=nclass5 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=0 border="0" color="33554432" x="6277" y="0" height="64" width="2135" html.valueishtml="0"  name=nclass6 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=0 border="0" color="33554432" x="8411" y="0" height="64" width="2135" html.valueishtml="0"  name=nclass7 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=0 border="0" color="33554432" x="10546" y="0" height="64" width="2135" html.valueishtml="0"  name=nclass8 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()

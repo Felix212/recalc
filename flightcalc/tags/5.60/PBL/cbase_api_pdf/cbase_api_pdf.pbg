@@ -1,0 +1,16 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_api_pdf\\cbase_api_pdf.pbl" "";
+@end;
+@begin Objects
+ "cbase_api_pdf\\uo_amyuni_viewer_251.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_amyuni_viewer_450.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_amyuni_viewer_500.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_amyuni_251.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_amyuni_450.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_amyuni_500.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_pdf_handler.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_amyuni_viewer_interface.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_amyuni.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+ "cbase_api_pdf\\uo_amyuni_viewer.sru" "cbase_api_pdf\\cbase_api_pdf.pbl";
+@end;

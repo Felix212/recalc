@@ -1,0 +1,41 @@
+HA$PBExportHeader$f_get_country.srf
+$PBExportComments$Das Land eines Betriebes ermitteln
+global type f_get_country from function_object
+end type
+
+forward prototypes
+global function string f_get_country (string sunit)
+end prototypes
+
+global function string f_get_country (string sunit);/* 
+* Funktion/Event: f_get_country
+* Beschreibung: 	Ermittelt das Land eines Betriebes
+* Besonderheit: 	keine
+*
+* Argumente:
+* 	Name     Beschreibung
+*	sUnit    Die Daten der Queue zur Ermittlung der Rechnungsl$$HEX1$$e400$$ENDHEX$$ufe
+*
+* Aenderungshistorie:
+* 	Version    Wer       Wann          Was und warum
+*	1.0        D.Bunk    21.02.2011    Erstellung
+*
+* Return Codes:
+*  Das Land des Betriebes oder Leerstring
+*/
+String sCountry = ""
+
+SELECT country.ccountry_short 
+  INTO :sCountry
+  FROM sys_three_letter_codes tlc
+       join sys_countries country ON country.ncountry_key = tlc.ncountry_key
+       join sys_units unit ON unit.ntlc_key = tlc.ntlc_key
+WHERE  unit.cunit = :sUnit;
+
+if sqlca.sqlcode <> 0 then
+	f_db_error(sqlca, "f_get_country")
+end if
+
+return sCountry
+end function
+

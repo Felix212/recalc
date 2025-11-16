@@ -1,0 +1,8 @@
+HA$PBExportHeader$s_distrib_item_sub.srs
+$PBExportComments$Contents
+global type s_distrib_item_sub from structure
+	string		ssnr
+	string		stext
+	string		sqty
+end type
+

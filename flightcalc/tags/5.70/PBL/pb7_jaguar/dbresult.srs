@@ -1,0 +1,11 @@
+HA$PBExportHeader$dbresult.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type dbresult from structure
+  public:
+    String		autocommit
+    String		sqlcode
+    String		sqldbcode
+    String		sqlerrtext
+    Blob		data
+end type
+

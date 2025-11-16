@@ -1,0 +1,252 @@
+HA$PBExportHeader$m_uo_dw.srm
+forward
+global type m_uo_dw from menu
+end type
+type m_data from menu within m_uo_dw
+end type
+type m_excel from menu within m_data
+end type
+type m_- from menu within m_data
+end type
+type m_suchen from menu within m_data
+end type
+type m_filtern from menu within m_data
+end type
+type m_setzen from menu within m_filtern
+end type
+type m_entfernen from menu within m_filtern
+end type
+type m_filtern from menu within m_data
+m_setzen m_setzen
+m_entfernen m_entfernen
+end type
+type m_-0 from menu within m_data
+end type
+type m_hardcopy from menu within m_data
+end type
+type m_mail from menu within m_data
+end type
+type m_data from menu within m_uo_dw
+m_excel m_excel
+m_- m_-
+m_suchen m_suchen
+m_filtern m_filtern
+m_-0 m_-0
+m_hardcopy m_hardcopy
+m_mail m_mail
+end type
+global type m_uo_dw from menu
+m_data m_data
+end type
+end forward
+
+global type m_uo_dw from menu
+m_data m_data
+end type
+global m_uo_dw m_uo_dw
+
+on m_uo_dw.create
+m_uo_dw=this
+call super::create
+this.m_data=create m_data
+this.Item[UpperBound(this.Item)+1]=this.m_data
+end on
+
+on m_uo_dw.destroy
+call super::destroy
+destroy(this.m_data)
+end on
+
+type m_data from menu within m_uo_dw
+m_excel m_excel
+m_- m_-
+m_suchen m_suchen
+m_filtern m_filtern
+m_-0 m_-0
+m_hardcopy m_hardcopy
+m_mail m_mail
+end type
+
+on m_data.create
+call super::create
+this.text = "Data"
+this.m_excel=create m_excel
+this.m_-=create m_-
+this.m_suchen=create m_suchen
+this.m_filtern=create m_filtern
+this.m_-0=create m_-0
+this.m_hardcopy=create m_hardcopy
+this.m_mail=create m_mail
+this.Item[UpperBound(this.Item)+1]=this.m_excel
+this.Item[UpperBound(this.Item)+1]=this.m_-
+this.Item[UpperBound(this.Item)+1]=this.m_suchen
+this.Item[UpperBound(this.Item)+1]=this.m_filtern
+this.Item[UpperBound(this.Item)+1]=this.m_-0
+this.Item[UpperBound(this.Item)+1]=this.m_hardcopy
+this.Item[UpperBound(this.Item)+1]=this.m_mail
+end on
+
+on m_data.destroy
+call super::destroy
+destroy(this.m_excel)
+destroy(this.m_-)
+destroy(this.m_suchen)
+destroy(this.m_filtern)
+destroy(this.m_-0)
+destroy(this.m_hardcopy)
+destroy(this.m_mail)
+end on
+
+type m_excel from menu within m_data
+end type
+
+event clicked;window w_window
+
+w_window = parentwindow
+w_window.postevent("ue_excel")
+end event
+
+on m_excel.create
+call super::create
+this.text = "&Excel"
+end on
+
+on m_excel.destroy
+call super::destroy
+end on
+
+type m_- from menu within m_data
+end type
+
+on m_-.create
+call super::create
+this.text = "-"
+end on
+
+on m_-.destroy
+call super::destroy
+end on
+
+type m_suchen from menu within m_data
+end type
+
+on m_suchen.create
+call super::create
+this.text = "&Suchen"
+end on
+
+event clicked;window w_window
+
+w_window = parentwindow
+w_window.postevent("ue_find")
+end event
+
+on m_suchen.destroy
+call super::destroy
+end on
+
+type m_filtern from menu within m_data
+m_setzen m_setzen
+m_entfernen m_entfernen
+end type
+
+on m_filtern.create
+call super::create
+this.text = "&Filter"
+this.m_setzen=create m_setzen
+this.m_entfernen=create m_entfernen
+this.Item[UpperBound(this.Item)+1]=this.m_setzen
+this.Item[UpperBound(this.Item)+1]=this.m_entfernen
+end on
+
+on m_filtern.destroy
+call super::destroy
+destroy(this.m_setzen)
+destroy(this.m_entfernen)
+end on
+
+type m_setzen from menu within m_filtern
+end type
+
+event clicked;window w_window
+
+w_window = parentwindow
+w_window.postevent("ue_filter")
+end event
+
+on m_setzen.create
+call super::create
+this.text = "&setzen"
+end on
+
+on m_setzen.destroy
+call super::destroy
+end on
+
+type m_entfernen from menu within m_filtern
+end type
+
+event clicked;window w_window
+
+w_window = parentwindow
+w_window.postevent("ue_filter_reset")
+end event
+
+on m_entfernen.create
+call super::create
+this.text = "&entfernen"
+end on
+
+on m_entfernen.destroy
+call super::destroy
+end on
+
+type m_-0 from menu within m_data
+end type
+
+on m_-0.create
+call super::create
+this.text = "-"
+end on
+
+on m_-0.destroy
+call super::destroy
+end on
+
+type m_hardcopy from menu within m_data
+event clicked ( )
+end type
+
+event clicked;window w_window
+
+w_window = parentwindow
+w_window.postevent("ue_printscreen")
+end event
+
+on m_hardcopy.create
+call super::create
+this.text = "&Hardcopy"
+end on
+
+on m_hardcopy.destroy
+call super::destroy
+end on
+
+type m_mail from menu within m_data
+end type
+
+on m_mail.create
+call super::create
+this.text = "&Mail"
+end on
+
+on m_mail.destroy
+call super::destroy
+end on
+
+event clicked;window w_window
+
+w_window = parentwindow
+w_window.postevent("ue_mail_send")
+end event
+

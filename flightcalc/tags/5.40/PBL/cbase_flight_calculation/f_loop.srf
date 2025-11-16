@@ -1,0 +1,186 @@
+HA$PBExportHeader$f_loop.srf
+$PBExportComments$Service Loop
+global type f_loop from function_object
+end type
+
+forward prototypes
+global function integer f_loop ()
+end prototypes
+
+global function integer f_loop ();integer					i, i2, iFaktor
+long						lLoops
+Long 						lSecondsRunning, lNow 
+Boolean					bFirstTime  = True
+Boolean					bRead_Cen_out
+Datetime					dDate
+Integer					iFunctions[], iEmpty[]
+String						sProfileFunction
+Integer					iNumberToProcess
+integer					iNumberRunMZVSpawn
+
+uo_files_zippen uoZip
+
+uo_flight_calculation uoflightcalc
+
+
+//lSecondsRunning	= Ceiling(CPU() / 1000)
+//lNow				= Ceiling(CPU() / 1000)
+
+Do while true
+	f_Log2Csv(0,1,"[f_loop] ## Start Loop ###################################### ")
+	lLoops ++
+	// ------------------------------------------------------------
+	// Profile auslesen Interval kann somit online ge$$HEX1$$e400$$ENDHEX$$ndert werden
+	// ------------------------------------------------------------	
+	f_profile()
+
+	bRead_Cen_out = (ProfileString(sProfile, sInstance, "ReadCenOut", String("true"))="true")
+	iNumberToProcess = Integer(ProfileString(sProfile, sInstance, "NumberOfCalculationsToProcess", "1"))
+	
+	iNumberRunMZVSpawn = Integer(ProfileString(sProfile, sInstance, "NumberOfMZVSpawnProcess", "2"))
+	SetProfileString(sProfile, sInstance, "NumberOfMZVSpawnProcess", string(iNumberRunMZVSpawn))
+	
+	
+	ifunctions[] = iEmpty[]
+	ifunctions[1] = -1	// keine Einschr$$HEX1$$e400$$ENDHEX$$nkung auf Funktion
+	i2 = 1
+	For i = 1 to 20
+		sProfileFunction = ProfileString(sProfile, sInstance, "Process_Function_"+String(i), "")
+		if isNumber(sProfileFunction) then
+			//  Einschr$$HEX1$$e400$$ENDHEX$$nkung auf Funktion $$HEX1$$fc00$$ENDHEX$$bernehmen
+			ifunctions[i2] = integer(sProfileFunction)
+			i2++
+		end if
+	Next
+	// -----------------------------------------------------------
+	// Datenbankverbindung(en) pr$$HEX1$$fc00$$ENDHEX$$fen
+	// -----------------------------------------------------------
+	if f_connect() then
+		// 12.03.2015 HR: Nur wenn auch die LOG-Verbindung steht mit der Verarbeitung beginnen
+		if f_connect_log() then
+			// -------------------------------------------------------------------------------------------------------------------
+			// 19.03.2015 HR: Wir setzen ein Lifesign f$$HEX1$$fc00$$ENDHEX$$r den Service und pr$$HEX1$$fc00$$ENDHEX$$fen, ob der Dienst pausieren soll
+			// --------------------------------------------------------------------------------------------------------------------
+			if f_service_alive("cbase_flight_calculation", sInstance, gs_Version+"-"+gs_Build, lInterval) = 0 then
+			
+				if bFirstTime then
+					update sys_queue_flight_inst
+					set dstand = sysdate
+					where sys_queue_flight_inst.cinstance = :sInstance;
+					
+//					SELECT count(*)  
+//					   INTO :i 
+//					  FROM sys_queue_flight_inst  
+//					WHERE sys_queue_flight_inst.cinstance = :sInstance;
+						
+//					if SQLCA.SQLCODE=0 and i =0 then
+					if SQLCA.sqlnrows = 0 then
+						//Alles OK, aber Instance nicht in der Tabelle vorhanden, dann einf$$HEX1$$fc00$$ENDHEX$$gen
+						  INSERT INTO sys_queue_flight_inst  ( cinstance )  VALUES ( :sInstance)  ;
+						  //commit;
+						  f_log2csv(0,2,"[f_loop] Add Instances "+sInstance+" to sys_queue_flight_inst " )
+					end if
+					
+					commit;
+					
+					bFirstTime = False
+					// ----------------------------
+					// Translation auslesen
+					// ----------------------------
+					If uf.uf_create_datastore() = False Then
+						// Messagebox("Translation","Could not read the translation data.",Stopsign!)
+						s_app.ilanguage = 1 
+					End if	
+					// ----------------------------
+					// Errormessages auslesen
+					// ----------------------------
+					uf.get_errormessages()
+				end if
+		
+				// -----------------------------------------------------------
+				// Die Verabeitung 
+				// -----------------------------------------------------------
+				uoFlightCalc =create uo_Flight_calculation
+				
+				// Verarbeitung Cen_out setzen
+				uoFlightCalc.bRead_Cen_out 						= bRead_Cen_out
+				uoFlightCalc.il_maxlock 								= gl_maxlock // 25.10.2011 HR: $$HEX1$$dc00$$ENDHEX$$bertrag der Globale an die Instanzevariable (wegen Webservice)
+				uoFlightCalc.iProcessFunction[]						= ifunctions[]
+				uoFlightCalc.iNumberOfCalculationsToProcess 	= iNumberToProcess
+				
+				uoFlightCalc.ii_NumberRunMZVSpawn			= iNumberRunMZVSpawn
+				uoFlightCalc.is_path2mzvspawn					= gs_path2mzvspawn
+				uoFlightCalc.ii_use_mzvspawn						= gi_use_mzvspawn
+				uoFlightCalc.ii_trace_mzvspawn					= gi_trace_mzvspawn
+				
+				// --------------------------------------------------------------------------------------------------------------------
+				// 29.06.2015 HR: Neue Parameter zum L$$HEX1$$f600$$ENDHEX$$schen alter Auftr$$HEX1$$e400$$ENDHEX$$ge $$HEX1$$fc00$$ENDHEX$$bergeben
+				// --------------------------------------------------------------------------------------------------------------------
+				uoFlightCalc.ii_del_offset_ok						= gi_del_offset_ok
+				uoFlightCalc.ii_del_offset_fehler					= gi_del_offset_fehler
+
+				// --------------------------------------------------------------------------------------------------------------------
+				// 08.05.2013 HR: Varibaen f$$HEX1$$fc00$$ENDHEX$$r die externe Mahlzeitenverteilung
+				// --------------------------------------------------------------------------------------------------------------------
+				uoFlightCalc.dsJobs.SetTransObject(SQLCA)
+				setnull(dDate)  // alle offenen Auftr$$HEX1$$e400$$ENDHEX$$ge verarbeiten
+				// -----------------------------------------------------------
+				// Einlesen der Fl$$HEX1$$fc00$$ENDHEX$$ge
+				// -----------------------------------------------------------
+		//		if uoFlightCalc.of_retrieve_dsjobs(dDate) = 1 then // 19.03.2014 HR: Neue Verteilung der Jobs
+				if uoFlightCalc.of_retrieve_dsjobs_new(dDate) = 1 then
+					if uoFlightCalc.dsjobs.rowcount()>0  or gbMaster then
+						iFaktor = 1
+					else
+						iFaktor = 2
+					end if
+					// -----------------------------------------------------------
+					// Verarbeiten der Fl$$HEX1$$fc00$$ENDHEX$$ge
+					// -----------------------------------------------------------
+					uoFlightCalc.of_start()
+				end if
+				Destroy(uoFlightCalc)
+			
+				garbagecollect()
+			end if
+		else
+			// 18.03.2015 HR:
+			f_log2csv(0,2, "Service is paused by table SYS_SERVICES_ALIVE")
+		end if
+	end if
+	
+	// Abbrechen nach einem Durchlauf
+	String	sLoopExit
+	sLoopExit = ProfileString(sProfile, "SERVICE", "LoopExit", "false")
+	if sLoopExit = "true" then
+		f_Log2Csv(0,1,"[f_loop] ## Exit Loop and Stop Service ###################################### ")
+
+		Exit
+	end if
+
+	// --------------------------------------------------------------------------------------------------------------------
+	// 22.04.2010 HR: Logfiles zippen
+	// --------------------------------------------------------------------------------------------------------------------
+	
+//	if today()<>date(ProfileString(sProfile, "LOG", "LastZip", "01.01.2000")) and lower(sInstance) = "instance1"then
+	if today()<>date(ProfileString(sProfile, "LOG", "LastZip", "01.01.2000")) and lower(sInstance) = gs_zip_instance then
+		uoZip = create uo_files_zippen
+		uoZip.is_dateFormat="YYYYMMDD"
+		uoZip.of_zip_log(sLogPath, sLogfile, relativedate(today(),zipoffset))
+		destroy uoZip
+		
+		SetProfileString(sProfile, "LOG", "LastZip", string(today()))
+	end if
+	
+	GarbageCollect()
+	
+	f_Log2Csv(0,1, "[f_loop] ## Finish Loop ###################################### ")
+
+	sleep(iFaktor * lInterval)
+
+Loop
+
+return 0
+
+end function
+

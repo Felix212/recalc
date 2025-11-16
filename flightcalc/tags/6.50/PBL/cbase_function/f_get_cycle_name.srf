@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_cycle_name.srf
+global type f_get_cycle_name from function_object
+end type
+
+forward prototypes
+global function string f_get_cycle_name (long lval)
+end prototypes
+
+global function string f_get_cycle_name (long lval);// -----------------------------------------------
+// Einzelrotation in Text umwandeln
+// -----------------------------------------------
+
+String sReturn
+
+select ctext into :sReturn from cen_rotation_names where nrotation_name_key = :lVal ;
+
+if sqlca.sqlcode = 0 then
+	return sReturn
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	f_db_error(sqlca, "f_get_cycle_name()")
+	return "N/A"
+end if
+	
+
+
+end function
+

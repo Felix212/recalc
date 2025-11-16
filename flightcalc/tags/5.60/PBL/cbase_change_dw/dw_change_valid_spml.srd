@@ -1,0 +1,36 @@
+HA$PBExportHeader$dw_change_valid_spml.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=220 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=char(5) updatewhereclause=yes name=cairline dbname="cen_airlines.cairline" )
+ column=(type=char(10) updatewhereclause=yes name=cclass dbname="cen_class_name.cclass" )
+ column=(type=decimal(0) updatewhereclause=yes name=nbooking_class dbname="cen_class_name.nbooking_class" )
+ column=(type=char(10) updatewhereclause=yes name=cspml dbname="sys_spml.cspml" )
+ column=(type=decimal(0) updatewhereclause=yes name=nclass_number dbname="cen_class_name.nclass_number" )
+ column=(type=decimal(0) updatewhereclause=yes name=nairline_key dbname="cen_airlines.nairline_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nspml_key dbname="cen_airline_spml.nspml_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=ndelayed dbname="cen_airline_spml.ndelayed" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_airlines~" )  TABLE(NAME=~"cen_class_name~" )  TABLE(NAME=~"cen_airline_spml~" )  TABLE(NAME=~"sys_spml~" ) COLUMN(NAME=~"cen_airlines.cairline~") COLUMN(NAME=~"cen_class_name.cclass~") COLUMN(NAME=~"cen_class_name.nbooking_class~") COLUMN(NAME=~"sys_spml.cspml~") COLUMN(NAME=~"cen_class_name.nclass_number~") COLUMN(NAME=~"cen_airlines.nairline_key~") COLUMN(NAME=~"cen_airline_spml.nspml_key~") COLUMN(NAME=~"cen_airline_spml.ndelayed~")    JOIN (LEFT=~"cen_airlines.nairline_key~"    OP =~"=~"RIGHT=~"cen_airline_spml.nairline_key~"    OUTER1 =~"cen_airlines.nairline_key~" )    JOIN (LEFT=~"sys_spml.nspml_key~"    OP =~"=~"RIGHT=~"cen_airline_spml.nspml_key~"    OUTER2 =~"cen_airline_spml.nspml_key~" )    JOIN (LEFT=~"cen_class_name.nairline_key~"    OP =~"=~"RIGHT=~"cen_airlines.nairline_key~" )WHERE(    EXP1 =~"cen_airlines.cclient~"   OP =~"=~"    EXP2 =~":arg_cclient~" ) ) ARG(NAME = ~"arg_cclient~" TYPE = string) " arguments=(("arg_cclient", string))  sort="cairline A nclass_number A cspml A " )
+text(band=header alignment="2" text="Cen Airlines
+Cairline" border="0" color="0" x="0" y="88" height="128" width="320"  name=cen_airlines_cairline_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Class Name
+Cclass" border="0" color="0" x="325" y="88" height="128" width="448"  name=cen_class_name_cclass_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Class Name
+Nbooking Class" border="0" color="0" x="777" y="88" height="128" width="448"  name=cen_class_name_nbooking_class_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Spml
+Cspml" border="0" color="0" x="1230" y="88" height="128" width="302"  name=sys_spml_cspml_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Welche SPML sind grunds$$HEX1$$e400$$ENDHEX$$tzlich f$$HEX1$$fc00$$ENDHEX$$r die Airline erlaubt?" border="0" color="16711680" x="0" y="8" height="64" width="1472"  name=t_1  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="297" format="[general]"  name=cairline edit.limit=5 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="329" y="4" height="76" width="402" format="[general]"  name=cclass edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="782" y="4" height="76" width="329" format="[general]"  name=nbooking_class edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1234" y="4" height="76" width="302" format="[general]"  name=cspml edit.limit=10 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="16711680" x="1577" y="8" height="64" width="553" format="[general]"  name=nclass_number edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2153" y="8" height="64" width="425" format="[general]"  name=nairline_key edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="2597" y="8" height="64" width="320" format="[general]"  name=nspml_key edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=0 border="0" color="255" x="2939" y="8" height="64" width="306"  name=ndelayed  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Bestellfrist" border="0" color="255" x="2930" y="148" height="64" width="279"  name=t_2  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_check_tax_code_short.srf
+global type f_check_tax_code_short from function_object
+end type
+
+forward prototypes
+global function long f_check_tax_code_short (string as_text, long al_customer_key)
+end prototypes
+
+global function long f_check_tax_code_short (string as_text, long al_customer_key);// ---------------------------------------------
+// Hole Taxcode-Key zu einem Kurznamen
+// ---------------------------------------------
+long 		lKey
+	
+SELECT cen_tax_codes.ntaxc_key
+ INTO :lKey  
+ FROM cen_tax_codes
+WHERE ncustomer_key 				= :al_customer_key
+  AND cen_tax_codes.cshort			= :as_text;
+
+if sqlca.sqlcode = 0 then
+	return lKey
+	
+elseif sqlca.sqlcode = 100 then
+	return -1
+	
+else
+	f_db_error(sqlca, "f_check_tax_code_short()")
+	return -1
+end if
+
+
+end function
+

@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_component.srs
+global type s_component from structure
+	string		stext
+	string		ssnr
+	long		lquantity
+	string		squantity
+	long		llength
+	s_distrib_item_props		str_item_props
+end type
+

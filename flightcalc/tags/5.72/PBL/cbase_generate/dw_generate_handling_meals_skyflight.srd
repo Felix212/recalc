@@ -1,0 +1,40 @@
+HA$PBExportHeader$dw_generate_handling_meals_skyflight.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nhandling_key dbname="cen_meals.nhandling_key" )
+ retrieve="  SELECT  cen_meals.nhandling_key     
+    FROM cen_meals ,    
+               cen_meals_packages ,    
+               cen_airline_packages ,      
+             SKY_EXT_CAT_SCHED_PAC, 
+             sky_ext_cat_sched     
+WHERE ( cen_meals_packages.nhandling_meal_key = cen_meals.nhandling_meal_key ) and  
+       ( cen_airline_packages.nairline_packages_key = cen_meals_packages.nairline_packages_key ) and    
+             ( cen_airline_packages.cpackage = SKY_EXT_CAT_SCHED_PAC.cpacket ) and    
+                  ( cen_airline_packages.cvariation = SKY_EXT_CAT_SCHED_PAC.cpacket_var ) and      
+		    ( SKY_EXT_CAT_SCHED_PAC.NEXT_CAT_KEY = sky_ext_cat_sched.NEXT_CAT_KEY ) and   
+	       ( ( cen_airline_packages.nairline_key = :arg_nairline_key ) and     
+	     ( sky_ext_cat_sched.cairline = :arg_cairline_key ) And     
+	    ( sky_ext_cat_sched.nflight_number = :arg_nflight_number ) And  
+	        ( sky_ext_cat_sched.csuffix = :arg_csuffix ) and     
+	     ( sky_ext_cat_sched.ddeparture = :arg_ddeparture ) And     
+	     ( sky_ext_cat_sched.ctlc_from = :arg_ctlc_from ) And      
+	   ( sky_ext_cat_sched.ctlc_to = :arg_ctlc_to )  And      
+	   ( sky_ext_cat_sched.nleg_number = :arg_nleg_number ) )  " arguments=(("arg_nairline_key", number),("arg_cairline_key", string),("arg_nflight_number", number),("arg_csuffix", string),("arg_ddeparture", date),("arg_ctlc_from", string),("arg_ctlc_to", string),("arg_nleg_number", number)) )
+text(band=header alignment="2" text="Cen Meals
+Nhandling Key" border="0" color="33554432" x="5" y="4" height="128" width="366" html.valueishtml="0"  name=cen_meals_nhandling_key_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()

@@ -1,0 +1,21 @@
+HA$PBExportHeader$f_centimeter_in_cbaseunits.srf
+global type f_centimeter_in_cbaseunits from function_object
+end type
+
+forward prototypes
+global function integer f_centimeter_in_cbaseunits (integer icm)
+end prototypes
+
+global function integer f_centimeter_in_cbaseunits (integer icm);// ------------------------------------
+// diese Funktion liefert cm in 1/1000 
+//	in CBASEUNITS (PIXEL) 
+// ------------------------------------
+
+
+Integer	iRet
+
+iRet = Round((iCM / 1000) * 38, 0)
+
+return iRet
+end function
+

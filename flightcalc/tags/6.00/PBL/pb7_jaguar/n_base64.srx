@@ -1,0 +1,14 @@
+HA$PBExportHeader$n_base64.srx
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type n_base64 from CORBAObject
+end type
+global n_base64 n_base64
+
+forward prototypes
+  public:
+function String base64encode (String p0) alias for "base64encode__string"
+function Blob base64encode (Blob p0) alias for "base64encode__BCD_Binary"
+function String base64decode (String p0) alias for "base64decode__string"
+function Blob base64decode (Blob p0) alias for "base64decode__BCD_Binary"
+                end prototypes
+

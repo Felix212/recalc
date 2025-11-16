@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_string_to_datestring.srf
+global type f_string_to_datestring from function_object
+end type
+
+forward prototypes
+global function string f_string_to_datestring (string sdate, date ddefault)
+end prototypes
+
+global function string f_string_to_datestring (string sdate, date ddefault);//
+// f_string_to_datestring
+//
+// Wandelt einen String in einen Zeit-Foramtierten String um
+// Referenzdatum muss mit rein, da es von today() abweichen kann...
+//
+string sDay, sMonth
+integer	iMonth, iDay, iYear
+
+if len(sdate) = 1 then
+	sDate = "0" + sDate
+end if
+
+if len(sDate) = 2 then
+	iDay 		= day(ddefault)
+	iMonth 	= month(ddefault)
+	iYear 	= year(ddefault)
+	if integer(sDate) < iDay then
+		iMonth++
+		if iMonth > 12 then
+			iMonth = 1
+			iYear++
+		end if
+	end if
+	sDate = sDate + "." + string(iMonth,"00") + "." + string(iYear,"0000")
+end if
+
+if len(sDate) = 4 then
+	sDate = mid(sDate,1,2) + "." + mid(sDate,3,2) + "." + string(year(ddefault),"00")
+end if
+
+if not isdate(sdate) then
+	return string(ddefault,s_app.sDateformat)
+else
+	return string(date(sdate),s_app.sDateformat)
+end if
+
+end function
+

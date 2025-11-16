@@ -1,0 +1,48 @@
+HA$PBExportHeader$s_change_aircrafttypes.srs
+global type s_change_aircrafttypes from structure
+	boolean		bsuccess
+	string		sairline
+	string		sactype
+	long		lairlinekey
+	string		sgalleyversion
+	long		laircraftkey
+	boolean		bmeals
+	boolean		bextra
+	date		ddeparture
+	string		sdeparture_time
+	long		lhandlingkey
+	long		lownerkey
+	string		sowner
+	string		shandlingtext
+	string		shandlingdescription
+	long		lflightnumber
+	string		ssuffix
+	boolean		bcanceld
+	boolean		bremove_canneclliation
+	integer		istatus
+	long		lresultkey
+	long		lversiongroupkey
+	datastore		dspax
+	string		sversionstring
+	integer		iflight_status
+	boolean		bdo_meal_calculation
+	long		lcountlegs
+	long		lgroupkey
+	boolean		bchangemultiplelegs
+	s_change_multiple_legs		strmultiplechange
+	long		llegnr
+	integer		iversioncheckplanung
+	integer		iversioncheckprod1
+	integer		iversioncheckprod2
+	integer		iversioncheckmbox
+	string		soriginaltime
+	string		sregistration
+	boolean		bcancel
+	date		dreturn_date
+	string		sdeparture_time_old
+	long		lresult_key_group
+	datastore		dspax_original
+	integer		ilate_order
+	integer		iRegCheck
+end type
+

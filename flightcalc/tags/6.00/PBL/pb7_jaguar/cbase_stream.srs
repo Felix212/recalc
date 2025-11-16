@@ -1,0 +1,12 @@
+HA$PBExportHeader$cbase_stream.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type cbase_stream from structure
+  public:
+    Blob		bstream
+    Long		lstreamsize
+    Integer		istatus
+    String		sstatus
+    String		sstream
+    String		sadditionalinfos
+end type
+

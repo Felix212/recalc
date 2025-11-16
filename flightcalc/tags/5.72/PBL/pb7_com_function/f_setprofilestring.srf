@@ -1,0 +1,69 @@
+HA$PBExportHeader$f_setprofilestring.srf
+$PBExportComments$SetProfilestring aus Datenbank
+global type f_setprofilestring from function_object
+end type
+
+forward prototypes
+global function boolean f_setprofilestring (string ssection, string skey, string svalue)
+end prototypes
+
+global function boolean f_setprofilestring (string ssection, string skey, string svalue);Long 		lFound, &
+			a
+
+String	sReturn
+
+Integer	iRet
+
+
+if sValue = "" then sValue = " " 
+
+lFound = s_app.dsProfile.Find("csection = '" + ssection + "' and ckey = '" + sKey + "'", 1, s_app.dsProfile.RowCount())
+
+// -------------------------------------
+// Treffer
+// -------------------------------------
+if lFound > 0 then
+	
+	s_app.dsProfile.SetItem(lFound, "cvalue", sValue)
+	
+	iRet = s_app.dsProfile.Update() 
+	
+	if iRet = 1 then
+		commit;
+		return true
+	else
+		
+		uf.mbox("Achtung", "Failed to update profile (f_setprofilestring) ErrorCode: " + string(iRet), StopSign!)
+		return false
+	end if
+	
+// -------------------------------------
+// not found .... Dann einf$$HEX1$$fc00$$ENDHEX$$gen
+// -------------------------------------
+else 
+	
+//	Messagebox("bbbbbbbb", ssection + "~r" + skey + "~r" + svalue)
+	
+	a = s_app.dsProfile.InsertRow(0)
+	s_app.dsProfile.SetItem(a, "nuser_id", s_app.lUser_id)
+	s_app.dsProfile.SetItem(a, "csection", sSection)	
+	s_app.dsProfile.SetItem(a, "ckey", sKey)
+	s_app.dsProfile.SetItem(a, "cvalue", sValue)
+	
+	if s_app.dsProfile.Update() = 1 then
+		commit;
+		return true
+	else
+		uf.mbox("Achtung", "Failed to insert profile (f_setprofilestring", StopSign!)
+		return false
+	end if
+	
+end if
+
+return false
+
+
+
+
+end function
+

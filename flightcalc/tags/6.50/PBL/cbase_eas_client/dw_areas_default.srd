@@ -1,0 +1,38 @@
+HA$PBExportHeader$dw_areas_default.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=cen_packinglist_areas_npackinglist_index dbname="cen_packinglist_areas.npackinglist_index_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_packinglist_areas_npackinglist_detai dbname="cen_packinglist_areas.npackinglist_detail_key" )
+ column=(type=char(1) updatewhereclause=yes name=sys_areas_cshort_gr dbname="sys_areas.cshort_gr" )
+ column=(type=char(1) updatewhereclause=yes name=sys_areas_cshort_uk dbname="sys_areas.cshort_uk" )
+ column=(type=char(8) updatewhereclause=yes name=sys_areas_ccode_gr dbname="sys_areas.ccode_gr" )
+ column=(type=char(8) updatewhereclause=yes name=sys_areas_ccode_uk dbname="sys_areas.ccode_uk" )
+ column=(type=decimal(0) updatewhereclause=yes name=sys_areas_narea_id dbname="sys_areas.narea_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_packinglist_areas~" )  TABLE(NAME=~"sys_areas~" )  TABLE(NAME=~"cen_packinglists~" ) COLUMN(NAME=~"cen_packinglist_areas.npackinglist_index_key~") COLUMN(NAME=~"cen_packinglist_areas.npackinglist_detail_key~") COLUMN(NAME=~"sys_areas.cshort_gr~") COLUMN(NAME=~"sys_areas.cshort_uk~") COLUMN(NAME=~"sys_areas.ccode_gr~") COLUMN(NAME=~"sys_areas.ccode_uk~") COLUMN(NAME=~"sys_areas.narea_id~")    JOIN (LEFT=~"cen_packinglist_areas.narea_id~"    OP =~"=~"RIGHT=~"sys_areas.narea_id~" )    JOIN (LEFT=~"cen_packinglists.npackinglist_index_key~"    OP =~"=~"RIGHT=~"cen_packinglist_areas.npackinglist_index_key~" )    JOIN (LEFT=~"cen_packinglists.npackinglist_detail_key~"    OP =~"=~"RIGHT=~"cen_packinglist_areas.npackinglist_detail_key~" )WHERE(    EXP1 =~"cen_packinglist_areas.npackinglist_index_key~"   OP =~"in~"    EXP2 =~":PL_Keys~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"cen_packinglists.dvalid_from~"   OP =~"<=~"    EXP2 =~":arg_date~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"cen_packinglists.dvalid_to~"   OP =~">=~"    EXP2 =~":arg_date~" ) ) ORDER(NAME=~"cen_packinglist_areas.npackinglist_index_key~" ASC=yes ) ARG(NAME = ~"PL_Keys~" TYPE = numberlist)  ARG(NAME = ~"arg_date~" TYPE = datetime) " arguments=(("PL_Keys", numberlist),("arg_date", datetime)) )
+text(band=header alignment="2" text="Cen Packinglist Areas
+Npackinglist Index Key" border="0" color="0" x="5" y="4" height="128" width="608"  name=t_1  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Packinglist Areas
+Npackinglist Detail Key" border="0" color="0" x="617" y="4" height="128" width="617"  name=t_2  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Areas
+Cshort Gr" border="0" color="0" x="1239" y="4" height="128" width="279"  name=sys_areas_cshort_gr_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Areas
+Cshort Uk" border="0" color="0" x="1522" y="4" height="128" width="279"  name=sys_areas_cshort_uk_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Areas
+Ccode Gr" border="0" color="0" x="1810" y="4" height="128" width="279"  name=sys_areas_ccode_gr_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Areas
+Ccode Uk" border="0" color="0" x="2094" y="4" height="128" width="279"  name=sys_areas_ccode_uk_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sys Areas
+Narea Id" border="0" color="0" x="2377" y="4" height="128" width="329"  name=sys_areas_narea_id_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="329" format="[general]"  name=cen_packinglist_areas_npackinglist_index edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="617" y="4" height="76" width="329" format="[general]"  name=cen_packinglist_areas_npackinglist_detai edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1239" y="4" height="76" width="55" format="[general]"  name=sys_areas_cshort_gr edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1522" y="4" height="76" width="55" format="[general]"  name=sys_areas_cshort_uk edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1810" y="4" height="76" width="247" format="[general]"  name=sys_areas_ccode_gr edit.limit=8 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2094" y="4" height="76" width="247" format="[general]"  name=sys_areas_ccode_uk edit.limit=8 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="2377" y="4" height="76" width="329" format="[general]"  name=sys_areas_narea_id edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

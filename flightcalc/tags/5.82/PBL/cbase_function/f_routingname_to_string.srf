@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_routingname_to_string.srf
+global type f_routingname_to_string from function_object
+end type
+
+forward prototypes
+global function string f_routingname_to_string (long lid)
+end prototypes
+
+global function string f_routingname_to_string (long lid);// -------------------------------------
+// Aus der nrouting_id (1,2,3) die
+// den "Buchstaben" ermitten (L,S,D)
+// -------------------------------------
+
+String sRout
+
+SELECT cen_routing.crouting_text
+ INTO :sRout  
+ FROM cen_routing  
+WHERE cen_routing.nrouting_id = :lID ;
+
+if sqlca.sqlcode = 0 then
+	return sRout
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	return "Err"
+end if
+end function
+

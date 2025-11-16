@@ -1,0 +1,28 @@
+HA$PBExportHeader$f_application_init.srf
+$PBExportComments$Checkt ob die Application bereits l$$HEX1$$e400$$ENDHEX$$uft.
+global type f_application_init from function_object
+end type
+
+forward prototypes
+global subroutine f_application_init ()
+end prototypes
+
+global subroutine f_application_init ();// ------------------------------------
+// Application sollte nur einmal Laufen
+// ------------------------------------
+	uint uiVal
+	uiVal = FindWindowA(0,s_app.sTitle)
+	IF uiVal > 0 THEN
+		MessageBox("Application",  &
+		"Application " + s_app.sTitle + " is already running.~n"  &
+		+ "You can't start it twice.",Stopsign!)
+		HALT
+	END IF
+	
+// ------------------------------------
+// Errormessages in Struktur laden
+// ------------------------------------
+//	uf.get_errormessages()
+	
+end subroutine
+

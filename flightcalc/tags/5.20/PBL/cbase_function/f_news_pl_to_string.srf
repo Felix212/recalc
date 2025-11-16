@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_news_pl_to_string.srf
+global type f_news_pl_to_string from function_object
+end type
+
+forward prototypes
+global function string f_news_pl_to_string (long lnewskey)
+end prototypes
+
+global function string f_news_pl_to_string (long lnewskey);
+String sText
+
+SELECT cen_news_pl_index.cnews_pl  
+ INTO :sText  
+ FROM cen_news_pl_index  
+WHERE cen_news_pl_index.nnews_pl_index_key = :lnewskey   ;
+
+if sqlca.sqlcode = 0 then 
+	return sText
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	f_db_error(sqlca, "f_news_pl_to_string")
+	return "Error"
+end if
+
+
+return ""
+end function
+

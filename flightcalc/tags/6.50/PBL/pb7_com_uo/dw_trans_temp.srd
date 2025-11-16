@@ -1,0 +1,13 @@
+HA$PBExportHeader$dw_trans_temp.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(250) update=yes updatewhereclause=yes key=yes name=cpurpose dbname="sys_translate.cpurpose" )
+ column=(type=char(250) update=yes updatewhereclause=yes name=cgerman dbname="sys_translate.cgerman" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sys_translate~" ) COLUMN(NAME=~"sys_translate.cpurpose~") COLUMN(NAME=~"sys_translate.cgerman~")) ORDER(NAME=~"sys_translate.cpurpose~" ASC=yes ) " update="sys_translate" updatewhere=1 updatekeyinplace=no )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="9" y="8" height="76" width="626" format="[general]"  name=cpurpose edit.limit=250 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="645" y="8" height="76" width="699" format="[general]"  name=cgerman edit.limit=250 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

@@ -1,0 +1,12 @@
+HA$PBExportHeader$dbconnect.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type dbconnect from structure
+  public:
+    String		dbms
+    String		logpass
+    String		servername
+    String		logid
+    Boolean		autocommit
+    String		dbparm
+end type
+

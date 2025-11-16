@@ -1,0 +1,71 @@
+HA$PBExportHeader$f_format_datastore.srf
+global type f_format_datastore from function_object
+end type
+
+forward prototypes
+global function integer f_format_datastore (datastore odw, string sreporttitle)
+end prototypes
+
+global function integer f_format_datastore (datastore odw, string sreporttitle);integer 		iDWWidth, &
+				iDWHeight, &
+				iDetailX, &
+				iDetailY
+long			lXpos
+blob			bl_report
+integer 		iMarginTop,iMarginBottom,iMarginLeft,iMarginRight
+integer 		iHeaderHeight,iDetailHeight,iFooterHeight,iSummaryHeight
+
+// ---------------------------------------------------------------------------
+// Quality High
+// ---------------------------------------------------------------------------
+	oDW.Object.DataWindow.Print.Quality = "1" 
+// ---------------------------------------------------------------------------
+// Welche Orientation ? 1 = Landscape	2 = Portrait
+// ---------------------------------------------------------------------------
+If oDW.Object.DataWindow.Print.Orientation = "1" Then
+	iDWWidth 	= 1123 
+	iDWHeight	= 793  
+Elseif oDW.Object.DataWindow.Print.Orientation = "2" Then
+	iDWWidth 	= 793  
+	iDWHeight	= 1123 
+else
+	iDWWidth 	= 1123 
+	iDWHeight	= 793  
+End if	
+// ---------------------------------------------------------------------------
+// Layout Header
+// ---------------------------------------------------------------------------
+if len(trim(sReporttitle)) > 0 then
+	oDW.Object.t_title.text = sReporttitle	
+end if
+
+//oDW.Object.p_logo.filename 		= sLogo
+// ---------------------------------------------------------------------------
+// Layout Footer
+// ---------------------------------------------------------------------------
+oDW.Object.DataWindow.Footer.Height	= "24" 
+oDW.Object.t_signature.text 			= s_app.sOrga
+oDW.Object.t_printed.text 				= string(today(),s_app.sDateformat) + &
+										  			"  " + string(now(),"HH:MM")
+													  
+													  
+//messagebox("", string(oDW.Object.t_signature.text))													  
+// ---------------------------------------------------------------------------
+// R$$HEX1$$e400$$ENDHEX$$nder ermitteln
+// ---------------------------------------------------------------------------
+iMarginTop		= integer(oDW.Object.DataWindow.Print.Margin.Top)
+iMarginBottom	= integer(oDW.Object.DataWindow.Print.Margin.Bottom)
+iMarginLeft		= integer(oDW.Object.DataWindow.Print.Margin.Left)
+iMarginRight	= integer(oDW.Object.DataWindow.Print.Margin.Right)
+iHeaderheight  = integer(oDW.Object.DataWindow.Header.Height)
+iFooterheight  = integer(oDW.Object.DataWindow.Footer.Height)	
+iSummaryHeight = integer(oDW.Object.DataWindow.Summary.Height)	
+// ---------------------------------------------------------------------------
+// Optimales Detail errechnen
+// ---------------------------------------------------------------------------	
+iDetailheight = iDWHeight - 4 - (iHeaderheight + iFooterheight + iSummaryHeight + iMarginTop + iMarginBottom )
+oDW.Object.r_detail.Height 	= string(iDetailheight + 4)
+
+return 0
+end function
+

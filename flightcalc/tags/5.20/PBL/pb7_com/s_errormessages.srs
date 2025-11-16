@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_errormessages.srs
+global type s_errormessages from structure
+	integer		iType
+	long		lErrorNumber
+	string		sErrorText
+end type
+

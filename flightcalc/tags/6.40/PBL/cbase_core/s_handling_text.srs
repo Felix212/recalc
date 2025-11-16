@@ -1,0 +1,9 @@
+HA$PBExportHeader$s_handling_text.srs
+global type s_handling_text from structure
+	string		stext
+	string		stext1
+	string		stext2
+	string		stext3
+	string		stext4
+end type
+

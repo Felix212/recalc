@@ -1,0 +1,15 @@
+HA$PBExportHeader$s_distribution_divide_manually.srs
+global type s_distribution_divide_manually from structure
+	uo_distribution		uodistribution
+	datastore		dscontents
+	datastore		dsstowagegroupvalues
+	boolean		bsuccessful
+	string		slastclass
+	long		llastvalues[]
+	boolean		baskagain
+	long		llastpercents[]
+	blob		blastgroupvalues
+	long		laircraftkey
+	long		ilastleg
+end type
+

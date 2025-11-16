@@ -1,0 +1,420 @@
+HA$PBExportHeader$dw_cen_out_browser_recycling_data_meals.srd
+release 10;
+datawindow(units=1 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 24 print.margin.right = 24 print.margin.top = 24 print.margin.bottom = 24 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=68 color="536870912" )
+summary(height=2 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=24 color="536870912" )
+table(column=(type=number updatewhereclause=yes name=elapse dbname="elapse" )
+ column=(type=number updatewhereclause=yes name=status_cpackinglist dbname="status_cpackinglist" )
+ column=(type=number updatewhereclause=yes name=status_ctext dbname="status_ctext" )
+ column=(type=number updatewhereclause=yes name=status_nquantity dbname="status_nquantity" )
+ column=(type=number updatewhereclause=yes name=status_cuser_text dbname="status_cuser_text" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nprio dbname="cen_out_meals.nprio" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=cclass dbname="cen_out_meals.cclass" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nclass_number dbname="cen_out_meals.nclass_number" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncover_prio dbname="cen_out_meals.ncover_prio" )
+ column=(type=char(10) update=yes updatewhereclause=yes name=crotation dbname="cen_out_meals.crotation" )
+ column=(type=char(84) update=yes updatewhereclause=yes name=cproduction_text dbname="cen_out_meals.cproduction_text" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=cpackinglist dbname="cen_out_meals.cpackinglist" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cremark dbname="cen_out_meals.cremark" )
+ column=(type=char(4) update=yes updatewhereclause=yes name=cmeal_control_code dbname="cen_out_meals.cmeal_control_code" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncalc_basis dbname="cen_out_meals.ncalc_basis" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nreserve_quantity dbname="cen_out_meals.nreserve_quantity" validationmsg="~"Bitte geben Sie einen g$$HEX1$$fc00$$ENDHEX$$ltigen Wert ein!~"" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntopoff_quantity dbname="cen_out_meals.ntopoff_quantity" validationmsg="~"Bitte geben Sie einen g$$HEX1$$fc00$$ENDHEX$$ltigen Wert ein!~"" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nreserve_type dbname="cen_out_meals.nreserve_type" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntopoff_type dbname="cen_out_meals.ntopoff_type" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nbilling_status dbname="cen_out_meals.nbilling_status" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmanual_input dbname="cen_out_meals.nmanual_input" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npax_manual dbname="cen_out_meals.npax_manual" validationmsg="~"Bitte geben Sie einen g$$HEX1$$fc00$$ENDHEX$$ltigen Wert ein!~"" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=ndetail_key dbname="cen_out_meals.ndetail_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ntransaction dbname="cen_out_meals.ntransaction" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nresult_key dbname="cen_out_meals.nresult_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nhandling_key dbname="cen_out_meals.nhandling_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nhandling_detail_key dbname="cen_out_meals.nhandling_detail_key" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=chandling_text dbname="cen_out_meals.chandling_text" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncover_key dbname="cen_out_meals.ncover_key" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=ccover_text dbname="cen_out_meals.ccover_text" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nhandling_meal_key dbname="cen_out_meals.nhandling_meal_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nrotation_key dbname="cen_out_meals.nrotation_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nrotation_name_key dbname="cen_out_meals.nrotation_name_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmodule_type dbname="cen_out_meals.nmodule_type" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npackinglist_index_key dbname="cen_out_meals.npackinglist_index_key" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=cunit dbname="cen_out_meals.cunit" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncomponent_group dbname="cen_out_meals.ncomponent_group" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nforeign_object dbname="cen_out_meals.nforeign_object" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nforeign_group dbname="cen_out_meals.nforeign_group" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nask4passenger dbname="cen_out_meals.nask4passenger" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cquestion_text dbname="cen_out_meals.cquestion_text" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npassenger_group dbname="cen_out_meals.npassenger_group" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nquantity_group dbname="cen_out_meals.nquantity_group" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=naccount_key dbname="cen_out_meals.naccount_key" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=caccount dbname="cen_out_meals.caccount" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncalc_id dbname="cen_out_meals.ncalc_id" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncalc_detail_key dbname="cen_out_meals.ncalc_detail_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npercentage dbname="cen_out_meals.npercentage" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nvalue dbname="cen_out_meals.nvalue" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nspml_deduction dbname="cen_out_meals.nspml_deduction" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nac_transfer dbname="cen_out_meals.nac_transfer" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npax dbname="cen_out_meals.npax" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity_old dbname="cen_out_meals.nquantity_old" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmanual_processing dbname="cen_out_meals.nmanual_processing" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dtimestamp dbname="cen_out_meals.dtimestamp" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nstatus dbname="cen_out_meals.nstatus" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=cdescription dbname="cen_out_meals.cdescription" )
+ column=(type=number updatewhereclause=yes name=status_cremark dbname="status_cremark" )
+ column=(type=number updatewhereclause=yes name=status_cproduction_text dbname="status_cproduction_text" )
+ column=(type=number updatewhereclause=yes name=status_npax_manual dbname="status_npax_manual" )
+ column=(type=number updatewhereclause=yes name=status_nreserve_quantity dbname="status_nreserve_quantity" )
+ column=(type=number updatewhereclause=yes name=status_ntopoff_quantity dbname="status_ntopoff_quantity" )
+ column=(type=number updatewhereclause=yes name=noverload dbname="noverload" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity dbname="cen_out_meals.nquantity" validationmsg="~"Bitte geben Sie einen g$$HEX1$$fc00$$ENDHEX$$ltigen Wert ein!~"" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity1 dbname="cen_out_meals.nquantity1" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity2 dbname="cen_out_meals.nquantity2" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity3 dbname="cen_out_meals.nquantity3" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity4 dbname="cen_out_meals.nquantity4" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity5 dbname="cen_out_meals.nquantity5" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity6 dbname="cen_out_meals.nquantity6" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity7 dbname="cen_out_meals.nquantity7" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nspml_quantity dbname="cen_out_meals.nspml_quantity" )
+ column=(type=char(3) update=yes updatewhereclause=yes name=carea_host dbname="cen_out_meals.carea_host" )
+ column=(type=char(2) update=yes updatewhereclause=yes name=ceffort_host dbname="cen_out_meals.ceffort_host" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=cadditional_account dbname="cen_out_meals.cadditional_account" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npltype_key dbname="cen_out_meals.npltype_key" )
+ column=(type=number updatewhereclause=yes name=nreduced dbname="nreduced" )
+ column=(type=number updatewhereclause=yes name=edit_counter dbname="edit_counter" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npl_kind_key dbname="cen_out_meals.npl_kind_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npackinglist_key dbname="cen_out_meals.npackinglist_key" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npackinglist_detail_key dbname="cen_out_meals.npackinglist_detail_key" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=ctext dbname="cen_out_meals.ctext" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ndistribute dbname="cen_out_meals.ndistribute" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nposting_type dbname="cen_out_meals.nposting_type" )
+ column=(type=number updatewhereclause=yes name=nmeal_marker dbname="nmeal_marker" )
+ column=(type=number updatewhereclause=yes name=ncompare dbname="ncompare" initial="0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ndelivery_note dbname="cen_out_meals.ndelivery_note" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=cdelivery_snr dbname="cen_out_meals.cdelivery_snr" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cdelivery_text dbname="cen_out_meals.cdelivery_text" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncontrolling dbname="cen_out_meals.ncontrolling" )
+ column=(type=char(40) update=yes updatewhereclause=yes name=cclasses dbname="cen_out_meals.cclasses" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nstationentry dbname="cen_out_meals.nstationentry" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=ccustomer_pl dbname="cen_out_meals.ccustomer_pl" )
+ column=(type=char(84) update=yes updatewhereclause=yes name=ccustomer_text dbname="cen_out_meals.ccustomer_text" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nimport_from_bob dbname="cen_out_meals.nimport_from_bob" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nremark_manual dbname="cen_out_meals.nremark_manual" initial="0" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nlocal_sub dbname="cen_out_meals.nlocal_sub" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npl_index_key_ori dbname="cen_out_meals.npl_index_key_ori" )
+ column=(type=char(84) update=yes updatewhereclause=yes name=ctext_ori dbname="cen_out_meals.ctext_ori" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncalc_id_ori dbname="cen_out_meals.ncalc_id_ori" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ncalc_detail_key_ori dbname="cen_out_meals.ncalc_detail_key_ori" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=npercentage_ori dbname="cen_out_meals.npercentage_ori" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nvalue_ori dbname="cen_out_meals.nvalue_ori" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=cpackinglist_ori dbname="cen_out_meals.cpackinglist_ori" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nmax_value_ori dbname="cen_out_meals.nmax_value_ori" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=nquantity_version dbname="cen_out_meals.nquantity_version" )
+ column=(type=number updatewhereclause=yes name=noverload_version dbname="noverload_version" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=cpackinglist_xsl dbname="cen_out_meals.cpackinglist_xsl" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmax_value dbname="cen_out_meals.nmax_value" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmin_value dbname="cen_out_meals.nmin_value" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=nmanual_comp dbname="cen_out_meals.nmanual_comp" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_temp dbname="cen_out_meals.ntb_temp" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_top_up dbname="cen_out_meals.ntb_top_up" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_top_down dbname="cen_out_meals.ntb_top_down" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_recy dbname="cen_out_meals.ntb_w_recy" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_cold dbname="cen_out_meals.ntb_w_cold" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_pack dbname="cen_out_meals.ntb_w_pack" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_peris dbname="cen_out_meals.ntb_w_peris" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_samp dbname="cen_out_meals.ntb_w_samp" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_brok dbname="cen_out_meals.ntb_w_brok" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_look dbname="cen_out_meals.ntb_w_look" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_other dbname="cen_out_meals.ntb_w_other" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_undef_1 dbname="cen_out_meals.ntb_w_undef_1" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_undef_2 dbname="cen_out_meals.ntb_w_undef_2" )
+ column=(type=decimal(3) update=yes updatewhereclause=yes name=ntb_w_undef_3 dbname="cen_out_meals.ntb_w_undef_3" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_packinglist_flags_nflag_id dbname="cen_packinglist_flags.nflag_id" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_packinglist_flags_nairline_key dbname="cen_packinglist_flags.nairline_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_packinglist_flags_npl_kind_key dbname="cen_packinglist_flags.npl_kind_key" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=ctb_remark dbname="cen_out_meals.ctb_remark" )
+ retrieve="  SELECT        0 elapse,
+         0 status_cpackinglist,   
+         0 status_ctext,   
+         0 status_nquantity,   
+         0 status_cuser_text,   
+         CEN_OUT_MEALS.NPRIO,   
+         CEN_OUT_MEALS.CCLASS,   
+         CEN_OUT_MEALS.NCLASS_NUMBER,   
+         CEN_OUT_MEALS.NCOVER_PRIO,   
+         CEN_OUT_MEALS.CROTATION,   
+         CEN_OUT_MEALS.CPRODUCTION_TEXT,   
+         CEN_OUT_MEALS.CPACKINGLIST,   
+         CEN_OUT_MEALS.CREMARK,   
+         CEN_OUT_MEALS.CMEAL_CONTROL_CODE,   
+         CEN_OUT_MEALS.NCALC_BASIS,   
+         CEN_OUT_MEALS.NRESERVE_QUANTITY,   
+         CEN_OUT_MEALS.NTOPOFF_QUANTITY,   
+         CEN_OUT_MEALS.NRESERVE_TYPE,   
+         CEN_OUT_MEALS.NTOPOFF_TYPE,   
+         CEN_OUT_MEALS.NBILLING_STATUS,   
+         CEN_OUT_MEALS.NMANUAL_INPUT,   
+         CEN_OUT_MEALS.NPAX_MANUAL,   
+         CEN_OUT_MEALS.NDETAIL_KEY,   
+         CEN_OUT_MEALS.NTRANSACTION,   
+         CEN_OUT_MEALS.NRESULT_KEY,   
+         CEN_OUT_MEALS.NHANDLING_KEY,   
+         CEN_OUT_MEALS.NHANDLING_DETAIL_KEY,   
+         CEN_OUT_MEALS.CHANDLING_TEXT,   
+         CEN_OUT_MEALS.NCOVER_KEY,   
+         CEN_OUT_MEALS.CCOVER_TEXT,   
+         CEN_OUT_MEALS.NHANDLING_MEAL_KEY,   
+         CEN_OUT_MEALS.NROTATION_KEY,   
+         CEN_OUT_MEALS.NROTATION_NAME_KEY,   
+         CEN_OUT_MEALS.NMODULE_TYPE,   
+         CEN_OUT_MEALS.NPACKINGLIST_INDEX_KEY,   
+         CEN_OUT_MEALS.CUNIT,   
+         CEN_OUT_MEALS.NCOMPONENT_GROUP,   
+         CEN_OUT_MEALS.NFOREIGN_OBJECT,   
+         CEN_OUT_MEALS.NFOREIGN_GROUP,   
+         CEN_OUT_MEALS.NASK4PASSENGER,   
+         CEN_OUT_MEALS.CQUESTION_TEXT,   
+         CEN_OUT_MEALS.NPASSENGER_GROUP,   
+         CEN_OUT_MEALS.NQUANTITY_GROUP,   
+         CEN_OUT_MEALS.NACCOUNT_KEY,   
+         CEN_OUT_MEALS.CACCOUNT,   
+         CEN_OUT_MEALS.NCALC_ID,   
+         CEN_OUT_MEALS.NCALC_DETAIL_KEY,   
+         CEN_OUT_MEALS.NPERCENTAGE,   
+         CEN_OUT_MEALS.NVALUE,   
+         CEN_OUT_MEALS.NSPML_DEDUCTION,   
+         CEN_OUT_MEALS.NAC_TRANSFER,   
+         CEN_OUT_MEALS.NPAX,   
+         CEN_OUT_MEALS.NQUANTITY_OLD,
+         CEN_OUT_MEALS.NMANUAL_PROCESSING,   
+         CEN_OUT_MEALS.DTIMESTAMP,   
+         CEN_OUT_MEALS.NSTATUS,   
+         CEN_OUT_MEALS.CDESCRIPTION,   
+         0 status_cremark,   
+         0 status_cproduction_text,   
+         0 status_npax_manual,   
+         0 status_nreserve_quantity,   
+         0 status_ntopoff_quantity,   
+         0 noverload,   
+         CEN_OUT_MEALS.NQUANTITY,   
+         CEN_OUT_MEALS.NQUANTITY1,   
+         CEN_OUT_MEALS.NQUANTITY2,   
+         CEN_OUT_MEALS.NQUANTITY3,   
+         CEN_OUT_MEALS.NQUANTITY4,   
+         CEN_OUT_MEALS.NQUANTITY5,   
+         CEN_OUT_MEALS.NQUANTITY6,   
+         CEN_OUT_MEALS.NQUANTITY7,   
+         CEN_OUT_MEALS.NSPML_QUANTITY,   
+         CEN_OUT_MEALS.CAREA_HOST,   
+         CEN_OUT_MEALS.CEFFORT_HOST,   
+         CEN_OUT_MEALS.CADDITIONAL_ACCOUNT,   
+         CEN_OUT_MEALS.NPLTYPE_KEY,   
+         0 nreduced,   
+         0 edit_counter,   
+         CEN_OUT_MEALS.NPL_KIND_KEY,   
+         CEN_OUT_MEALS.NPACKINGLIST_KEY,   
+         CEN_OUT_MEALS.NPACKINGLIST_DETAIL_KEY,   
+         CEN_OUT_MEALS.CTEXT,   
+         CEN_OUT_MEALS.NDISTRIBUTE,   
+         CEN_OUT_MEALS.NPOSTING_TYPE,   
+         0 nmeal_marker,   
+         0 ncompare,   
+         CEN_OUT_MEALS.NDELIVERY_NOTE,   
+         CEN_OUT_MEALS.CDELIVERY_SNR,   
+         CEN_OUT_MEALS.CDELIVERY_TEXT,   
+         CEN_OUT_MEALS.NCONTROLLING,   
+         CEN_OUT_MEALS.CCLASSES,   
+         CEN_OUT_MEALS.NSTATIONENTRY,   
+         CEN_OUT_MEALS.CCUSTOMER_PL,   
+         CEN_OUT_MEALS.CCUSTOMER_TEXT,   
+         CEN_OUT_MEALS.NIMPORT_FROM_BOB,   
+         CEN_OUT_MEALS.NREMARK_MANUAL,   
+         CEN_OUT_MEALS.NLOCAL_SUB,   
+         CEN_OUT_MEALS.NPL_INDEX_KEY_ORI,   
+         CEN_OUT_MEALS.CTEXT_ORI,   
+         CEN_OUT_MEALS.NCALC_ID_ORI,   
+         CEN_OUT_MEALS.NCALC_DETAIL_KEY_ORI,   
+         CEN_OUT_MEALS.NPERCENTAGE_ORI,   
+         CEN_OUT_MEALS.NVALUE_ORI,   
+         CEN_OUT_MEALS.CPACKINGLIST_ORI,   
+         CEN_OUT_MEALS.NMAX_VALUE_ORI,
+         CEN_OUT_MEALS.NQUANTITY_VERSION,   
+         0 noverload_version,   
+         CEN_OUT_MEALS.CPACKINGLIST_XSL,   
+         CEN_OUT_MEALS.NMAX_VALUE,   
+         CEN_OUT_MEALS.NMIN_VALUE,   
+         CEN_OUT_MEALS.NMANUAL_COMP,   
+         CEN_OUT_MEALS.NTB_TEMP,   
+         CEN_OUT_MEALS.NTB_TOP_UP,   
+         CEN_OUT_MEALS.NTB_TOP_DOWN,   
+         CEN_OUT_MEALS.NTB_W_RECY,   
+         CEN_OUT_MEALS.NTB_W_COLD,   
+         CEN_OUT_MEALS.NTB_W_PACK,   
+         CEN_OUT_MEALS.NTB_W_PERIS,   
+         CEN_OUT_MEALS.NTB_W_SAMP,   
+         CEN_OUT_MEALS.NTB_W_BROK,   
+         CEN_OUT_MEALS.NTB_W_LOOK,   
+         CEN_OUT_MEALS.NTB_W_OTHER,   
+         CEN_OUT_MEALS.NTB_W_UNDEF_1,   
+         CEN_OUT_MEALS.NTB_W_UNDEF_2,   
+         CEN_OUT_MEALS.NTB_W_UNDEF_3,   
+         CEN_PACKINGLIST_FLAGS.NFLAG_ID,   
+         CEN_PACKINGLIST_FLAGS.NAIRLINE_KEY,   
+         CEN_PACKINGLIST_FLAGS.NPL_KIND_KEY,
+         CEN_OUT_MEALS.ctb_remark   
+
+FROM		CEN_OUT_MEALS
+
+JOIN 		CEN_PACKINGLISTS
+ON 		CEN_PACKINGLISTS.NPACKINGLIST_INDEX_KEY 			=  CEN_OUT_MEALS.NPACKINGLIST_INDEX_KEY 			AND
+   			CEN_PACKINGLISTS.NPACKINGLIST_DETAIL_KEY 			=  CEN_OUT_MEALS.NPACKINGLIST_DETAIL_KEY
+
+JOIN 		CEN_PACKINGLIST_INDEX
+ON 		CEN_PACKINGLISTS.NPACKINGLIST_INDEX_KEY 			= CEN_PACKINGLIST_INDEX.NPACKINGLIST_INDEX_KEY
+
+JOIN 		CEN_PACKINGLIST_FLAGS
+ON 		CEN_PACKINGLIST_FLAGS.NPACKINGLIST_INDEX_KEY 	=  CEN_PACKINGLISTS.NPACKINGLIST_INDEX_KEY 		AND
+   			CEN_PACKINGLIST_FLAGS.NPACKINGLIST_DETAIL_KEY 	=  CEN_PACKINGLISTS.NPACKINGLIST_DETAIL_KEY  		AND
+   			CEN_PACKINGLIST_FLAGS.NAIRLINE_KEY 					=  CEN_PACKINGLISTS.NAIRLINE_KEY 						AND
+   			CEN_PACKINGLIST_FLAGS.NPL_KIND_KEY 					=  CEN_PACKINGLIST_INDEX.NPL_KIND_KEY
+
+WHERE 	CEN_OUT_MEALS.NRESULT_KEY 								= :ARG_RESULT_KEY 											AND
+  			CEN_PACKINGLIST_FLAGS.CFLAGVALUE 						= 'Waste - Train'
+" update="CEN_OUT_MEALS" updatewhere=0 updatekeyinplace=yes arguments=(("arg_result_key", number))  sort="nclass_number A ncover_prio A chandling_text A nprio A " )
+text(band=header alignment="0" text="" border="6" color="0" x="4" y="3" height="63" width="1338" html.valueishtml="0"  name=t_7 visible="0"  font.face="MS Sans Serif" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+rectangle(band=header x="567" y="23" height="42" width="500"  name=r_42 visible="1" brush.hatch="6" brush.color="15780518~trgb(230,230,230)" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="0" background.color="553648127~trgb(210,210,210)" )
+line(band=header x1="1" y1="41" x2="1" y2="66"  name=l_8 visible="1" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header x1="1" y1="2" x2="1" y2="45"  name=l_4 visible="0" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+rectangle(band=header x="1017" y="46" height="21" width="51"  name=r_40 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+line(band=header x1="1" y1="0" x2="1344" y2="0"  name=l_3 visible="0" pen.style="0" pen.width="1" pen.color="0"  background.mode="2" background.color="16777215" )
+rectangle(band=header x="817" y="46" height="21" width="51"  name=r_36 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="517" y="46" height="21" width="51"  name=r_7 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="567" y="46" height="21" width="51"  name=r_11 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="467" y="46" height="21" width="51"  name=r_8 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="194" y="46" height="21" width="160"  name=r_12 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Kl." border="0" color="0" x="37" y="50" height="13" width="16" html.valueishtml="0"  name=t_3 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=header x="34" y="46" height="21" width="22"  name=r_78 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+bitmap(band=header filename="..\Resource\headline.gif" x="54" y="11" height="11" width="1257" border="0"  name=p_6 visible="1" )
+bitmap(band=header filename="..\Resource\Icons\Small\folder_closed.png" x="12" y="49" height="16" width="16" border="0"  name=p_5 visible="1" )
+bitmap(band=header filename="..\Resource\Icons\Small\folder.png" x="12" y="49" height="16" width="16" border="0"  name=p_4 visible="1~tif(elapse = 0 , 1, 0)" )
+line(band=header x1="33" y1="45" x2="33" y2="65"  name=l_5 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="54" y1="47" x2="54" y2="66"  name=l_50 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="666" y1="47" x2="666" y2="66"  name=l_16 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="352" y1="47" x2="352" y2="66"  name=l_12 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="193" y1="47" x2="193" y2="66"  name=l_21 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="466" y1="47" x2="466" y2="66"  name=l_6 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="516" y1="47" x2="516" y2="66"  name=l_7 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="34" y1="45" x2="1313" y2="45"  name=l_anchor visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="St$$HEX1$$fc00$$ENDHEX$$ckliste" border="0" color="0" x="58" y="50" height="13" width="119" html.valueishtml="0"  name=t_4 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Bemerkung" border="0" color="0" x="356" y="50" height="13" width="109" html.valueishtml="0"  name=t_6 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=header x="353" y="46" height="21" width="115"  name=r_19 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="55" y="46" height="21" width="140"  name=r_14 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Bezeichnung" border="0" color="0" x="197" y="50" height="13" width="154" html.valueishtml="0"  name=t_5 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="566" y1="47" x2="566" y2="66"  name=l_9 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="616" y1="47" x2="616" y2="66"  name=l_10 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+rectangle(band=header x="617" y="46" height="21" width="51"  name=r_13 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="667" y="46" height="21" width="51"  name=r_15 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="717" y="46" height="21" width="51"  name=r_34 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="767" y="46" height="21" width="51"  name=r_35 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="867" y="46" height="21" width="51"  name=r_37 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="917" y="46" height="21" width="51"  name=r_38 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Up" border="0" color="0" x="520" y="50" height="14" width="43" html.valueishtml="0"  name=t_8 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Undef" border="0" color="8421504" x="570" y="50" height="13" width="43" html.valueishtml="0"  name=t_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Rec" border="0" color="8421504" x="621" y="50" height="13" width="43" html.valueishtml="0"  name=t_2 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="1215" y1="47" x2="1215" y2="66"  name=l_15 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="1115" y1="47" x2="1115" y2="66"  name=l_14 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="1165" y1="47" x2="1165" y2="66"  name=l_11 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="716" y1="47" x2="716" y2="66"  name=l_13 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="766" y1="47" x2="766" y2="66"  name=l_17 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="816" y1="47" x2="816" y2="66"  name=l_18 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="866" y1="47" x2="866" y2="66"  name=l_19 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="916" y1="47" x2="916" y2="66"  name=l_20 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="966" y1="47" x2="966" y2="66"  name=l_22 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="1016" y1="47" x2="1016" y2="66"  name=l_23 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="1066" y1="47" x2="1066" y2="66"  name=l_24 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="1310" y1="47" x2="1310" y2="66"  name=l_26 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+rectangle(band=header x="967" y="46" height="21" width="51"  name=r_39 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="1067" y="46" height="21" width="50"  name=r_18 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=header x="1116" y="46" height="21" width="51"  name=r_20 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Diff" border="0" color="0" x="1072" y="50" height="13" width="39" html.valueishtml="0"  name=t_9 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Final" border="0" color="0" x="1119" y="50" height="13" width="43" html.valueishtml="0"  name=t_10 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=header x="1166" y="46" height="21" width="51"  name=r_21 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Temp." border="0" color="0" x="1170" y="50" height="13" width="44" html.valueishtml="0"  name=t_11 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Remark" border="0" color="0" x="1222" y="50" height="13" width="45" html.valueishtml="0"  name=t_21 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=header x="1216" y="46" height="21" width="96"  name=r_41 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Top down" border="0" color="0" x="571" y="29" height="13" width="486" html.valueishtml="0"  name=t_topdown visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=header x1="1066" y1="26" x2="1067" y2="67"  name=l_25 visible="1" pen.style="0" pen.width="2" pen.color="8421504"  background.mode="2" background.color="16777215" )
+line(band=header x1="566" y1="30" x2="566" y2="49"  name=l_27 visible="1" pen.style="0" pen.width="1" pen.color="16777215"  background.mode="2" background.color="16777215" )
+line(band=header x1="566" y1="25" x2="1065" y2="25"  name=l_28 visible="1" pen.style="0" pen.width="2" pen.color="8421504"  background.mode="2" background.color="16777215" )
+compute(band=header alignment="2" expression="sum( nquantity_old )"border="0" color="16711680" x="443" y="23" height="18" width="26" format="[GENERAL]" html.valueishtml="0"  name=compute_old visible="0"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )
+compute(band=header alignment="2" expression="sum( nquantity )"border="0" color="16711680" x="505" y="23" height="18" width="26" format="[GENERAL]" html.valueishtml="0"  name=compute_sum_qty visible="0"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="65535" )
+line(band=header x1="567" y1="26" x2="567" y2="67"  name=l_30 visible="1" pen.style="0" pen.width="2" pen.color="8421504"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="$$HEX2$$a3032000$$ENDHEX$$Down" border="0" color="0" x="1022" y="49" height="13" width="40" html.valueishtml="0"  name=t_summe visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Menge" border="0" color="0" x="471" y="50" height="13" width="43" html.valueishtml="0"  name=t_12 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="DLC" border="0" color="8421504" x="771" y="50" height="13" width="43" html.valueishtml="0"  name=t_16 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Sam" border="0" color="8421504" x="820" y="50" height="13" width="43" html.valueishtml="0"  name=t_17 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Look" border="0" color="8421504" x="921" y="50" height="13" width="43" html.valueishtml="0"  name=t_18 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Oth" border="0" color="8421504" x="971" y="50" height="13" width="43" html.valueishtml="0"  name=t_19 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Pack" border="0" color="8421504" x="721" y="50" height="13" width="43" html.valueishtml="0"  name=t_15 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Brok" border="0" color="8421504" x="870" y="50" height="13" width="43" html.valueishtml="0"  name=t_14 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Temp" border="0" color="8421504" x="671" y="50" height="13" width="43" html.valueishtml="0"  name=t_13 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+rectangle(band=detail x="1067" y="1" height="21" width="51"  name=r_32 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="34" y="1" height="21" width="1278"  name=r_23 visible="1~tif(currentRow() = getrow(),1,0)" brush.hatch="6" brush.color="29229055" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="31522520" )
+rectangle(band=detail x="1167" y="1" height="21" width="51"  name=r_1 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="467" y="1" height="21" width="51"  name=r_9 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="517" y="1" height="21" width="51"  name=r_5 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+line(band=detail x1="22" y1="0" x2="22" y2="53~tif(GetRow() = RowCount() ,10,120) "  name=l_1 visible="1" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="16777215" )
+line(band=detail x1="22" y1="10" x2="35" y2="10"  name=l_2 visible="1" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="2" background.color="16777215" )
+rectangle(band=detail x="194" y="1" height="21" width="160"  name=r_4 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="353" y="1" height="21" width="115"  name=r_6 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504~tif ( nremark_manual =0, RGB(128,128,128),RGB(255,0,0))"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="55" y="1" height="21" width="140"  name=r_3 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504~tif (  nlocal_sub = 1, RGB(255,0,0), RGB(128,128,128))"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="567" y="1" height="21" width="51"  name=r_10 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="617" y="1" height="21" width="51"  name=r_22 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="667" y="1" height="21" width="51"  name=r_24 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="717" y="1" height="21" width="51"  name=r_25 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="767" y="1" height="21" width="51"  name=r_26 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="817" y="1" height="21" width="51"  name=r_27 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="867" y="1" height="21" width="51"  name=r_28 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="917" y="1" height="21" width="51"  name=r_29 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="967" y="1" height="21" width="51"  name=r_30 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="1017" y="1" height="21" width="51"  name=r_31 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="1117" y="1" height="21" width="51"  name=r_33 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="34" y="1" height="21" width="22"  name=r_2 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="37" y="4" height="15" width="16" format="[general]" html.valueishtml="0"  name=cclass visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="0~tif(    status_cpackinglist = 1,255,  0)" x="58" y="4" height="15" width="134" format="[general]" html.valueishtml="0"  name=cpackinglist visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400~tif(status_cpackinglist = 1   or (cpackinglist = cpackinglist_xsl), 700, 400)"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="0~tif(    status_cpackinglist = 1,255,0)" x="197" y="4" height="15" width="154" format="[general]" html.valueishtml="0"  name=cproduction_text visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400~tif(   status_cpackinglist = 1,700,400) "  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0~t
+if(   status_cremark = 1,255,0)" x="356" y="4" height="15" width="109" format="[general]" html.valueishtml="0"  name=cremark visible="1" edit.limit=40 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400~tif(  status_cremark  = 1,700,400)"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=53 alignment="1" tabsequence=32766 border="0" color="0" x="470" y="4" height="15" width="44" format="#" html.valueishtml="0"  name=nquantity_old visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=113 alignment="1" tabsequence=10 border="0" color="0" x="521" y="4" height="15" width="44" format="#" html.valueishtml="0"  name=ntb_top_up visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=122 alignment="1" tabsequence=100 border="0" color="0" x="971" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_w_other visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=123 alignment="1" tabsequence=20 border="0" color="0" x="570" y="5" height="14" width="45" format="#" html.valueishtml="0"  name=ntb_w_undef_1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=114 alignment="1" tabsequence=110 border="0" color="0" x="1020" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_top_down visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=115 alignment="1" tabsequence=30 border="0" color="0" x="621" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_w_recy visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=116 alignment="1" tabsequence=40 border="0" color="0" x="671" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_w_cold visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=117 alignment="1" tabsequence=50 border="0" color="0" x="721" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_w_pack visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=118 alignment="1" tabsequence=60 border="0" color="0" x="770" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_w_peris visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=119 alignment="1" tabsequence=70 border="0" color="0" x="821" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_w_samp visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=120 alignment="1" tabsequence=80 border="0" color="0" x="871" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_w_brok visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=121 alignment="1" tabsequence=90 border="0" color="0" x="921" y="5" height="14" width="44" format="#" html.valueishtml="0"  name=ntb_w_look visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+compute(band=detail alignment="1" expression="  nquantity -  nquantity_old"border="0" color="0" x="1071" y="5" height="14" width="43" format="##" html.valueishtml="0"  name=compute_1 visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=64 alignment="1" tabsequence=32766 border="0" color="0~tif(   status_nquantity = 1,255,0)" x="1120" y="4" height="15" width="45" format="#" html.valueishtml="0"  name=nquantity visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.required=yes edit.nilisnull=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400~tif(  status_nquantity = 1,700,700)"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+rectangle(band=detail x="1167" y="1" height="21" width="51"  name=r_17 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+rectangle(band=detail x="1217" y="1" height="21" width="95"  name=r_16 visible="1" brush.hatch="7" brush.color="553648127" pen.style="0" pen.width="1" pen.color="8421504"  background.mode="1" background.color="553648127" )
+column(band=detail id=129 alignment="0" tabsequence=130 border="0" color="0" x="1221" y="4" height="13" width="88" format="[general]" html.valueishtml="0"  name=ctb_remark visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+column(band=detail id=112 alignment="1" tabsequence=120 border="0" color="0" x="1170" y="4" height="15" width="43" format="## $$HEX1$$b000$$ENDHEX$$;-## $$HEX1$$b000$$ENDHEX$$" html.valueishtml="0"  name=ntb_temp visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.nilisnull=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif(currentRow() = getrow(),rgb(255,255,189), if(nmeal_marker=1, rgb(244,244,244),rgb(255,255,255)))" )
+line(band=detail x1="1066" y1="0" x2="1066" y2="25"  name=l_29 visible="1" pen.style="0" pen.width="2" pen.color="8421504"  background.mode="2" background.color="16777215" )
+line(band=detail x1="567" y1="0" x2="567" y2="25"  name=l_31 visible="1" pen.style="0" pen.width="2" pen.color="8421504"  background.mode="2" background.color="16777215" )
+line(band=summary x1="566" y1="0" x2="1065" y2="0"  name=l_32 visible="1" pen.style="0" pen.width="2" pen.color="8421504"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

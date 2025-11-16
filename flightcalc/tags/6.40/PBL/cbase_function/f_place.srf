@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_place.srf
+global type f_place from function_object
+end type
+
+forward prototypes
+global function string f_place (string splace)
+end prototypes
+
+global function string f_place (string splace);// -----------------------------------------
+// Pr$$HEX1$$fc00$$ENDHEX$$fen, ob's den Betrieb gibt
+// -----------------------------------------
+
+String 		sCheck
+
+SELECT cen_place_sort.cplace  
+  INTO :sCheck  
+  FROM cen_place_sort  
+ WHERE cen_place_sort.cplace = :sPlace;
+ 
+if sqlca.sqlcode = 0 then
+	return sCheck
+else
+	return "Error"
+end if
+
+end function
+

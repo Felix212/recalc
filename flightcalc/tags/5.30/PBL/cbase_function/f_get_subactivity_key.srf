@@ -1,0 +1,53 @@
+HA$PBExportHeader$f_get_subactivity_key.srf
+$PBExportComments$key zur sub-aktivit$$HEX1$$e400$$ENDHEX$$t holen
+global type f_get_subactivity_key from function_object
+end type
+
+forward prototypes
+global function long f_get_subactivity_key (string as_text)
+end prototypes
+
+global function long f_get_subactivity_key (string as_text);/* 
+* Funktion: 			f_get_subactivity_key
+* Beschreibung: 	Holt cost_SubValue-Key
+* Besonderheit: 	nur abgeschlossene
+*
+* Argumente:
+* 	Name						Beschreibung
+*	as_text					klartext zum subvalue-code (cSubValue_Code)
+*
+* Aenderungshistorie:
+* 	Version 		Wer			Wann				Was und warum
+*	1.0 			M.N$$HEX1$$fc00$$ENDHEX$$ndel		20.07.2011		Erstellung
+*
+* Return Codes:
+*	nSubValue_Key		wenn gefunden
+*	-1						sonst
+*/
+
+// hilfsvariable
+long 		lKey
+
+// lesen
+SELECT distinct nSubValue_Key
+ INTO :lKey  
+FROM cen_cost_sub_vp
+WHERE cSubValue_Code = :as_text
+and nStatus = 1;
+
+// erfolgreich: key zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+if sqlca.sqlcode = 0 then
+	return lKey
+	
+// nicht gefunden: -1 zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+elseif sqlca.sqlcode = 100 then
+	return -1
+	
+// fehler: log schreiben und -1 zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+else
+	f_db_error(sqlca, "f_get_subactivity_key()")
+	return -1
+end if
+
+end function
+

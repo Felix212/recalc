@@ -1,0 +1,15 @@
+HA$PBExportHeader$n_interface.srx
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type n_interface from CORBAObject
+end type
+global n_interface n_interface
+
+forward prototypes
+  public:
+function s_all_flight_infos of_get_labels (s_all_flight_infos s_info) alias for "of_get_labels"
+function s_all_flight_infos of_get_documents (s_all_flight_infos s_info) alias for "of_get_documents"
+function s_all_flight_infos of_get_galleydiagram (s_all_flight_infos s_info) alias for "of_get_galleydiagram"
+function cbase_stream of_tango () alias for "of_tango"
+function cbase_stream of_decode_blob (Blob bdecode) alias for "of_decode_blob"
+                    end prototypes
+

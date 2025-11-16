@@ -1,0 +1,80 @@
+HA$PBExportHeader$dw_uo_cart_flight_pax.srd
+$PBExportComments$Flight PAX
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nresult_key dbname="cen_out.nresult_key" )
+ column=(type=char(6) updatewhereclause=yes name=cen_out_cairline dbname="cen_out.cairline" )
+ column=(type=decimal(0) updatewhereclause=yes name=nflight_number dbname="cen_out.nflight_number" )
+ column=(type=char(3) updatewhereclause=yes name=cen_out_csuffix dbname="cen_out.csuffix" )
+ column=(type=datetime updatewhereclause=yes name=cen_out_ddeparture dbname="cen_out.ddeparture" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_naircraft_key dbname="cen_out.naircraft_key" )
+ column=(type=char(10) updatewhereclause=yes name=cen_out_cactype dbname="cen_out.cactype" )
+ column=(type=char(20) updatewhereclause=yes name=cconfiguration dbname="cen_out.cconfiguration" )
+ column=(type=decimal(0) updatewhereclause=yes name=nleg_number dbname="cen_out.nleg_number" )
+ column=(type=decimal(0) updatewhereclause=yes name=nclass_number dbname="cen_out_pax.nclass_number" )
+ column=(type=char(10) updatewhereclause=yes name=cclass dbname="cen_out_pax.cclass" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_pax_nbooking_class dbname="cen_out_pax.nbooking_class" )
+ column=(type=decimal(0) updatewhereclause=yes name=nversion dbname="cen_out_pax.nversion" )
+ column=(type=decimal(0) updatewhereclause=yes name=npax dbname="cen_out_pax.npax" )
+ column=(type=decimal(0) updatewhereclause=yes name=npax_spml dbname="cen_out_pax.npax_spml" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_out~" )  TABLE(NAME=~"cen_out_pax~" ) COLUMN(NAME=~"cen_out.nresult_key~") COLUMN(NAME=~"cen_out.cairline~") COLUMN(NAME=~"cen_out.nflight_number~") COLUMN(NAME=~"cen_out.csuffix~") COLUMN(NAME=~"cen_out.ddeparture~") COLUMN(NAME=~"cen_out.naircraft_key~") COLUMN(NAME=~"cen_out.cactype~") COLUMN(NAME=~"cen_out.cconfiguration~") COLUMN(NAME=~"cen_out.nleg_number~") COLUMN(NAME=~"cen_out_pax.nclass_number~") COLUMN(NAME=~"cen_out_pax.cclass~") COLUMN(NAME=~"cen_out_pax.nbooking_class~") COLUMN(NAME=~"cen_out_pax.nversion~") COLUMN(NAME=~"cen_out_pax.npax~") COLUMN(NAME=~"cen_out_pax.npax_spml~")    JOIN (LEFT=~"cen_out_pax.nresult_key~"    OP =~"=~"RIGHT=~"cen_out.nresult_key~" )WHERE(    EXP1 =~"cen_out.nresult_key~"   OP =~"in~"    EXP2 =~":arg_result_keys~" ) ) ARG(NAME = ~"arg_result_keys~" TYPE = numberlist) " arguments=(("arg_result_keys", numberlist))  sort="nresult_key A nclass_number A " )
+text(band=header alignment="2" text="Cen Out
+Nresult Key" border="0" color="33554432" x="9" y="8" height="104" width="329" html.valueishtml="0"  name=cen_out_nresult_key_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out
+Cairline" border="0" color="33554432" x="347" y="8" height="104" width="128" html.valueishtml="0"  name=cen_out_cairline_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out
+Nflight Number" border="0" color="33554432" x="485" y="8" height="104" width="261" html.valueishtml="0"  name=cen_out_nflight_number_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out
+Csuffix" border="0" color="33554432" x="754" y="8" height="104" width="219" html.valueishtml="0"  name=cen_out_csuffix_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out
+Ddeparture" border="0" color="33554432" x="983" y="8" height="104" width="325" html.valueishtml="0"  name=cen_out_ddeparture_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out
+Naircraft Key" border="0" color="33554432" x="1317" y="8" height="104" width="343" html.valueishtml="0"  name=cen_out_naircraft_key_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out
+Cactype" border="0" color="33554432" x="1669" y="8" height="104" width="302" html.valueishtml="0"  name=cen_out_cactype_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out
+Cconfiguration" border="0" color="33554432" x="1979" y="8" height="104" width="576" html.valueishtml="0"  name=cen_out_cconfiguration_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out Pax
+Nclass Number" border="0" color="33554432" x="2830" y="8" height="104" width="133" html.valueishtml="0"  name=cen_out_pax_nclass_number_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out Pax
+Cclass" border="0" color="33554432" x="2971" y="8" height="104" width="343" html.valueishtml="0"  name=cen_out_pax_cclass_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out Pax
+Nbooking Class" border="0" color="33554432" x="3323" y="8" height="104" width="416" html.valueishtml="0"  name=cen_out_pax_nbooking_class_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out Pax
+Nversion" border="0" color="33554432" x="3749" y="8" height="104" width="343" html.valueishtml="0"  name=cen_out_pax_nversion_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out Pax
+Npax" border="0" color="33554432" x="4101" y="8" height="104" width="343" html.valueishtml="0"  name=cen_out_pax_npax_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out Pax
+Npax Spml" border="0" color="33554432" x="4453" y="8" height="104" width="343" html.valueishtml="0"  name=cen_out_pax_npax_spml_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out
+Nleg Number" border="0" color="33554432" x="2565" y="8" height="104" width="256" html.valueishtml="0"  name=cen_out_nleg_number_t visible="1"  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=nresult_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="347" y="8" height="76" width="128" format="[general]" html.valueishtml="0"  name=cen_out_cairline visible="1" edit.limit=6 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="485" y="8" height="76" width="261" format="[general]" html.valueishtml="0"  name=nflight_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="754" y="8" height="76" width="219" format="[general]" html.valueishtml="0"  name=cen_out_csuffix visible="1" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="983" y="8" height="76" width="325" format="[shortdate]" html.valueishtml="0"  name=cen_out_ddeparture visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="1317" y="8" height="76" width="343" format="[general]" html.valueishtml="0"  name=cen_out_naircraft_key visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="33554432" x="1669" y="8" height="76" width="302" format="[general]" html.valueishtml="0"  name=cen_out_cactype visible="1" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="1979" y="8" height="76" width="576" format="[general]" html.valueishtml="0"  name=cconfiguration visible="1" edit.limit=20 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="2830" y="8" height="76" width="133" format="[general]" html.valueishtml="0"  name=nclass_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="2971" y="8" height="76" width="343" format="[general]" html.valueishtml="0"  name=cclass visible="1" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="33554432" x="3323" y="8" height="76" width="416" format="[general]" html.valueishtml="0"  name=cen_out_pax_nbooking_class visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="33554432" x="3749" y="8" height="76" width="343" format="[general]" html.valueishtml="0"  name=nversion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="33554432" x="4101" y="8" height="76" width="343" format="[general]" html.valueishtml="0"  name=npax visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="1" tabsequence=32766 border="0" color="33554432" x="4453" y="8" height="76" width="343" format="[general]" html.valueishtml="0"  name=npax_spml visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="2565" y="8" height="76" width="256" format="[general]" html.valueishtml="0"  name=nleg_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

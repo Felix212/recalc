@@ -1,0 +1,5 @@
+HA$PBExportHeader$s_packinglist_detail.srs
+global type s_packinglist_detail from structure
+	string		cdetail_text[]
+end type
+

@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_crypt.srf
+global type f_crypt from function_object
+end type
+
+forward prototypes
+global function string f_crypt (string sinfo)
+end prototypes
+
+global function string f_crypt (string sinfo);// ---------------------------------
+// Diese Funktion kryptiert einen
+// Text, indem er einen Shift
+// und anschlie$$HEX1$$df00$$ENDHEX$$end ein Reverse
+// vornimmt
+// ---------------------------------
+
+String	sCrypt
+String	sBuffer
+Integer	iCnt
+Integer	iAscii
+
+For iCnt = 1 To Len(sInfo)
+	iAscii	= Asc(Mid(sInfo, iCnt, 1))
+	iAscii	= iAscii + 3
+	sBuffer 	= sBuffer + Char(iAscii)
+Next
+
+sCrypt = Reverse(sBuffer)
+
+return sCrypt
+
+
+
+end function
+

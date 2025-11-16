@@ -1,0 +1,66 @@
+HA$PBExportHeader$f_get_cen_setup.srf
+$PBExportComments$Profilestring wird aus Datenbank gelesen und gilt f$$HEX1$$fc00$$ENDHEX$$r kompletten Mandanten
+global type f_get_cen_setup from function_object
+end type
+
+forward prototypes
+global function string f_get_cen_setup (transaction arg_sqlca, string arg_section, string arg_key, string arg_default)
+end prototypes
+
+global function string f_get_cen_setup (transaction arg_sqlca, string arg_section, string arg_key, string arg_default);//
+/* 
+* Funktion/Event: f_mandant_profilestring
+* Beschreibung: 	Lesen eines Wertes aus der cen_setup
+* Besonderheit: 	keine
+*
+**
+* Aenderungshistorie:
+* 	Version 		Wer					Wann				Was und warum
+*	1.0 			H.Rothenbach		29.10.2008		Erstellung
+*	1.1 			M.N$$HEX1$$fc00$$ENDHEX$$ndel				21.07.2011		abschneiden arg_section eingef$$HEX1$$fc00$$ENDHEX$$gt 
+*/
+
+
+string	sValue, ls_mandant
+
+  SELECT sys_login.cclient  
+    INTO :ls_mandant  
+    FROM sys_login  
+   WHERE upper(sys_login.cusername) = 'CBASE'   ;
+
+
+// MNu 21.07.2011
+if len(arg_section) > 25 then arg_section = left(arg_section, 25)
+
+Select 	cValue 
+into 		:sValue 
+from		cen_setup
+where	cclient		= :ls_mandant  	and
+			cSection		= :arg_Section		and
+			cKey			= :arg_Key
+using 		arg_sqlca;
+			
+			
+If arg_sqlca.SQLCode = 100 Then
+	//Wert nicht gefunden, dann default eintragen und zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+	sValue = arg_default
+	
+	INSERT INTO cen_setup  
+				 (cclient,   
+				  csection,   
+				  ckey,   
+				  cvalue )
+   	VALUES ( :ls_mandant,   
+				 :arg_Section,   
+				 :arg_Key,   
+				 :arg_Default) 
+ 	using arg_sqlca;
+ 
+	//f_check_sql(arg_sqlca,"Insert into cen_setup","Insert")
+End if
+
+return sValue
+
+
+end function
+

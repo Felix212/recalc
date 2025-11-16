@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_loadinglist_type_text.srf
+global type f_get_loadinglist_type_text from function_object
+end type
+
+forward prototypes
+global function string f_get_loadinglist_type_text (long lkey)
+end prototypes
+
+global function string f_get_loadinglist_type_text (long lkey);
+string sText
+
+  SELECT sys_loadinglist_types.ctext  
+    INTO :stext  
+    FROM sys_loadinglist_types  
+   WHERE sys_loadinglist_types.nloadinglist_key = :lKey   ;
+	
+	
+	if sqlca.sqlcode = 0 then
+		return uf.translate(sText)
+	elseif sqlca.sqlcode = 100 then
+		Return "Handling ID: " + String(lKey) + " not found!"
+	else
+		f_db_error(sqlca, "f_get_handling_text()")
+		Return "Error"
+	end if
+	
+	
+end function
+

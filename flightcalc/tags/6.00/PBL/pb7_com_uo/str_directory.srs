@@ -1,0 +1,10 @@
+HA$PBExportHeader$str_directory.srs
+$PBExportComments$Used on w_scale
+global type str_directory from structure
+	string		sFilename
+	long		lFileSize
+	long		lFileType
+	String		sFiledate
+	String		sFileTime
+end type
+

@@ -1,0 +1,19 @@
+HA$PBExportHeader$f_get_owner_id.srf
+global type f_get_owner_id from function_object
+end type
+
+forward prototypes
+global function integer f_get_owner_id (ref long lid[])
+end prototypes
+
+global function integer f_get_owner_id (ref long lid[]);long i
+
+for i = 1 to s_app.ds_user_group.RowCount()
+	
+	lID[i] = s_app.ds_user_group.GetItemNumber(i, "nowner_id")
+	
+Next
+
+return 0
+end function
+

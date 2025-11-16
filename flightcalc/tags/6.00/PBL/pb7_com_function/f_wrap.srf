@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_wrap.srf
+global type f_wrap from function_object
+end type
+
+forward prototypes
+global function string f_wrap (string stext, integer inowraplen, integer iwrapstartpos, integer iwrapendpos)
+end prototypes
+
+global function string f_wrap (string stext, integer inowraplen, integer iwrapstartpos, integer iwrapendpos);	
+	integer	iTextLen,i
+	string	sChar
+
+	If isnull(sText) or len(trim(stext)) <= 0 Then return ""
+	
+	
+// ------------------------------------------
+// Kein Umbruch <= iWrapLen
+// ------------------------------------------
+	iTextlen = len(sText)
+	If iTextLen <= iNoWrapLen Then
+		sText = sText
+		return sText
+	End if	
+// ------------------------------------------
+// Zeilenumbruch
+// ------------------------------------------
+	For i = iTextLen - iWrapEndPos to iWrapStartPos Step -1
+		sChar = mid(sText,i,1)		
+		If sChar = " "  Then
+			sText = mid(sText,1,i) 	+ "~n" + mid(sText,i+1) // Leerzeichen entfernen
+			Exit
+		ElseIf sChar = "-"  Then
+			sText = mid(sText,1,i) 	+ "~n" + mid(sText,i+1)
+			Exit
+		Elseif sChar = "/" Then
+			sText = mid(sText,1,i) 	+ "~n" + mid(sText,i+1)
+			Exit
+		End if
+		
+	Next
+
+	return sText
+	
+
+
+end function
+

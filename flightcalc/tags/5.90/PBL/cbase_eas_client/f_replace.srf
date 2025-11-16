@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_replace.srf
+global type f_replace from function_object
+end type
+
+forward prototypes
+global function string f_replace (string sstring, string sstringtoreplace, string sstringtoreplacewith)
+end prototypes
+
+global function string f_replace (string sstring, string sstringtoreplace, string sstringtoreplacewith);LONG 		lStart_pos = 1
+
+// Find the first occurrence of sStringToReplace.
+
+lStart_pos = Pos(sString, sStringToReplace, lStart_pos)
+
+// Only enter the loop if you find sStringToReplace.
+
+DO WHILE lStart_pos > 0
+
+// Replace sStringToReplace with sStringToReplaceWith.
+		sString = Replace(sString, lStart_pos, Len(sStringToReplace), sStringToReplaceWith)
+		// Find the next occurrence of sStringToReplace.
+		lStart_pos = Pos(sString, sStringToReplace, lStart_pos + Len(sStringToReplaceWith))
+
+LOOP
+
+return sString
+
+
+end function
+

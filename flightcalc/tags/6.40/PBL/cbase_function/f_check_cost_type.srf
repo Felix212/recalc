@@ -1,0 +1,50 @@
+HA$PBExportHeader$f_check_cost_type.srf
+global type f_check_cost_type from function_object
+end type
+
+forward prototypes
+global function long f_check_cost_type (string as_text, integer ai_language)
+end prototypes
+
+global function long f_check_cost_type (string as_text, integer ai_language);// ---------------------------------------------
+// Hole Cost_type-Key aus einem Text
+// ---------------------------------------------
+long 		lKey
+String		sText, sText1, sText2, sText3, sText4, sText5
+
+if ai_language = 2 then
+		sText2 = as_text
+	elseif ai_language = 3 then
+		sText3 = as_text
+	elseif ai_language = 4 then
+		sText4 = as_text
+	elseif ai_language = 5 then	
+		sText5 = as_text
+	else
+		sText1 = as_text
+	
+end if
+	
+SELECT cen_cost_type.ncost_type_key
+ INTO :lKey  
+ FROM cen_cost_type
+WHERE cen_cost_type.ctext			= :stext1 
+  OR	cen_cost_type.ctext2			= :stext2
+  OR	cen_cost_type.ctext3			= :stext3
+  OR	cen_cost_type.ctext4			= :stext4
+  OR	cen_cost_type.ctext5			= :stext5 ;
+
+if sqlca.sqlcode = 0 then
+	return lKey
+	
+elseif sqlca.sqlcode = 100 then
+	return -1
+	
+else
+	f_db_error(sqlca, "f_check_cost_type()")
+	return -1
+end if
+
+
+end function
+

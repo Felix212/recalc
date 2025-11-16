@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_centerwindow.srf
+$PBExportComments$Zentriert ein Fenster
+global type f_centerwindow from function_object
+end type
+
+forward prototypes
+global subroutine f_centerwindow (window w_win)
+end prototypes
+
+global subroutine f_centerwindow (window w_win);// ------------------------------------------------
+// zentriert ein Fenster in w_mdi_master.
+// ------------------------------------------------
+environment le_env
+int screenheight, screenwidth
+
+/* get screen measurements */
+If isvalid(w_mdi_master) Then
+	GetEnvironment(le_env)
+	screenheight = w_mdi_master.WorkSpaceHeight() 
+	screenwidth  = w_mdi_master.WorkSpaceWidth() 
+
+/* now position window */
+
+	W_Win.Move( (ScreenWidth - W_Win.Width) / 2, (ScreenHeight - W_Win.Height) / 2 )
+End if
+
+
+end subroutine
+

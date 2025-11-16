@@ -1,0 +1,25 @@
+HA$PBExportHeader$s_new_handling_explosion.srs
+global type s_new_handling_explosion from structure
+	string		stitle
+	object		odatatype
+	boolean		bsuccessful
+	string		sreturn
+	string		stexttoset
+	string		stexttoset2
+	date		dvalid_from
+	date		dvalid_to
+	long		lreturn
+	boolean		breturn
+	string		sdescription
+	long		lhandlingtype
+	long		lairlinekey
+	datetime		dtreturn
+	long		lhandlingkey
+	long		lclassnumber
+	long		lrotation
+	long		lvalue
+	long		laccountcode
+	long		lparent
+	long		loldvalue
+end type
+

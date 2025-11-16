@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_get_logo.srf
+$PBExportComments$Profilestring aus Datenbank
+global type f_get_logo from function_object
+end type
+
+forward prototypes
+global function string f_get_logo (long llogokey, boolean bcolor)
+end prototypes
+
+global function string f_get_logo (long llogokey, boolean bcolor);string	scolor_logo,sblack_logo
+
+Select 	ccolor_logo,cblack_logo
+into 		:scolor_logo,:sblack_logo
+from		sys_logos
+where		nlogo_key = :lLogoKey;
+			
+			
+If SQLCA.SQLCode <> 0 Then
+	return ""
+End if
+
+If bColor Then
+	return scolor_logo
+Else
+	return sblack_logo
+End if	
+
+
+end function
+

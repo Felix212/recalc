@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_distribution_quantities.srs
+global type s_distribution_quantities from structure
+	long		lQuantity
+	string		sPlNumber
+	string		sText
+end type
+

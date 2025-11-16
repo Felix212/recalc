@@ -1,0 +1,42 @@
+HA$PBExportHeader$f_cen_setprofilestring.srf
+$PBExportComments$Profilestring schreibt in die Datenbank und gilt f$$HEX1$$fc00$$ENDHEX$$r kompletten Mandanten
+global type f_cen_setprofilestring from function_object
+end type
+
+forward prototypes
+global function boolean f_cen_setprofilestring (string ssection, string skey, string svalue)
+end prototypes
+
+global function boolean f_cen_setprofilestring (string ssection, string skey, string svalue);
+INSERT INTO cen_setup  
+         (cclient,   
+         csection,   
+         ckey,   
+         cvalue )
+  VALUES (:s_app.smandant,   
+         :sSection,   
+         :sKey,   
+         :sValue)  using SQLCA;
+			 
+If SQLCA.SQLCode <> 0 Then
+	Update	cen_setup 
+	Set 		cValue = :sValue
+	where		cclient		= :s_app.smandant	and
+				cSection		= :sSection			and
+				cKey			= :sKey using SQLCA;
+	If SQLCA.SQLCode <> 0 Then
+		Messagebox("Ups","")
+		return False
+	End if	
+End if
+
+commit using SQLCA;
+If SQLCA.SQLCode <> 0 Then
+	Messagebox("Ups Commit","")
+	return False
+End if	
+
+	
+return True
+end function
+

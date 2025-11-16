@@ -1,0 +1,7 @@
+HA$PBExportHeader$bcdbinaryseq.srs
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type BCDBINARYSEQ from structure
+  public:
+    Blob		item[]
+end type
+

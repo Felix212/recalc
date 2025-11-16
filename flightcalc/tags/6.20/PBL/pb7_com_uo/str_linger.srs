@@ -1,0 +1,6 @@
+HA$PBExportHeader$str_linger.srs
+global type str_linger from structure 
+	integer		l_onoff 
+	integer		l_linger 
+end type 
+

@@ -1,0 +1,24 @@
+HA$PBExportHeader$f_db_date.srf
+global type f_db_date from function_object
+end type
+
+forward prototypes
+global function datetime f_db_date ()
+end prototypes
+
+global function datetime f_db_date ();// --------------------------------------------------
+//
+// Datum und Uhrzeit auf dem Datenbankserver
+//
+// --------------------------------------------------
+datetime dtNow
+
+select sysdate into :dtNow from dual;
+
+//if sqlca.sqlcode <> 0 then
+//	f_db_error(sqlca, "f_db_date()")	
+//end if
+
+return dtNow
+end function
+

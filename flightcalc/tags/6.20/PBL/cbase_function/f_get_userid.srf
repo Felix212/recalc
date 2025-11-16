@@ -1,0 +1,45 @@
+HA$PBExportHeader$f_get_userid.srf
+global type f_get_userid from function_object
+end type
+
+forward prototypes
+global function s_user_parameters f_get_userid (string suser)
+end prototypes
+
+global function s_user_parameters f_get_userid (string suser);// ---------------------------
+// UserID holen
+// ---------------------------
+
+
+s_user_parameters strRet
+
+
+SELECT sys_login.nuser_id,   
+		sys_login.cfirstname,   
+		sys_login.clastname,   
+		sys_login.cdepartment  
+ INTO :strRet.lUserID,   
+		:strRet.sFirstname,   
+		:strRet.sLastname,   
+		:strRet.sDepartment  
+ FROM sys_login  
+WHERE sys_login.cusername = :sUser   ;
+
+
+if sqlca.sqlcode = 0 then
+	return strRet
+	
+elseif sqlca.sqlcode = 100 then
+	strRet.lUserID = -1
+	return strRet
+	
+else
+	f_db_error(sqlca, "f_get_userid")
+	strRet.lUserID = -1
+	return strRet
+end if
+	
+return strRet
+
+end function
+

@@ -1,0 +1,48 @@
+HA$PBExportHeader$f_get_material_group_keys.srf
+global type f_get_material_group_keys from function_object
+end type
+
+forward prototypes
+global function long f_get_material_group_keys (long ldispogroupkey, ref long lmaterialgroupkeys[])
+end prototypes
+
+global function long f_get_material_group_keys (long ldispogroupkey, ref long lmaterialgroupkeys[]);Long lMatKey
+
+
+DECLARE GetKeys CURSOR FOR  
+SELECT loc_dispo_groups_detail.nmaterial_index_key
+ FROM loc_dispo_groups_detail  
+WHERE loc_dispo_groups_detail.ndispo_group_key = :lDispoGroupKey;
+
+Open GetKeys;
+
+if sqlca.sqlcode = 0 then
+	
+	do while sqlca.sqlcode = 0 
+	
+		fetch GetKeys into :lMatKey;
+		
+		if sqlca.sqlcode =0 then
+			lMaterialGroupKeys[UpperBound(lMaterialGroupKeys) + 1] = lMatKey
+		end if
+		
+	loop
+	
+	
+elseif sqlca.sqlcode = 100 then
+	
+	return 0
+	
+else
+	
+	f_db_error(sqlca, "")
+	return 0
+	
+end if
+
+Close GetKeys;
+
+
+return UpperBound(lMaterialGroupKeys)
+end function
+

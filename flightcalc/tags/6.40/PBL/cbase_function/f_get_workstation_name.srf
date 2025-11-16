@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_workstation_name.srf
+global type f_get_workstation_name from function_object
+end type
+
+forward prototypes
+global function string f_get_workstation_name (long lwskey)
+end prototypes
+
+global function string f_get_workstation_name (long lwskey);String sArea, sWS
+
+select loc_unit_areas.ctext, 
+		loc_unit_workstation.ctext
+into :sArea, :sWS
+from loc_unit_areas, loc_unit_workstation
+where loc_unit_areas.narea_key = loc_unit_workstation.narea_key and
+		loc_unit_workstation.nworkstation_key = :lWSKey;
+		
+		
+if sqlca.sqlcode = 0 then 
+	return sArea + " - " + sWS
+elseif sqlca.sqlcode = 100 then 
+	return "not found"
+else
+	f_db_error(sqlca, "")
+	return ""
+end if
+
+end function
+

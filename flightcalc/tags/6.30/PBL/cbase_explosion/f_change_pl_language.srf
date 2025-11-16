@@ -1,0 +1,60 @@
+HA$PBExportHeader$f_change_pl_language.srf
+global type f_change_pl_language from function_object
+end type
+
+forward prototypes
+global function integer f_change_pl_language (string arg_unit, boolean arg_user_setting)
+end prototypes
+
+global function integer f_change_pl_language (string arg_unit, boolean arg_user_setting);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_change_pl_language
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// string	arg_unit
+// boolean arg_user_setting
+// --------------------------------------------------------------------------------------------------------------------
+// Return: integer
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung: issue #4664 Set the Packinglist Language to the Unit or User Setting
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  26.02.2019	   1.0      H.Rothenbach   Erstellung
+//
+// --------------------------------------------------------------------------------------------------------------------
+
+string 	ls_Setting
+integer 	li_language
+
+ls_Setting = f_mandant_profilestring(sqlca, s_app.sMandant, "General", "UseAddLanguage", "0")
+
+If ls_Setting <> "1" Then return 1
+
+select ndefault_pl_language
+	into :li_language
+	from sys_units 
+	where cunit = :arg_unit;
+	
+If isnull(li_language) Then li_language = 1
+if li_language <= 0 Then li_language = 1		
+
+if arg_user_setting then
+	if isnull(s_app.ipllanguage)  then s_app.ipllanguage = 1
+	if s_app.ipllanguage < 1 then s_app.ipllanguage = 1
+	ls_Setting = String(s_app.ipllanguage)	
+else
+	ls_Setting = String(li_language)	
+end if
+
+f_trace("context_package.set_context_pllanguage " + ls_Setting)
+DECLARE logical_procedure_name1 PROCEDURE FOR
+	context_package.set_context_pllanguage(:ls_Setting )   ;
+execute logical_procedure_name1  ; 
+
+return 1
+
+end function
+

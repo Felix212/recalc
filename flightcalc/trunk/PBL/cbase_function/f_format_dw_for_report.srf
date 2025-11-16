@@ -1,0 +1,90 @@
+HA$PBExportHeader$f_format_dw_for_report.srf
+$PBExportComments$$$HEX1$$fc00$$ENDHEX$$berarbeitete version von f_format_datawindow_report
+global type f_format_dw_for_report from function_object
+end type
+
+forward prototypes
+global function integer f_format_dw_for_report (datawindow adwreport, string asreporttitle)
+end prototypes
+
+global function integer f_format_dw_for_report (datawindow adwreport, string asreporttitle);
+/* 
+* Funktion: 			f_format_dw_for_report
+* Beschreibung: 	Formatiert ein DW zum druck 
+* Besonderheit: 	keine
+*
+* Argumente:
+*	adwReport				Das DW, das formatiert werden soll
+*	asReporttitle			Der Titel, der eingetragen werden soll
+*
+* Aenderungshistorie:
+* 	Version 		Wer			Wann			Was und warum
+*	1.0 			M.N$$HEX1$$fc00$$ENDHEX$$ndel		21.01.2010	Erstellung (aus f_format_datawindow_report)
+*
+* Return Codes:
+*	0		Alles OK
+*/
+
+// hilfsvariable
+Integer 	liDWWidth, liDWHeight
+Integer 	liHeaderHeight,liFooterHeight, liDetailHeight
+Integer 	liMarginTop,liMarginBottom
+
+
+// ---------------------------------------------------------------------------
+// da feste werte eingetragen werden, sollte das stimmen...
+// ---------------------------------------------------------------------------
+if adwReport.Object.DataWindow.Units <> "1" then
+	uf.mbox("Hallo Entwickler","Reports Units bitte in Pixel.")
+end if
+
+// ---------------------------------------------------------------------------
+// Print Quality High
+// ---------------------------------------------------------------------------
+adwReport.Object.DataWindow.Print.Quality = "1"
+	
+// ---------------------------------------------------------------------------
+// Welche Orientation ? 1 = Landscape	2 = Portrait
+// ---------------------------------------------------------------------------
+if adwReport.Object.DataWindow.Print.Orientation = "1" Then
+	liDWWidth 	= 1123 
+	liDWHeight	= 793  
+elseif adwReport.Object.DataWindow.Print.Orientation = "2" Then
+	liDWWidth 	= 793  
+	liDWHeight	= 1123 
+else
+	liDWWidth 	= 793 
+	liDWHeight	= 1123  
+end if
+
+// ---------------------------------------------------------------------------
+// Layout Header
+// ---------------------------------------------------------------------------
+adwReport.Object.t_title.text = asReporttitle	
+
+// ---------------------------------------------------------------------------
+// Layout Footer
+// ---------------------------------------------------------------------------
+adwReport.Object.DataWindow.Footer.Height = "24" 
+adwReport.Object.t_signature.text = s_app.sOrga
+adwReport.Object.t_printed.text = string(today(),s_app.sDateformat) + "  " + string(now(),"HH:MM")
+
+// ---------------------------------------------------------------------------
+// R$$HEX1$$e400$$ENDHEX$$nder ermitteln
+// ---------------------------------------------------------------------------
+liMarginTop		= integer(adwReport.Object.DataWindow.Print.Margin.Top)
+liMarginBottom	= integer(adwReport.Object.DataWindow.Print.Margin.Bottom)
+liHeaderHeight  = integer(adwReport.Object.DataWindow.Header.Height)
+liFooterHeight  = integer(adwReport.Object.DataWindow.Footer.Height)	
+
+// ---------------------------------------------------------------------------
+// Optimalen Detailrahmen errechnen
+// ---------------------------------------------------------------------------	
+adwReport.Object.r_detail.Height = string(liDWHeight - (liHeaderHeight + liFooterHeight + liMarginTop + liMarginBottom))
+
+f_redraw_logo_dw(adwReport)
+	
+return 0
+
+end function
+

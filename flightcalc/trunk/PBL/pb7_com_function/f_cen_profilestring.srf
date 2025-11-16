@@ -1,0 +1,39 @@
+HA$PBExportHeader$f_cen_profilestring.srf
+$PBExportComments$Profilestring wird aus Datenbank gelesen und gilt f$$HEX1$$fc00$$ENDHEX$$r kompletten Mandanten
+global type f_cen_profilestring from function_object
+end type
+
+forward prototypes
+global function string f_cen_profilestring (string ssection, string skey, string sdefault)
+end prototypes
+
+global function string f_cen_profilestring (string ssection, string skey, string sdefault);string	sValue
+
+Select 	cValue 
+into 		:sValue 
+from		cen_setup
+where		cclient		= :s_app.smandant  	and
+			cSection		= :sSection				and
+			cKey			= :sKey;
+			
+			
+If SQLCA.SQLCode = 100 Then
+	sValue = sDefault
+	INSERT INTO cen_setup  
+          (cclient,   
+          csection,   
+          ckey,   
+          cvalue )
+   VALUES (:s_app.smandant,   
+          :sSection,   
+          :sKey,   
+          :sDefault)  ;
+	f_check_sql(sqlca,"Insert into cen_setup","Insert")
+End if
+
+
+return sValue
+
+
+end function
+

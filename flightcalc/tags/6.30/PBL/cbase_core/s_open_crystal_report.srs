@@ -1,0 +1,10 @@
+HA$PBExportHeader$s_open_crystal_report.srs
+global type s_open_crystal_report from structure
+	string		sservername
+	string		sdatabase
+	string		suser
+	string		spwd
+	string		sreportfile
+	string		sReportTitle
+end type
+

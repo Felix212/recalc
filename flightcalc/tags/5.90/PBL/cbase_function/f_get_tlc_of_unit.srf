@@ -1,0 +1,38 @@
+HA$PBExportHeader$f_get_tlc_of_unit.srf
+global type f_get_tlc_of_unit from function_object
+end type
+
+forward prototypes
+global function string f_get_tlc_of_unit (string sunit)
+end prototypes
+
+global function string f_get_tlc_of_unit (string sunit);// -----------------------------------------
+// f_get_tlc_of_unit
+//
+// holt den TLC einer Unit
+// -----------------------------------------
+Long			lKey
+String		sTLC
+
+SELECT sys_units.ntlc_key   
+  INTO :lKey  
+  FROM sys_units  
+ WHERE sys_units.cunit = :sUnit;
+
+if sqlca.sqlcode <> 0 then
+	return "n/a"
+end if
+
+SELECT sys_three_letter_codes.ctlc
+  INTO :sTLC
+  FROM sys_three_letter_codes
+ WHERE sys_three_letter_codes.ntlc_key = :lKey;
+ 
+if sqlca.sqlcode <> 0 then
+	return "n/a"
+else
+	return sTLC
+end if
+
+end function
+

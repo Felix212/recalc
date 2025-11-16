@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_get_executable_name.srf
+$PBExportComments$Den Dateinamen des Executables ermitteln
+global type f_get_executable_name from function_object
+end type
+
+forward prototypes
+global function string f_get_executable_name ()
+end prototypes
+
+global function string f_get_executable_name ();string	sAppPath
+string	sFullPath
+string	sExe			= ""
+integer	iRet
+integer	iPos 			= 0
+
+sFullpath 	= Space (1024)
+iRet 			= GetModuleFileNameW (Handle (GetApplication()),sFullPath,1024)
+
+if IRet > 0 then 
+	
+	do while (Pos (sFullPath, "\",iPos + 1) > 0)
+		iPos = Pos (sFullPath, "\",iPos + 1)
+	loop
+	sAppPath	= Mid (sFullPath,1,iPos - 1)
+	sExe		= Mid (sFullPath,iPos + 1)
+end if
+
+Return sExe
+
+
+end function
+

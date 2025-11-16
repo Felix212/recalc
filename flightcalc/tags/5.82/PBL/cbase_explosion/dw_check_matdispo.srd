@@ -1,0 +1,84 @@
+HA$PBExportHeader$dw_check_matdispo.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=64 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=4 color="536870912" )
+detail(height=64 color="536870912" )
+table(column=(type=datetime updatewhereclause=yes name=cen_out_ddeparture dbname="cen_out.ddeparture" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_master_npl_type dbname="cen_out_master.npl_type" )
+ column=(type=char(18) updatewhereclause=yes name=cen_out_master_cpackinglist dbname="cen_out_master.cpackinglist" )
+ column=(type=char(44) updatewhereclause=yes name=cen_out_master_ctext dbname="cen_out_master.ctext" )
+ column=(type=char(5) updatewhereclause=yes name=cen_out_master_cunit dbname="cen_out_master.cunit" )
+ column=(type=decimal(3) updatewhereclause=yes name=cen_out_master_nquantity dbname="cen_out_master.nquantity" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_master_naction dbname="cen_out_master.naction" )
+ column=(type=char(18) updatewhereclause=yes name=cen_out_detail_citem_pl dbname="cen_out_detail.citem_pl" )
+ column=(type=char(80) updatewhereclause=yes name=cen_out_detail_citem_text dbname="cen_out_detail.citem_text" )
+ column=(type=decimal(6) updatewhereclause=yes name=cen_out_detail_nquantity dbname="cen_out_detail.nquantity" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_detail_npl_index_key dbname="cen_out_detail.npl_index_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_detail_npl_detail_key dbname="cen_out_detail.npl_detail_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_detail_nsort dbname="cen_out_detail.nsort" )
+ retrieve="  SELECT cen_out.ddeparture,   
+         cen_out_master.npl_type,   
+         cen_out_master.cpackinglist,   
+         cen_out_master.ctext,   
+         cen_out_master.cunit,   
+         cen_out_master.nquantity,   
+         cen_out_master.naction,   
+         cen_out_detail.citem_pl,   
+         cen_out_detail.citem_text,   
+         cen_out_detail.nquantity,   
+         cen_out_detail.npl_index_key,   
+         cen_out_detail.npl_detail_key,   
+         cen_out_detail.nsort  
+    FROM cen_out_master,   
+         cen_out_detail,   
+         cen_out ,
+		cen_packinglists cpa 
+   WHERE ( cen_out_master.npl_index_key = cen_out_detail.npl_index_key ) and  
+         ( cen_out_master.npl_detail_key = cen_out_detail.npl_detail_key ) and  
+         ( cen_out_master.nresult_key = cen_out.nresult_key ) and  
+         ( cen_out_master.npl_type = cen_out_detail.npl_type ) and
+		--HR 20.04.15 Wir d$$HEX1$$fc00$$ENDHEX$$rfen nur gueltige Artikel verwenden
+		cen_out_detail.nitem_index_key = cpa.npackinglist_index_key and
+		cen_out_detail.nitem_detail_key = cpa.npackinglist_detail_key and
+		cpa.dvalid_from <= cen_out.ddeparture  and
+		cpa.dvalid_to >= cen_out.ddeparture   
+ORDER BY cen_out_master.npl_type ASC,   
+         cen_out.ddeparture ASC,   
+         cen_out_master.cpackinglist ASC,   
+         cen_out_detail.nsort ASC   
+" )
+text(band=header alignment="2" text="Datum / PLType" border="0" color="0" x="5" y="4" height="56" width="421" html.valueishtml="0"  name=cen_out_master_npl_type_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="packinglist" border="0" color="0" x="430" y="4" height="56" width="311" html.valueishtml="0"  name=cen_out_master_cpackinglist_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="text" border="0" color="0" x="745" y="4" height="56" width="571" html.valueishtml="0"  name=cen_out_master_ctext_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="unit" border="0" color="0" x="1321" y="4" height="56" width="119" html.valueishtml="0"  name=cen_out_master_cunit_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="quantity" border="0" color="0" x="1445" y="4" height="56" width="183" html.valueishtml="0"  name=cen_out_master_nquantity_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="act" border="0" color="0" x="1632" y="4" height="56" width="96" html.valueishtml="0"  name=cen_out_master_naction_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="item Pl" border="0" color="0" x="1733" y="4" height="56" width="306" html.valueishtml="0"  name=cen_out_detail_citem_pl_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="item Text" border="0" color="0" x="2043" y="4" height="56" width="549" html.valueishtml="0"  name=cen_out_detail_citem_text_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Item quantity" border="0" color="0" x="2597" y="4" height="56" width="288" html.valueishtml="0"  name=cen_out_detail_nquantity_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="56" width="256" format="[shortdate] [time]" html.valueishtml="0"  name=cen_out_ddeparture visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="16711680" x="320" y="4" height="56" width="101" format="[general]" html.valueishtml="0"  name=cen_out_master_npl_type visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="430" y="4" height="56" width="311" format="[general]" html.valueishtml="0"  name=cen_out_master_cpackinglist visible="1" edit.limit=18 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="745" y="4" height="56" width="571" format="[general]" html.valueishtml="0"  name=cen_out_master_ctext visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1321" y="4" height="56" width="119" format="[general]" html.valueishtml="0"  name=cen_out_master_cunit visible="1" edit.limit=5 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="1445" y="4" height="56" width="183" format="[general]" html.valueishtml="0"  name=cen_out_master_nquantity visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="1632" y="4" height="56" width="96" format="[general]" html.valueishtml="0"  name=cen_out_master_naction visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="16711680" x="3109" y="4" height="64" width="119" format="[general]" html.valueishtml="0"  name=cen_out_detail_npl_detail_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="16711680" x="2898" y="4" height="64" width="206" format="[general]" html.valueishtml="0"  name=cen_out_detail_npl_index_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="1733" y="4" height="56" width="306" format="[general]" html.valueishtml="0"  name=cen_out_detail_citem_pl visible="1" edit.limit=18 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="2043" y="4" height="56" width="603" format="[general]" html.valueishtml="0"  name=cen_out_detail_citem_text visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="2670" y="4" height="56" width="215" format="[general]" html.valueishtml="0"  name=cen_out_detail_nquantity visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+
+sparse(names="cen_out_ddeparture	cen_out_master_npl_type	cen_out_master_cpackinglist	cen_out_master_ctext")htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

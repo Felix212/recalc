@@ -1,0 +1,31 @@
+HA$PBExportHeader$f_get_airline_owner.srf
+global type f_get_airline_owner from function_object
+end type
+
+forward prototypes
+global function long f_get_airline_owner (long lkey)
+end prototypes
+
+global function long f_get_airline_owner (long lkey);Long	lOwner
+
+SELECT sys_groups.nowner_id 
+ INTO :lOwner  
+ FROM cen_airlines,   
+		sys_groups  
+WHERE ( cen_airlines.nowner_id = sys_groups.nowner_id ) and  
+		( ( cen_airlines.nairline_key = :lkey ))   ;
+
+if sqlca.sqlcode = 0 then
+	
+	Return lOwner
+
+elseif sqlca.sqlcode = 100 then
+	Return -1
+else
+	f_db_error(sqlca, "Select on cen_airlines")
+	return -1
+end if
+
+return -1
+end function
+

@@ -1,0 +1,95 @@
+HA$PBExportHeader$dw_textfile_cen_out_detail.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(1) updatewhereclause=yes name=citem dbname="citem" )
+ column=(type=decimal(0) updatewhereclause=yes name=nrow_num dbname="nrow_num" )
+ column=(type=char(18) updatewhereclause=yes name=cmaterial_code dbname="cmaterial_code" )
+ column=(type=decimal(3) updatewhereclause=yes name=nquantity dbname="nquantity" )
+ column=(type=char(2) updatewhereclause=yes name=cbase_unit dbname="cbase_unit" )
+ column=(type=decimal(4) updatewhereclause=yes name=nsales_price dbname="nsales_price" )
+ column=(type=decimal(4) updatewhereclause=yes name=ndiscount dbname="ndiscount" )
+ column=(type=char(3) updatewhereclause=yes name=ccurrency dbname="ccurrency" )
+ column=(type=char(4) updatewhereclause=yes name=cplant dbname="cplant" )
+ column=(type=decimal(3) updatewhereclause=yes name=nquantity4stat dbname="nquantity4stat" )
+ column=(type=decimal(0) updatewhereclause=yes name=nused_standby_q dbname="nused_standby_q" )
+ column=(type=decimal(4) updatewhereclause=yes name=nused_standby_v dbname="nused_standby_v" )
+ column=(type=decimal(0) updatewhereclause=yes name=nnot_used_standby_q dbname="nnot_used_standby_q" )
+ column=(type=decimal(4) updatewhereclause=yes name=nnot_used_standby_v dbname="nnot_used_standby_v" )
+ column=(type=char(1) updatewhereclause=yes name=cscale_price_indicator dbname="cscale_price_indicator" )
+ column=(type=decimal(4) updatewhereclause=yes name=nadr dbname="nadr" )
+ column=(type=char(6) updatewhereclause=yes name=citem_po_number dbname="citem_po_number" )
+ column=(type=char(12) updatewhereclause=yes name=cpo_number dbname="cpo_number" )
+ retrieve="select CITEM                   ,
+		NROW_NUM                ,
+		CMATERIAL_CODE          ,
+		NQUANTITY               ,
+		CBASE_UNIT              ,
+		NSALES_PRICE            ,
+		NDISCOUNT               ,
+		CCURRENCY               ,
+		CPLANT                  ,
+		NQUANTITY4STAT          ,
+		NUSED_STANDBY_Q         ,
+		NUSED_STANDBY_V         ,
+		NNOT_USED_STANDBY_Q     ,
+		NNOT_USED_STANDBY_V     ,
+		CSCALE_PRICE_INDICATOR  ,
+		NADR                    ,
+		CITEM_PO_NUMBER         ,
+		CPO_NUMBER              
+ from table(CBASE_SAP.PF_GET_IF401_DETAILS(:arg_nresult_key))
+
+" arguments=(("arg_nresult_key", number)) )
+text(band=header alignment="2" text="Citem" border="0" color="33554432" x="9" y="8" height="64" width="151" html.valueishtml="0"  name=citem_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nrow Num" border="0" color="33554432" x="169" y="8" height="64" width="329" html.valueishtml="0"  name=nrow_num_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cmaterial Code" border="0" color="33554432" x="507" y="8" height="64" width="521" html.valueishtml="0"  name=cmaterial_code_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nquantity" border="0" color="33554432" x="1038" y="8" height="64" width="329" html.valueishtml="0"  name=nquantity_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cbase Unit" border="0" color="33554432" x="1376" y="8" height="64" width="279" html.valueishtml="0"  name=cbase_unit_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nsales Price" border="0" color="33554432" x="1664" y="8" height="64" width="329" html.valueishtml="0"  name=nsales_price_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ndiscount" border="0" color="33554432" x="2002" y="8" height="64" width="329" html.valueishtml="0"  name=ndiscount_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ccurrency" border="0" color="33554432" x="2341" y="8" height="64" width="261" html.valueishtml="0"  name=ccurrency_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cplant" border="0" color="33554432" x="2610" y="8" height="64" width="165" html.valueishtml="0"  name=cplant_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nquantity4stat" border="0" color="33554432" x="2784" y="8" height="64" width="370" html.valueishtml="0"  name=nquantity4stat_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nused Standby Q" border="0" color="33554432" x="3163" y="8" height="64" width="448" html.valueishtml="0"  name=nused_standby_q_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nused Standby V" border="0" color="33554432" x="3621" y="8" height="64" width="443" html.valueishtml="0"  name=nused_standby_v_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nnot Used Standby Q" border="0" color="33554432" x="4073" y="8" height="64" width="553" html.valueishtml="0"  name=nnot_used_standby_q_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nnot Used Standby V" border="0" color="33554432" x="4635" y="8" height="64" width="549" html.valueishtml="0"  name=nnot_used_standby_v_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cscale Price Indicator" border="0" color="33554432" x="5193" y="8" height="64" width="562" html.valueishtml="0"  name=cscale_price_indicator_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nadr" border="0" color="33554432" x="5765" y="8" height="64" width="329" html.valueishtml="0"  name=nadr_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Citem Po Number" border="0" color="33554432" x="6103" y="8" height="64" width="457" html.valueishtml="0"  name=citem_po_number_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cpo Number" border="0" color="33554432" x="6569" y="8" height="64" width="357" html.valueishtml="0"  name=cpo_number_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="76" width="151" format="[general]" html.valueishtml="0"  name=citem visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="169" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=nrow_num visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="507" y="8" height="76" width="521" format="[general]" html.valueishtml="0"  name=cmaterial_code visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="1038" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=nquantity visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="1376" y="8" height="76" width="279" format="[general]" html.valueishtml="0"  name=cbase_unit visible="1" edit.limit=2 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="1664" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=nsales_price visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="2002" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=ndiscount visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="2341" y="8" height="76" width="261" format="[general]" html.valueishtml="0"  name=ccurrency visible="1" edit.limit=3 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="2610" y="8" height="76" width="165" format="[general]" html.valueishtml="0"  name=cplant visible="1" edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="2784" y="8" height="76" width="370" format="[general]" html.valueishtml="0"  name=nquantity4stat visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="33554432" x="3163" y="8" height="76" width="448" format="[general]" html.valueishtml="0"  name=nused_standby_q visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="33554432" x="3621" y="8" height="76" width="443" format="[general]" html.valueishtml="0"  name=nused_standby_v visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="33554432" x="4073" y="8" height="76" width="553" format="[general]" html.valueishtml="0"  name=nnot_used_standby_q visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="33554432" x="4635" y="8" height="76" width="549" format="[general]" html.valueishtml="0"  name=nnot_used_standby_v visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="33554432" x="5193" y="8" height="76" width="562" format="[general]" html.valueishtml="0"  name=cscale_price_indicator visible="1" edit.limit=1 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="1" tabsequence=32766 border="0" color="33554432" x="5765" y="8" height="76" width="329" format="[general]" html.valueishtml="0"  name=nadr visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="33554432" x="6103" y="8" height="76" width="457" format="[general]" html.valueishtml="0"  name=citem_po_number visible="1" edit.limit=6 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="0" color="33554432" x="6569" y="8" height="76" width="357" format="[general]" html.valueishtml="0"  name=cpo_number visible="1" edit.limit=12 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" nquantity * ( nsales_price  -  ndiscount )"border="0" color="33554432" x="7337" y="8" height="76" width="402" format="[GENERAL]" html.valueishtml="0"  name=comp_price visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+compute(band=detail alignment="0" expression=" sum( nquantity * ( nsales_price  -  ndiscount ) for all)"border="0" color="33554432" x="6935" y="8" height="64" width="398" format="[GENERAL]" html.valueishtml="0"  name=comp_totalprice visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

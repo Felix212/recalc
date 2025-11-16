@@ -1,0 +1,11 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_ftp\\cbase_ftp.pbl" "";
+@end;
+@begin Objects
+ "cbase_ftp\\str_finddata.srs" "cbase_ftp\\cbase_ftp.pbl";
+ "cbase_ftp\\str_systemtime.srs" "cbase_ftp\\cbase_ftp.pbl";
+ "cbase_ftp\\uo_wininet.sru" "cbase_ftp\\cbase_ftp.pbl";
+ "cbase_ftp\\str_filedatetime.srs" "cbase_ftp\\cbase_ftp.pbl";
+ "cbase_ftp\\str_directory.srs" "cbase_ftp\\cbase_ftp.pbl";
+@end;

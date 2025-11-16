@@ -1,0 +1,9 @@
+HA$PBExportHeader$str_actype.srs
+global type str_actype from structure
+	string		cactype
+	string		cgalleyversion
+	string		cconfig
+	long		lowner
+	string		sOwner
+end type
+

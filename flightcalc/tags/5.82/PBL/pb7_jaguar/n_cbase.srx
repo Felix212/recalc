@@ -1,0 +1,37 @@
+HA$PBExportHeader$n_cbase.srx
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type n_cbase from CORBAObject
+end type
+global n_cbase n_cbase
+
+forward prototypes
+  public:
+subroutine filecopy (Long file_length) alias for "filecopy"
+function Long getsession () alias for "getsession"
+subroutine setdatemask () alias for "setdatemask"
+function String getenvironment () alias for "getenvironment"
+function Boolean jsp_stop () alias for "jsp_stop"
+subroutine getjspparms () alias for "getjspparms"
+function String getjspstartup () alias for "getjspstartup"
+subroutine dbdisconnect () alias for "dbdisconnect"
+function String getrsfilepath () alias for "getrsfilepath"
+function Integer getjagsleeptime () alias for "getjagsleeptime"
+subroutine setupmanager () alias for "setupmanager"
+function Boolean jsp_start () alias for "jsp_start"
+subroutine setenvironment () alias for "setenvironment"
+function String getmanagement () alias for "getmanagement"
+function String get_zebra_before_printing () alias for "get_zebra_before_printing"
+function String getpdfdocpath () alias for "getpdfdocpath"
+function String get_zebra_after_printing () alias for "get_zebra_after_printing"
+subroutine getdbparm () alias for "getdbparm"
+function String getgreyscalelogofile () alias for "getgreyscalelogofile"
+function dbconnect getdbconnectionparms () alias for "getdbconnectionparms"
+subroutine writelog (String logmsg) alias for "writelog"
+function Boolean getjspenginestatus () alias for "getjspenginestatus"
+function String getlogofile () alias for "getlogofile"
+function String get_logo_path () alias for "get_logo_path"
+subroutine dbconnect () alias for "dbconnect"
+function String get_web_temppath () alias for "get_web_temppath"
+function String setpath (String pathstr) alias for "setpath"
+                                                                                                            end prototypes
+

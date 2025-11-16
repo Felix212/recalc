@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_get_tax_code_short.srf
+$PBExportComments$Ermittelt Short-Name desSteuerkennzeichens zu taxcode_key
+global type f_get_tax_code_short from function_object
+end type
+
+forward prototypes
+global function string f_get_tax_code_short (long al_taxcode_key)
+end prototypes
+
+global function string f_get_tax_code_short (long al_taxcode_key);// -----------------------------------------
+// Ermittle Kurzname zu Tax-Code-key 
+// -----------------------------------------
+String sText
+
+SELECT 	cen_tax_codes.cshort
+	
+  INTO 	:sText 
+  FROM cen_tax_codes
+ WHERE cen_tax_codes.ntaxc_key = :al_taxcode_key;
+ 
+if sqlca.sqlcode = 0 then
+	return sText
+elseif sqlca.sqlcode = 100 then
+	return String(al_taxcode_key) + "not found!"
+else
+	f_db_error(sqlca, "f_get_tax_code_short")
+	return "Error"
+end if
+
+
+end function
+

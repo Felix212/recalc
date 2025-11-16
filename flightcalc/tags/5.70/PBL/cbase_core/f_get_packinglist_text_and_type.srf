@@ -1,0 +1,83 @@
+HA$PBExportHeader$f_get_packinglist_text_and_type.srf
+$PBExportComments$Ermitteln von Einzelst$$HEX1$$fc00$$ENDHEX$$cklisteninformationen~r~n~r~nParameter:~r~nlPackinglistIndexKey    //St$$HEX1$$fc00$$ENDHEX$$cklistenKey~r~ndtvalid_from                 // Referenzdatum~r~n~r~nR$$HEX1$$fc00$$ENDHEX$$ckgabe:~r~ns_esl          //Struktur vom Typ s_esl
+global type f_get_packinglist_text_and_type from function_object
+end type
+
+forward prototypes
+global function s_esl f_get_packinglist_text_and_type (long lpackinglist_index_key, datetime dtvalid_from)
+end prototypes
+
+global function s_esl f_get_packinglist_text_and_type (long lpackinglist_index_key, datetime dtvalid_from);// ---------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------
+s_esl		strReturn
+datetime	dtToday
+long		lDetailKey
+
+dtToday = datetime(today())
+
+select cen_packinglists.ctext, 
+       sys_packinglist_types.ctext,
+		 cen_packinglist_index.cpackinglist
+into 	 :strReturn.sESLText, 
+		 :strReturn.sESLType, 
+		 :strReturn.spackinglist
+from   cen_packinglist_index, 
+       cen_packinglists, 
+       sys_packinglist_types
+where  cen_packinglist_index.npackinglist_index_key =  cen_packinglists.npackinglist_index_key and
+		 cen_packinglists.npltype_key = sys_packinglist_types.npltype_key and
+		 cen_packinglists.dvalid_from <= :dtvalid_from and
+		 cen_packinglists.dvalid_to   >= :dtvalid_from and
+		 cen_packinglist_index.npackinglist_index_key = :lpackinglist_index_key;
+
+if sqlca.sqlcode <> 0 then
+	//
+	// Packinglist hat wohl keine Geschichte
+	// dann den ersten Treffer verwenden...
+	//
+	declare cdetail cursor for 
+	select cen_packinglists.npackinglist_detail_key,
+			 cen_packinglists.ctext, 
+   	    sys_packinglist_types.ctext,
+			 cen_packinglist_index.cpackinglist
+	from   cen_packinglist_index, 
+			 cen_packinglists, 
+			 sys_packinglist_types
+	where  cen_packinglist_index.npackinglist_index_key = cen_packinglists.npackinglist_index_key and
+			 cen_packinglists.npltype_key = sys_packinglist_types.npltype_key and
+			 cen_packinglist_index.npackinglist_index_key = :lpackinglist_index_key
+	order by cen_packinglists.npackinglist_detail_key;
+	
+	open cdetail;
+	if sqlca.sqlcode <> 0 then
+		strReturn.sESLText  = "Text N/A"
+		strReturn.sESLType  = "Type N/A"
+		close cdetail;
+		return strReturn
+	end if
+	
+	fetch cdetail into :lDetailKey, :strReturn.sESLText, :strReturn.sESLType, :strReturn.spackinglist;
+	
+	if sqlca.sqlcode = 0 then
+		close cdetail;
+		return strReturn
+	elseif sqlca.sqlcode = 100 then
+		strReturn.sESLText  = "Text N/A"
+		strReturn.sESLType  = "Type N/A"
+		close cdetail;
+		return strReturn
+	else
+		f_db_error(sqlca, "f_get_packinglist_text_and_type")
+		strReturn.sESLText  = "Error"
+		strReturn.sESLType  = "Error"
+		close cdetail;
+		return strReturn
+	end if
+else
+	return strReturn
+end if
+
+return strReturn
+end function
+

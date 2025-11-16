@@ -1,0 +1,30 @@
+HA$PBExportHeader$f_labelgroup_to_name.srf
+global type f_labelgroup_to_name from function_object
+end type
+
+forward prototypes
+global function string f_labelgroup_to_name (long lval)
+end prototypes
+
+global function string f_labelgroup_to_name (long lval);// -----------------------------------------------
+// Label Group in Beschreibung umwandeln
+// -----------------------------------------------
+
+String sReturn
+SELECT loc_unit_label_groups.ctext  
+  INTO :sReturn  
+  FROM loc_unit_label_groups  
+  WHERE loc_unit_label_groups.nlabel_group_key = :lVal   ;
+
+if sqlca.sqlcode = 0 then
+	return sReturn
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	return "N/A"
+end if
+	
+
+
+end function
+

@@ -1,0 +1,44 @@
+HA$PBExportHeader$f_log.srf
+global type f_log from function_object
+end type
+
+forward prototypes
+global function integer f_log (string arg_loguser, string arg_msg)
+end prototypes
+
+global function integer f_log (string arg_loguser, string arg_msg);// --------------------------------------------------------------------------------
+// Methode: f_log (Function)
+// Autor  : Klaus F$$HEX1$$f600$$ENDHEX$$rster
+// --------------------------------------------------------------------------------
+// Argument(e):
+// string smsg
+// --------------------------------------------------------------------------------
+// Return: integer
+// --------------------------------------------------------------------------------
+//  Beschreibung:
+//
+//			LogFile schreiben
+// --------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum    Version        Autor              Kommentar
+// --------------------------------------------------------------------------------
+//  26.10.2010	            Klaus F$$HEX1$$f600$$ENDHEX$$rster        Erstellung
+//
+// --------------------------------------------------------------------------------
+
+integer iFile
+String	lsLogPath
+
+if s_app.iTrace  = 0 then return -1
+
+lsLogPath = ProfileString("CBASE_DOCUMENT_ENGINE.ini", "Misc", "LogPath", "c:\temp\cbase\")
+
+//iFile = FileOpen(lsLogPath + "cbase_doc_gen_" + sinstance + "_" + arg_LogUser + "_" + string(Today(), "yyyymmdd") + ".log", LineMode!, Write!, Shared!)
+iFile = FileOpen(lsLogPath + sinstance + "_" + string(Today(), "yyyymmdd") + "_" +  "cbase_document_engine" + ".log", LineMode!, Write!, Shared!)
+
+FileWrite(iFile, "[" + string(today(), "dd.mm.yyyy") + "-" + string(now(), "hh:mm:ss") + "] " + arg_Msg)
+FileClose(iFile)
+
+return 0
+end function
+

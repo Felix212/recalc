@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_has_hotkeys.srf
+global type f_has_hotkeys from function_object
+end type
+
+forward prototypes
+global function boolean f_has_hotkeys (window owin)
+end prototypes
+
+global function boolean f_has_hotkeys (window owin);Integer i
+windowobject oObject
+object  		 oType
+String sName
+
+for i = 1 to UpperBound(oWin.Control[])
+	
+	oObject 	= oWin.Control[i]
+	sName 	= oObject.ClassName()
+	oType    = oObject.TypeOf()
+	
+	// Get Control Var
+	
+	//Messagebox("", sName)
+	
+//	CHOOSE CASE oType
+//
+//		CASE WindowFunction!
+//			
+//	End Choose
+	
+next
+
+return true
+end function
+

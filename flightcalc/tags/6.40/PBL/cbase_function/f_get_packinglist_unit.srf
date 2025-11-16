@@ -1,0 +1,34 @@
+HA$PBExportHeader$f_get_packinglist_unit.srf
+global type f_get_packinglist_unit from function_object
+end type
+
+forward prototypes
+global function string f_get_packinglist_unit (long lpackinglist_index_key, datetime dtvalid_from)
+end prototypes
+
+global function string f_get_packinglist_unit (long lpackinglist_index_key, datetime dtvalid_from);// ---------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------
+string	sText
+datetime	dtToday
+long		lDetailKey
+
+dtToday = datetime(today())
+
+SELECT cen_packinglists.cunit  
+ INTO :sText  
+ FROM cen_packinglists
+WHERE cen_packinglists.npackinglist_index_key = :lpackinglist_index_key 
+   AND cen_packinglists.dvalid_from <= :dtvalid_from
+   AND cen_packinglists.dvalid_to   >= :dtvalid_from  ;
+
+
+if sqlca.sqlcode <> 0 then		
+	return " "
+else
+	return sText
+end if
+
+
+end function
+

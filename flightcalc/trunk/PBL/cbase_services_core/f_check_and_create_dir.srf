@@ -1,0 +1,72 @@
+HA$PBExportHeader$f_check_and_create_dir.srf
+global type f_check_and_create_dir from function_object
+end type
+
+forward prototypes
+global function boolean f_check_and_create_dir (string arg_dir)
+end prototypes
+
+global function boolean f_check_and_create_dir (string arg_dir);// --------------------------------------------------------------------------------------------------------------------
+// Objekt : f_check_and_create_dir
+// Methode:  (Event)
+// Autor  : Heiko Rothenbach
+// --------------------------------------------------------------------------------------------------------------------
+// Argument(e):
+// arg_dir  Directory to check and create if not exists
+// --------------------------------------------------------------------------------------------------------------------
+// Return: True:  Directory exists or is created
+//             False: Directory does not exists and can not created			
+// --------------------------------------------------------------------------------------------------------------------
+//  Beschreibung:
+//
+//
+// --------------------------------------------------------------------------------------------------------------------
+//  Modifikationen:
+//  Datum       Version  Autor          Kommentar
+// --------------------------------------------------------------------------------------------------------------------
+//  22.09.2021	   1.0      H.Rothenbach   Erstellung
+//
+// --------------------------------------------------------------------------------------------------------------------
+
+string ls_prev
+integer li_pos
+
+if right(arg_dir, 1) = "\" then
+	arg_dir = left( arg_dir, len(arg_dir) -1)
+end if
+
+if DirectoryExists ( arg_dir ) then 
+	guoLog.uf_trace("[f_check_and_create_dir] DirectoryExists: " + arg_dir)
+	return true
+end if
+
+li_pos = lastpos( arg_dir, "\")
+ls_prev = left( arg_dir, li_pos -1)
+
+if li_pos < 4 then 
+	guoLog.uf_error("[f_check_and_create_dir] Drive does not exist: " + ls_prev)
+	return false
+end if
+
+
+
+if not DirectoryExists ( ls_prev ) then
+	if not f_check_and_create_dir ( ls_prev )	then 
+		return false
+	end if
+else
+	guoLog.uf_trace("[f_check_and_create_dir] DirectoryExists: " + ls_prev)
+end if
+
+li_pos = CreateDirectory ( arg_dir )
+
+if li_pos = 1 then
+	guoLog.uf_trace("[f_check_and_create_dir] Create Directory: " + arg_dir)
+	return true
+else
+	guoLog.uf_error("[f_check_and_create_dir] Error create Directory: " + arg_dir)
+	return false
+end if
+
+end function
+

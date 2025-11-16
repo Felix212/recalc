@@ -1,0 +1,26 @@
+HA$PBExportHeader$f_get_spml_text.srf
+global type f_get_spml_text from function_object
+end type
+
+forward prototypes
+global function string f_get_spml_text (long lspmlkey)
+end prototypes
+
+global function string f_get_spml_text (long lspmlkey);String sSpml
+
+select sys_spml.cspml  
+  into :sSpml
+  from sys_spml
+ where sys_spml.nspml_key = :lSPMLKey; 
+
+if sqlca.sqlcode = 0 then
+	return sSPML
+elseif sqlca.sqlcode = 100 then
+	return "not found"
+else
+	return "Error"
+end if
+
+
+end function
+

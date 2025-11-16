@@ -1,0 +1,13 @@
+HA$PBExportHeader$s_schema.srs
+global type s_schema from structure
+	string		fontname
+	integer		fontbold
+	integer		fontitalic
+	unsignedlong		fontcolor
+	integer		fontsize
+	integer		objectborder
+	unsignedlong		objectcolor
+	unsignedlong		objectbackgroundcolor
+	integer		objectlinewidth
+end type
+

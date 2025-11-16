@@ -1,0 +1,11 @@
+HA$PBExportHeader$str_label_print.srs
+global type str_label_print from structure
+	string		ccolumn
+	string		cvalue
+	long		nexternal
+	long		ncalculate_size
+	long		nfontsize
+	long		nlabels
+	string		cpl_details[]
+end type
+

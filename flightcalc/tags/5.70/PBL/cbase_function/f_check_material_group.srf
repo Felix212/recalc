@@ -1,0 +1,81 @@
+HA$PBExportHeader$f_check_material_group.srf
+global type f_check_material_group from function_object
+end type
+
+forward prototypes
+global function long f_check_material_group (ref string smaterialgroup, ref long lproductgroupkey)
+end prototypes
+
+global function long f_check_material_group (ref string smaterialgroup, ref long lproductgroupkey);/*********************************************************************************************
+* Objekt : f_check_material_group
+* Methode:  (Event)
+* Autor  : Ulrich Paudler [UP]
+* Datum  : 15.07.2009
+*
+* Argument(e):	none
+* Return: none
+*
+*
+*
+*
+*
+***********************************************************************************************
+* Modifikationen:
+* Datum			Version    Autor				Kommentar
+*-----------------------------------------------------------------------------------------------
+*15.07.2009		1.1		Ulrich Paudler	SetTrans-> SetTransObject
+************************************************************************************************/
+// -------------------------------------------------------------------
+// Hole Material-Group-Key aus einem Text und normalisiere den Text
+// setzt zus$$HEX1$$e400$$ENDHEX$$tzlich den Product-Group-Key
+// -------------------------------------------------------------------
+DataStore 	dsTemp
+Long 			i
+Long			lKey
+Long			lCount
+Long			lPackinglistLevel
+String 		searchstring
+String		searchpattern
+
+lKey 		= -1
+lCount 	= 0
+lPackinglistLevel = 3 //Artikel
+
+searchpattern = Upper(smaterialgroup)
+
+//Die Sonderzeichen m$$HEX1$$fc00$$ENDHEX$$ssen ersetzt werden
+f_mask_special_characters(searchpattern)
+
+searchpattern = ".*" + searchpattern + ".*"
+
+dsTemp = Create DataStore
+dsTemp.dataobject = "dw_search_material_group"
+// 15.07.2009 Ulrich Paudler [UP]
+dsTemp.setTransObject(SQLCA)
+
+dsTemp.retrieve(s_app.smandant, lPackinglistLevel, s_app.ilanguage)
+
+for i = 1 to dsTemp.rowCount()
+	searchstring = Upper(dsTemp.getItemString(i, "compute_text"))
+
+	if Match(searchstring, searchpattern) then
+		if lCount = 0 then
+			smaterialgroup = dsTemp.getItemString(i, "compute_text")
+			lKey = dsTemp.getItemNumber(i, "nmaterial_index_key")
+			lproductgroupkey = dsTemp.getItemNumber(i, "nproduct_index_key")
+			lCount++
+		else
+			lkey = -5
+			smaterialgroup = ""
+			exit
+		end if
+	end if
+	
+next
+
+Destroy(dsTemp)
+
+return lkey
+
+end function
+

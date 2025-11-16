@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_rotation_number.srf
+global type f_get_rotation_number from function_object
+end type
+
+forward prototypes
+global function long f_get_rotation_number (long lval)
+end prototypes
+
+global function long f_get_rotation_number (long lval);// -----------------------------------------------
+// Die Anzahl der Rotation eines Rotationsobjektes
+// -----------------------------------------------
+
+Long lReturn
+
+select nrotation_numbers into :lReturn from cen_rotations where nrotation_key = :lVal ;
+
+if sqlca.sqlcode = 0 then
+	return lReturn
+elseif sqlca.sqlcode = 100 then
+	return -1
+else
+	f_db_error(sqlca, "f_get_rotation_number()")
+	return -2
+end if
+	
+
+
+end function
+

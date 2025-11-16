@@ -1,0 +1,29 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_services_core\\cbase_services_core.pbl" "";
+@end;
+@begin Objects
+ "cbase_services_core\\uo_systemerror.sru" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_check_and_create_dir.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_set_db_action.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_get_cen_setup.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_set_db_clientinfo.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_blob_to_file.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\dw_email_dbs.srd" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_file_to_blob.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_yield.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_service_alive.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\dw_email_servers.srd" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_profile_string.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_profile_string2.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_write_log2csv.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_service_is_master.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_sequence.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\uo_email_service.sru" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\n_graylog_client.sru" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_get_connection_infos.srf" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\uo_log.sru" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\dw_services_alive.srd" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\uo_osversion.sru" "cbase_services_core\\cbase_services_core.pbl";
+ "cbase_services_core\\f_get_importfile_errortext.srf" "cbase_services_core\\cbase_services_core.pbl";
+@end;

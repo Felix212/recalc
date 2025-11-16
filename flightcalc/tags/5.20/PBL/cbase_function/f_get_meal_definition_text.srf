@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_get_meal_definition_text.srf
+global type f_get_meal_definition_text from function_object
+end type
+
+forward prototypes
+global function string f_get_meal_definition_text (long lkey)
+end prototypes
+
+global function string f_get_meal_definition_text (long lkey);
+string sText
+
+select cen_handling.ctext 
+  into :sText
+  from cen_handling, cen_meals
+ where cen_handling.nhandling_key =  cen_meals.nhandling_key and
+		 cen_meals.nhandling_meal_key = :lKey;
+	
+if sqlca.sqlcode = 0 then
+	return sText
+elseif sqlca.sqlcode = 100 then
+	Return "Definition: " + String(lKey) + " not found!"
+else
+	f_db_error(sqlca, "f_get_meal_definition_text()")
+	Return "Error"
+end if
+
+	
+end function
+

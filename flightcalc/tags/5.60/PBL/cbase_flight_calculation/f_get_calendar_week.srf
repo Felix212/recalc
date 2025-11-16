@@ -1,0 +1,50 @@
+HA$PBExportHeader$f_get_calendar_week.srf
+$PBExportComments$Die Kalenderwoche eines Datums ermitteln
+global type f_get_calendar_week from function_object
+end type
+
+forward prototypes
+global function long f_get_calendar_week (ref date ddate)
+end prototypes
+
+global function long f_get_calendar_week (ref date ddate);// ------------------------------------------------------
+//
+// Kalenderwoche eines Datums ermitteln
+//
+// ------------------------------------------------------
+date 		dNew
+Long		lDaysAfter
+Long		lDaysAfter2
+Long		lCW
+Long		lYear
+
+
+lDaysAfter  = DaysAfter(Date(1900,1,1), dDate) + 2
+lYear 		= lDaysAfter + Mod(8 - DayNumber(dDate), 7) - 3
+
+// ----------------------------------------------------
+// Problem:
+// RelativeDate kann nur integer. Bei einem aktuellen
+// Datum ist der Max-Wert bereits $$HEX1$$fc00$$ENDHEX$$berschritten.
+// ----------------------------------------------------
+if lYear > 20000 then
+
+	lYear -= 20000
+	dNew = RelativeDate(Date(1954,10,4), lYear)
+	
+else
+	
+	dNew = RelativeDate(Date(1900,1,1), lYear)
+	
+end if
+
+dNew = Date(Year(dNew), 1, 1)
+lDaysAfter2 = DaysAfter(Date(1900,1,1), dNew) + 2
+lCW = (lDaysAfter - lDaysAfter2 - 3 + (Mod(DayNumber(dNew) + 1, 7))) / 7 + 1
+
+return lCW
+
+
+
+end function
+

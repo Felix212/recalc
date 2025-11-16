@@ -1,0 +1,14 @@
+HA$PBExportHeader$f_cbase_units.srf
+global type f_cbase_units from function_object
+end type
+
+forward prototypes
+global function integer f_cbase_units (integer iunits)
+end prototypes
+
+global function integer f_cbase_units (integer iunits);
+
+
+return iUnits
+end function
+

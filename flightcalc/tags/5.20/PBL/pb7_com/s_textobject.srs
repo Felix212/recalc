@@ -1,0 +1,16 @@
+HA$PBExportHeader$s_textobject.srs
+global type s_textobject from structure
+	integer		charset
+	integer		escapement
+	integer		face
+	integer		family
+	integer		height
+	boolean		italic
+	integer		pitch
+	boolean		strikethrough
+	boolean		underline
+	integer		weight
+	string		text
+	long		color
+end type
+

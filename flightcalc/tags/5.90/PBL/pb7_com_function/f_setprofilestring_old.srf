@@ -1,0 +1,48 @@
+HA$PBExportHeader$f_setprofilestring_old.srf
+$PBExportComments$SetProfilestring aus Datenbank
+global type f_setprofilestring_old from function_object
+end type
+
+forward prototypes
+global function boolean f_setprofilestring_old (string ssection, string skey, string svalue)
+end prototypes
+
+global function boolean f_setprofilestring_old (string ssection, string skey, string svalue);
+
+if sValue = "" then
+	sValue = " " 
+end if
+
+
+INSERT INTO loc_setup  
+         (nuser_id,   
+         csection,   
+         ckey,   
+         cvalue )
+  VALUES (:s_app.lUser_Id,   
+         :sSection,   
+         :sKey,   
+         :sValue)  using SQLCA;
+			 
+If SQLCA.SQLCode <> 0 Then
+	Update	loc_setup 
+	Set 		cValue = :sValue
+	where		nuser_id		= :s_app.lUser_id	and
+				cSection		= :sSection			and
+				cKey			= :sKey using SQLCA;
+	If SQLCA.SQLCode <> 0 Then
+		Messagebox("Ups",sqlca.sqlerrtext)
+		return False
+	End if	
+End if
+
+commit using SQLCA;
+If SQLCA.SQLCode <> 0 Then
+	Messagebox("Ups Commit","")
+	return False
+End if	
+
+	
+return True
+end function
+

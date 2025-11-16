@@ -1,0 +1,39 @@
+HA$PBExportHeader$dw_cen_request_bob.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=144 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(10) updatewhereclause=yes name=cen_class_name_cclass dbname="cen_class_name.cclass" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_class_name_nclass_number dbname="cen_class_name.nclass_number" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_class_name_nbooking_class dbname="cen_class_name.nbooking_class" )
+ column=(type=char(18) updatewhereclause=yes name=cen_request_bob_cbob_type dbname="cen_request_bob.cbob_type" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_request_bob_namount dbname="cen_request_bob.namount" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_class_name~" )  TABLE(NAME=~"cen_request_bob~" ) COLUMN(NAME=~"cen_class_name.cclass~") COLUMN(NAME=~"cen_class_name.nclass_number~") COLUMN(NAME=~"cen_class_name.nbooking_class~") COLUMN(NAME=~"cen_request_bob.cbob_type~") COLUMN(NAME=~"cen_request_bob.namount~")WHERE(    EXP1 =~"cen_class_name.nairline_key~"   OP =~"=~"    EXP2 =~":arg_nairline_key~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"cen_request_bob.nreq_flight_key~"   OP =~"=~"    EXP2 =~":arg_nreq_flight_key~" ) ) ARG(NAME = ~"arg_nreq_flight_key~" TYPE = number)  ARG(NAME = ~"arg_nairline_key~" TYPE = number) " arguments=(("arg_nreq_flight_key", number),("arg_nairline_key", number)) )
+text(band=header alignment="2" text="Cen Class Name
+Cclass" border="0" color="33554432" x="9" y="8" height="128" width="448" html.valueishtml="0"  name=cen_class_name_cclass_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Class Name
+Nclass Number" border="0" color="33554432" x="466" y="8" height="128" width="448" html.valueishtml="0"  name=cen_class_name_nclass_number_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Class Name
+Nbooking Class" border="0" color="33554432" x="923" y="8" height="128" width="448" html.valueishtml="0"  name=cen_class_name_nbooking_class_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Request Bob
+Cbob Type" border="0" color="33554432" x="1381" y="8" height="128" width="521" html.valueishtml="0"  name=cen_request_bob_cbob_type_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Request Bob
+Namount" border="0" color="33554432" x="1911" y="8" height="128" width="466" html.valueishtml="0"  name=cen_request_bob_namount_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="8" height="76" width="448" format="[general]" html.valueishtml="0"  name=cen_class_name_cclass visible="1" edit.limit=10 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="466" y="8" height="76" width="448" format="[general]" html.valueishtml="0"  name=cen_class_name_nclass_number visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="923" y="8" height="64" width="448" format="[General]" html.valueishtml="0"  name=cen_class_name_nbooking_class visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1381" y="8" height="76" width="521" format="[general]" html.valueishtml="0"  name=cen_request_bob_cbob_type visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="1911" y="8" height="76" width="466" format="[general]" html.valueishtml="0"  name=cen_request_bob_namount visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

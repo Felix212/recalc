@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_dateformat.srf
+global type f_dateformat from function_object
+end type
+
+forward prototypes
+global function string f_dateformat ()
+end prototypes
+
+global function string f_dateformat ();	String	sRegKey, sMask, sCountry, sDateCheck
+	
+	sRegKey = "HKEY_CURRENT_USER\Control Panel\International"
+	If RegistryGet(sRegKey, "sShortDate", RegString!, sMask) = -1 Then
+		// ------------------------------------
+		// Bei Fehler, deutsches Datumsformat
+		// ------------------------------------
+		
+		//DB 05.02.2009: Globales CBASE-Shortdateformat setzen (Auf zwei Jahresstellen verk$$HEX1$$fc00$$ENDHEX$$rzt)
+		s_app.sshortdateformat = "dd.mm.yy"
+		
+		uf.mbox("Warnung","Das Datumsformat konnte nicht aus der Registry ermittelt werden,~nes wird das deutsche Datumsformat verwendet.")
+		
+		Return "dd.mm.yyyy"
+		
+	Else
+		// -------------------------------------------------
+		// OK, RegistryGet war in Ordnung nun die Pr$$HEX1$$fc00$$ENDHEX$$fung.
+		// -------------------------------------------------
+		
+		//DB 30.01.2009: Pr$$HEX1$$fc00$$ENDHEX$$fung in Deutschland $$HEX1$$fc00$$ENDHEX$$ber ini zusachaltbar
+		sDateCheck = profilestring(s_app.sProfile,"LocalSettings","CheckDateFormat","1")
+		Setprofilestring(s_app.sProfile,"LocalSettings","CheckDateFormat",sDateCheck)
+		
+		If (len(sMask) < 10 and sDateCheck = "1" ) Then
+			uf.mbox("Warnung","Cbase anywhere verwendet ein 10 stelliges Datumsformat,~ndie gegenwertige Rechnereinstellung entspicht nicht diesem Standard.")
+			Return "error"
+		End if
+		
+		//DB 05.02.2009: Globales CBASE-Shortdateformat setzen (Auf zwei Jahresstellen verk$$HEX1$$fc00$$ENDHEX$$rzt)
+		s_app.sshortdateformat = Replace(sMask, Pos(lower(sMask), "yyyy"), 2, "")
+		
+		Return sMask
+	End if	
+		
+		
+
+end function
+

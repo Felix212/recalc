@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_airline_to_long_name.srf
+global type f_airline_to_long_name from function_object
+end type
+
+forward prototypes
+global function string f_airline_to_long_name (long lval)
+end prototypes
+
+global function string f_airline_to_long_name (long lval);// -----------------------------------------------
+// Airline Key in Airline Beschreibung umwandeln
+// -----------------------------------------------
+
+String sReturn
+
+SELECT cen_airlines.ctext
+ INTO :sReturn  
+ FROM cen_airlines  
+WHERE cen_airlines.nairline_key = :lVal;
+
+if sqlca.sqlcode = 0 then
+	return sReturn
+elseif sqlca.sqlcode = 100 then
+	return "N/A"
+else
+	//uf.mbox("Achtung", "DB-Error: ${" + String(sqlca.sqlcode) + "}~r~r${" + sqlca.sqlerrtext + "}", StopSign!)
+	return "N/A"
+end if
+	
+
+
+end function
+

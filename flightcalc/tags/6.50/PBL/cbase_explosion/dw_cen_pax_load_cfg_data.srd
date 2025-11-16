@@ -1,0 +1,108 @@
+HA$PBExportHeader$dw_cen_pax_load_cfg_data.srd
+release 19;
+datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" grid.lines=0 )
+header(height=144 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=92 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=decimal(0) updatewhereclause=yes name=npax_load dbname="cen_aircraft_configurations.npax_load" dbalias=".npax_load" )
+ retrieve="  SELECT aa.npax_load   
+    FROM cen_aircraft_configurations,   
+         ( select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_1 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_1 = :arg_galley_region_key 
+            
+         union all
+         select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_2 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_2 = :arg_galley_region_key 
+            
+         union all
+         select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_3 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_3 = :arg_galley_region_key 
+            
+         union all
+         select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_4 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_4 = :arg_galley_region_key 
+            
+         union all
+         select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_5 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_5 = :arg_galley_region_key 
+            
+         union all
+         select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_6 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_6 = :arg_galley_region_key 
+            
+         union all
+         select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_7 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_7 = :arg_galley_region_key 
+            
+         union all
+         select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_8 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_8 = :arg_galley_region_key 
+            
+         union all
+         select cen_pax_load_cfg.nconfiguration_key,
+                  cen_pax_load_cfg_detail.npax_load_9 npax_load   
+          from  cen_pax_load_cfg,   
+                cen_pax_load_cfg_detail
+          where cen_pax_load_cfg_detail.npax_load_cfg_key = cen_pax_load_cfg.npax_load_cfg_key 
+            AND cen_pax_load_cfg_detail.npax_figure = :arg_pax 
+            AND cen_pax_load_cfg.ngalley_region_key_9 = :arg_galley_region_key 
+              
+         ) aa
+   WHERE  aa.nconfiguration_key = cen_aircraft_configurations.nconfiguration_key        
+     and cen_aircraft_configurations.naircraft_key = :arg_aircraft_key
+     and cen_aircraft_configurations.cclass = :arg_class
+     and CBASE_FUNCTIONS.PF_GET_AIRCRAFT_CONFIG(cen_aircraft_configurations.naircraft_key, cen_aircraft_configurations.NGROUP_KEY )  = :arg_versionstring  " arguments=(("arg_aircraft_key", number),("arg_class", string),("arg_pax", number),("arg_galley_region_key", number),("arg_versionstring", string)) )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="33554432" x="9" y="0" height="64" width="2126" html.valueishtml="0"  name=npax_load visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="0" text="Npax Load" enabled="0" border="0" color="33554432" x="5" y="4" height="64" width="2130" html.valueishtml="0"  name=npax_load_t visible="1"  font.face="Tahoma" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" background.transparency="0" background.gradient.color="0" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="0" background.gradient.focus="0" background.gradient.scale="0" background.gradient.spread="0" tooltip.backcolor="0" tooltip.delay.initial="0" tooltip.delay.visible="0" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="0" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=2 distill.custompostscript="0" xslfop.print="0" nativepdf.customsize=0 nativepdf.customorientation=0 nativepdf.pdfstandard=0 nativepdf.useprintspec=no )
+export.xhtml()
+ 

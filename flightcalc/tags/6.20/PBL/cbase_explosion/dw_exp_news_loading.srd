@@ -1,0 +1,59 @@
+HA$PBExportHeader$dw_exp_news_loading.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=248 color="536870912" )
+summary(height=8 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes key=yes name=cen_out_news_nresult_key dbname="cen_out_news.nresult_key" )
+ column=(type=decimal(0) updatewhereclause=yes key=yes name=cen_out_news_nhandling_id dbname="cen_out_news.nhandling_id" )
+ column=(type=decimal(0) updatewhereclause=yes key=yes name=cen_out_news_nnews_ll_index_key dbname="cen_out_news.nnews_ll_index_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_news_ntransaction dbname="cen_out_news.ntransaction" )
+ column=(type=char(18) updatewhereclause=yes name=cen_out_news_cnews_ll dbname="cen_out_news.cnews_ll" )
+ column=(type=char(40) updatewhereclause=yes name=cen_out_news_cinfo dbname="cen_out_news.cinfo" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_news_nprio dbname="cen_out_news.nprio" )
+ column=(type=char(30) updatewhereclause=yes name=cen_out_news_ctext dbname="cen_out_news.ctext" )
+ column=(type=datetime updatewhereclause=yes name=cen_out_news_dtimestamp dbname="cen_out_news.dtimestamp" )
+ column=(type=decimal(0) updatewhereclause=yes name=cen_out_news_nstatus dbname="cen_out_news.nstatus" )
+ column=(type=char(30) updatewhereclause=yes name=cen_out_news_cdescription dbname="cen_out_news.cdescription" )
+ column=(type=decimal(0) updatewhereclause=yes key=yes name=nhandling_key dbname="cen_out_news.nhandling_key" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"cen_out_news~" ) COLUMN(NAME=~"cen_out_news.nresult_key~") COLUMN(NAME=~"cen_out_news.nhandling_id~") COLUMN(NAME=~"cen_out_news.nnews_ll_index_key~") COLUMN(NAME=~"cen_out_news.ntransaction~") COLUMN(NAME=~"cen_out_news.cnews_ll~") COLUMN(NAME=~"cen_out_news.cinfo~") COLUMN(NAME=~"cen_out_news.nprio~") COLUMN(NAME=~"cen_out_news.ctext~") COLUMN(NAME=~"cen_out_news.dtimestamp~") COLUMN(NAME=~"cen_out_news.nstatus~") COLUMN(NAME=~"cen_out_news.cdescription~") COLUMN(NAME=~"cen_out_news.nhandling_key~")WHERE(    EXP1 =~"cen_out_news.nresult_key~"   OP =~"=~"    EXP2 =~":arg_result~" ) ) ARG(NAME = ~"arg_result~" TYPE = number) " update="cen_out_news" updatewhere=0 updatekeyinplace=no arguments=(("arg_result", number))  sort="cen_out_news_nresult_key A " )
+text(band=header alignment="0" text="Zeitungsbeladung: Alle Newspaper Loading Lists f$$HEX1$$fc00$$ENDHEX$$r einen Generierungstag" border="0" color="0" x="14" y="16" height="64" width="2194"  name=t_1  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Cen Out News
+Nresult Key" border="0" color="0" x="5" y="108" height="128" width="384"  name=cen_out_news_nresult_key_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Nhandling Id" border="0" color="0" x="393" y="108" height="128" width="384"  name=cen_out_news_nhandling_id_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Nnews Ll Index Key" border="0" color="0" x="782" y="108" height="128" width="526"  name=cen_out_news_nnews_ll_index_key_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Ntransaction" border="0" color="0" x="1312" y="108" height="128" width="384"  name=cen_out_news_ntransaction_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Cnews Ll" border="0" color="0" x="1705" y="108" height="128" width="521"  name=cen_out_news_cnews_ll_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Cinfo" border="0" color="0" x="2231" y="108" height="128" width="1125"  name=cen_out_news_cinfo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Nprio" border="0" color="0" x="3360" y="108" height="128" width="384"  name=cen_out_news_nprio_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Ctext" border="0" color="0" x="3749" y="108" height="128" width="850"  name=cen_out_news_ctext_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Dtimestamp" border="0" color="0" x="4603" y="108" height="128" width="603"  name=cen_out_news_dtimestamp_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Nstatus" border="0" color="0" x="5211" y="108" height="128" width="384"  name=cen_out_news_nstatus_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cen Out News
+Cdescription" border="0" color="0" x="5600" y="108" height="128" width="850"  name=cen_out_news_cdescription_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="cen_out + cen_out_news" border="0" color="0" x="2267" y="16" height="64" width="663"  name=t_2  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Der Key vom Handlingobjekt" border="0" color="0" x="6587" y="172" height="64" width="850"  name=t_3  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="329" format="[general]"  name=cen_out_news_nresult_key edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="393" y="4" height="76" width="329" format="[general]"  name=cen_out_news_nhandling_id edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="782" y="4" height="76" width="329" format="[general]"  name=cen_out_news_nnews_ll_index_key edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="1312" y="4" height="76" width="329" format="[general]"  name=cen_out_news_ntransaction edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1705" y="4" height="76" width="521" format="[general]"  name=cen_out_news_cnews_ll edit.limit=18 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2231" y="4" height="76" width="1125" format="[general]"  name=cen_out_news_cinfo edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="0" x="3360" y="4" height="76" width="329" format="[general]"  name=cen_out_news_nprio edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="3749" y="4" height="76" width="850" format="[general]"  name=cen_out_news_ctext edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="4603" y="4" height="76" width="603" format="[shortdate] [time]"  name=cen_out_news_dtimestamp edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="0" x="5211" y="4" height="76" width="329" format="[general]"  name=cen_out_news_nstatus edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="0" x="5600" y="4" height="76" width="850" format="[general]"  name=cen_out_news_cdescription edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="0" x="6587" y="0" height="64" width="471" format="[general]"  name=nhandling_key edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

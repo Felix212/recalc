@@ -1,0 +1,19 @@
+HA$PBExportHeader$f_set_pointer_hourglass.srf
+global type f_set_pointer_hourglass from function_object
+end type
+
+forward prototypes
+global function integer f_set_pointer_hourglass (long lhandle)
+end prototypes
+
+global function integer f_set_pointer_hourglass (long lhandle);ulong lRet
+
+SetPointer(hourglass!)
+lRet = SetCapture(lHandle)
+
+
+
+return 0
+
+end function
+

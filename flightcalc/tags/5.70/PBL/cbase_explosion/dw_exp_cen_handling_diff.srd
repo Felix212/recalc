@@ -1,0 +1,83 @@
+HA$PBExportHeader$dw_exp_cen_handling_diff.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=nhandling_conc_diff_key dbname="cen_handling_conc_diff.nhandling_conc_diff_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nroutingplan_handling_key dbname="cen_handling_conc_diff.nroutingplan_handling_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=nhandling_key_conc dbname="cen_handling_conc_diff.nhandling_key_conc" )
+ column=(type=decimal(0) updatewhereclause=yes name=nmeal_cat_key dbname="cen_handling_conc_diff.nmeal_cat_key" )
+ column=(type=decimal(0) updatewhereclause=yes name=npercentage dbname="cen_handling_conc_diff.npercentage" )
+ column=(type=decimal(3) updatewhereclause=yes name=nvalue dbname="cen_handling_conc_diff.nvalue" )
+ retrieve="SELECT DISTINCT CEN_HANDLING_CONC_DIFF.NHANDLING_CONC_DIFF_KEY    	,
+                			CEN_HANDLING_CONC_DIFF.NROUTINGPLAN_HANDLING_KEY  	,
+                			CEN_HANDLING_CONC_DIFF.NHANDLING_KEY_CONC         		,
+                			CEN_HANDLING_CONC_DIFF.NMEAL_CAT_KEY              			,
+               			CEN_HANDLING_CONC_DIFF.NPERCENTAGE                			,
+                			CEN_HANDLING_CONC_DIFF.NVALUE
+
+FROM           		CEN_MEALS                                            							-- Mahlzeiten-Definition
+
+JOIN            		CEN_MEAL_COVER                                        						-- Mahlzeiten-Beladung
+ON              		CEN_MEALS.NHANDLING_KEY                               				= CEN_MEAL_COVER.NHANDLING_FOREIGN_KEY
+
+JOIN            		CEN_ROUTINGPLAN_HANDLING CEN_ROUTINGPLAN_HANDLING_MEAL -- Beladedefinition MZ
+ON              		CEN_ROUTINGPLAN_HANDLING_MEAL.NHANDLING_KEY           = CEN_MEAL_COVER.NHANDLING_KEY
+
+JOIN            		CEN_ROUTINGPLAN                                       						-- Routingplan
+ON              		CEN_ROUTINGPLAN.NROUTINGDETAIL_KEY                    		= CEN_ROUTINGPLAN_HANDLING_MEAL.NROUTINGDETAIL_KEY
+
+JOIN            		CEN_ROUTINGPLAN_HANDLING CEN_ROUTINGPLAN_HANDLING_CONC -- Beladedefinition Konz
+ON              		CEN_ROUTINGPLAN_HANDLING_CONC.NROUTINGDETAIL_KEY   = CEN_ROUTINGPLAN_HANDLING_MEAL.NROUTINGDETAIL_KEY
+
+JOIN            		CEN_HANDLING_CONC                                     					-- Konzeptbeladung
+ON              		CEN_HANDLING_CONC.NHANDLING_KEY                       			= CEN_ROUTINGPLAN_HANDLING_CONC.NHANDLING_KEY
+
+JOIN            		CEN_HANDLING                                          						-- Handlingobjekt des Konzeptes
+ON              		CEN_HANDLING.NHANDLING_KEY                            				= CEN_HANDLING_CONC.NHANDLING_KEY_CONC
+
+JOIN            		CEN_CONC_MASTER                                       					-- Konzept
+ON              		CEN_CONC_MASTER.NHANDLING_KEY                         			= CEN_HANDLING.NHANDLING_KEY
+
+JOIN            		CEN_MOP_MASTER                                        					-- Mop
+ON              		CEN_MOP_MASTER.NHANDLING_KEY_CONC                     		= CEN_CONC_MASTER.NHANDLING_KEY
+
+JOIN            		CEN_HANDLING_CONC_DIFF                                				-- Flug-/Konzeptbezogene $$HEX1$$dc00$$ENDHEX$$berbeladung
+ON              		CEN_HANDLING_CONC_DIFF.NHANDLING_KEY_CONC             	= CEN_HANDLING.NHANDLING_KEY AND
+               			CEN_HANDLING_CONC_DIFF.NROUTINGPLAN_HANDLING_KEY   = CEN_ROUTINGPLAN_HANDLING_CONC.NROUTINGPLAN_HANDLING_KEY
+
+LEFT OUTER JOIN CEN_MEAL_CAT                                          						-- ggf. einschr$$HEX1$$e400$$ENDHEX$$nkende Mahlzeitenkategorie
+ON              		CEN_MEAL_CAT.NMEAL_CAT_KEY                            			= CEN_HANDLING_CONC_DIFF.NMEAL_CAT_KEY
+
+WHERE           		CEN_MOP_MASTER.NMOP_KEY                               				= CEN_MEALS.NMOP_KEY 	AND -- nur der Mop der zu MZ-Def. geh$$HEX1$$f600$$ENDHEX$$rt
+                			CEN_MEAL_COVER.NHANDLING_KEY                  					= :COVER_KEY             		AND
+                			TRUNC(:GEN_DATE) BETWEEN CEN_ROUTINGPLAN_HANDLING_MEAL.DVALID_FROM 		AND CEN_ROUTINGPLAN_HANDLING_MEAL.DVALID_TO AND
+                			TRUNC(:GEN_DATE) BETWEEN CEN_ROUTINGPLAN_HANDLING_CONC.DVALID_FROM 		AND CEN_ROUTINGPLAN_HANDLING_CONC.DVALID_TO AND
+                			TRUNC(:GEN_DATE) BETWEEN CEN_ROUTINGPLAN.DVALID_FROM               					AND CEN_ROUTINGPLAN.DVALID_TO
+
+" arguments=(("cover_key", number),("gen_date", date)) )
+text(band=header alignment="2" text="Nhandling Conc Diff Key" border="0" color="33554432" x="41" y="16" height="64" width="640" html.valueishtml="0"  name=nhandling_conc_diff_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nroutingplan handling Key" border="0" color="33554432" x="667" y="0" height="64" width="608" html.valueishtml="0"  name=nhandling_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nhandling Key Conc" border="0" color="33554432" x="1275" y="0" height="68" width="608" html.valueishtml="0"  name=nhandling_key_conc_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nmeal Cat Key" border="0" color="33554432" x="1870" y="0" height="64" width="608" html.valueishtml="0"  name=nmeal_cat_key_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Npercentage" border="0" color="33554432" x="2487" y="4" height="64" width="608" html.valueishtml="0"  name=npercentage_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Nvalue" border="0" color="33554432" x="3104" y="4" height="64" width="608" html.valueishtml="0"  name=nvalue_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="76" width="544" format="[general]" html.valueishtml="0"  name=nhandling_conc_diff_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="649" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nroutingplan_handling_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="1262" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nhandling_key_conc visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="1874" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nmeal_cat_key visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2487" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=npercentage visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="3109" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=nvalue visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

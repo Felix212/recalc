@@ -1,0 +1,27 @@
+HA$PBExportHeader$f_get_packinglist.srf
+global type f_get_packinglist from function_object
+end type
+
+forward prototypes
+global function string f_get_packinglist (long lpackinglist_index_key)
+end prototypes
+
+global function string f_get_packinglist (long lpackinglist_index_key);// ---------------------------------------------
+// Check, ob ein Packinglist-Text gefunden wird
+// ---------------------------------------------
+string	sText
+
+SELECT cen_packinglist_index.cpackinglist
+ INTO :sText  
+ FROM cen_packinglist_index
+WHERE cen_packinglist_index.npackinglist_index_key = :lpackinglist_index_key   ;
+
+if sqlca.sqlcode <> 0 then
+	return ""
+else
+	return sText
+end if
+
+
+end function
+

@@ -1,0 +1,17 @@
+HA$PBExportHeader$n_user.srx
+$PBExportComments$Proxy imported from Jaguar via Jaguar Proxy generator.
+global type n_user from CORBAObject
+end type
+global n_user n_user
+
+forward prototypes
+  public:
+function logon_history of_logon_history_parameters () alias for "of_logon_history_parameters"
+function logon_history of_logon_history_stat (String sfrom,String sto) alias for "of_logon_history_stat"
+function logon_history of_logon_history_data (String sfrom,String sto,String sstatus) alias for "of_logon_history_data"
+function String of_checknull (String sval) alias for "of_checknull"
+function logon_history of_get_usersettings (Long luserid) alias for "of_get_usersettings"
+function usersettings of_logon (String suser,String spassword,Long llanguage,Long lwebapp,html_menu_settings str_menusettings,String sremoteadress) alias for "of_logon"
+function logon_history of_change_station (String soldstation,String snewstation) alias for "of_change_station"
+                            end prototypes
+

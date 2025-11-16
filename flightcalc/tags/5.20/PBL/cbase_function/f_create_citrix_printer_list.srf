@@ -1,0 +1,56 @@
+HA$PBExportHeader$f_create_citrix_printer_list.srf
+global type f_create_citrix_printer_list from function_object
+end type
+
+forward prototypes
+global function integer f_create_citrix_printer_list (ref string sprinters[])
+end prototypes
+
+global function integer f_create_citrix_printer_list (ref string sprinters[]);// ------------------------------------------------
+// Druckerliste im "Citrix-Mode" auf die Drucker
+// reduzieren, die zur eigenen Workstation geh$$HEX1$$f600$$ENDHEX$$ren
+// ------------------------------------------------
+Integer 	i
+String	sReturn[]
+integer iFile
+
+if s_app.iTrace = 1 then 
+	
+	iFile = FileOpen(f_gettemppath() + "cbase_citrix_printer_list.log", LineMode!, Write!, Shared!)
+
+	FileWrite(iFile, "[Before Cleanup]")
+	
+	For i = 1 to Upperbound(sPrinters) 
+		FileWrite(iFile, "[" + string(today(), "dd.mm.yyyy") + "-" + string(now(), "hh:mm:ss") + "] - " + s_app.sHost + " - " + sPrinters[i])
+	next
+	
+end if
+
+
+
+For i = 1 to Upperbound(sPrinters)
+	
+	if Pos(Upper(sPrinters[i]), Upper(s_app.sHost)) > 0 then
+		sReturn[Upperbound(sReturn[]) + 1] = sPrinters[i]
+	end if
+		
+Next
+
+sPrinters = sReturn
+
+if s_app.iTrace = 1 then 
+	
+	FileWrite(iFile, "[After Cleanup]")
+	
+	For i = 1 to Upperbound(sPrinters) 
+		FileWrite(iFile, "[" + string(today(), "dd.mm.yyyy") + "-" + string(now(), "hh:mm:ss") + "] - " + s_app.sHost + " - " + sPrinters[i])
+	next
+
+	FileClose(iFile)
+	
+end if
+
+
+return 0
+end function
+

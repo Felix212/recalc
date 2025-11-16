@@ -1,0 +1,158 @@
+HA$PBExportHeader$f_get_column_status.srf
+global type f_get_column_status from function_object
+end type
+
+forward prototypes
+global function string f_get_column_status (datawindow odw, long lrow, integer ibuffers, integer iprint)
+end prototypes
+
+global function string f_get_column_status (datawindow odw, long lrow, integer ibuffers, integer iprint);//----------------------------------------------------
+// Alle Objecte im DW analysieren
+//----------------------------------------------------
+
+integer 	i, &
+			j, &
+			iCount, &
+			iPos
+			
+string 	sDWObjects, &
+			sTemp, &
+			sObjects[], &
+			sBuffNames[], &
+			sBand, &
+			sType, &
+			sOut
+
+long 		a
+
+blob		bRet
+
+dwBuffer dwBuff[]
+
+datastore dsStatus
+
+dsStatus = create datastore
+dsStatus.dataobject = "dw_column_status"
+
+
+
+dwBuff[1] = Primary!
+sBuffNames[1] = "Primary!"
+
+
+if iBuffers >= 2 then
+	dwBuff[2] = Delete!
+	sBuffNames[2] = "Delete!"
+end if
+
+if iBuffers >= 3 then
+	dwBuff[3] = Filter!
+	sBuffNames[3] = "Filter!"
+end if
+
+
+
+// ---------------------------------------
+// Alle Objekte von DW_LAYOUT auslesen
+// ---------------------------------------
+ sDWObjects = oDW.describe("datawindow.objects")
+
+
+// ---------------------------------------
+// Den String zerhacken und alle Objekte
+// ein Array schreiben
+// ---------------------------------------
+
+for i = 1 to len(sDWObjects)
+	
+	if Mid(sDWObjects, i, 1) <> char(9) then
+		
+		sTemp += Mid(sDWObjects, i, 1)
+		
+	else
+				
+		iCount ++
+		sObjects[iCount] = sTemp
+		sTemp = ""
+		
+	end if
+
+next
+
+if len(sTemp) > 0 then		
+	iCount ++
+	sObjects[iCount] = sTemp
+end if
+
+// ---------------------------------------
+// Die Objekte nach Header und Detail Band
+// trennen
+// ---------------------------------------
+
+for i = 1 to UpperBound(sObjects)
+	
+	sType = odw.Describe(sObjects[i] + ".type")
+
+	if sType = "column" then
+		
+		
+		
+		for j = 1 to upperbound(dwBuff)
+		
+			a = dsStatus.InsertRow(0)
+		
+			dsStatus.SetItem(a, "ccolumnname", sObjects[i])
+			dsStatus.SetItem(a, "cbuffer", string(sBuffNames[j]))
+		
+			choose case oDw.GetItemStatus(lRow, sObjects[i], dwBuff[j])
+				case NotModified!
+					dsStatus.SetItem(a, "cstatus"," NotModified!")
+				case DataModified!
+					dsStatus.SetItem(a, "cstatus","DataModified!")
+				case New!
+					dsStatus.SetItem(a, "cstatus","New!")
+				case NewModified!
+					dsStatus.SetItem(a, "cstatus","NewModified!")
+				case else
+					dsStatus.SetItem(a, "cstatus","N/A")
+			end choose		
+			
+		Next
+		
+	end if
+	
+	
+Next
+
+dsStatus.Sort()
+dsStatus.GroupCalc()
+
+String SColumn
+
+for i = 1 to dsStatus.RowCount()
+	
+	if scolumn = dsStatus.GetItemString(i, "ccolumnname") then
+		scolumn = dsStatus.GetItemString(i, "ccolumnname")
+		
+		sOut += Mid(sColumn + Space(40), 1, 40) + "~t" + &
+		       Mid(dsStatus.GetItemString(i, "cbuffer") + space(40) ,1,20) + "~t" + &
+				 Mid(dsStatus.GetItemString(i, "cstatus") + space(40) ,1,20) + "~r~n"
+				 
+				 
+	else
+		scolumn = dsStatus.GetItemString(i, "ccolumnname")
+		sOut += "-----------------------------------------------------------------------------------------------------------------------------------" + "~r"
+		sOut += Mid(sColumn + Space(40), 1, 40) + "~t" + &
+		       Mid(dsStatus.GetItemString(i, "cbuffer") + space(40) ,1,20) + "~t" + &
+				 Mid(dsStatus.GetItemString(i, "cstatus") + space(40) ,1,20) + "~r~n"
+		
+	end if	
+Next
+
+if iPrint = 1 then
+	f_print_datastore(dsStatus)
+end if
+
+return sOut
+end function
+

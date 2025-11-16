@@ -1,0 +1,83 @@
+HA$PBExportHeader$f_error_box.srf
+$PBExportComments$Opens window w_error_box passing the current window title and an error message.
+global type f_error_box from function_object
+end type
+
+forward prototypes
+global subroutine f_error_box (string as_title, string as_msg)
+end prototypes
+
+global subroutine f_error_box (string as_title, string as_msg);///////////////////////////////////////////////////////////////////////////
+//
+// Function:	f_error_box
+//
+//	Purpose:
+//
+//		Opens the non-modal window w_error_box to display
+//		an error message when messagebox is not appropriate.
+//
+// Scope:		public
+//
+// Parameters:
+//					as_title			: string
+//					as_msg 	 		: string
+//
+// Returns : None
+//
+//	DATE			NAME		REVISION
+// ----		------------------------------------------------------------
+// Powersoft Corporation	INITIAL VERSION
+//
+//////////////////////////////////////////////////////////////////////
+// not open yet
+
+s_find_parent_return	result
+
+
+
+If not isvalid(w_error_box)  	Then
+	// OpenSheet(w_error_box,w_mdi_master,4,Original!)
+//	Open(w_error_box)
+//	
+//	w_error_box.dw_error.insertrow (1)
+//	w_error_box.dw_error.setitem (1,"message" ,as_msg)
+//	
+//	w_error_box.title 		 = as_title
+//	w_error_box.mle_msg.text = as_msg
+Else
+// it's already been opened by some other error so append the error 
+// message
+//	w_error_box.mle_msg.text = w_error_box.mle_msg.text + "~r~n~n" + as_msg
+//	w_error_box.dw_error.insertrow (0)
+//	w_error_box.dw_error.setitem (w_error_box.dw_error.rowcount(),"message" ,as_msg + "***")
+//// now scroll to the end of the mle
+//	w_error_box.mle_msg.scroll(w_error_box.mle_msg.linecount() - 10)
+End If
+
+Return
+
+//if handle(w_error_box) = 0 then
+//	open(w_find_parent)
+//	result = Message.PowerObjectParm
+//	if not result.success then
+//		Open(w_error_box)
+//	else
+//		if result.wparent.WindowType = MDI!	or	&
+//			result.wparent.WindowType = MDIHelp! then
+//			OpenSheet(w_error_box,result.wparent,-1,Original!)
+//		else
+//			Open(w_error_box,result.wparent)
+//		end if
+//	end if
+//	w_error_box.title 		 = as_title
+//	w_error_box.mle_msg.text = as_msg
+//else
+//// it's already been opened by some other error so append the error 
+//// message
+//	w_error_box.mle_msg.text = w_error_box.mle_msg.text + "~r~n~n" + as_msg
+//	// now scroll to the end of the mle
+//	w_error_box.mle_msg.scroll(w_error_box.mle_msg.linecount() - 10)
+//end if
+//
+end subroutine
+

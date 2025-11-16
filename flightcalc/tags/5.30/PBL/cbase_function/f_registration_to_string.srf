@@ -1,0 +1,29 @@
+HA$PBExportHeader$f_registration_to_string.srf
+global type f_registration_to_string from function_object
+end type
+
+forward prototypes
+global function string f_registration_to_string (long lregkey)
+end prototypes
+
+global function string f_registration_to_string (long lregkey);string sReg
+
+  
+  SELECT cen_registrations.cregistration  
+    INTO :sReg
+    FROM cen_registrations  
+   WHERE ( cen_registrations.nregistration_key = :lRegKey );
+
+if sqlca.sqlcode = 0 then
+	return sReg
+elseif sqlca.sqlcode = 100 then	
+	return "N/A"
+else
+	f_db_error(sqlca, "f_registration_to_string")
+	return "Err"
+end if
+
+return "N/A"
+	
+end function
+

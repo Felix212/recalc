@@ -1,0 +1,128 @@
+HA$PBExportHeader$f_profile.srf
+$PBExportComments$Auslesen der INI - Datei
+global type f_profile from function_object
+end type
+
+forward prototypes
+global subroutine f_profile ()
+end prototypes
+
+global subroutine f_profile ();String 	sTemp
+String		ls_instance_interval
+
+sLogfile 							= f_Profile_String(sProfile, "LOG", "FILE","LOG.CSV")
+sLogPath 						= f_Profile_String(sProfile, "LOG", "Path","C:\")
+sBackupLogPath				= f_Profile_String(sProfile, "LOG", "BackupPath","C:\")
+lInterval							= long(f_Profile_String(sProfile, "PARAMETERS", "SECONDS","60"))
+lInterval							= long( ProfileString(sProfile, sinstance, "SECONDS", string(lInterval)))
+
+sProfileUnits 					= f_Profile_String(sProfile, "PARAMETERS", "Units","xxxx")
+iLanguage						= integer(f_Profile_String(sProfile, "PARAMETERS", "Language","2"))
+s_app.ilanguage  				= iLanguage
+
+// 20.12.2013 HR:
+s_app.smandant				= f_Profile_String(sProfile, "PARAMETERS", "Mandant","002")
+
+if right(sLogPath, 1) <> "\" then
+	sLogPath+="\"
+end if
+
+s_app.iTrace                  	= integer(f_Profile_String(sProfile, "LOG", "TraceDistribution","1"))
+
+if right(sLogPath,1)<>"\" then sLogPath += "\"
+if right(sBackupLogPath,1)<>"\" then sBackupLogPath += "\"
+
+// --------------------------------------------------------------------------------
+// 06.11.2009 HR: Harmonisierung der Dateinamen f$$HEX1$$fc00$$ENDHEX$$r die Logfiles
+// --------------------------------------------------------------------------------
+//Ausgabe im uo_flight_calculation:
+//iTraceFile	= FileOpen(s_app.sTraceFile, LineMode!, Write!, LockWrite!, Append!)
+//Ausgabe in f_log2csv:
+//iFile = FileOpen(sLogPathFilename + "_" + String(Today(), "yyyymmdd") + ".log", LineMode!, Write!, Shared!)
+
+s_app.sTraceFile 	= sLogPath+sLogfile+"-" + sInstance+ "_" + String(Today(), "yyyymmdd") + ".log"
+sLogPathFilename = sLogPath+sLogfile+"-" + sInstance
+
+// --------------------------------------------------------------------------------------------------------------------
+// 29.01.2013 HR: Mahlzeitenverteilung f$$HEX1$$fc00$$ENDHEX$$r folgende Fl$$HEX1$$fc00$$ENDHEX$$ge erst mal aussetzen
+// --------------------------------------------------------------------------------------------------------------------
+gsFunction10ExcludeFlights		= f_Profile_String(sProfile, "PARAMETERS", "Function10ExcludeFlights","AA60, AA70, AA763,")	
+if right(gsFunction10ExcludeFlights,1)<>"," then gsFunction10ExcludeFlights += ","
+
+// 22.04.2010 HR:
+zipoffset							= long(f_Profile_String(sProfile, "LOG","ZipOffset","-14"))
+
+// 12.03.2015 HR: Da nicht immer die INSTANCE1 auf dem Server l$$HEX1$$e400$$ENDHEX$$uft (Verteilung), hier die ZipInstance festlegen
+gs_zip_instance = lower(f_Profile_String(sProfile, "LOG","ZipInstance","instance1"))
+
+// 04.01.2011 HR:
+gl_maxlock						= long(f_Profile_String(sProfile, "PARAMETERS","MaxLock","60"))
+
+// --------------------------------------------------------------------------------------------------------------------
+// 19.03.2014 HR: Wir bauen auch den FlightCalc um, dass eine Instance einteilt und der Rest nur abarbeitet
+// --------------------------------------------------------------------------------------------------------------------
+String	lsDefaultMaster
+
+lsDefaultMaster = Upper("Instance1")
+
+// ist diese instanz master ? (1 = ja, 0 = nein; default = 0)
+gbMaster = (Upper(f_profile_string(sProfile, "PARAMETERS", "Master", lsDefaultMaster)) = sInstance)
+
+If gbMaster Then
+	f_Log2Csv(0, 1, "Instance is Master: " + sInstance)
+End If
+
+// --------------------------------------------------------------------------------------------------------------------
+// 19.03.2014 HR: Neuer Schalter, ob Jobs aus CEN_OUT erstellt werden sollen
+// --------------------------------------------------------------------------------------------------------------------
+lsDefaultMaster = f_profile_string(sProfile, "PARAMETERS", "ReadCenOut", "0")
+gbReadCenOut = (lsDefaultMaster="1")
+
+// --------------------------------------------------------------------------------------------------------------------
+// 19.03.2014 HR: Neuer Variable um die maximale Anzahl von zugeweiesen Jobs 
+// --------------------------------------------------------------------------------------------------------------------
+gi_max_jobs_to_distribute =  long(f_profile_string(sProfile, "PARAMETERS","MaxJobsForInstance","5"))
+
+// --------------------------------------------------------------------------------------------------------------------
+// 29.06.2015 HR: Neue Parameter f$$HEX1$$fc00$$ENDHEX$$r das L$$HEX1$$f600$$ENDHEX$$schen von alten Auftr$$HEX1$$e400$$ENDHEX$$gen
+// --------------------------------------------------------------------------------------------------------------------
+gi_del_offset_ok =  long(f_profile_string(sProfile, "PARAMETERS","DeleteJobsOffsetOkay","7"))
+
+gi_del_offset_fehler =  long(f_profile_string(sProfile, "PARAMETERS","DeleteJobsOffsetFehler","14"))
+
+// --------------------------------------------------------------------------------------------------------------------
+// 08.05.2013 HR: Wir holen uns den Pfad zum Programm f$$HEX1$$fc00$$ENDHEX$$r die externe Mahlzeitenverteileung
+// --------------------------------------------------------------------------------------------------------------------
+gs_path2mzvspawn 			= f_Profile_String(sProfile, "PARAMETERS", "PathToMZVSpawn",GetCurrentDirectory())
+if right(gs_path2mzvspawn,1)<> "\" then gs_path2mzvspawn+="\"
+
+gi_use_mzvspawn				= integer(f_Profile_String(sProfile, "PARAMETERS", "UseMZVSpawn","1"))
+
+if not fileexists(gs_path2mzvspawn+"cbase_mzv_spawn.exe") and gi_use_mzvspawn = 1 then
+	gi_use_mzvspawn = 0
+	f_Log2Csv(0,1,"[f_profile] ##################################################################################################")
+	f_Log2Csv(0,1,"[f_profile] ")
+	f_Log2Csv(0,1,"[f_profile] File "+gs_path2mzvspawn+"cbase_mzv_spawn.exe not found => UseMZVSpawn set to 0 !")
+	f_Log2Csv(0,1,"[f_profile] ")
+	f_Log2Csv(0,1,"[f_profile] ##################################################################################################")
+
+	SetProfileString(sProfile, "PARAMETERS","UseMZVSpawn",string(gi_use_mzvspawn))
+end if
+
+gi_trace_mzvspawn				= integer(f_Profile_String(sProfile, "PARAMETERS", "TraceMZVSpawn","0"))
+
+gi_enable_secondary_distribution			= integer(f_Profile_String(sProfile, "PARAMETERS", "SecondaryDistribution","0"))
+
+// --------------------------------------------------------------------------------------------------------------------
+// 17.06.2019 HR: Neuer Paramter Maximale Laufzeit einers MZVSpawn Processes
+// --------------------------------------------------------------------------------------------------------------------
+gl_max_mzv_run = long(f_Profile_String(sProfile, "PARAMETERS", "MaxRuntimeOfMZVSpawn", "1800"))
+
+// --------------------------------------------------------------------------------------------------------------------
+// 08.11.2019 HR: Neuer Schalter, ob der Freeze auf eine MZV wartet
+// --------------------------------------------------------------------------------------------------------------------
+gb_wait_for_mzv = ( f_Profile_String(sProfile, "PARAMETERS", "FreezeWaitForMZV","0") = "1" )
+
+guoLog.uf_read_loglevel()
+end subroutine
+

@@ -1,0 +1,7 @@
+HA$PBExportHeader$s_handling_info.srs
+global type s_handling_info from structure
+	long		lIndexKey
+	long		lType
+	string		stext
+end type
+

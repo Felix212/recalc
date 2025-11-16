@@ -1,0 +1,47 @@
+HA$PBExportHeader$f_filedelete.srf
+global type f_filedelete from function_object
+end type
+
+forward prototypes
+global function integer f_filedelete (string spath, string sfilepattern, window owin)
+end prototypes
+
+global function integer f_filedelete (string spath, string sfilepattern, window owin);// --------------------------------------------
+// Dateien auf der Pladde l$$HEX1$$f600$$ENDHEX$$schen
+// --------------------------------------------
+
+ListBox oFiles
+
+String  sCurrentPath
+
+Integer i, iRet
+
+
+if Right(sPath, 1) <> "\" then
+	sPath = sPath + "\"
+end if
+
+sCurrentPath = f_getcurrentdirectory()
+
+//oFiles = Create ListBox
+
+oWin.OpenUserObject ( oFiles, 0, 0 )
+
+oFiles.Dirlist(sPath + sFilePattern, 0)
+
+for i = 1 to oFiles.Totalitems()
+
+	if filedelete(oFiles.text(i)) then
+		iRet ++
+	end if
+	
+next
+
+f_setcurrentdirectory(sCurrentPath)
+
+return iRet
+
+
+
+end function
+

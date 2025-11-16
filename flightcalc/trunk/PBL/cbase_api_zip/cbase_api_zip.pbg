@@ -1,0 +1,9 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "cbase_api_zip\\cbase_api_zip.pbl" "";
+@end;
+@begin Objects
+ "cbase_api_zip\\uo_zip_zlib.sru" "cbase_api_zip\\cbase_api_zip.pbl";
+ "cbase_api_zip\\uo_zip.sru" "cbase_api_zip\\cbase_api_zip.pbl";
+ "cbase_api_zip\\uo_zip_xceed.sru" "cbase_api_zip\\cbase_api_zip.pbl";
+@end;

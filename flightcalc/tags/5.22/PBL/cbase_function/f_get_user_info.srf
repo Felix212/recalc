@@ -1,0 +1,36 @@
+HA$PBExportHeader$f_get_user_info.srf
+global type f_get_user_info from function_object
+end type
+
+forward prototypes
+global function s_user_info f_get_user_info (string susername)
+end prototypes
+
+global function s_user_info f_get_user_info (string susername);s_user_info strUser
+
+  SELECT sys_login.nuser_id,   
+         sys_login.cusername,   
+         sys_login.clastname,   
+         sys_login.cfirstname,   
+         sys_units.cunit,   
+         sys_units.ctext  
+    INTO :strUser.lUserID,   
+         :strUser.sUser,   
+         :strUser.sUserLastName,   
+         :strUser.sUserFirstName,   
+         :strUser.sUnit,   
+         :strUser.sUnitFullName  
+    FROM sys_login,   
+         sys_units  
+   WHERE ( sys_login.cunit = sys_units.cunit ) and  
+         ( ( sys_login.cusername = :sUsername ) )   ;
+
+if sqlca.sqlcode <> 0 then
+	strUser.lUserID = -1
+	strUser.sUser = sqlca.sqlerrtext
+end if
+
+
+return strUser
+end function
+

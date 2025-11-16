@@ -1,0 +1,39 @@
+HA$PBExportHeader$f_loadinglist_to_aircraft.srf
+global type f_loadinglist_to_aircraft from function_object
+end type
+
+forward prototypes
+global function long f_loadinglist_to_aircraft (string sloadinglist, datetime dtvalid)
+end prototypes
+
+global function long f_loadinglist_to_aircraft (string sloadinglist, datetime dtvalid);Long lRet
+
+SELECT cen_loadinglist_index.naircraft_key  
+  INTO :lRet
+  FROM cen_loadinglist_index  
+ WHERE cen_loadinglist_index.cloadinglist = :sLoadingList  and
+ 		 cen_loadinglist_index.dvalid_from  <= :dtValid and
+ 		 cen_loadinglist_index.dvalid_to    >= :dtValid ;
+
+// Treffer 
+if sqlca.sqlcode = 0 then
+	 return lRet
+	 
+// nicht gefunden
+elseif sqlca.sqlcode = 100 then
+	 return -1
+
+// Error	 
+else
+	f_db_error(sqlca,"f_loadinglist_to_aircraft")
+	return -1
+end if
+ 
+ 
+return 0
+  
+
+
+
+end function
+

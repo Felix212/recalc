@@ -1,0 +1,33 @@
+HA$PBExportHeader$f_check_packinglist.srf
+global type f_check_packinglist from function_object
+end type
+
+forward prototypes
+global function long f_check_packinglist (string spackinglist)
+end prototypes
+
+global function long f_check_packinglist (string spackinglist);// ---------------------------------------------
+// Hole Packinglist-Key aus einem Text
+// ---------------------------------------------
+long lKey
+
+SELECT cen_packinglist_index.npackinglist_index_key
+ INTO :lKey  
+ FROM cen_packinglist_index
+WHERE cen_packinglist_index.cclient 			= :s_app.smandant 
+  AND	cen_packinglist_index.cpackinglist		= :sPackinglist ;
+
+if sqlca.sqlcode = 0 then
+	return lKey
+	
+elseif sqlca.sqlcode = 100 then
+	return -1
+	
+else
+	f_db_error(sqlca, "f_check_packinglist()")
+	return -1
+end if
+
+
+end function
+

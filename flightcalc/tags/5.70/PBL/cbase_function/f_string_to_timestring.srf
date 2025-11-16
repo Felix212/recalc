@@ -1,0 +1,50 @@
+HA$PBExportHeader$f_string_to_timestring.srf
+global type f_string_to_timestring from function_object
+end type
+
+forward prototypes
+global function string f_string_to_timestring (string stime)
+end prototypes
+
+global function string f_string_to_timestring (string stime);//
+// f_string_to_timestring
+//
+// Wandelt einen String in einen Zeit-Foramtierten String um
+//
+integer 	iHour, iMinutes
+string	sReturn
+
+//
+// 14.09.06 falls User versehentlich Inhalt von Feld l$$HEX1$$f600$$ENDHEX$$scht
+//
+if isnull(sTime) then
+	sTime = "00:00"
+end if
+
+iHour = integer(mid(sTime,1,2))
+
+if iHour < 0 or iHour > 23 then 
+	sReturn = "00:"
+	uf.mbox("Achtung", "Bitte geben Sie einen g$$HEX1$$fc00$$ENDHEX$$ltigen Zeitwert ein!", StopSign!)
+	Return "00:00"
+else
+	sReturn = string(iHour,"00") + ":"
+end if
+
+
+if mid(sTime,3,1) = ":" then
+	iMinutes = integer(mid(sTime,4,2))
+else
+	iMinutes = integer(mid(sTime,3,2))
+end if
+
+if iMinutes < 0 or iMinutes > 59 then
+	sReturn += "00"
+else
+	sReturn += string(iMinutes,"00")
+end if
+
+return sReturn
+
+end function
+

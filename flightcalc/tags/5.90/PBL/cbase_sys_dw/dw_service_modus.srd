@@ -1,0 +1,17 @@
+HA$PBExportHeader$dw_service_modus.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=80269524 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=240 color="536870912" )
+table(column=(type=char(60) update=yes updatewhereclause=yes key=yes name=ctext dbname="sys_service_mode.ctext" )
+ column=(type=datetime update=yes updatewhereclause=yes name=dservice_date dbname="sys_service_mode.dservice_date" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sys_service_mode~" ) COLUMN(NAME=~"sys_service_mode.ctext~") COLUMN(NAME=~"sys_service_mode.dservice_date~")) " update="sys_service_mode" updatewhere=1 updatekeyinplace=yes )
+bitmap(band=detail filename="..\resource\calender.gif" x="96" y="24" height="64" width="73" border="0"  name=p_1 )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="0" x="704" y="24" height="64" width="379" format="[shortdate]"  name=dservice_date edit.limit=0 edit.case=any edit.format="" edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=20 border="5" color="0" x="704" y="136" height="64" width="1673" format="[general]"  name=ctext edit.limit=60 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+bitmap(band=detail filename="..\resource\text.gif" x="87" y="124" height="80" width="91" border="0"  name=p_2 )
+text(band=detail alignment="1" text="Service Message:" border="0" color="0" x="201" y="148" height="52" width="434"  name=t_1  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Service Date:" border="0" color="0" x="201" y="32" height="52" width="434"  name=dservice_date_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

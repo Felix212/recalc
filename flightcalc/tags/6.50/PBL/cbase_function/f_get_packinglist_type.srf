@@ -1,0 +1,32 @@
+HA$PBExportHeader$f_get_packinglist_type.srf
+global type f_get_packinglist_type from function_object
+end type
+
+forward prototypes
+global function long f_get_packinglist_type (long lpackinglist_index_key, date ddate)
+end prototypes
+
+global function long f_get_packinglist_type (long lpackinglist_index_key, date ddate);// ---------------------------------------------
+// Hole St$$HEX1$$fc00$$ENDHEX$$cklisten Typ
+// 2 = Esl
+// 3 = Artikel
+// ---------------------------------------------
+	long lKey
+
+	SELECT npacking_list_level
+	  INTO :lKey  
+	  FROM cen_packinglists
+	 WHERE npackinglist_index_key = :lpackinglist_index_key And 
+			 dvalid_from <= :ddate and
+			 dvalid_to >= :ddate;
+	
+	
+	if sqlca.sqlcode <> 0 then
+		return 0
+	else
+		return lKey
+	end if
+
+
+end function
+

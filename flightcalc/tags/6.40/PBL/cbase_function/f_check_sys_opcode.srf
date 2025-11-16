@@ -1,0 +1,54 @@
+HA$PBExportHeader$f_check_sys_opcode.srf
+global type f_check_sys_opcode from function_object
+end type
+
+forward prototypes
+global function long f_check_sys_opcode (string as_text)
+end prototypes
+
+global function long f_check_sys_opcode (string as_text);/* 
+* Funktion: 			f_check_sys_opcode
+* Beschreibung: 	Holt opcode-Key
+* Besonderheit: 	keine
+*
+* Argumente:
+* 	Name						Beschreibung
+*	as_text					klartext zum opcode (copcode)
+*
+* Aenderungshistorie:
+* 	Version 		Wer			Wann				Was und warum
+*	1.0 			O.Hoefer		25.05.2009		Erstellung
+*
+* Return Codes:
+*	nopcode_key	wenn gefunden
+*	-1					sonst
+*/
+
+// hilfsvariable
+long 		lKey
+
+// lesen
+
+
+SELECT NSYS_OPCODE_KEY
+ INTO :lKey  
+FROM SYS_OPCODES
+WHERE copcode = :as_text;
+
+// erfolgreich: key zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+if sqlca.sqlcode = 0 then
+	return lKey
+	
+// nicht gefunden: -1 zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+elseif sqlca.sqlcode = 100 then
+	return -1
+	
+// fehler: log schreiben und -1 zur$$HEX1$$fc00$$ENDHEX$$ckgeben
+else
+	f_db_error(sqlca, "f_check_sys_opcode()")
+	return -1
+end if
+
+
+end function
+

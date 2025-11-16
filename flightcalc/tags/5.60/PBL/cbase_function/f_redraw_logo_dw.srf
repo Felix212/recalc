@@ -1,0 +1,40 @@
+HA$PBExportHeader$f_redraw_logo_dw.srf
+global type f_redraw_logo_dw from function_object
+end type
+
+forward prototypes
+global function string f_redraw_logo_dw (datawindow odw)
+end prototypes
+
+global function string f_redraw_logo_dw (datawindow odw);//----------------------------------------------------------------
+// Holt den Namen und Pfad Logo des Reports
+//----------------------------------------------------------------
+
+String 	sTempPath
+String 	sLogoPathPictureName
+String 	sPicture
+String   sPictureName
+integer 	i
+
+sPicture = oDW.Describe("p_logo.filename")
+
+sTempPath = f_gettemppath()
+
+for i = Len(sPicture) to 1 step -1
+	
+	if mid(sPicture, i ,1) = "\" then
+		exit
+	end if
+	
+next
+
+if i <> 0 then
+	sPictureName = mid(sPicture, i + 1)
+	sLogoPathPictureName = sTempPath + sPictureName
+	oDW.Modify("p_logo.filename='" + sLogoPathPictureName + "'"  )
+end if
+
+return sLogoPathPictureName
+
+end function
+
