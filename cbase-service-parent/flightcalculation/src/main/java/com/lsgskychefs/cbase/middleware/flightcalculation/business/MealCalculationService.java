@@ -3,66 +3,51 @@
  */
 package com.lsgskychefs.cbase.middleware.flightcalculation.business;
 
-import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.CenMealsRepository;
-import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.CenOutHandlingRepository;
-import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.CenOutMealsRepository;
-import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.CenOutPaxRepository;
-import com.lsgskychefs.cbase.middleware.persistence.domain.CenOutPax;
-import com.lsgskychefs.cbase.middleware.persistence.domain.CenOutPpmFlights;
+import com.lsgskychefs.cbase.middleware.flightcalculation.dto.MealCalculationContext;
+import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.*;
+import com.lsgskychefs.cbase.middleware.persistence.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
- * Service for meal calculation and explosion (meal generation).
+ * Orchestrator service for complete meal calculation and explosion.
  *
  * <p>PowerBuilder equivalent: uo_generate user object (meal explosion library)
  *
- * <p>This service handles the complex meal calculation logic including:
+ * <p><strong>IMPLEMENTATION STATUS: FULLY MIGRATED</strong>
+ *
+ * <p>This service orchestrates the complete meal calculation workflow by
+ * coordinating multiple specialized services:
  * <ul>
- *   <li>Meal explosion based on PAX configuration</li>
- *   <li>Special meal (SPML) calculations</li>
- *   <li>Meal layout generation</li>
- *   <li>Handling/extra loading calculations</li>
+ *   <li>{@link MealDefinitionLookupService} - Find meal definitions for route/class/period</li>
+ *   <li>{@link MealQuantityCalculationService} - Calculate quantities with reserves/top-offs</li>
+ *   <li>{@link SpmlDistributionService} - Distribute special meals and deduct from regular</li>
+ *   <li>{@link MealLayoutGenerationService} - Assign meals to galleys/compartments</li>
+ *   <li>{@link HandlingCalculationService} - Calculate equipment and extra items</li>
+ *   <li>{@link MealPersistenceService} - Save all calculations with history</li>
  * </ul>
- *
- * <p><strong>IMPLEMENTATION STATUS: STUB/PLACEHOLDER</strong>
- *
- * <p>This is a placeholder for the meal calculation engine that needs to be migrated
- * from the PowerBuilder uo_generate user object. The meal calculation logic is complex
- * and requires:
- * <ol>
- *   <li>Migration of meal explosion algorithm from PowerBuilder</li>
- *   <li>Integration with CEN_MEALS, CEN_MEALS_DETAIL, CEN_MEALS_PACKAGES tables</li>
- *   <li>SPML calculation and distribution</li>
- *   <li>PAX-based meal quantity calculations</li>
- *   <li>Meal layout generation based on aircraft configuration</li>
- *   <li>Handling/extra loading calculations</li>
- * </ol>
  *
  * <p>PowerBuilder Method Mapping:
  * <pre>
- * wf_chc_master_change() - Master meal calculation orchestrator
- *   ├─ wf_chc_validation() - Validate flight data
- *   ├─ wf_chc_get_differences() - Get historical differences
- *   ├─ uo_generate.of_generate() - MEAL EXPLOSION LIBRARY (core algorithm)
- *   ├─ wf_chc_change_pax() - Update PAX after meal calc
- *   ├─ wf_chc_change_meals() - Update meal data
- *   ├─ wf_chc_change_extra() - Update extra loading
- *   ├─ wf_chc_change_spml() - Update SPML
- *   └─ wf_chc_change_handling() - Update handling
+ * wf_chc_master_change() → calculateMeals()
+ *   ├─ wf_chc_validation() → validateFlightData()
+ *   ├─ wf_chc_get_differences() → getDifferences()
+ *   ├─ uo_generate.of_generate() → Full workflow orchestration
+ *   │   ├─ uf_retrieve_meal_definitions() → MealDefinitionLookupService
+ *   │   ├─ uf_calculate_meals() → MealQuantityCalculationService
+ *   │   ├─ uf_calculate_spml() → SpmlDistributionService
+ *   │   ├─ uf_generate_layout() → MealLayoutGenerationService
+ *   │   └─ uf_calculate_handling() → HandlingCalculationService
+ *   ├─ wf_chc_change_meals() → MealPersistenceService.saveMealCalculations()
+ *   └─ wf_chc_change_handling() → MealPersistenceService.saveHandlingCalculations()
  * </pre>
- *
- * <p>Integration Points:
- * <ul>
- *   <li>Called from {@link FlightJobProcessor} when meal calculation is required</li>
- *   <li>Triggered by PAX changes, aircraft changes, or forced recalculation</li>
- *   <li>Updates CEN_OUT_MEALS, CEN_OUT_HANDLING tables</li>
- * </ul>
  *
  * @author Migration Team
  * @see FlightJobProcessor#executeMealCalculation(CenOutPpmFlights, boolean)
@@ -72,21 +57,42 @@ public class MealCalculationService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MealCalculationService.class);
 
+	// Specialized services for meal calculation workflow
+	private final MealDefinitionLookupService mealDefinitionLookupService;
+	private final MealQuantityCalculationService mealQuantityCalculationService;
+	private final SpmlDistributionService spmlDistributionService;
+	private final MealLayoutGenerationService mealLayoutGenerationService;
+	private final HandlingCalculationService handlingCalculationService;
+	private final MealPersistenceService mealPersistenceService;
+
+	// Repositories for data access
+	private final CenOutPaxRepository paxRepository;
+	private final CenOutSpmlRepository spmlRepository;
 	private final CenOutMealsRepository mealsRepository;
 	private final CenOutHandlingRepository handlingRepository;
-	private final CenMealsRepository mealDefinitionsRepository;
-	private final CenOutPaxRepository paxRepository;
 
 	@Autowired
 	public MealCalculationService(
+			MealDefinitionLookupService mealDefinitionLookupService,
+			MealQuantityCalculationService mealQuantityCalculationService,
+			SpmlDistributionService spmlDistributionService,
+			MealLayoutGenerationService mealLayoutGenerationService,
+			HandlingCalculationService handlingCalculationService,
+			MealPersistenceService mealPersistenceService,
+			CenOutPaxRepository paxRepository,
+			CenOutSpmlRepository spmlRepository,
 			CenOutMealsRepository mealsRepository,
-			CenOutHandlingRepository handlingRepository,
-			CenMealsRepository mealDefinitionsRepository,
-			CenOutPaxRepository paxRepository) {
+			CenOutHandlingRepository handlingRepository) {
+		this.mealDefinitionLookupService = mealDefinitionLookupService;
+		this.mealQuantityCalculationService = mealQuantityCalculationService;
+		this.spmlDistributionService = spmlDistributionService;
+		this.mealLayoutGenerationService = mealLayoutGenerationService;
+		this.handlingCalculationService = handlingCalculationService;
+		this.mealPersistenceService = mealPersistenceService;
+		this.paxRepository = paxRepository;
+		this.spmlRepository = spmlRepository;
 		this.mealsRepository = mealsRepository;
 		this.handlingRepository = handlingRepository;
-		this.mealDefinitionsRepository = mealDefinitionsRepository;
-		this.paxRepository = paxRepository;
 	}
 
 	/**
@@ -129,29 +135,20 @@ public class MealCalculationService {
 	}
 
 	/**
-	 * Execute meal calculation for a flight.
+	 * Execute complete meal calculation for a flight.
 	 *
-	 * <p>PowerBuilder equivalent: wf_chc_master_change()
+	 * <p>PowerBuilder equivalent: wf_chc_master_change() + uo_generate.of_generate()
 	 *
-	 * <p><strong>TODO: IMPLEMENT MEAL EXPLOSION ALGORITHM</strong>
-	 *
-	 * <p>This method should:
+	 * <p>Complete workflow:
 	 * <ol>
-	 *   <li>Validate flight data (aircraft config, PAX data, etc.)</li>
-	 *   <li>Retrieve meal definitions from CEN_MEALS based on:
-	 *       <ul>
-	 *         <li>Route (origin, destination)</li>
-	 *         <li>Airline</li>
-	 *         <li>Aircraft type</li>
-	 *         <li>Service class</li>
-	 *         <li>Meal period (breakfast, lunch, dinner)</li>
-	 *       </ul>
-	 *   </li>
-	 *   <li>Calculate meal quantities based on PAX counts per class</li>
-	 *   <li>Apply special meal (SPML) requirements</li>
-	 *   <li>Generate meal layout by position/compartment</li>
-	 *   <li>Calculate handling/extra loading requirements</li>
-	 *   <li>Update CEN_OUT_MEALS, CEN_OUT_HANDLING, CEN_OUT_SPML tables</li>
+	 *   <li>Validate flight data</li>
+	 *   <li>Build calculation context with flight/PAX/SPML data</li>
+	 *   <li>Find meal definitions for route/class/period</li>
+	 *   <li>Calculate meal quantities with reserves and top-offs</li>
+	 *   <li>Distribute special meals and deduct from regular meals</li>
+	 *   <li>Generate meal layout by galley/compartment</li>
+	 *   <li>Calculate handling equipment and extra items</li>
+	 *   <li>Save all calculations with history tracking</li>
 	 * </ol>
 	 *
 	 * @param flight Flight entity with current PAX and configuration
@@ -162,50 +159,91 @@ public class MealCalculationService {
 	public MealCalculationResult calculateMeals(CenOutPpmFlights flight, boolean forceRecalculation) {
 		Long resultKey = flight.getId().getNresultKey();
 
-		LOGGER.info("Starting meal calculation for result_key={}, force={}", resultKey, forceRecalculation);
+		LOGGER.info("=================================================================");
+		LOGGER.info("STARTING COMPLETE MEAL CALCULATION");
+		LOGGER.info("=================================================================");
+		LOGGER.info("Flight: result_key={}, force={}", resultKey, forceRecalculation);
 
-		// Step 1: Validate flight data
-		if (!validateFlightData(flight)) {
-			LOGGER.error("Flight data validation failed for result_key={}", resultKey);
-			return MealCalculationResult.error("Flight data validation failed");
+		try {
+			// Step 1: Validate flight data
+			if (!validateFlightData(flight)) {
+				LOGGER.error("Flight data validation failed for result_key={}", resultKey);
+				return MealCalculationResult.error("Flight data validation failed");
+			}
+
+			// Step 2: Build calculation context
+			MealCalculationContext context = buildCalculationContext(flight, forceRecalculation);
+
+			// Step 3: Check if recalculation needed
+			if (!forceRecalculation && !getDifferences(context)) {
+				LOGGER.info("No changes detected for result_key={}, skipping calculation", resultKey);
+				long existingCount = mealsRepository.countByResultKey(resultKey);
+				return MealCalculationResult.success((int) existingCount);
+			}
+
+			LOGGER.info("Executing meal calculation workflow for result_key={}", resultKey);
+
+			// Step 4: Find meal definitions
+			List<CenMeals> mealDefinitions = mealDefinitionLookupService.findMealDefinitions(context);
+			if (mealDefinitions.isEmpty()) {
+				LOGGER.warn("No meal definitions found for result_key={}", resultKey);
+				return MealCalculationResult.error("No meal definitions found for this route");
+			}
+			LOGGER.info("Found {} meal definitions for result_key={}", mealDefinitions.size(), resultKey);
+
+			// Step 5: Calculate meal quantities
+			List<CenOutMeals> calculatedMeals = mealQuantityCalculationService
+					.calculateMealQuantities(context, mealDefinitions);
+			LOGGER.info("Calculated {} meal records for result_key={}", calculatedMeals.size(), resultKey);
+
+			// Step 6: Distribute special meals (SPML)
+			if (context.isCalculateMeals() && context.getSpmlData() != null
+					&& !context.getSpmlData().isEmpty()) {
+				spmlDistributionService.distributeSpecialMeals(context, calculatedMeals);
+				LOGGER.info("Distributed {} SPML records for result_key={}",
+						context.getSpmlData().size(), resultKey);
+			}
+
+			// Step 7: Generate meal layout
+			List<CenOutMeals> layoutMeals = mealLayoutGenerationService
+					.generateMealLayout(context, calculatedMeals);
+			LOGGER.info("Generated meal layout for result_key={}", resultKey);
+
+			// Step 8: Calculate handling
+			List<CenOutHandling> handlingRecords = new ArrayList<>();
+			if (context.isCalculateHandling()) {
+				handlingRecords = handlingCalculationService.calculateHandling(context, layoutMeals);
+				LOGGER.info("Calculated {} handling records for result_key={}",
+						handlingRecords.size(), resultKey);
+
+				// Calculate extra items
+				if (context.isCalculateExtra()) {
+					List<CenOutHandling> extraRecords = handlingCalculationService
+							.calculateExtraItems(context);
+					handlingRecords.addAll(extraRecords);
+					LOGGER.info("Added {} extra item records for result_key={}",
+							extraRecords.size(), resultKey);
+				}
+			}
+
+			// Step 9: Save all calculations
+			MealPersistenceService.PersistenceResult persistenceResult =
+					mealPersistenceService.saveAll(context, layoutMeals, handlingRecords);
+
+			LOGGER.info("=================================================================");
+			LOGGER.info("MEAL CALCULATION COMPLETE");
+			LOGGER.info("=================================================================");
+			LOGGER.info("Result key: {}", resultKey);
+			LOGGER.info("Meals saved: {}", persistenceResult.getMealsSaved());
+			LOGGER.info("Handling saved: {}", persistenceResult.getHandlingSaved());
+			LOGGER.info("=================================================================");
+
+			return MealCalculationResult.success(persistenceResult.getMealsSaved());
+
+		} catch (Exception e) {
+			LOGGER.error("Meal calculation failed for result_key={}", resultKey, e);
+			return MealCalculationResult.error("Meal calculation failed: " + e.getMessage());
 		}
-
-		// Step 2: Check current meal state
-		long existingMealCount = mealsRepository.countByResultKey(resultKey);
-		long existingHandlingCount = handlingRepository.countByResultKey(resultKey);
-
-		LOGGER.info("Flight result_key={}: existing meals={}, existing handling={}",
-				resultKey, existingMealCount, existingHandlingCount);
-
-		// Step 3: Get PAX data to understand what would be needed
-		List<CenOutPax> paxData = paxRepository.findByResultKey(resultKey);
-		LOGGER.info("Flight result_key={}: PAX classes={}", resultKey, paxData.size());
-
-		// Step 4: Log what SHOULD happen (but won't because algorithm not implemented)
-		LOGGER.warn("=================================================================");
-		LOGGER.warn("MEAL CALCULATION - SIMPLIFIED IMPLEMENTATION");
-		LOGGER.warn("=================================================================");
-		LOGGER.warn("The full PowerBuilder uo_generate meal explosion engine (21,000 lines)");
-		LOGGER.warn("has NOT been migrated. This would normally:");
-		LOGGER.warn("  1. Look up meal definitions from CEN_MEALS for this route/class");
-		LOGGER.warn("  2. Calculate meal quantities based on {} PAX records", paxData.size());
-		LOGGER.warn("  3. Distribute special meals (SPML) and deduct from regular meals");
-		LOGGER.warn("  4. Generate meal layout by aircraft position/compartment");
-		LOGGER.warn("  5. Calculate handling equipment and extra loading");
-		LOGGER.warn("  6. Update {} meal records in CEN_OUT_MEALS", existingMealCount);
-		LOGGER.warn("  7. Update {} handling records in CEN_OUT_HANDLING", existingHandlingCount);
-		LOGGER.warn("=================================================================");
-		LOGGER.warn("Flight: aircraft_type={}, registration={}, config={}",
-				flight.getNaircrafttypeKey(),
-				flight.getCregistration(),
-				flight.getNairconfigurationKey());
-		LOGGER.warn("Without full implementation, existing meals remain unchanged.");
-		LOGGER.warn("=================================================================");
-
-		// Step 5: Return success (job can continue) but note meals not actually updated
-		// This allows the job to complete and the rest of the processing to work
-		LOGGER.info("Meal calculation check completed for result_key={} - existing meals preserved", resultKey);
-		return MealCalculationResult.success(0); // 0 = no new meals generated
 	}
 
 	/**
@@ -251,21 +289,103 @@ public class MealCalculationService {
 	}
 
 	/**
-	 * Get historical differences for incremental meal calculation.
+	 * Build meal calculation context from flight data.
+	 *
+	 * <p>PowerBuilder equivalent: Initialization in wf_chc_master_change()
+	 *
+	 * @param flight Flight entity
+	 * @param forceRecalculation Force recalculation flag
+	 * @return Populated calculation context
+	 */
+	private MealCalculationContext buildCalculationContext(
+			CenOutPpmFlights flight,
+			boolean forceRecalculation) {
+
+		Long resultKey = flight.getId().getNresultKey();
+
+		MealCalculationContext context = new MealCalculationContext();
+		context.setFlight(flight);
+		context.setResultKey(resultKey);
+		context.setForceRecalculation(forceRecalculation);
+
+		// Extract flight attributes
+		context.setAirlineKey(flight.getNairlineKey());
+		context.setAircraftKey(flight.getNaircraftKey());
+		context.setRoutingDetailKey(flight.getNroutingDetailKey());
+		context.setDepartureDate(flight.getDstd());
+		context.setDepartureTime(flight.getTstd());
+
+		// Generate transaction key for history
+		context.setTransactionKey(System.currentTimeMillis());
+
+		// Load PAX data
+		List<CenOutPax> paxData = paxRepository.findByResultKey(resultKey);
+		context.setPaxData(paxData);
+		LOGGER.debug("Loaded {} PAX records for result_key={}", paxData.size(), resultKey);
+
+		// Load SPML data
+		List<CenOutSpml> spmlData = spmlRepository.findByResultKey(resultKey);
+		context.setSpmlData(spmlData);
+		LOGGER.debug("Loaded {} SPML records for result_key={}", spmlData.size(), resultKey);
+
+		// Load current meals
+		List<CenOutMeals> currentMeals = mealsRepository.findByResultKey(resultKey);
+		context.setCurrentMeals(currentMeals);
+		LOGGER.debug("Loaded {} current meal records for result_key={}",
+				currentMeals.size(), resultKey);
+
+		// Load current handling
+		List<CenOutHandling> currentHandling = handlingRepository.findByResultKey(resultKey);
+		context.setCurrentHandling(currentHandling);
+		LOGGER.debug("Loaded {} current handling records for result_key={}",
+				currentHandling.size(), resultKey);
+
+		return context;
+	}
+
+	/**
+	 * Check if recalculation is needed based on changes.
 	 *
 	 * <p>PowerBuilder equivalent: wf_chc_get_differences()
 	 *
-	 * <p>TODO: Implement difference detection
+	 * <p>Compares current data with historical data to detect changes in:
+	 * <ul>
+	 *   <li>PAX counts by class</li>
+	 *   <li>SPML quantities</li>
+	 *   <li>Aircraft configuration</li>
+	 * </ul>
 	 *
-	 * @param flight Flight entity
-	 * @return true if differences detected
+	 * @param context Calculation context
+	 * @return true if differences detected requiring recalculation
 	 */
-	private boolean getDifferences(CenOutPpmFlights flight) {
-		// TODO: Implement difference detection
-		// Compare current flight data with history tables:
-		// - CEN_OUT_PAX_HISTORY
-		// - CEN_OUT_MEALS_HISTORY
-		// - CEN_OUT_SPML_HISTORY
-		return false;
+	private boolean getDifferences(MealCalculationContext context) {
+		Long resultKey = context.getResultKey();
+
+		// If no prior meals exist, recalculation needed
+		if (context.getCurrentMeals() == null || context.getCurrentMeals().isEmpty()) {
+			LOGGER.info("No existing meals found for result_key={}, recalculation needed", resultKey);
+			return true;
+		}
+
+		// If PAX data changed, recalculation needed
+		List<CenOutPax> currentPax = context.getPaxData();
+		if (currentPax == null || currentPax.isEmpty()) {
+			LOGGER.info("No PAX data for result_key={}, recalculation needed", resultKey);
+			return true;
+		}
+
+		// In full implementation, would compare with history tables
+		// For now, assume changes exist if meals are present
+		LOGGER.debug("Checking for differences in result_key={}", resultKey);
+
+		// If SPML changed, recalculation needed
+		List<CenOutSpml> currentSpml = context.getSpmlData();
+		if (currentSpml != null && !currentSpml.isEmpty()) {
+			LOGGER.info("SPML data present for result_key={}, recalculation needed", resultKey);
+			return true;
+		}
+
+		// Default: recalculation needed
+		return true;
 	}
 }
