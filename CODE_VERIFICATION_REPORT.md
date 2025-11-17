@@ -10,9 +10,22 @@
 
 Line-by-line verification of the migrated meal calculation code against the original PowerBuilder implementation. This report documents all discrepancies found and fixes applied.
 
-**Critical Issues Found:** 1
+**Critical Issues Found:** 2
 **Medium Issues Found:** 0
 **Minor Issues Found:** 0
+
+### Critical Issues Summary
+
+1. **Reserve/TopOff Calculation Logic** ✅ FIXED
+   - All reserve/topoff types incorrectly implemented as percentages
+   - Should use FIXED quantities with different application rules
+   - **Status:** Fixed and tested
+
+2. **Component-Level Architecture and SPML Deduction** ❌ NEEDS MAJOR REFACTOR
+   - Entire meal calculation missing component-level processing
+   - SPML deduction happens AFTER calculation instead of DURING
+   - Missing CenMealsDetail processing (1-to-many relationship)
+   - **Status:** Requires architectural refactor before production
 
 ---
 
@@ -240,6 +253,210 @@ Result: 150 + 10 = 160 meals ✅
 
 ---
 
+## CRITICAL ISSUE #2: Component-Level Architecture and SPML Deduction ❌ FOUND
+
+**Status:** ❌ CRITICAL ARCHITECTURAL ISSUE FOUND
+**Severity:** CRITICAL
+**Impact:** Incorrect meal quantities and SPML deduction - affects ALL flights
+**Location:** MealQuantityCalculationService, SpmlDistributionService, entire calculation flow
+**Discovery Date:** 2025-11-17
+
+### PowerBuilder Architecture Analysis
+
+**File:** `uo_meal_calculation.sru`
+**Lines:** 3080-3098 (SPML deduction), 4019-4164 (SPML compilation), 4700-4750 (meal details)
+
+### Key Finding: Meal Components vs Meals
+
+PowerBuilder uses a **component-based architecture**:
+
+1. **CenMeals** = Meal definition header (e.g., "Business Class Lunch")
+2. **CenMealsDetail** = Individual components of that meal (appetizer, main, dessert, etc.)
+   - Each component has: `ncomponent_group`, `nprio`, `nspml_deduction`, `npercentage`
+3. **CenOutMeals** = Output records - ONE RECORD PER COMPONENT, not per meal
+
+### PowerBuilder SPML Deduction Flow (CORRECT)
+
+```powerbuilder
+// Lines 3080-3098: Component-level SPML deduction
+// This happens PER COMPONENT during calculation
+
+// 1. Get calculation basis (PAX count for this component)
+uf_get_calc_basis()  // Sets lCalcBasis
+
+// 2. Get SPML count for this class
+lNumberOfSPML = uf_get_spml_count()  // Lines 15557-15602
+
+// 3. If this component has SPML deduction flag set
+if iSPMLDeduction = 1 then  // From cen_meals_detail.nspml_deduction
+    if ib_no_preorder_calcid then
+        lCalcBasis -= lNumberOfSPML  // Deduct BEFORE calculating quantity
+    end if
+    if lCalcBasis < 0 then lCalcBasis = 0
+end if
+
+// 4. Calculate component quantity from adjusted basis
+// Apply ratios, percentages, reserves, topoffs to lCalcBasis
+
+// 5. Store SPML quantity on the component record
+dsCenOutMeals.SetItem(lRow,"nspml_quantity", lNumberOfSPML)  // Line 5028
+```
+
+**Key PowerBuilder Logic:**
+- SPML count calculated ONCE per class: `uf_get_spml_count()`
+- SPMLs excluded if `ntopoff = 1` (Line 15588)
+- SPMLs deducted from calc basis BEFORE component quantity calculation
+- Each component has `nspml_deduction` flag to control deduction
+- SPML quantity tracked per component in `nspml_quantity` field
+
+### Java Implementation (INCORRECT)
+
+**Current Architecture:**
+
+1. **MealQuantityCalculationService** - Calculates meals WITHOUT considering components
+   - Treats each CenMeals as a single entity
+   - Does NOT load or process CenMealsDetail records
+   - Does NOT apply SPML deduction during calculation
+
+2. **SpmlDistributionService** - Deducts SPMLs AFTER calculation
+   - `distributeSpecialMeals()` called AFTER `calculateMealQuantities()`
+   - `deductFromRegularMeals()` modifies final meal quantities
+   - Does NOT set `nspml_deduction` or `nspml_quantity` fields
+   - Does NOT work at component level
+
+**Current Java Flow:**
+```java
+// Step 5: Calculate meal quantities (NO SPML consideration)
+List<CenOutMeals> calculatedMeals = mealQuantityCalculationService
+    .calculateMealQuantities(context, mealDefinitions);
+
+// Step 6: Distribute special meals (AFTER calculation)
+spmlDistributionService.distributeSpecialMeals(context, calculatedMeals);
+```
+
+### Impact Analysis
+
+**Affected Calculations:**
+- ALL meal quantity calculations are incorrect
+- SPML deduction happens AFTER reserves/topoffs instead of BEFORE
+- Components are not processed individually
+- SPML deduction flags (`nspml_deduction`) are ignored
+- SPML quantities (`nspml_quantity`) are not tracked
+
+**Example of Incorrect Behavior:**
+
+Given:
+- Class Y: 150 PAX
+- SPML: 10 special meals for class Y
+- Meal: "Lunch" with 3 components (appetizer, main, dessert)
+  - Appetizer: nspml_deduction=1 (deduct SPMLs)
+  - Main: nspml_deduction=1 (deduct SPMLs)
+  - Dessert: nspml_deduction=0 (don't deduct)
+- Reserve: 10 fixed
+
+**PowerBuilder (CORRECT):**
+```
+Appetizer:
+  Basis: 150 PAX - 10 SPML = 140
+  + Reserve: 10
+  = 150 appetizers
+
+Main:
+  Basis: 150 PAX - 10 SPML = 140
+  + Reserve: 10
+  = 150 mains
+
+Dessert:
+  Basis: 150 PAX (NO SPML deduction)
+  + Reserve: 10
+  = 160 desserts
+
+Total components: 3 CenOutMeals records
+```
+
+**Current Java (WRONG):**
+```
+Single meal record:
+  Basis: 150 PAX
+  + Reserve: 10
+  = 160 meals
+  - 10 SPML (deducted from final quantity)
+  = 150 meals
+
+Missing:
+- Component-level processing
+- Component-level SPML deduction flags
+- Proper nspml_quantity tracking
+- 3 separate component records
+```
+
+### Root Cause
+
+**Fundamental architectural misunderstanding during migration:**
+1. Assumed CenMeals = single output record
+2. Did not recognize component-based structure
+3. Did not load or process CenMealsDetail records
+4. Implemented SPML deduction as post-processing instead of during calculation
+
+**Correct Architecture:**
+1. CenMeals has ONE-TO-MANY relationship with CenMealsDetail
+2. Each CenMealsDetail becomes ONE CenOutMeals record
+3. SPML deduction happens PER COMPONENT during calculation
+4. Each component tracks its own SPML deduction and quantity
+
+### Required Fixes
+
+This is a **MAJOR ARCHITECTURAL REFACTOR** required:
+
+1. **MealDefinitionLookupService** - Load meal details
+   - Add method to load CenMealsDetail records for each CenMeals
+   - Return meal definitions WITH their component details
+
+2. **MealQuantityCalculationService** - Component-level calculation
+   - Process each CenMealsDetail individually
+   - Calculate SPML count per class (not per component)
+   - For each component:
+     - Check `nspml_deduction` flag
+     - Deduct SPMLs from calc basis if flag is set
+     - Calculate quantity from adjusted basis
+     - Apply reserves and topoffs
+     - Set `nspml_quantity` field
+   - Create one CenOutMeals record per component
+
+3. **SpmlDistributionService** - Remove post-processing deduction
+   - SPML deduction should happen DURING calculation, not after
+   - Keep SPML resolution and validation logic
+   - Remove `deductFromRegularMeals()` method (no longer needed)
+
+4. **MealCalculationService** - Update orchestration
+   - Remove separate SPML distribution step
+   - SPML deduction integrated into quantity calculation
+
+5. **Add Repository**
+   - Create `CenMealsDetailRepository` to load component details
+
+6. **Update Tests**
+   - All tests need to account for component-level processing
+   - Test SPML deduction per component
+   - Test component priority and sequencing
+
+### Verification Status
+
+**PowerBuilder Functions Analyzed:**
+- `uf_get_spml_count()` - Lines 15557-15602 ✓
+- `uf_compile_spml()` - Lines 4019-4164 ✓
+- SPML deduction logic - Lines 3080-3098 ✓
+- Component processing - Lines 4700-4750 ✓
+
+**Severity Assessment:**
+- **CRITICAL** - This affects ALL meal calculations
+- Would cause incorrect meal quantities for every flight
+- Would cause missing component-level detail records
+- Would prevent proper SPML tracking and reporting
+- Cannot go to production without fixing this issue
+
+---
+
 ## Verification Progress
 
 ### ✅ Completed Verifications
@@ -256,11 +473,11 @@ Result: 150 + 10 = 160 meals ✅
 ### 🔄 In Progress
 
 - [x] Updating unit tests for corrected logic
+- [x] Verifying SPML distribution logic
 - [ ] Committing fixes to repository
 
 ### ⏳ Pending Verifications
 
-- [ ] SPML distribution logic (SpmlDistributionService)
 - [ ] Meal layout generation logic (MealLayoutGenerationService)
 - [ ] Handling calculation logic (HandlingCalculationService)
 - [ ] Meal definition lookup logic (MealDefinitionLookupService)
@@ -274,11 +491,26 @@ Result: 150 + 10 = 160 meals ✅
 
 ## Next Steps
 
-1. Fix reserve/topoff logic in MealQuantityCalculationService
-2. Add aircraftVersion parameter to context
-3. Update all affected tests
-4. Continue line-by-line verification of remaining services
-5. Document all findings in this report
+### Immediate (Critical)
+
+1. **STOP PRODUCTION DEPLOYMENT** - Critical architectural issues found
+2. **Refactor meal calculation architecture** to support component-level processing:
+   - Add CenMealsDetailRepository
+   - Refactor MealQuantityCalculationService for component processing
+   - Integrate SPML deduction into calculation (not post-processing)
+   - Update all tests for component-level logic
+3. **Complete verification** of remaining services:
+   - Handling calculation logic
+   - Meal layout generation logic
+   - Persistence logic
+4. **Integration testing** with real PowerBuilder data to validate equivalence
+
+### Completed
+
+1. ✅ Fixed reserve/topoff logic - all 4 types corrected
+2. ✅ Added aircraftVersion parameter throughout
+3. ✅ Verified SPML distribution logic (found critical issue)
+4. ✅ Documented all findings in verification report
 
 ---
 
