@@ -1,0 +1,77 @@
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-core-2.0.9.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-core -Dversion=2.0.9 -Dpackaging=
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbscommand-1.0.0.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbscommand -Dversion=1.0.0.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbscommonsecurityconfidential-2.0.0.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbscommonsecurityconfidential -Dversion=2.0.0.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-commonutils-01.3.1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-commonutils -Dversion=01.3.1.0.0.0
+
+---------
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-core-2.0.8.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-core -Dversion=2.0.8
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbs_pnr-1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbs_pnr -Dversion=1.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbs_air-1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbs_air -Dversion=1.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbs_dcsbrd-1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbs_dcsbrd -Dversion=1.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-coreconfig-2.0.2.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-coreconfig -Dversion=2.0.2
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-core-2.0.2.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-core -Dversion=2.0.2
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-core-2.0.2.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-core -Dversion=2.0.2
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-clientHeaderHandler-2.0.2.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-clientHeaderHandler -Dversion=2.0.2
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-coreconfig-2.0.2.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-coreconfig -Dversion=2.0.2
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-external-soapheaderhandler-1.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-external-soapheaderhandler -Dversion=1.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-transportextension-1.0.2.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-transportextension -Dversion=1.0.2
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbscommand-1.0.0.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbscommand -Dversion=1.0.0.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbscommonsecurityconfidential-2.0.0.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbscommonsecurityconfidential -Dversion=2.0.0.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\tibjms-8.3.0.jar -DgroupId=com.tibco -DartifactId=tibjms -Dversion=8.3.0 -Dpackaging=jar -DgeneratePom=true
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\tibcrypt-8.3.0.jar -DgroupId=com.tibco -DartifactId=tibcrypt -Dversion=8.3.0 -Dpackaging=jar -DgeneratePom=true
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-commonutils-01.3.1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-commonutils -Dversion=01.3.1.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbs_air-1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbs_air -Dversion=1.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbs_dcsbag-1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbs_dcsbag -Dversion=1.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbs_pnr-1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbs_pnr -Dversion=1.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbs_dcsbrd-1.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbs_dcsbrd -Dversion=1.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbscommonsecurityconfidential-2.0.0.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbscommonsecurityconfidential -Dversion=2.0.0.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-core-2.1.1.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-core -Dversion=2.1.1
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-coreconfig-2.1.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-coreconfig -Dversion=2.1.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-converterutil-1.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-converterutil -Dversion=1.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-transportextension-1.0.9.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-transportextension -Dversion=1.0.9
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\tibjms-8.3.0.jar -DgroupId=com.tibco -DartifactId=tibjms -Dversion=8.3.0 -Dpackaging=jar -DgeneratePom=true
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\tibcrypt-8.3.0.jar -DgroupId=com.tibco -DartifactId=tibcrypt -Dversion=8.3.0 -Dpackaging=jar -DgeneratePom=true
+--
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-cpprofileservice-2.0.10.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-cpprofileservice -Dversion=2.0.10.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-dcsfm_amadeuswebservice-1.3.1.0.0.1.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-dcsfm_amadeuswebservice -Dversion=1.3.1.0.0.1
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-wbsunifiedsecurity-1.0.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-wbsunifiedsecurity -Dversion=1.0.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\clientapi-hr_travel_idticketing-1.0.0.3.0.0.0.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=clientapi-hr_travel_idticketing -Dversion=1.0.0.3.0.0.0
+
+mvn install:install-file -Dfile=C:\LSG\DevEnvironment\libs\CXF_CAPICore_libs\mdw-clientapi-core-2.1.2.jar -DgroupId=lhsoa.cxf.mdw-clientapi -DartifactId=mdw-clientapi-core -Dversion=2.1.2

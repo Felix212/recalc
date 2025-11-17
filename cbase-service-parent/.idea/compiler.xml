@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="common" />
+        <module name="persistence" />
+        <module name="citp" />
+        <module name="flightexplosion" />
+        <module name="preorder" />
+        <module name="base" />
+        <module name="flightcalculation" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="base" options="-parameters -verbose -parameters" />
+      <module name="citp" options="-parameters -verbose -parameters" />
+      <module name="common" options="-parameters -verbose -parameters" />
+      <module name="domain" options="-parameters -verbose -parameters -proc:none" />
+      <module name="flightcalculation" options="-parameters -verbose -parameters" />
+      <module name="flightexplosion" options="-parameters -verbose -parameters" />
+      <module name="persistence" options="-parameters -verbose -parameters" />
+      <module name="preorder" options="-parameters -verbose -parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+	<springProperty name="APPLICATION_NAME" source="application.name" />
+	<springProperty name="APPLICATION_VERSION" source="application.version" />
+	<springProperty name="APPLICATION_DB" source="spring.datasource.name" /> 
+
+	<appender name="GELF" class="biz.paluch.logging.gelf.logback.GelfLogbackAppender">
+        <host>tcp:10.154.7.86</host>
+        <port>8080</port>
+        <version>1.0</version>
+        <extractStackTrace>true</extractStackTrace>
+        <filterStackTrace>true</filterStackTrace>
+        <mdcProfiling>true</mdcProfiling>
+        <includeFullMdc>true</includeFullMdc>
+        <timestampPattern>yyyy-MM-dd HH:mm:Ss,SSS</timestampPattern>
+        <maximumMessageSize>8192</maximumMessageSize>
+          
+        <!-- This are static fields -->
+        <additionalFields>application=${APPLICATION_NAME},version=${APPLICATION_VERSION},db=${APPLICATION_DB}</additionalFields> 
+        <!-- Optional: Specify field types -->
+        <additionalFieldTypes>application=String,version=String,db=String</additionalFieldTypes>
+    </appender>
+</included>

@@ -1,0 +1,83 @@
+
+;
+java:S2629ı"$Invoke method(s) only conditionally.(°æ¥‹
+S
+java:S2589¹"7Remove this expression which always evaluates to "true"(Ÿ¨®Şúÿÿÿÿ
+e
+java:S3824Ù	"NReplace this "Map.get()" and condition with a call to "Map.computeIfAbsent()".(œ£®¬
+X
+java:S6813P"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813T"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813X"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813\"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813`"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813d"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813h"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813l"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813p"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813t"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813x"BRemove this field injection and use constructor injection instead.(êæÄŞ
+X
+java:S6813|"BRemove this field injection and use constructor injection instead.(êæÄŞ
+Y
+java:S6813€"BRemove this field injection and use constructor injection instead.(êæÄŞ
+Y
+java:S6813„"BRemove this field injection and use constructor injection instead.(êæÄŞ
+Y
+java:S6813ˆ"BRemove this field injection and use constructor injection instead.(êæÄŞ
+Y
+java:S6813Œ"BRemove this field injection and use constructor injection instead.(êæÄŞ
+Y
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ
+W	java:S107š"<Method has 9 parameters, which is greater than 7 authorized.(îıúùÿÿÿÿ
+N
+java:S1135ú"2Complete the task associated to this TODO comment.(Ğû®Ôşÿÿÿÿ
+i
+java:S3776‰"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(íúÓû
+i
+java:S3776ğ"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(àôàš
+n
+java:S3776ò"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(’÷°ñúÿÿÿÿ
+n
+java:S3776§"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(í€…¼øÿÿÿÿ
+F
+java:S1172õ"/Remove this unused method parameter "newScale".(²Ëï
+I
+java:S1135ö"2Complete the task associated to this TODO comment.(¾‡ÎÙ
+R	java:S125ı"<This block of commented-out lines of code should be removed.(îíŞÂ
+W	java:S125‚"<This block of commented-out lines of code should be removed.(•çóÙÿÿÿÿÿ
+R	java:S125‹"<This block of commented-out lines of code should be removed.(½àŞ°
+n
+java:S3776š"RRefactor this method to reduce its Cognitive Complexity from 61 to the 15 allowed.(îıúùÿÿÿÿ
+n
+java:S3776½"RRefactor this method to reduce its Cognitive Complexity from 54 to the 15 allowed.(Éı°†ıÿÿÿÿ
+H
+java:S1135ö"2Complete the task associated to this TODO comment.(ó±Q
+R
+java:S1172ÿ"6Remove these unused method parameters "com", "comNew".(ºèíâûÿÿÿÿ
+N
+java:S1135€"2Complete the task associated to this TODO comment.(˜¢ÏÂıÿÿÿÿ
+i
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(§‡ˆ×
+n
+java:S3776¶"RRefactor this method to reduce its Cognitive Complexity from 54 to the 15 allowed.(êŞŸãıÿÿÿÿ
+I
+java:S1135ç"2Complete the task associated to this TODO comment.(ÓåÏí
+İ
+java:S6541ğ"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 92 to 64, Complexity from 19 to 14, Nesting Level from 3 to 2, Number of Variables from 18 to 6.(àôàš
+ã
+java:S6541š"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 149 to 64, Complexity from 25 to 14, Nesting Level from 4 to 2, Number of Variables from 27 to 6.(îıúùÿÿÿÿ
+ã
+java:S6541½"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 102 to 64, Complexity from 30 to 14, Nesting Level from 5 to 2, Number of Variables from 39 to 6.(Éı°†ıÿÿÿÿ
+â
+java:S6541¶"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 79 to 64, Complexity from 21 to 14, Nesting Level from 6 to 2, Number of Variables from 11 to 6.(êŞŸãıÿÿÿÿ

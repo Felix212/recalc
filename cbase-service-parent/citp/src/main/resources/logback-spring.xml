@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include resource="logback-spring-defaults.xml" />
+	<include resource="logback-spring-graylog.xml" />
+   
+	<root level="INFO">
+		<!--<appender-ref ref="GELF" /> -->
+		<appender-ref ref="APPLICATION_CONSOLE" />
+		<appender-ref ref="APPLICATION_FILE" />
+	</root>
+	
+	<logger name="org.apache.cxf" level="OFF"/>
+	<logger name="com.dlh.zambas.mw" level="OFF"></logger>
+
+</configuration>

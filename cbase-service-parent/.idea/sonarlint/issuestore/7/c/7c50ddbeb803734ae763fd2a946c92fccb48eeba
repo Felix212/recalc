@@ -1,0 +1,16 @@
+
+c	java:S112¶"FDefine and throw a dedicated exception instead of using a generic one.(³Ô²8À¤°Ÿş2
+_
+java:S6813:"BRemove this field injection and use constructor injection instead.(êæÄŞ8Ş¤°Ÿş2
+u
+java:S2139W"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8é¤°Ÿş2
+R
+java:S1172¡"/Remove this unused method parameter "flightId".(™Ë¢§ÿÿÿÿÿ8ğ¤°Ÿş2
+]
+java:S1612À"?Replace this lambda with method reference 'CenOutPax::getNpax'.(´Ôß¸8ô¤°Ÿş2
+v
+java:S2139´"XEither log this exception and handle it, or rethrow it with some contextual information.(”ı¾8‘¥°Ÿş2
+@
+java:S1128)"Remove this duplicated import.(ğàËÒıÿÿÿÿ8§¥°Ÿş2
+@
+java:S1128*"Remove this duplicated import.(ê°İÒıÿÿÿÿ8¨¥°Ÿş2

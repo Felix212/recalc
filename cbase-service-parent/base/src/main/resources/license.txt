@@ -1,0 +1,11 @@
+POI                    - Apache LICENSE 2.0 - license file in poi.jar
+Google Guava           - Apache LICENSE 2.0
+Apache Commons         - Apache LICENSE 2.0
+spring-boot            - Apache LICENSE 2.0
+springfox              - Apache LICENSE 2.0
+validation-api         - Apache LICENSE 2.0
+zxing                  - Apache LICENSE 2.0
+metrics-spring         - Apache LICENSE 2.0
+json-path              - Apache LICENSE 2.0
+JasperReports          - LPGL
+Hibernate              - LPGL

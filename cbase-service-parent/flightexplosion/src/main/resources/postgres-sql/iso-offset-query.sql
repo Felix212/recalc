@@ -1,0 +1,2 @@
+--select to_number(to_char(sysdate, 'D')) - (1 + trunc(sysdate) - trunc(sysdate, 'IW')) as iso_offset from dual
+select 0 as iso_offset

@@ -1,0 +1,6 @@
+<enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://enunciate.webcohesion.com/schemas/enunciate-2.3.0.xsd">
+
+    <application root="https://cbasemiddleware.ads.dlh.de/maint/all" />
+
+</enunciate>

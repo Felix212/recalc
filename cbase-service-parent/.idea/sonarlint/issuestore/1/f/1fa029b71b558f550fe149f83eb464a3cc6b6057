@@ -1,0 +1,14 @@
+
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ
+X
+java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄÞ
+\
+java:S18543"ARemove this useless assignment to local variable "instanceNames".(›Õ¶Úûÿÿÿÿ
+_
+java:S18540"JRemove this useless assignment to local variable "openFlightCalculations".(¤À¬
+P
+java:S14810";Remove this unused "openFlightCalculations" local variable.(¤À¬
+M
+java:S14813"2Remove this unused "instanceNames" local variable.(›Õ¶Úûÿÿÿÿ
+Q	java:S1255"<This block of commented-out lines of code should be removed.(©Ðºµ
