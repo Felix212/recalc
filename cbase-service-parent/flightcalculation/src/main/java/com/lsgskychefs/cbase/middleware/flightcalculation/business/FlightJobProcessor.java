@@ -75,6 +75,9 @@ public class FlightJobProcessor {
 	@Autowired
 	private SysQueueFlightCalcRepository jobRepository;
 
+	@Autowired
+	private MealCalculationService mealCalculationService;
+
 	/**
 	 * Process a single flight calculation job.
 	 *
@@ -129,9 +132,7 @@ public class FlightJobProcessor {
 			// Step 6: Execute meal calculation if needed
 			if (needsMealCalculation) {
 				LOGGER.info("Meal calculation required for result_key={}", job.getNresultKey());
-				// TODO: Integrate with meal calculation library (uo_generate)
-				// This is a placeholder for the external meal explosion library
-				// executeMealCalculation(flight, config);
+				executeMealCalculation(flight, needsMealCalculation);
 			} else {
 				LOGGER.debug("No meal calculation needed for result_key={}", job.getNresultKey());
 			}
@@ -270,6 +271,43 @@ public class FlightJobProcessor {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Execute meal calculation for a flight.
+	 *
+	 * <p>PowerBuilder equivalent: wf_chc_master_change()
+	 *
+	 * <p>This method calls the meal calculation service which performs:
+	 * <ul>
+	 *   <li>Meal explosion (uo_generate library)</li>
+	 *   <li>SPML calculations</li>
+	 *   <li>Meal layout generation</li>
+	 *   <li>Handling/extra loading calculations</li>
+	 * </ul>
+	 *
+	 * <p><strong>NOTE:</strong> The meal calculation engine is currently a stub.
+	 * See {@link MealCalculationService} for implementation requirements.
+	 *
+	 * @param flight Flight entity
+	 * @param forceRecalculation If true, force recalculation even if no changes
+	 */
+	private void executeMealCalculation(CenOutPpmFlights flight, boolean forceRecalculation) {
+		LOGGER.info("Executing meal calculation for result_key={}, force={}",
+				flight.getId().getNresultKey(), forceRecalculation);
+
+		MealCalculationService.MealCalculationResult result =
+				mealCalculationService.calculateMeals(flight, forceRecalculation);
+
+		if (result.isSuccess()) {
+			LOGGER.info("Meal calculation succeeded: {} meals generated",
+					result.getMealsGenerated());
+		} else {
+			LOGGER.warn("Meal calculation failed or not implemented: {}",
+					result.getMessage());
+			// Note: Not throwing exception as meal calculation stub is expected
+			// In production, this should throw exception if meal calculation fails
+		}
 	}
 
 	/**
