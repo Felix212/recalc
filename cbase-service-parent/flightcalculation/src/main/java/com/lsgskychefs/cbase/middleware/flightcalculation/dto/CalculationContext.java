@@ -47,6 +47,7 @@ public class CalculationContext {
 	private String classCode;              // sClass - Class code (Y, C, F, etc.)
 	private int classNumber;               // lClassNumber - Class number
 	private boolean bookingClass;          // nbooking_class = 1
+	private String multiClassString;       // sMultiClasses - Multi-class string (e.g., "BC+EY")
 
 	// Flight information
 	private long flightNumber;             // il_flgnr - Flight number
@@ -262,6 +263,14 @@ public class CalculationContext {
 
 	public void setBookingClass(boolean bookingClass) {
 		this.bookingClass = bookingClass;
+	}
+
+	public String getMultiClassString() {
+		return multiClassString;
+	}
+
+	public void setMultiClassString(String multiClassString) {
+		this.multiClassString = multiClassString;
 	}
 
 	public long getFlightNumber() {

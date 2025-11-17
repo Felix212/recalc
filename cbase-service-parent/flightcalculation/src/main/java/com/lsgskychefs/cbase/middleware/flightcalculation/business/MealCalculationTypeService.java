@@ -737,123 +737,312 @@ public class MealCalculationTypeService {
 	// Types 29-114: Implement remaining types
 	// (Continuing with stubs for now - these need full implementation)
 
+	/**
+	 * Type 29: Paxe n Klassen.
+	 * PowerBuilder case 29 (line 9131-9139)
+	 */
 	private void calculateType29PaxNClasses(CalculationContext ctx) {
-		// TODO: Implement uf_calc_multi_class_sum(1)
-		LOGGER.warn("Type 29 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: dcQuantity = uf_calc_multi_class_sum(1)
+		calcMultiClassSum(ctx, 1);
+
+		// Deduct SPML if applicable
+		double quantity = ctx.getQuantity();
+		int spmlCount = ctx.getSpmlCountGlobal();
+		if (quantity >= spmlCount) {
+			quantity -= spmlCount;
+		}
+		ctx.setQuantity(quantity);
 	}
 
+	/**
+	 * Type 30: Paxe n Klassen + Prozent.
+	 * PowerBuilder case 30 (line 9141-9150)
+	 */
 	private void calculateType30PaxNClassesPercent(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 30 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_multi_class_sum(1), then apply percentage
+		calcMultiClassSum(ctx, 1);
+
+		// Deduct SPML
+		double quantity = ctx.getQuantity();
+		double quantityVer = ctx.getQuantityVersion();
+		int spmlCount = ctx.getSpmlCountGlobal();
+
+		if (quantity >= spmlCount) {
+			quantity -= spmlCount;
+		}
+
+		// Apply percentage
+		int percentage = ctx.getPercentage();
+		quantity = Math.round(quantity + (quantity * percentage / 100.0));
+		quantityVer = Math.round(quantityVer + (quantityVer * percentage / 100.0));
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 31: Paxe n Klassen Vielfach.
+	 * PowerBuilder case 31 (line 9152-9161)
+	 */
 	private void calculateType31PaxNClassesMultiple(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 31 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum classes, deduct SPML, then apply multiple
+		long calcBasis = calcMultiClassSum(ctx, 1);
+
+		double quantity = ctx.getQuantity();
+		int spmlCount = ctx.getSpmlCountGlobal();
+		if (quantity >= spmlCount) {
+			quantity -= spmlCount;
+		}
+
+		ctx.setCalcBasis((int) calcBasis);
+		ctx.setCalcBasisVersion((int) ctx.getQuantityVersion());
+		calcMultiple(ctx);
 	}
 
+	/**
+	 * Type 32: Paxe n Klassen Absolut.
+	 * PowerBuilder case 32 (line 9163-9171)
+	 */
 	private void calculateType32PaxNClassesAbsolute(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 32 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum + absolute value
+		calcMultiClassSum(ctx, 1);
+
+		double quantity = ctx.getQuantity() + ctx.getValue();
+		double quantityVer = ctx.getQuantityVersion() + ctx.getValue();
+
+		// Deduct SPML
+		int spmlCount = ctx.getSpmlCountGlobal();
+		if (quantity >= spmlCount) {
+			quantity -= spmlCount;
+		}
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 33: Paxe n Klassen - Absolut.
+	 * PowerBuilder case 33 (line 9173-9183)
+	 */
 	private void calculateType33PaxNClassesMinusAbsolute(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 33 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum - absolute value
+		calcMultiClassSum(ctx, 1);
+
+		double quantity = ctx.getQuantity() - ctx.getValue();
+		double quantityVer = ctx.getQuantityVersion() - ctx.getValue();
+
+		// Deduct SPML
+		int spmlCount = ctx.getSpmlCountGlobal();
+		if (quantity >= spmlCount) {
+			quantity -= spmlCount;
+		}
+
+		// Clamp to 0
+		if (quantity <= 0) quantity = 0;
+		if (quantityVer <= 0) quantityVer = 0;
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 34: Paxe n Klassen - Prozent.
+	 * PowerBuilder case 34 (line 9185-9195)
+	 */
 	private void calculateType34PaxNClassesMinusPercent(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 34 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum, deduct SPML, subtract percentage
+		calcMultiClassSum(ctx, 1);
+
+		double quantity = ctx.getQuantity();
+		double quantityVer = ctx.getQuantityVersion();
+
+		// Deduct SPML
+		int spmlCount = ctx.getSpmlCountGlobal();
+		if (quantity >= spmlCount) {
+			quantity -= spmlCount;
+		}
+
+		// Subtract percentage with ceiling
+		int percentage = ctx.getPercentage();
+		quantity = Math.ceil(quantity - (quantity * percentage / 100.0));
+		quantityVer = Math.ceil(quantityVer - (quantityVer * percentage / 100.0));
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 35: Version n Klassen.
+	 * PowerBuilder case 35 (line 9198-9202)
+	 */
 	private void calculateType35VersionNClasses(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 35 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: dcQuantity = uf_calc_multi_class_sum(2)
+		calcMultiClassSum(ctx, 2);
 	}
 
+	/**
+	 * Type 36: Version n Klassen + Prozent.
+	 * PowerBuilder case 36 (line 9204-9210)
+	 */
 	private void calculateType36VersionNClassesPercent(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 36 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum versions, add percentage
+		calcMultiClassSum(ctx, 2);
+
+		double quantity = ctx.getQuantity();
+		double quantityVer = ctx.getQuantityVersion();
+		int percentage = ctx.getPercentage();
+
+		quantity = Math.round(quantity + (quantity * percentage / 100.0));
+		quantityVer = Math.round(quantityVer + (quantityVer * percentage / 100.0));
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 37: Version n Klassen Vielfach.
+	 * PowerBuilder case 37 (line 9212-9218)
+	 */
 	private void calculateType37VersionNClassesMultiple(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 37 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum versions, apply multiple
+		long calcBasis = calcMultiClassSum(ctx, 2);
+
+		ctx.setCalcBasis((int) calcBasis);
+		ctx.setCalcBasisVersion((int) ctx.getQuantityVersion());
+		calcMultiple(ctx);
 	}
 
+	/**
+	 * Type 38: Version n Klassen Absolut.
+	 * PowerBuilder case 38 (line 9220-9225)
+	 */
 	private void calculateType38VersionNClassesAbsolute(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 38 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum + absolute
+		calcMultiClassSum(ctx, 2);
+
+		double quantity = ctx.getQuantity() + ctx.getValue();
+		double quantityVer = ctx.getQuantityVersion() + ctx.getValue();
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 39: Version n Klassen - Absolut.
+	 * PowerBuilder case 39 (line 9227-9234)
+	 */
 	private void calculateType39VersionNClassesMinusAbsolute(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 39 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum - absolute
+		calcMultiClassSum(ctx, 2);
+
+		double quantity = ctx.getQuantity() - ctx.getValue();
+		double quantityVer = ctx.getQuantityVersion() - ctx.getValue();
+
+		if (quantity <= 0) quantity = 0;
+		if (quantityVer <= 0) quantityVer = 0;
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 40: Version n Klassen - Prozent.
+	 * PowerBuilder case 40 (line 9236-9243)
+	 */
 	private void calculateType40VersionNClassesMinusPercent(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 40 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum, subtract percentage with ceiling
+		calcMultiClassSum(ctx, 2);
+
+		double quantity = ctx.getQuantity();
+		double quantityVer = ctx.getQuantityVersion();
+		int percentage = ctx.getPercentage();
+
+		quantity = Math.ceil(quantity - (quantity * percentage / 100.0));
+		quantityVer = Math.ceil(quantityVer - (quantityVer * percentage / 100.0));
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 41: Paxe n Klassen Prozent.
+	 * PowerBuilder case 41 (line 9246-9255)
+	 */
 	private void calculateType41PaxNClassesPercentage(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 41 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum PAX, deduct SPML, apply percentage
+		calcMultiClassSum(ctx, 1);
+
+		double quantity = ctx.getQuantity();
+		double quantityVer = ctx.getQuantityVersion();
+
+		// Deduct SPML
+		int spmlCount = ctx.getSpmlCountGlobal();
+		if (quantity >= spmlCount) {
+			quantity -= spmlCount;
+		}
+
+		// Apply percentage
+		int percentage = ctx.getPercentage();
+		quantity = Math.round(quantity * percentage / 100.0);
+		quantityVer = Math.round(quantityVer * percentage / 100.0);
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 42: Version n Klassen Prozent.
+	 * PowerBuilder case 42 (line 9257-9263)
+	 */
 	private void calculateType42VersionNClassesPercentage(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 42 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum versions, apply percentage
+		calcMultiClassSum(ctx, 2);
+
+		double quantity = ctx.getQuantity();
+		double quantityVer = ctx.getQuantityVersion();
+		int percentage = ctx.getPercentage();
+
+		quantity = Math.round(quantity * percentage / 100.0);
+		quantityVer = Math.round(quantityVer * percentage / 100.0);
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 
+	/**
+	 * Type 43: Sitz Paxe n Klassen.
+	 * PowerBuilder case 43 (line 9265-9269)
+	 */
 	private void calculateType43SeatPaxNClasses(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 43 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: dcQuantity = uf_calc_multi_class_sum(3)
+		calcMultiClassSum(ctx, 3);
 	}
 
+	/**
+	 * Type 44: Version n Klassen Prozent LH Rundung.
+	 * PowerBuilder case 44 (line 9271-9275)
+	 */
 	private void calculateType44VersionNClassesPercentLH(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 44 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// TODO: Implement uf_calc_version_n_classes_percent_lh
+		LOGGER.warn("Type 44 not fully implemented - needs uf_calc_version_n_classes_percent_lh");
+		calcMultiClassSum(ctx, 2);
 	}
 
+	/**
+	 * Type 45: Paxe n Klassen vielfach mit SPML-Abzug.
+	 * PowerBuilder case 45 (line 9278-9287)
+	 */
 	private void calculateType45PaxNClassesMultipleSpml(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 45 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: sum PAX with SPML tracking, deduct SPML from basis, apply multiple
+		long calcBasis = calcMultiClassSum(ctx, 4);  // Column 4 = npax with SPML tracking
+
+		// Deduct SPML from calc basis
+		int spmlCount = ctx.getSpmlCountGlobal();
+		calcBasis -= spmlCount;
+
+		ctx.setCalcBasis((int) calcBasis);
+		ctx.setCalcBasisVersion((int) ctx.getQuantityVersion());
+		calcMultiple(ctx);
 	}
 
 	/**
@@ -932,24 +1121,18 @@ public class MealCalculationTypeService {
 	}
 
 	private void calculateType70BobPercent(CalculationContext ctx) {
-		// TODO: Implement uf_calc_bob_percent
-		LOGGER.warn("Type 70/71/104 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent(lCalcID) - Types 70, 71, 104
+		calcBobPercent(ctx);
 	}
 
 	private void calculateType72BobPercentRoundDown(CalculationContext ctx) {
-		// TODO: Implement uf_calc_bob_percent_round_down
-		LOGGER.warn("Type 72/73 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent_round_down(lCalcID) - Types 72, 73
+		calcBobPercentRoundDown(ctx);
 	}
 
 	private void calculateType74BobPercentCommercial(CalculationContext ctx) {
-		// TODO: Implement uf_calc_bob_percent_com
-		LOGGER.warn("Type 74/75 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent_com(lCalcID) - Types 74, 75
+		calcBobPercentCom(ctx);
 	}
 
 	/**
@@ -975,24 +1158,18 @@ public class MealCalculationTypeService {
 	}
 
 	private void calculateType79BobPercentCPRoundUp(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 79 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent(lCalcID) - Type 79
+		calcBobPercent(ctx);
 	}
 
 	private void calculateType80BobPercentCPRoundDown(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 80 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent_round_down(lCalcID) - Type 80
+		calcBobPercentRoundDown(ctx);
 	}
 
 	private void calculateType81BobPercentCPCom(CalculationContext ctx) {
-		// TODO: Implement
-		LOGGER.warn("Type 81 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent_com(lCalcID) - Type 81
+		calcBobPercentCom(ctx);
 	}
 
 	private void calculateType82RatiolistPercentage(CalculationContext ctx) {
@@ -1124,24 +1301,18 @@ public class MealCalculationTypeService {
 	}
 
 	private void calculateType101BobPercentCPRoundOffMinMax(CalculationContext ctx) {
-		// TODO: Implement uf_calc_bob_percent_com with MinMax
-		LOGGER.warn("Type 101 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent_com(lCalcID) - Type 101 with MinMax
+		calcBobPercentCom(ctx);
 	}
 
 	private void calculateType102BobPercentCPRoundDownMinMax(CalculationContext ctx) {
-		// TODO: Implement uf_calc_bob_percent_round_down with MinMax
-		LOGGER.warn("Type 102 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent_round_down(lCalcID) - Type 102 with MinMax
+		calcBobPercentRoundDown(ctx);
 	}
 
 	private void calculateType103BobPercentCPRoundUpMinMax(CalculationContext ctx) {
-		// TODO: Implement uf_calc_bob_percent with MinMax
-		LOGGER.warn("Type 103 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_bob_percent(lCalcID) - Type 103 with MinMax
+		calcBobPercent(ctx);
 	}
 
 	private void calculateType105FixedAcVerTlcFrom(CalculationContext ctx) {
@@ -1394,5 +1565,280 @@ public class MealCalculationTypeService {
 
 		double quantityVer = Math.floor((ctx.getCalcBasisVersion() * percentage / 100.0) + absolute);
 		ctx.setQuantityVersion(Math.max(defaultValue, quantityVer));
+	}
+
+	/**
+	 * Multi-class sum calculation.
+	 * PowerBuilder: uf_calc_multi_class_sum(integer icolumn) (line 8102)
+	 *
+	 * <p>Sums PAX or version values across multiple booking classes.
+	 * The multiClassString contains class codes separated by '+' (e.g., "BC+EY").
+	 *
+	 * @param ctx Calculation context
+	 * @param column Column type: 1=npax, 2=nversion, 3=npax_airline, 4=npax with SPML
+	 * @return Sum of values across classes
+	 */
+	private long calcMultiClassSum(CalculationContext ctx, int column) {
+		// PowerBuilder lines 8123-8186
+
+		// Determine which column to sum
+		String columnName;
+		if (column == 1 || column == 4) {
+			columnName = "npax";
+		} else if (column == 3) {
+			columnName = "npax_airline";
+		} else { // 2
+			columnName = "nversion";
+		}
+
+		// Reset SPML count
+		int spmlCount = 0;
+
+		// Parse multi-class string (e.g., "BC+EY" -> ["BC", "EY"])
+		String multiClassString = ctx.getMultiClassString();
+		if (multiClassString == null || multiClassString.isEmpty()) {
+			LOGGER.warn("Multi-class string is empty for calc type {}", ctx.getCalcId());
+			ctx.setQuantity(0);
+			ctx.setQuantityVersion(0);
+			return 0;
+		}
+
+		String[] classArray = multiClassString.split("\\+");
+
+		// Sum values across all classes
+		long totalValue = 0;
+		long totalValueVersion = 0;
+
+		for (String classCode : classArray) {
+			classCode = classCode.trim();
+
+			// TODO: Look up class data from CenOutPax repository
+			// For now, this is a stub that needs database access
+			// PowerBuilder: lFound = dsCenOutPax.Find("nresult_key = "+string(lResultKey)+" and cclass = '" + sClassArray[i] + "'", 1, dsCenOutPax.RowCount())
+
+			// Stub logic - needs actual database lookup
+			LOGGER.warn("calcMultiClassSum needs database access to CenOutPax for class {}", classCode);
+
+			// PowerBuilder logic:
+			// if lFound > 0:
+			//   lValue += dsCenOutPax.GetItemNumber(lFound, sColumn)
+			//   if iColumn = 4 then also sum npax_spml into il_spml_count
+			//   lValue_ver += dsCenOutPax.GetItemNumber(lFound, "nversion")
+		}
+
+		// Set results
+		ctx.setQuantity(totalValue);
+		ctx.setQuantityVersion(totalValueVersion);
+		ctx.setSpmlCountGlobal(spmlCount);
+
+		return totalValue;
+	}
+
+	/**
+	 * BOB percentage calculation.
+	 * PowerBuilder: uf_calc_bob_percent(integer arg_icalc) (line 11474)
+	 *
+	 * <p>Complex BOB (Buy-on-Board) calculation with city pair lookups,
+	 * percentage calculations, and min/max constraints.
+	 *
+	 * @param ctx Calculation context
+	 */
+	private void calcBobPercent(CalculationContext ctx) {
+		// PowerBuilder lines 11474-11660
+		int calcId = ctx.getCalcId();
+
+		long percentage = ctx.getPercentage();
+		long minValue = ctx.getMinValue();
+		long maxValue = ctx.getMaxValue();
+		double value = ctx.getValue();
+
+		// TODO: Check if BOB import values should be used
+		// PowerBuilder: ii_Bob flag, dsFlightData lookups
+		// For now, use city pair lookup
+
+		if (calcId != 99) {
+			// TODO: Database lookup for city pair specific values
+			// PowerBuilder: SELECT from cen_meals_cp_percent
+			// WHERE nhandling_detail_key = :lHandlingDetailKey
+			//   AND ntlc_from = :ll_tlc_from
+			//   AND ntlc_to = :ll_tlc_to
+
+			LOGGER.warn("calcBobPercent needs database lookup from cen_meals_cp_percent");
+
+			// If lookup fails, use default values from context
+			// PowerBuilder: ll_percentage = iPercentage, ll_min = lMinValue, etc.
+		}
+
+		// Apply percentage reduction for calc types 71 and 104
+		if (calcId == 71 || calcId == 104) {
+			// PowerBuilder: ll_percentage -= ll_percentage * ll_value / 100
+			percentage -= percentage * (long) value / 100;
+		}
+
+		// Calculate quantity with percentage
+		double quantity = Math.ceil(ctx.getCalcBasis() * percentage / 100.0);
+		double quantityVer = Math.ceil(ctx.getCalcBasisVersion() * percentage / 100.0);
+
+		// Apply min/max constraints based on calc type
+		switch (calcId) {
+			case 70:
+			case 71:
+			case 99:
+				// Apply minimum
+				if (quantity < minValue) quantity = minValue;
+				if (quantityVer < minValue) quantityVer = minValue;
+				break;
+
+			case 79:
+				// Apply maximum (if specified)
+				if (maxValue > 0) {
+					if (quantity > maxValue) quantity = maxValue;
+					if (quantityVer > maxValue) quantityVer = maxValue;
+				}
+				break;
+
+			case 104:
+				// Apply maximum (if specified)
+				if (maxValue > 0) {
+					if (quantity > maxValue) quantity = maxValue;
+					if (quantityVer > maxValue) quantityVer = maxValue;
+				}
+				break;
+
+			case 103:
+				// Apply both min and max
+				if (quantity < minValue) quantity = minValue;
+				if (quantityVer < minValue) quantityVer = minValue;
+
+				if (maxValue > 0) {
+					if (quantity > maxValue) quantity = maxValue;
+					if (quantityVer > maxValue) quantityVer = maxValue;
+				}
+				break;
+
+			case 101:
+			case 102:
+				// Handled by separate methods (commercial rounding, round down)
+				break;
+		}
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
+	}
+
+	/**
+	 * BOB percentage with round down.
+	 * PowerBuilder: uf_calc_bob_percent_round_down(integer arg_icalc) (line 11662)
+	 */
+	private void calcBobPercentRoundDown(CalculationContext ctx) {
+		// Similar to calcBobPercent but uses floor instead of ceiling
+		int calcId = ctx.getCalcId();
+
+		long percentage = ctx.getPercentage();
+		long minValue = ctx.getMinValue();
+		long maxValue = ctx.getMaxValue();
+		double value = ctx.getValue();
+
+		// TODO: Database lookup (same as calcBobPercent)
+		LOGGER.warn("calcBobPercentRoundDown needs database lookup from cen_meals_cp_percent");
+
+		// Apply percentage reduction for certain types
+		if (calcId == 73) {
+			percentage -= percentage * (long) value / 100;
+		}
+
+		// Calculate with FLOOR rounding (round down)
+		double quantity = Math.floor(ctx.getCalcBasis() * percentage / 100.0);
+		double quantityVer = Math.floor(ctx.getCalcBasisVersion() * percentage / 100.0);
+
+		// Apply min/max constraints
+		switch (calcId) {
+			case 72:
+			case 73:
+				// Apply minimum
+				if (quantity < minValue) quantity = minValue;
+				if (quantityVer < minValue) quantityVer = minValue;
+				break;
+
+			case 80:
+				// Apply maximum
+				if (maxValue > 0) {
+					if (quantity > maxValue) quantity = maxValue;
+					if (quantityVer > maxValue) quantityVer = maxValue;
+				}
+				break;
+
+			case 102:
+				// Apply both min and max
+				if (quantity < minValue) quantity = minValue;
+				if (quantityVer < minValue) quantityVer = minValue;
+
+				if (maxValue > 0) {
+					if (quantity > maxValue) quantity = maxValue;
+					if (quantityVer > maxValue) quantityVer = maxValue;
+				}
+				break;
+		}
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
+	}
+
+	/**
+	 * BOB percentage with commercial rounding.
+	 * PowerBuilder: uf_calc_bob_percent_com(integer arg_icalc) (line 11857)
+	 */
+	private void calcBobPercentCom(CalculationContext ctx) {
+		// Similar to calcBobPercent but uses commercial rounding (round to nearest)
+		int calcId = ctx.getCalcId();
+
+		long percentage = ctx.getPercentage();
+		long minValue = ctx.getMinValue();
+		long maxValue = ctx.getMaxValue();
+		double value = ctx.getValue();
+
+		// TODO: Database lookup (same as calcBobPercent)
+		LOGGER.warn("calcBobPercentCom needs database lookup from cen_meals_cp_percent");
+
+		// Apply percentage reduction for certain types
+		if (calcId == 75) {
+			percentage -= percentage * (long) value / 100;
+		}
+
+		// Calculate with ROUND (commercial rounding)
+		double quantity = Math.round(ctx.getCalcBasis() * percentage / 100.0);
+		double quantityVer = Math.round(ctx.getCalcBasisVersion() * percentage / 100.0);
+
+		// Apply min/max constraints
+		switch (calcId) {
+			case 74:
+			case 75:
+				// Apply minimum
+				if (quantity < minValue) quantity = minValue;
+				if (quantityVer < minValue) quantityVer = minValue;
+				break;
+
+			case 81:
+				// Apply maximum
+				if (maxValue > 0) {
+					if (quantity > maxValue) quantity = maxValue;
+					if (quantityVer > maxValue) quantityVer = maxValue;
+				}
+				break;
+
+			case 101:
+				// Apply both min and max
+				if (quantity < minValue) quantity = minValue;
+				if (quantityVer < minValue) quantityVer = minValue;
+
+				if (maxValue > 0) {
+					if (quantity > maxValue) quantity = maxValue;
+					if (quantityVer > maxValue) quantityVer = maxValue;
+				}
+				break;
+		}
+
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantityVer);
 	}
 }
