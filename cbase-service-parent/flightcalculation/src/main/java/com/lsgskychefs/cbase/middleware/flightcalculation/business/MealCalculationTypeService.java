@@ -1143,18 +1143,24 @@ public class MealCalculationTypeService {
 		calcPercentRoundDown(ctx, ctx.getValue(), 0);
 	}
 
+	/**
+	 * Type 77: Fixed Quantity BOB.
+	 * PowerBuilder case 77 (line 9398-9406)
+	 */
 	private void calculateType77BobFixed(CalculationContext ctx) {
-		// TODO: Implement uf_calc_bob_fixed
-		LOGGER.warn("Type 77 not fully implemented");
-		ctx.setQuantity(ctx.getValue());
-		ctx.setQuantityVersion(ctx.getValue());
+		// PowerBuilder: uf_calc_bob_fixed()
+		// PowerBuilder: idc_quantity_ver = dcQuantity (no dependency on calcBasis)
+		calcBobFixed(ctx);
 	}
 
+	/**
+	 * Type 78: Fixed Quantity (City Pair).
+	 * PowerBuilder case 78 (line 9408-9416)
+	 */
 	private void calculateType78FixedCP(CalculationContext ctx) {
-		// TODO: Implement uf_calc_fixed_cp
-		LOGGER.warn("Type 78 not fully implemented");
-		ctx.setQuantity(ctx.getValue());
-		ctx.setQuantityVersion(ctx.getValue());
+		// PowerBuilder: uf_calc_fixed_cp()
+		// PowerBuilder: idc_quantity_ver = dcQuantity (no dependency on calcBasis)
+		calcFixedCP(ctx);
 	}
 
 	private void calculateType79BobPercentCPRoundUp(CalculationContext ctx) {
@@ -1381,18 +1387,25 @@ public class MealCalculationTypeService {
 		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
 	}
 
+	/**
+	 * Type 113: Multiple with ZERO allowed.
+	 * PowerBuilder case 113 (line 9651-9656)
+	 */
 	private void calculateType113MultipleZero(CalculationContext ctx) {
-		// TODO: Implement uf_calc_multiple_w_zero
-		LOGGER.warn("Type 113 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: uf_calc_multiple_w_zero() (line 15934)
+		calcMultipleWithZero(ctx);
 	}
 
+	/**
+	 * Type 114: Diff by Galley Region Per Pax.
+	 * PowerBuilder case 114 (line 9658-9663)
+	 */
 	private void calculateType114DiffGalleyRegionPerPax(CalculationContext ctx) {
 		// TODO: Implement uf_calc_difference_gallyregion_perpax
-		LOGGER.warn("Type 114 not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// This requires galley region data which needs database access
+		LOGGER.warn("Type 114 not fully implemented - needs galley region database access");
+		ctx.setQuantity(0);
+		ctx.setQuantityVersion(0);
 	}
 
 	//====================================================================================
@@ -1435,16 +1448,26 @@ public class MealCalculationTypeService {
 	 * PowerBuilder: uf_calc_multiple()
 	 */
 	private void calcMultiple(CalculationContext ctx) {
-		// TODO: Full implementation
-		// Stub: every n passengers gets one item
-		int divisor = (int) ctx.getValue();
+		// PowerBuilder: lResult = truncate(lCalcBasis / dcValue, 0)
+		// If mod(lCalcBasis, dcValue) > 0 then lResult++
+
+		double divisor = ctx.getValue();
 		if (divisor <= 0) divisor = 1;
 
-		double quantity = Math.ceil((double) ctx.getCalcBasis() / divisor);
-		ctx.setQuantity(quantity);
+		// Truncate division
+		long result = (long) (ctx.getCalcBasis() / divisor);
+		long resultVer = (long) (ctx.getCalcBasisVersion() / divisor);
 
-		double quantityVer = Math.ceil((double) ctx.getCalcBasisVersion() / divisor);
-		ctx.setQuantityVersion(quantityVer);
+		// If there's a remainder, round up
+		if (ctx.getCalcBasis() % (int) divisor > 0) {
+			result++;
+		}
+		if (ctx.getCalcBasisVersion() % (int) divisor > 0) {
+			resultVer++;
+		}
+
+		ctx.setQuantity(result);
+		ctx.setQuantityVersion(resultVer);
 	}
 
 	/**
@@ -1452,10 +1475,45 @@ public class MealCalculationTypeService {
 	 * PowerBuilder: uf_calc_integer()
 	 */
 	private void calcInteger(CalculationContext ctx) {
-		// TODO: Full implementation
-		LOGGER.warn("calcInteger not fully implemented");
-		ctx.setQuantity(ctx.getCalcBasis());
-		ctx.setQuantityVersion(ctx.getCalcBasisVersion());
+		// PowerBuilder: Similar to multiple but with integer steps
+		// Using same logic as multiple for now
+		calcMultiple(ctx);
+	}
+
+	/**
+	 * Multiple calculation with ZERO allowed.
+	 * PowerBuilder: uf_calc_multiple_w_zero() (line 15934)
+	 *
+	 * <p>If dcValue = 0, result is 0 (unlike regular multiple which would divide by 1).
+	 * Otherwise same as calcMultiple: truncate division with remainder round-up.
+	 */
+	private void calcMultipleWithZero(CalculationContext ctx) {
+		// PowerBuilder lines 15934-15969
+		double value = ctx.getValue();
+
+		if (value == 0) {
+			// Special case: if value is 0, quantity is 0 (not division by 1)
+			ctx.setQuantity(0);
+			ctx.setQuantityVersion(0);
+		} else {
+			// Truncate division
+			long result = (long) (ctx.getCalcBasis() / value);
+			long resultVer = (long) (ctx.getCalcBasisVersion() / value);
+
+			// Issue #10116: Divide by zero check
+			if ((int) value > 0) {
+				// If there's a remainder, round up
+				if (ctx.getCalcBasis() % (int) value > 0) {
+					result++;
+				}
+				if (ctx.getCalcBasisVersion() % (int) value > 0) {
+					resultVer++;
+				}
+			}
+
+			ctx.setQuantity(result);
+			ctx.setQuantityVersion(resultVer);
+		}
 	}
 
 	/**
@@ -1840,5 +1898,67 @@ public class MealCalculationTypeService {
 
 		ctx.setQuantity(quantity);
 		ctx.setQuantityVersion(quantityVer);
+	}
+
+	/**
+	 * BOB fixed quantity calculation.
+	 * PowerBuilder: uf_calc_bob_fixed() (line 12058)
+	 *
+	 * <p>Returns fixed quantity for BOB items with optional city pair lookup.
+	 *
+	 * @param ctx Calculation context
+	 */
+	private void calcBobFixed(CalculationContext ctx) {
+		// PowerBuilder lines 12058-12198
+
+		// TODO: Check if BOB import values should be used
+		// PowerBuilder: ii_Bob flag, dsFlightData lookups
+		// For now, use city pair lookup
+
+		// TODO: Database lookup for city pair specific fixed quantity
+		// PowerBuilder:
+		// 1. Get tlc_from, tlc_to from cen_out where nresult_key = :lResultKey
+		// 2. SELECT nfixed_qty FROM cen_meals_cp_percent
+		//    WHERE nhandling_detail_key = :lHandlingDetailKey
+		//      AND ntlc_from = :ll_tlc_from
+		//      AND ntlc_to = :ll_tlc_to
+
+		LOGGER.warn("calcBobFixed needs database lookup from cen_meals_cp_percent for city pair fixed quantity");
+
+		// If no city pair lookup or not found, use dcValue
+		double quantity = ctx.getValue();
+
+		// PowerBuilder: idc_quantity_ver = dcQuantity (no dependency on calcBasis)
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantity);
+	}
+
+	/**
+	 * Fixed quantity per city pair calculation.
+	 * PowerBuilder: uf_calc_fixed_cp() (line 12200)
+	 *
+	 * <p>Returns fixed quantity based on city pair from database.
+	 *
+	 * @param ctx Calculation context
+	 */
+	private void calcFixedCP(CalculationContext ctx) {
+		// PowerBuilder lines 12200-12263
+
+		// TODO: Database lookup for city pair specific fixed quantity
+		// PowerBuilder:
+		// 1. Get tlc_from, tlc_to from cen_out where nresult_key = :lResultKey
+		// 2. SELECT nfixed_qty FROM cen_meals_cp_percent
+		//    WHERE nhandling_detail_key = :lHandlingDetailKey
+		//      AND ntlc_from = :ll_tlc_from
+		//      AND ntlc_to = :ll_tlc_to
+
+		LOGGER.warn("calcFixedCP needs database lookup from cen_meals_cp_percent for city pair fixed quantity");
+
+		// If no city pair lookup or not found, use dcValue
+		double quantity = ctx.getValue();
+
+		// PowerBuilder: idc_quantity_ver = dcQuantity (no dependency on calcBasis)
+		ctx.setQuantity(quantity);
+		ctx.setQuantityVersion(quantity);
 	}
 }
