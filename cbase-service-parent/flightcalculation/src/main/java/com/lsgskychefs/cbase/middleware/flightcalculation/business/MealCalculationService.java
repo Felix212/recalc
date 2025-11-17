@@ -4,6 +4,7 @@
 package com.lsgskychefs.cbase.middleware.flightcalculation.business;
 
 import com.lsgskychefs.cbase.middleware.flightcalculation.dto.MealCalculationContext;
+import com.lsgskychefs.cbase.middleware.flightcalculation.dto.MealDefinitionWithComponents;
 import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.*;
 import com.lsgskychefs.cbase.middleware.persistence.domain.*;
 import org.slf4j.Logger;
@@ -183,30 +184,43 @@ public class MealCalculationService {
 
 			LOGGER.info("Executing meal calculation workflow for result_key={}", resultKey);
 
-			// Step 4: Find meal definitions
-			List<CenMeals> mealDefinitions = mealDefinitionLookupService.findMealDefinitions(context);
+			// Step 4: Find meal definitions WITH components (component-level architecture)
+			// PowerBuilder: Loads CenMeals + CenMealsDetail[] (1-to-many)
+			List<MealDefinitionWithComponents> mealDefinitions =
+					mealDefinitionLookupService.findMealDefinitionsWithComponents(context);
 			if (mealDefinitions.isEmpty()) {
 				LOGGER.warn("No meal definitions found for result_key={}", resultKey);
 				return MealCalculationResult.error("No meal definitions found for this route");
 			}
-			LOGGER.info("Found {} meal definitions for result_key={}", mealDefinitions.size(), resultKey);
 
-			// Step 5: Calculate meal quantities
-			List<CenOutMeals> calculatedMeals = mealQuantityCalculationService
-					.calculateMealQuantities(context, mealDefinitions);
-			LOGGER.info("Calculated {} meal records for result_key={}", calculatedMeals.size(), resultKey);
+			int totalComponents = mealDefinitions.stream()
+					.mapToInt(MealDefinitionWithComponents::getComponentCount)
+					.sum();
+			LOGGER.info("Found {} meal definitions with {} total components for result_key={}",
+					mealDefinitions.size(), totalComponents, resultKey);
 
-			// Step 6: Distribute special meals (SPML)
+			// Step 5: Calculate meal quantities at COMPONENT level
+			// PowerBuilder: Each component becomes ONE CenOutMeals record
+			// SPML deduction integrated DURING calculation (not after)
+			List<CenOutMeals> componentRecords = mealQuantityCalculationService
+					.calculateMealQuantitiesWithComponents(context, mealDefinitions);
+			LOGGER.info("Calculated {} component records for result_key={}",
+					componentRecords.size(), resultKey);
+
+			// Step 6: SPML resolution (metadata only - deduction already done in Step 5)
+			// Note: SPML quantities already deducted during component calculation
 			if (context.isCalculateMeals() && context.getSpmlData() != null
 					&& !context.getSpmlData().isEmpty()) {
-				spmlDistributionService.distributeSpecialMeals(context, calculatedMeals);
-				LOGGER.info("Distributed {} SPML records for result_key={}",
-						context.getSpmlData().size(), resultKey);
+				// Just resolve SPML codes for reporting (no quantity modification)
+				List<SpmlDistributionService.SpmlDistribution> spmlDistributions =
+						spmlDistributionService.distributeSpecialMeals(context, componentRecords);
+				LOGGER.info("Resolved {} SPML definitions for result_key={}",
+						spmlDistributions.size(), resultKey);
 			}
 
 			// Step 7: Generate meal layout
 			List<CenOutMeals> layoutMeals = mealLayoutGenerationService
-					.generateMealLayout(context, calculatedMeals);
+					.generateMealLayout(context, componentRecords);
 			LOGGER.info("Generated meal layout for result_key={}", resultKey);
 
 			// Step 8: Calculate handling
