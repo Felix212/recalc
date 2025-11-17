@@ -251,7 +251,13 @@ public class MealCalculationService {
 	 *
 	 * <p>PowerBuilder equivalent: wf_chc_validation()
 	 *
-	 * <p>TODO: Implement validation logic
+	 * <p>Validates:
+	 * <ul>
+	 *   <li>Aircraft type is configured</li>
+	 *   <li>Route information is complete (origin and destination)</li>
+	 *   <li>Aircraft configuration exists (warning only if missing)</li>
+	 *   <li>PAX data availability (warning only if missing)</li>
+	 * </ul>
 	 *
 	 * @param flight Flight entity
 	 * @return true if flight data is valid for meal calculation
