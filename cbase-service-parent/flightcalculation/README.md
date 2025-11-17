@@ -86,17 +86,19 @@ mvn spring-boot:run -Dspring.profiles.active=dev
 - [x] Batch processing with limits
 - [x] Concurrent execution prevention
 
-### 🔲 Not Yet Implemented (20%)
+### 🔲 Simplified Implementation (20%)
 
 #### Meal Calculation Engine
-- [ ] Meal explosion algorithm (uo_generate)
+- [x] Flight data validation (aircraft, PAX, route)
+- [x] Meal/handling record counting
+- [x] Repository integration (CEN_OUT_MEALS, CEN_OUT_HANDLING, CEN_MEALS)
+- [ ] Full meal explosion algorithm (PowerBuilder uo_generate - 21,000 lines)
 - [ ] SPML distribution logic
 - [ ] Meal layout generation
 - [ ] Handling/extra loading calculations
-- [ ] CEN_OUT_MEALS table updates
-- [ ] CEN_OUT_HANDLING table updates
+- [ ] New meal generation (preserves existing meals)
 
-**Note:** The meal calculation service is a stub that logs warnings. See [MealCalculationService.java](src/main/java/com/lsgskychefs/cbase/middleware/flightcalculation/business/MealCalculationService.java) for implementation requirements.
+**Note:** The meal calculation service validates flight data and preserves existing meals. The full PowerBuilder `uo_generate` meal explosion engine (21,000 lines) has not been migrated. See [MealCalculationService.java](src/main/java/com/lsgskychefs/cbase/middleware/flightcalculation/business/MealCalculationService.java) for details and implementation requirements.
 
 ## 🔄 Processing Flow
 
@@ -121,7 +123,7 @@ mvn spring-boot:run -Dspring.profiles.active=dev
    ├─ Invalid refs: if meal references are invalid
    └─ Changes: if PAX/Aircraft/SPML changed
    ↓
-7. Execute meal calculation (STUB - logs warning)
+7. Execute meal calculation (SIMPLIFIED - validates and preserves existing meals)
    ↓
 8. Update flight status (based on function config)
    ↓
@@ -338,14 +340,23 @@ Monitor these indicators:
 
 ## ⚠️ Known Limitations
 
-### 1. Meal Calculation Engine (STUB)
-**Impact:** Jobs complete successfully but meals are not recalculated.
+### 1. Meal Calculation Engine (SIMPLIFIED)
+**Impact:** Jobs complete successfully. Existing meals are preserved. New meal explosion not performed.
 
-**Workaround:**
-- Deploy service for PAX/Aircraft/SPML change processing only
-- External meal calculation can be triggered separately if needed
+**Current Behavior:**
+- Validates flight data (aircraft, PAX, route)
+- Counts existing meals and handling records
+- Preserves existing meal data
+- Logs detailed information about what full implementation would do
 
-**Timeline:** 3-4 weeks for full implementation
+**Full Implementation Required For:**
+- New meal generation from scratch
+- Meal quantity calculations based on PAX
+- SPML distribution and layout generation
+- Handling/extra loading calculations
+- Migration of PowerBuilder `uo_generate` (21,000 lines)
+
+**Timeline:** 4-6 weeks for full meal explosion algorithm
 
 ### 2. Integration Testing
 **Impact:** Limited testing with real database.
@@ -430,7 +441,7 @@ Contact the migration team for questions about:
 - ✅ PAX change processing
 - ✅ Aircraft change processing
 - ✅ SPML change processing
-- ⚠️ Meal calculation (stub)
+- ⚠️ Meal calculation (simplified - preserves existing meals)
 
 ---
 
