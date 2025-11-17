@@ -9,6 +9,7 @@ package com.lsgskychefs.cbase.middleware.flightcalculation;
 import com.lsgskychefs.cbase.middleware.AbstractCbaseMiddlewareApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Central class to bootstrap the application component via Spring Boot.
@@ -16,6 +17,7 @@ import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
  * @author Dirk Bunk - U200035
  */
 @SpringBootApplication(exclude = {RabbitAutoConfiguration.class})
+@EnableScheduling
 public class FlightCalculationApplication extends AbstractCbaseMiddlewareApplication {
 	/**
 	 * Main method calling the <code>startApplication</code> method of the parent class.

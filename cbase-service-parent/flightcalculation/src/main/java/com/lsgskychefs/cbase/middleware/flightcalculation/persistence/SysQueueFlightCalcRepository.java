@@ -175,4 +175,43 @@ public interface SysQueueFlightCalcRepository extends JpaRepository<SysQueueFlig
 			@Param("resultKey") Long resultKey,
 			@Param("function") Integer function,
 			@Param("processStatus") Integer processStatus);
+
+	/**
+	 * Find jobs by result key with pending statuses.
+	 *
+	 * @param resultKey Result key
+	 * @param statuses List of process statuses (typically 0, 4 for pending/retry)
+	 * @return List of jobs with matching result key and status
+	 */
+	@Query("SELECT j FROM SysQueueFlightCalc j " +
+			"WHERE j.nresultKey = :resultKey " +
+			"AND j.nprocessStatus IN :statuses " +
+			"ORDER BY j.njobNr DESC")
+	List<SysQueueFlightCalc> findByResultKeyAndStatusPending(
+			@Param("resultKey") Long resultKey,
+			@Param("statuses") List<Integer> statuses);
+
+	/**
+	 * Count jobs by process status.
+	 *
+	 * @param statuses List of process statuses to count
+	 * @return Count of jobs with matching statuses
+	 */
+	@Query("SELECT COUNT(j) FROM SysQueueFlightCalc j " +
+			"WHERE j.nprocessStatus IN :statuses")
+	long countByProcessStatusIn(@Param("statuses") List<Integer> statuses);
+
+	/**
+	 * Count jobs by function and pending statuses.
+	 *
+	 * @param functionId Function ID
+	 * @param statuses List of process statuses (typically 0, 1, 4)
+	 * @return Count of jobs with matching function and status
+	 */
+	@Query("SELECT COUNT(j) FROM SysQueueFlightCalc j " +
+			"WHERE j.nfunction = :functionId " +
+			"AND j.nprocessStatus IN :statuses")
+	long countByFunctionAndStatusPending(
+			@Param("functionId") Integer functionId,
+			@Param("statuses") List<Integer> statuses);
 }
