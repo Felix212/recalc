@@ -1518,38 +1518,56 @@ public class MealCalculationTypeService {
 
 	/**
 	 * BOSTA Plus (PAX + percentage/absolute).
-	 * PowerBuilder: uf_calc_bosta_plus()
+	 * PowerBuilder: uf_calc_bosta_plus() (line 2427)
+	 *
+	 * <p>Type 9: PAX + absolute value
+	 * <p>Type 10: PAX + percentage of PAX
 	 */
 	private void calcBostaPlus(CalculationContext ctx) {
-		// TODO: Full implementation
-		// Type 9 = PAX + absolute, Type 10 = PAX + percentage
+		// PowerBuilder lines 2427-2492
+		long result;
+		long resultVer;
+
 		if (ctx.getCalcId() == 9) {
-			ctx.setQuantity(ctx.getCalcBasis() + ctx.getValue());
-			ctx.setQuantityVersion(ctx.getCalcBasisVersion() + ctx.getValue());
+			// Type 9: PAX + absolute
+			// PowerBuilder: lResult = lCalcBasis + int(dcValue)
+			result = (long) (ctx.getCalcBasis() + ctx.getValue());
+			resultVer = (long) (ctx.getCalcBasisVersion() + ctx.getValue());
 		} else {
-			double quantity = ctx.getCalcBasis() + (ctx.getCalcBasis() * ctx.getPercentage() / 100.0);
-			ctx.setQuantity(quantity);
-			double quantityVer = ctx.getCalcBasisVersion() + (ctx.getCalcBasisVersion() * ctx.getPercentage() / 100.0);
-			ctx.setQuantityVersion(quantityVer);
+			// Type 10: PAX + percentage
+			// PowerBuilder: lResult = lCalcBasis + Int(lCalcBasis * ipercentage / 100)
+			result = (long) (ctx.getCalcBasis() + (ctx.getCalcBasis() * ctx.getPercentage() / 100));
+			resultVer = (long) (ctx.getCalcBasisVersion() + (ctx.getCalcBasisVersion() * ctx.getPercentage() / 100));
 		}
+
+		ctx.setQuantity(result);
+		ctx.setQuantityVersion(resultVer);
 	}
 
 	/**
 	 * BOSTA Minus (PAX - percentage/absolute).
-	 * PowerBuilder: uf_calc_bosta_minus()
+	 * PowerBuilder: uf_calc_bosta_minus() (line 2493+)
+	 *
+	 * <p>Type 11: PAX - absolute value
+	 * <p>Type 12: PAX - percentage of PAX
 	 */
 	private void calcBostaMinus(CalculationContext ctx) {
-		// TODO: Full implementation
-		// Type 11 = PAX - absolute, Type 12 = PAX - percentage
+		// Similar to BOSTA Plus but with subtraction
+		long result;
+		long resultVer;
+
 		if (ctx.getCalcId() == 11) {
-			ctx.setQuantity(Math.max(0, ctx.getCalcBasis() - ctx.getValue()));
-			ctx.setQuantityVersion(Math.max(0, ctx.getCalcBasisVersion() - ctx.getValue()));
+			// Type 11: PAX - absolute
+			result = (long) Math.max(0, ctx.getCalcBasis() - ctx.getValue());
+			resultVer = (long) Math.max(0, ctx.getCalcBasisVersion() - ctx.getValue());
 		} else {
-			double quantity = ctx.getCalcBasis() - (ctx.getCalcBasis() * ctx.getPercentage() / 100.0);
-			ctx.setQuantity(Math.max(0, quantity));
-			double quantityVer = ctx.getCalcBasisVersion() - (ctx.getCalcBasisVersion() * ctx.getPercentage() / 100.0);
-			ctx.setQuantityVersion(Math.max(0, quantityVer));
+			// Type 12: PAX - percentage
+			result = (long) Math.max(0, ctx.getCalcBasis() - (ctx.getCalcBasis() * ctx.getPercentage() / 100));
+			resultVer = (long) Math.max(0, ctx.getCalcBasisVersion() - (ctx.getCalcBasisVersion() * ctx.getPercentage() / 100));
 		}
+
+		ctx.setQuantity(result);
+		ctx.setQuantityVersion(resultVer);
 	}
 
 	/**
