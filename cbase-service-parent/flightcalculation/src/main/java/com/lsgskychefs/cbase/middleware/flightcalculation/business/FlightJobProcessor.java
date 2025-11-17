@@ -210,7 +210,8 @@ public class FlightJobProcessor {
 		List<SysQueueFlightPax> paxChanges = paxChangeApplier.getPaxChanges(job.getNjobNr());
 		if (!paxChanges.isEmpty()) {
 			LOGGER.info("Applying {} PAX change(s)", paxChanges.size());
-			// TODO: Apply PAX changes to flight entity
+			int paxUpdated = paxChangeApplier.applyPaxChanges(flight, paxChanges);
+			LOGGER.info("Applied PAX changes to {} class(es)", paxUpdated);
 			hasChanges = true;
 		}
 
@@ -219,7 +220,9 @@ public class FlightJobProcessor {
 				aircraftChangeApplier.getAircraftChange(job.getNjobNr());
 		if (aircraftChange.isPresent()) {
 			LOGGER.info("Applying aircraft change");
-			// TODO: Apply aircraft change to flight entity
+			AircraftChangeApplierService.ChangeType changeType =
+					aircraftChangeApplier.applyAircraftChange(flight, aircraftChange.get());
+			LOGGER.info("Applied aircraft change: {}", changeType);
 			hasChanges = true;
 		}
 
@@ -227,7 +230,8 @@ public class FlightJobProcessor {
 		List<SysQueueFlightSpml> spmlChanges = spmlChangeApplier.getSpmlChanges(job.getNjobNr());
 		if (!spmlChanges.isEmpty()) {
 			LOGGER.info("Applying {} SPML change(s)", spmlChanges.size());
-			// TODO: Apply SPML changes to flight entity
+			int spmlUpdated = spmlChangeApplier.applySpmlChanges(flight, spmlChanges);
+			LOGGER.info("Applied SPML changes to {} record(s)", spmlUpdated);
 			hasChanges = true;
 		}
 

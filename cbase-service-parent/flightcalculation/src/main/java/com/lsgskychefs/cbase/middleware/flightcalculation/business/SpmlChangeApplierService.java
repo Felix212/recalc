@@ -3,14 +3,19 @@
  */
 package com.lsgskychefs.cbase.middleware.flightcalculation.business;
 
+import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.CenOutSpmlRepository;
 import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.SysQueueFlightSpmlRepository;
+import com.lsgskychefs.cbase.middleware.persistence.domain.CenOutPpmFlights;
+import com.lsgskychefs.cbase.middleware.persistence.domain.CenOutSpml;
 import com.lsgskychefs.cbase.middleware.persistence.domain.SysQueueFlightSpml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for applying SPML (Special Meals) changes from SYS_QUEUE_FLIGHT_SPML.
@@ -34,6 +39,9 @@ public class SpmlChangeApplierService {
 
 	@Autowired
 	private SysQueueFlightSpmlRepository spmlRepository;
+
+	@Autowired
+	private CenOutSpmlRepository cenOutSpmlRepository;
 
 	/**
 	 * Get SPML changes from queue.
@@ -91,5 +99,90 @@ public class SpmlChangeApplierService {
 	public SysQueueFlightSpml getSpmlChangeForClassAndCode(
 			Long jobNr, String classCode, String spmlCode) {
 		return spmlRepository.findByJobNrAndClassAndSpml(jobNr, classCode, spmlCode);
+	}
+
+	/**
+	 * Apply SPML changes from queue to flight SPML data.
+	 *
+	 * <p>PowerBuilder logic:
+	 * <pre>
+	 * // Read SPML changes from queue
+	 * dsSysQueueFlightSPML.Retrieve(ljob_nr)
+	 *
+	 * // Apply each change
+	 * For lrow = 1 to dsSysQueueFlightSPML.RowCount()
+	 *    cclass = dsSysQueueFlightSPML.GetItemString(lrow, "cclass")
+	 *    cspml = dsSysQueueFlightSPML.GetItemString(lrow, "cspml_code")
+	 *
+	 *    // Find matching row in dw_spml
+	 *    lfound = dw_spml.Find("cclass = '" + cclass + "' AND cspml = '" + cspml + "'", ...)
+	 *
+	 *    if lfound > 0 then
+	 *       // Update existing SPML row
+	 *       dw_spml.SetItem(lfound, "nquantity", new_quantity)
+	 *       dw_spml.SetItem(lfound, "nquantity_old", old_quantity)
+	 *    end if
+	 * Next
+	 * </pre>
+	 *
+	 * @param flight Flight entity
+	 * @param spmlChanges List of SPML changes from queue
+	 * @return Number of SPML records updated
+	 */
+	public int applySpmlChanges(CenOutPpmFlights flight, List<SysQueueFlightSpml> spmlChanges) {
+		if (spmlChanges == null || spmlChanges.isEmpty()) {
+			LOGGER.debug("No SPML changes to apply for result_key={}", flight.getId().getNresultKey());
+			return 0;
+		}
+
+		Long resultKey = flight.getId().getNresultKey();
+		int updatedCount = 0;
+
+		LOGGER.info("Applying {} SPML change(s) to flight result_key={}", spmlChanges.size(), resultKey);
+
+		for (SysQueueFlightSpml change : spmlChanges) {
+			String classCode = change.getCclass();
+			String spmlCode = change.getCspmlCode();
+
+			LOGGER.debug("Processing SPML change for class={}, spml={}, quantity={}",
+					classCode, spmlCode, change.getNquantity());
+
+			// Find existing SPML record for this class and code
+			Optional<CenOutSpml> spmlOpt = cenOutSpmlRepository.findByResultKeyAndClassAndCode(
+					resultKey, classCode, spmlCode);
+
+			if (spmlOpt.isPresent()) {
+				CenOutSpml spml = spmlOpt.get();
+
+				// Save old value for comparison (PowerBuilder keeps history)
+				if (spml.getNquantity() != null) {
+					spml.setNquantityOld(spml.getNquantity());
+				}
+
+				// Apply new quantity from queue
+				if (change.getNquantity() != null) {
+					spml.setNquantity(BigDecimal.valueOf(change.getNquantity()));
+					LOGGER.debug("  Updated nquantity: {} -> {} for class={}, spml={}",
+							spml.getNquantityOld(), change.getNquantity(), classCode, spmlCode);
+				}
+
+				// Update timestamp
+				spml.setDtimestamp(new java.util.Date());
+
+				// Save the updated SPML record
+				cenOutSpmlRepository.save(spml);
+				updatedCount++;
+
+				LOGGER.debug("  Successfully applied SPML change for class={}, spml={}", classCode, spmlCode);
+			} else {
+				LOGGER.warn("  SPML record not found for class={}, spml={}, result_key={} - skipping change",
+						classCode, spmlCode, resultKey);
+			}
+		}
+
+		LOGGER.info("Applied {} out of {} SPML change(s) for result_key={}",
+				updatedCount, spmlChanges.size(), resultKey);
+
+		return updatedCount;
 	}
 }

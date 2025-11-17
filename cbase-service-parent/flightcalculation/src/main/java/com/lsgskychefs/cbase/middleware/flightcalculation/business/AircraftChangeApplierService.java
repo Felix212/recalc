@@ -4,6 +4,7 @@
 package com.lsgskychefs.cbase.middleware.flightcalculation.business;
 
 import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.SysQueueFlightActypeRepository;
+import com.lsgskychefs.cbase.middleware.persistence.domain.CenOutPpmFlights;
 import com.lsgskychefs.cbase.middleware.persistence.domain.SysQueueFlightActype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,6 +137,74 @@ public class AircraftChangeApplierService {
 			LOGGER.debug("No aircraft change detected");
 			return ChangeType.NO_CHANGE;
 		}
+	}
+
+	/**
+	 * Apply aircraft change from queue to flight data.
+	 *
+	 * <p>PowerBuilder logic:
+	 * <pre>
+	 * // Read SYS_QUEUE_FLIGHT_ACTYPE for this job
+	 * dsSysQueueFlightACType.Retrieve(ljob_nr)
+	 *
+	 * if dsSysQueueFlightACType.RowCount() > 0 then
+	 *    // Update aircraft in dw_single
+	 *    dw_single.SetItem(1, "naircrafttype_key", new_aircraft_key)
+	 *    dw_single.SetItem(1, "cregistration", new_registration)
+	 *    dw_single.SetItem(1, "nairconfiguration_key", new_config_key)
+	 *
+	 *    return 1  // Aircraft changed
+	 * end if
+	 * </pre>
+	 *
+	 * @param flight Flight entity
+	 * @param aircraftChange Aircraft change from queue
+	 * @return Type of change applied
+	 */
+	public ChangeType applyAircraftChange(CenOutPpmFlights flight, SysQueueFlightActype aircraftChange) {
+		if (aircraftChange == null) {
+			LOGGER.debug("No aircraft change to apply for result_key={}", flight.getId().getNresultKey());
+			return ChangeType.NO_CHANGE;
+		}
+
+		Long resultKey = flight.getId().getNresultKey();
+		LOGGER.info("Applying aircraft change to flight result_key={}", resultKey);
+
+		// Determine change type first
+		ChangeType changeType = determineChangeType(
+				aircraftChange,
+				flight.getNaircrafttypeKey(),
+				flight.getCregistration());
+
+		// Apply aircraft type key if changed
+		if (aircraftChange.getNaircrafttypeKey() != null) {
+			LOGGER.info("  Updating aircraft type: {} -> {}",
+					flight.getNaircrafttypeKey(), aircraftChange.getNaircrafttypeKey());
+			flight.setNaircrafttypeKey(aircraftChange.getNaircrafttypeKey());
+		}
+
+		// Apply registration if changed
+		if (aircraftChange.getCregistration() != null) {
+			LOGGER.info("  Updating registration: {} -> {}",
+					flight.getCregistration(), aircraftChange.getCregistration());
+			flight.setCregistration(aircraftChange.getCregistration());
+		}
+
+		// Apply aircraft configuration key if present
+		if (aircraftChange.getNairconfigurationKey() != null) {
+			LOGGER.info("  Updating configuration key: {} -> {}",
+					flight.getNairconfigurationKey(), aircraftChange.getNairconfigurationKey());
+			flight.setNairconfigurationKey(aircraftChange.getNairconfigurationKey());
+		}
+
+		if (changeType != ChangeType.NO_CHANGE) {
+			LOGGER.info("Successfully applied aircraft change (type: {}) for result_key={}",
+					changeType, resultKey);
+		} else {
+			LOGGER.debug("No actual aircraft change needed for result_key={}", resultKey);
+		}
+
+		return changeType;
 	}
 
 	/**
