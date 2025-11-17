@@ -4,6 +4,7 @@
 package com.lsgskychefs.cbase.middleware.flightcalculation.business;
 
 import com.lsgskychefs.cbase.middleware.flightcalculation.dto.MealCalculationContext;
+import com.lsgskychefs.cbase.middleware.flightcalculation.dto.MealDefinitionWithComponents;
 import com.lsgskychefs.cbase.middleware.flightcalculation.persistence.*;
 import com.lsgskychefs.cbase.middleware.persistence.domain.*;
 import org.slf4j.Logger;
@@ -66,26 +67,30 @@ public class MealDefinitionLookupService {
 	}
 
 	/**
-	 * Find meal definitions for a flight context.
+	 * Find meal definitions WITH components for a flight context.
 	 *
-	 * <p>PowerBuilder: uf_retrieve_meal_definitions()
+	 * <p>PowerBuilder: uf_retrieve_meal_definitions() + component loading
 	 *
 	 * <p>This method:
 	 * <ol>
 	 *   <li>Determines the rotation key from routing</li>
 	 *   <li>Determines the meal period from departure time</li>
-	 *   <li>Finds matching meal definitions</li>
+	 *   <li>Finds matching meal definitions (headers)</li>
+	 *   <li>Loads components (CenMealsDetail) for each meal</li>
+	 *   <li>Combines into MealDefinitionWithComponents DTOs</li>
 	 *   <li>Filters by validity date</li>
 	 *   <li>Orders by priority</li>
 	 * </ol>
 	 *
+	 * <p>CRITICAL: Each component becomes ONE CenOutMeals record in output.
+	 *
 	 * @param context The meal calculation context
-	 * @return List of meal definitions, or empty list if none found
+	 * @return List of meal definitions with components, or empty list if none found
 	 */
-	public List<CenMeals> findMealDefinitions(MealCalculationContext context) {
+	public List<MealDefinitionWithComponents> findMealDefinitionsWithComponents(MealCalculationContext context) {
 		Long resultKey = context.getResultKey();
 
-		LOGGER.info("Finding meal definitions for result_key={}", resultKey);
+		LOGGER.info("Finding meal definitions WITH components for result_key={}", resultKey);
 
 		// Step 1: Get or determine rotation key
 		Long rotationKey = context.getRotationKey();
@@ -116,6 +121,123 @@ public class MealDefinitionLookupService {
 		LOGGER.debug("Meal period determined: {} for result_key={}", mealPeriod, resultKey);
 
 		// Step 4: Filter to regular meals only (nmodule_type = 0)
+		List<CenMeals> regularMeals = allMeals.stream()
+				.filter(m -> m.getNmoduleType() == 0)  // 0 = meals, 1 = extras
+				.collect(Collectors.toList());
+
+		LOGGER.info("Found {} regular meal headers for result_key={}",
+				regularMeals.size(), resultKey);
+
+		// Step 5: Load components for each meal (BATCH operation for performance)
+		List<MealDefinitionWithComponents> mealsWithComponents =
+				loadComponentsForMeals(regularMeals, context.getDepartureDate());
+
+		LOGGER.info("Returning {} meals with {} total components for result_key={}",
+				mealsWithComponents.size(),
+				mealsWithComponents.stream().mapToInt(MealDefinitionWithComponents::getComponentCount).sum(),
+				resultKey);
+
+		return mealsWithComponents;
+	}
+
+	/**
+	 * Load components for a list of meal definitions.
+	 *
+	 * <p>Uses batch loading for performance - one query for all meals.
+	 *
+	 * @param mealHeaders List of meal headers
+	 * @param validityDate Date for component validity check
+	 * @return List of MealDefinitionWithComponents (only meals that have components)
+	 */
+	private List<MealDefinitionWithComponents> loadComponentsForMeals(
+			List<CenMeals> mealHeaders,
+			Date validityDate) {
+
+		if (mealHeaders == null || mealHeaders.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		// Collect all meal keys
+		List<Long> mealKeys = mealHeaders.stream()
+				.map(CenMeals::getNhandlingMealKey)
+				.collect(Collectors.toList());
+
+		// Batch load all components in one query
+		List<CenMealsDetail> allComponents = mealsDetailRepository
+				.findByMealKeysAndDate(mealKeys, validityDate);
+
+		LOGGER.debug("Loaded {} components for {} meals",
+				allComponents.size(), mealKeys.size());
+
+		// Group components by meal key
+		Map<Long, List<CenMealsDetail>> componentsByMeal = allComponents.stream()
+				.collect(Collectors.groupingBy(
+						detail -> detail.getCenMeals().getNhandlingMealKey()));
+
+		// Combine headers with components
+		List<MealDefinitionWithComponents> result = new ArrayList<>();
+
+		for (CenMeals mealHeader : mealHeaders) {
+			Long mealKey = mealHeader.getNhandlingMealKey();
+			List<CenMealsDetail> components = componentsByMeal.get(mealKey);
+
+			if (components == null || components.isEmpty()) {
+				LOGGER.warn("Meal {} has no components, skipping (meal code: {})",
+						mealKey, mealHeader.getCmealCode());
+				continue;
+			}
+
+			// Sort components by priority
+			components.sort(Comparator.comparingInt(CenMealsDetail::getNprio));
+
+			MealDefinitionWithComponents mealWithComponents =
+					new MealDefinitionWithComponents(mealHeader, components);
+
+			result.add(mealWithComponents);
+
+			LOGGER.debug("Meal {}: {} components loaded",
+					mealKey, components.size());
+		}
+
+		return result;
+	}
+
+	/**
+	 * Find meal definitions for a flight context (LEGACY - headers only).
+	 *
+	 * @deprecated Use {@link #findMealDefinitionsWithComponents(MealCalculationContext)} instead.
+	 *             This method only returns meal headers without components.
+	 *
+	 * @param context The meal calculation context
+	 * @return List of meal definitions, or empty list if none found
+	 */
+	@Deprecated
+	public List<CenMeals> findMealDefinitions(MealCalculationContext context) {
+		Long resultKey = context.getResultKey();
+
+		LOGGER.warn("DEPRECATED: findMealDefinitions() called for result_key={}. " +
+				"Use findMealDefinitionsWithComponents() for component-level processing.", resultKey);
+
+		// Step 1: Get or determine rotation key
+		Long rotationKey = context.getRotationKey();
+		if (rotationKey == null && context.getRoutingDetailKey() != null) {
+			rotationKey = matchRotation(
+					context.getRoutingDetailKey(),
+					context.getDepartureDate());
+			context.setRotationKey(rotationKey);
+		}
+
+		if (rotationKey == null) {
+			LOGGER.warn("No rotation found for result_key={}", resultKey);
+			return Collections.emptyList();
+		}
+
+		// Step 2: Get all meal definitions for this rotation
+		List<CenMeals> allMeals = findByRotationAndValidity(
+				rotationKey,
+				context.getDepartureDate());
+
+		// Step 3: Filter to regular meals only (nmodule_type = 0)
 		List<CenMeals> regularMeals = allMeals.stream()
 				.filter(m -> m.getNmoduleType() == 0)  // 0 = meals, 1 = extras
 				.collect(Collectors.toList());

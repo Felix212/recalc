@@ -3,16 +3,19 @@
  */
 package com.lsgskychefs.cbase.middleware.flightcalculation.business;
 
-import com.lsgskychefs.cbase.middleware.persistence.domain.CenMealCover;
-import com.lsgskychefs.cbase.middleware.persistence.domain.CenMeals;
-import com.lsgskychefs.cbase.middleware.persistence.domain.CenOutPax;
+import com.lsgskychefs.cbase.middleware.flightcalculation.dto.MealCalculationContext;
+import com.lsgskychefs.cbase.middleware.flightcalculation.dto.MealDefinitionWithComponents;
+import com.lsgskychefs.cbase.middleware.persistence.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * Service for calculating meal quantities based on PAX counts.
@@ -32,6 +35,14 @@ import java.util.*;
 public class MealQuantityCalculationService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MealQuantityCalculationService.class);
+
+	private final SpmlCountCalculator spmlCountCalculator;
+	private final AtomicLong detailKeySequence = new AtomicLong(1);
+
+	@Autowired
+	public MealQuantityCalculationService(SpmlCountCalculator spmlCountCalculator) {
+		this.spmlCountCalculator = spmlCountCalculator;
+	}
 
 	/**
 	 * Calculate meal quantities for all service classes.
@@ -444,6 +455,300 @@ public class MealQuantityCalculationService {
 		return mealDefinitions.stream()
 				.filter(m -> Objects.equals(String.valueOf(m.getNclassNumber()), classCode))
 				.findFirst();
+	}
+
+	//===================================================================================
+	// COMPONENT-LEVEL CALCULATION METHODS (PowerBuilder-compliant architecture)
+	//===================================================================================
+
+	/**
+	 * Calculate meal quantities at COMPONENT level.
+	 *
+	 * <p>PowerBuilder: Lines 3080-3098 (SPML deduction), 4700-5070 (component processing)
+	 *
+	 * <p>CRITICAL: This method creates ONE CenOutMeals record PER COMPONENT, not per meal!
+	 *
+	 * <p>Process:
+	 * <ol>
+	 *   <li>Calculate SPML count per service class (once per class)</li>
+	 *   <li>For each meal definition with components:</li>
+	 *   <ul>
+	 *     <li>For each component:</li>
+	 *     <ul>
+	 *       <li>Get calc basis (PAX count)</li>
+	 *       <li>If component.nspml_deduction = 1: Deduct SPMLs from basis</li>
+	 *       <li>Apply component percentage</li>
+	 *       <li>Apply reserves (from meal header)</li>
+	 *       <li>Apply topoffs (from meal header)</li>
+	 *       <li>Create CenOutMeals record for this component</li>
+	 *     </ul>
+	 *   </ul>
+	 * </ol>
+	 *
+	 * @param context Calculation context (includes PAX, SPML data, aircraft version)
+	 * @param mealDefinitions Meal definitions WITH components
+	 * @return List of CenOutMeals records (one per component)
+	 */
+	public List<CenOutMeals> calculateMealQuantitiesWithComponents(
+			MealCalculationContext context,
+			List<MealDefinitionWithComponents> mealDefinitions) {
+
+		List<CenOutMeals> allComponentRecords = new ArrayList<>();
+
+		LOGGER.info("Calculating meal quantities at component level for result_key={}, {} meal definitions",
+				context.getResultKey(), mealDefinitions.size());
+
+		// Group PAX by class
+		Map<String, Integer> paxByClass = groupPaxByClass(context.getPaxData());
+
+		// Calculate SPML count per class (ONCE per class)
+		Map<String, Integer> spmlByClass = spmlCountCalculator
+				.calculateSpmlCountsByClass(context.getSpmlData());
+
+		LOGGER.debug("PAX by class: {}", paxByClass);
+		LOGGER.debug("SPML by class: {}", spmlByClass);
+
+		// Reset detail key sequence for this flight
+		detailKeySequence.set(1);
+
+		// Process each meal definition
+		for (MealDefinitionWithComponents mealDef : mealDefinitions) {
+			CenMeals mealHeader = mealDef.getMealHeader();
+			List<CenMealsDetail> components = mealDef.getComponents();
+
+			String classCode = mealHeader.getCclass();
+			int paxCount = paxByClass.getOrDefault(classCode, 0);
+			int spmlCount = spmlByClass.getOrDefault(classCode, 0);
+
+			LOGGER.debug("Processing meal {}: class={}, {} components, PAX={}, SPML={}",
+					mealHeader.getNhandlingMealKey(), classCode, components.size(), paxCount, spmlCount);
+
+			// Process EACH component individually
+			for (CenMealsDetail component : components) {
+				CenOutMeals componentRecord = calculateComponentQuantity(
+						context,
+						mealHeader,
+						component,
+						paxCount,
+						spmlCount);
+
+				allComponentRecords.add(componentRecord);
+			}
+		}
+
+		LOGGER.info("Created {} component records from {} meal definitions for result_key={}",
+				allComponentRecords.size(), mealDefinitions.size(), context.getResultKey());
+
+		return allComponentRecords;
+	}
+
+	/**
+	 * Calculate quantity for a single component.
+	 *
+	 * <p>PowerBuilder: Lines 3080-3098 (SPML deduction), 7212-7348 (reserves/topoffs)
+	 *
+	 * <p>This method implements the PowerBuilder component-level calculation logic:
+	 * <pre>
+	 * // Get calculation basis
+	 * uf_get_calc_basis()  // Sets lCalcBasis = PAX count
+	 *
+	 * // SPML deduction (DURING calculation, not after!)
+	 * lNumberOfSPML = uf_get_spml_count()
+	 * if iSPMLDeduction = 1 then
+	 *     lCalcBasis -= lNumberOfSPML
+	 *     if lCalcBasis < 0 then lCalcBasis = 0
+	 * end if
+	 *
+	 * // Calculate component quantity from adjusted basis
+	 * // Apply percentage, reserves, topoffs...
+	 *
+	 * // Store SPML quantity on component
+	 * dsCenOutMeals.SetItem(lRow,"nspml_quantity", lNumberOfSPML)
+	 * </pre>
+	 *
+	 * @param context Calculation context
+	 * @param mealHeader Meal definition header (for reserves/topoffs)
+	 * @param component Component detail
+	 * @param paxCount PAX count for this class
+	 * @param spmlCount SPML count for this class (pre-calculated)
+	 * @return CenOutMeals record for this component
+	 */
+	private CenOutMeals calculateComponentQuantity(
+			MealCalculationContext context,
+			CenMeals mealHeader,
+			CenMealsDetail component,
+			int paxCount,
+			int spmlCount) {
+
+		// Step 1: Calculate basis (PAX or meal count depending on calc type)
+		// For now, simplified to PAX count
+		int calcBasis = paxCount;
+
+		// Step 2: SPML deduction (DURING calculation, not after!)
+		// PowerBuilder lines 3085-3098
+		boolean spmlDeducted = false;
+		if (component.getNspmlDeduction() == 1 && spmlCount > 0) {
+			calcBasis -= spmlCount;
+			if (calcBasis < 0) {
+				calcBasis = 0;
+			}
+			spmlDeducted = true;
+
+			LOGGER.debug("Component {}: SPML deduction applied, {} PAX - {} SPML = {} basis",
+					component.getNhandlingDetailKey(), paxCount, spmlCount, calcBasis);
+		}
+
+		// Step 3: Apply component percentage
+		// PowerBuilder: various calculation types based on ncalc_id
+		int componentQuantity = applyComponentPercentage(calcBasis, component.getNpercentage());
+
+		LOGGER.debug("Component {}: After percentage {}: {} basis * {}% = {}",
+				component.getNhandlingDetailKey(), component.getNpercentage(),
+				calcBasis, component.getNpercentage(), componentQuantity);
+
+		// Step 4: Apply reserves (from meal header)
+		// PowerBuilder lines 7212-7277
+		int reserveQuantity = applyReserves(
+				componentQuantity,
+				paxCount,
+				mealHeader.getNreserveQuantity(),
+				mealHeader.getNreserveType(),
+				context.getAircraftVersion());
+
+		componentQuantity += reserveQuantity;
+
+		// Step 5: Apply topoffs (from meal header)
+		// PowerBuilder lines 7280-7348
+		int topoffQuantity = applyTopOffs(
+				componentQuantity,
+				paxCount,
+				mealHeader.getNtopoffQuantity(),
+				mealHeader.getNtopoffType(),
+				context.getAircraftVersion());
+
+		componentQuantity += topoffQuantity;
+
+		LOGGER.debug("Component {}: Final quantity = {} (reserve={}, topoff={})",
+				component.getNhandlingDetailKey(), componentQuantity, reserveQuantity, topoffQuantity);
+
+		// Step 6: Create CenOutMeals record for this component
+		CenOutMeals outMeal = createComponentRecord(
+				context,
+				mealHeader,
+				component,
+				componentQuantity,
+				spmlDeducted ? 1 : 0,
+				spmlDeducted ? spmlCount : 0);
+
+		return outMeal;
+	}
+
+	/**
+	 * Apply component percentage to calc basis.
+	 *
+	 * <p>PowerBuilder: Various calculation types based on cen_meals_detail.ncalc_id
+	 *
+	 * @param calcBasis Calculation basis (PAX count after SPML deduction)
+	 * @param percentage Component percentage (0-100, or special values)
+	 * @return Component quantity
+	 */
+	private int applyComponentPercentage(int calcBasis, int percentage) {
+		if (percentage == 0) {
+			return 0;
+		}
+
+		if (percentage == 100) {
+			// 100% = 1:1 ratio
+			return calcBasis;
+		}
+
+		// Apply percentage
+		return (int) Math.ceil((calcBasis * percentage) / 100.0);
+	}
+
+	/**
+	 * Create CenOutMeals record for a component.
+	 *
+	 * <p>PowerBuilder: Lines 4700-5070 (uf_insert_cen_out_meals)
+	 *
+	 * @param context Calculation context
+	 * @param mealHeader Meal header
+	 * @param component Component detail
+	 * @param quantity Final quantity for this component
+	 * @param spmlDeduction SPML deduction flag (0 or 1)
+	 * @param spmlQuantity SPML quantity that was deducted
+	 * @return CenOutMeals record
+	 */
+	private CenOutMeals createComponentRecord(
+			MealCalculationContext context,
+			CenMeals mealHeader,
+			CenMealsDetail component,
+			int quantity,
+			int spmlDeduction,
+			int spmlQuantity) {
+
+		CenOutMeals outMeal = new CenOutMeals();
+
+		// Set composite key
+		CenOutMealsId id = new CenOutMealsId();
+		id.setNresultKey(context.getResultKey());
+		id.setNdetailKey(detailKeySequence.getAndIncrement());  // Sequential per flight
+		outMeal.setId(id);
+
+		// Set quantity
+		outMeal.setNquantity(BigDecimal.valueOf(quantity));
+
+		// Set SPML tracking fields (CRITICAL - missing in old implementation)
+		outMeal.setNspmlDeduction(spmlDeduction);
+		outMeal.setNspmlQuantity(spmlQuantity);
+
+		// Set component fields
+		outMeal.setNcomponentGroup(component.getNcomponentGroup());
+		outMeal.setNprio(component.getNprio());
+		outMeal.setNhandlingDetailKey(component.getNhandlingDetailKey());
+
+		// Set class
+		outMeal.setCclass(mealHeader.getCclass());
+
+		// Set meal code
+		outMeal.setCmealCode(mealHeader.getCmealCode());
+
+		// Copy other fields from component
+		if (component.getCenPackinglistIndex() != null) {
+			outMeal.setNpackinglistIndexKey(
+					component.getCenPackinglistIndex().getNpackinglistIndexKey());
+		}
+
+		outMeal.setCpackinglist(component.getCproductionText());
+
+		// Set creation tracking
+		outMeal.setCupdatedBy("SYSTEM");
+		outMeal.setDupdatedDate(new Date());
+
+		LOGGER.debug("Created CenOutMeals: result_key={}, detail_key={}, quantity={}, " +
+						"component_group={}, spml_deduction={}, spml_quantity={}",
+				id.getNresultKey(), id.getNdetailKey(), quantity,
+				component.getNcomponentGroup(), spmlDeduction, spmlQuantity);
+
+		return outMeal;
+	}
+
+	/**
+	 * Group PAX data by service class.
+	 *
+	 * @param paxData PAX records
+	 * @return Map of class code to total PAX count
+	 */
+	private Map<String, Integer> groupPaxByClass(List<CenOutPax> paxData) {
+		if (paxData == null || paxData.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		return paxData.stream()
+				.collect(Collectors.groupingBy(
+						CenOutPax::getCclass,
+						Collectors.summingInt(pax ->
+								pax.getNpax() != null ? pax.getNpax().intValue() : 0)));
 	}
 
 	/**
