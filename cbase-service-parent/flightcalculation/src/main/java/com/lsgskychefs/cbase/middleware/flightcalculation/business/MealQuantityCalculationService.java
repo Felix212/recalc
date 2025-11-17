@@ -41,17 +41,19 @@ public class MealQuantityCalculationService {
 	 * @param paxData List of PAX counts per class
 	 * @param mealDefinitions List of meal definitions
 	 * @param mealCovers List of meal covers (optional)
+	 * @param aircraftVersion Aircraft seating capacity (use 999 if unknown)
 	 * @return Map of class code to meal quantities
 	 */
 	public Map<String, MealQuantityResult> calculateMealQuantities(
 			List<CenOutPax> paxData,
 			List<CenMeals> mealDefinitions,
-			List<CenMealCover> mealCovers) {
+			List<CenMealCover> mealCovers,
+			int aircraftVersion) {
 
 		Map<String, MealQuantityResult> results = new HashMap<>();
 
-		LOGGER.info("Calculating meal quantities for {} PAX records and {} meal definitions",
-				paxData.size(), mealDefinitions.size());
+		LOGGER.info("Calculating meal quantities for {} PAX records and {} meal definitions (aircraft version={})",
+				paxData.size(), mealDefinitions.size(), aircraftVersion);
 
 		// Group PAX by class
 		Map<String, Integer> paxByClass = groupPaxByClass(paxData);
@@ -69,7 +71,7 @@ public class MealQuantityCalculationService {
 
 			if (mealDef.isPresent()) {
 				MealQuantityResult result = calculateForClass(
-						paxCount, mealDef.get(), mealCovers);
+						paxCount, mealDef.get(), mealCovers, aircraftVersion);  // FIXED: Added aircraftVersion
 				results.put(classCode, result);
 
 				LOGGER.info("Class {}: {} PAX -> {} meals (base={}, reserve={}, topoff={})",
@@ -90,12 +92,14 @@ public class MealQuantityCalculationService {
 	 * @param paxCount PAX count for the class
 	 * @param mealDef Meal definition
 	 * @param mealCovers Meal covers (optional)
+	 * @param aircraftVersion Aircraft seating capacity (default: 999 if not available)
 	 * @return Calculation result
 	 */
 	private MealQuantityResult calculateForClass(
 			int paxCount,
 			CenMeals mealDef,
-			List<CenMealCover> mealCovers) {
+			List<CenMealCover> mealCovers,
+			int aircraftVersion) {
 
 		MealQuantityResult result = new MealQuantityResult();
 		result.setPaxCount(paxCount);
@@ -109,7 +113,8 @@ public class MealQuantityCalculationService {
 				baseQuantity,
 				paxCount,
 				mealDef.getNreserveQuantity(),
-				mealDef.getNreserveType());
+				mealDef.getNreserveType(),
+				aircraftVersion);  // FIXED: Added aircraftVersion parameter
 		result.setReserveQuantity(reserveQuantity);
 
 		int quantityWithReserve = baseQuantity + reserveQuantity;
@@ -119,7 +124,8 @@ public class MealQuantityCalculationService {
 				quantityWithReserve,
 				paxCount,
 				mealDef.getNtopoffQuantity(),
-				mealDef.getNtopoffType());
+				mealDef.getNtopoffType(),
+				aircraftVersion);  // FIXED: Added aircraftVersion parameter
 		result.setTopoffQuantity(topoffQuantity);
 
 		// Step 4: Final quantity
@@ -175,52 +181,93 @@ public class MealQuantityCalculationService {
 	/**
 	 * Apply reserve quantities.
 	 *
-	 * <p>PowerBuilder: uf_apply_reserves()
+	 * <p>PowerBuilder: Lines 7212-7277 in uo_meal_calculation.sru
 	 *
-	 * <p>Reserve types:
+	 * <p><strong>IMPORTANT:</strong> All reserve types use FIXED quantities, not percentages!
+	 * The difference is in the APPLICATION RULES:
 	 * <ul>
-	 *   <li>0: Fixed quantity</li>
-	 *   <li>1: Percentage of PAX</li>
-	 *   <li>2: Percentage of base meals</li>
+	 *   <li>Type 0: Always add fixed reserve quantity</li>
+	 *   <li>Type 1: Add fixed reserve, capped at aircraft capacity (version)</li>
+	 *   <li>Type 2: Add fixed reserve only if PAX > 0</li>
+	 *   <li>Type 3: Add fixed reserve if PAX > 0, capped at aircraft capacity</li>
 	 * </ul>
 	 *
-	 * @param baseMealQuantity Base meal quantity
+	 * @param baseMealQuantity Base meal quantity (typically equals paxCount)
 	 * @param paxCount PAX count
-	 * @param reserveQuantity Reserve amount
-	 * @param reserveType Reserve type (0, 1, or 2)
+	 * @param reserveQuantity Reserve amount (ALWAYS A FIXED NUMBER)
+	 * @param reserveType Reserve type (0, 1, 2, or 3)
+	 * @param aircraftVersion Aircraft seating capacity/version
 	 * @return Additional reserve quantity
 	 */
 	public int applyReserves(
 			int baseMealQuantity,
 			int paxCount,
 			int reserveQuantity,
-			int reserveType) {
+			int reserveType,
+			int aircraftVersion) {
 
 		if (reserveQuantity == 0) {
 			return 0;
 		}
 
+		int calcBasis = baseMealQuantity; // Start with base (typically = PAX)
 		int reserve;
 
+		// PowerBuilder: Lines 7221-7277
 		switch (reserveType) {
 			case 0:
-				// Fixed quantity
+				// Type 0: Always add fixed reserve
+				// PowerBuilder: lCalcBasis = lPax + lReserveQuantity
 				reserve = reserveQuantity;
-				LOGGER.debug("Reserve (fixed): {}", reserve);
+				LOGGER.debug("Reserve Type 0 (always add): {} + {} = {}",
+						baseMealQuantity, reserve, calcBasis + reserve);
 				break;
 
 			case 1:
-				// Percentage of PAX
-				reserve = (int) Math.ceil((paxCount * reserveQuantity) / 100.0);
-				LOGGER.debug("Reserve ({}% of {} PAX): {}",
-						reserveQuantity, paxCount, reserve);
+				// Type 1: Add reserve but cap at aircraft version
+				// PowerBuilder: if lPax + lReserveQuantity > iVersion then lCalcBasis = iVersion
+				if (baseMealQuantity + reserveQuantity > aircraftVersion) {
+					// Would exceed capacity - only add enough to reach capacity
+					reserve = Math.max(0, aircraftVersion - baseMealQuantity);
+					LOGGER.debug("Reserve Type 1 (capped at version): {} + {} would exceed {}, capping at {}",
+							baseMealQuantity, reserveQuantity, aircraftVersion, reserve);
+				} else {
+					reserve = reserveQuantity;
+					LOGGER.debug("Reserve Type 1 (add with version check): {} + {} = {} (< version {})",
+							baseMealQuantity, reserve, calcBasis + reserve, aircraftVersion);
+				}
 				break;
 
 			case 2:
-				// Percentage of base meals
-				reserve = (int) Math.ceil((baseMealQuantity * reserveQuantity) / 100.0);
-				LOGGER.debug("Reserve ({}% of {} meals): {}",
-						reserveQuantity, baseMealQuantity, reserve);
+				// Type 2: Add reserve only if PAX > 0
+				// PowerBuilder: if lPax > 0 then lCalcBasis = lPax + lReserveQuantity else lCalcBasis = 0
+				if (paxCount > 0) {
+					reserve = reserveQuantity;
+					LOGGER.debug("Reserve Type 2 (PAX > 0): {} + {} = {}",
+							baseMealQuantity, reserve, calcBasis + reserve);
+				} else {
+					reserve = 0;
+					LOGGER.debug("Reserve Type 2: No PAX, no reserve");
+				}
+				break;
+
+			case 3:
+				// Type 3: Add reserve if PAX > 0 AND cap at version
+				// PowerBuilder: if lPax > 0 then check version cap else 0
+				if (paxCount > 0) {
+					if (baseMealQuantity + reserveQuantity > aircraftVersion) {
+						reserve = Math.max(0, aircraftVersion - baseMealQuantity);
+						LOGGER.debug("Reserve Type 3 (PAX > 0, capped): {} + {} would exceed {}, capping at {}",
+								baseMealQuantity, reserveQuantity, aircraftVersion, reserve);
+					} else {
+						reserve = reserveQuantity;
+						LOGGER.debug("Reserve Type 3 (PAX > 0, add): {} + {} = {}",
+								baseMealQuantity, reserve, calcBasis + reserve);
+					}
+				} else {
+					reserve = 0;
+					LOGGER.debug("Reserve Type 3: No PAX, no reserve");
+				}
 				break;
 
 			default:
@@ -234,53 +281,103 @@ public class MealQuantityCalculationService {
 	/**
 	 * Apply top-off quantities.
 	 *
-	 * <p>PowerBuilder: uf_apply_topoffs()
+	 * <p>PowerBuilder: Lines 7280-7348 in uo_meal_calculation.sru
 	 *
-	 * <p>Top-off types:
+	 * <p><strong>IMPORTANT:</strong> All topoff types use FIXED quantities, not percentages!
+	 * The difference is in the APPLICATION RULES:
 	 * <ul>
-	 *   <li>0: Fixed quantity</li>
-	 *   <li>1: Percentage of current quantity</li>
-	 *   <li>2: Round up to nearest multiple</li>
+	 *   <li>Type 0: Always add fixed topoff quantity</li>
+	 *   <li>Type 1: Add fixed topoff, capped at aircraft capacity (version)</li>
+	 *   <li>Type 2: Add fixed topoff only if PAX > 0</li>
+	 *   <li>Type 3: Add fixed topoff if PAX > 0, capped at aircraft capacity</li>
 	 * </ul>
 	 *
-	 * @param mealQuantity Current meal quantity
+	 * <p>Note: TopOffs are NOT applied if PAX exceeds aircraft version (overbooked)
+	 *
+	 * @param mealQuantity Current meal quantity (base + reserves)
 	 * @param paxCount PAX count
-	 * @param topoffQuantity Top-off amount
-	 * @param topoffType Top-off type (0, 1, or 2)
+	 * @param topoffQuantity Top-off amount (ALWAYS A FIXED NUMBER)
+	 * @param topoffType Top-off type (0, 1, 2, or 3)
+	 * @param aircraftVersion Aircraft seating capacity/version
 	 * @return Additional top-off quantity
 	 */
 	public int applyTopOffs(
 			int mealQuantity,
 			int paxCount,
 			int topoffQuantity,
-			int topoffType) {
+			int topoffType,
+			int aircraftVersion) {
 
 		if (topoffQuantity == 0) {
 			return 0;
 		}
 
+		// PowerBuilder: Lines 7283-7286
+		// If overbooked (PAX > version), don't apply topoff
+		// TopOff rule must not cause reduction
+		if (paxCount > aircraftVersion) {
+			LOGGER.debug("TopOff skipped: PAX ({}) exceeds aircraft version ({}), no topoff to prevent reduction",
+					paxCount, aircraftVersion);
+			return 0;
+		}
+
 		int topoff;
 
+		// PowerBuilder: Lines 7288-7316
 		switch (topoffType) {
 			case 0:
-				// Fixed quantity
+				// Type 0: Always add fixed topoff
+				// PowerBuilder: lCalcBasis = lCalcBasis + lTopOffQuantity
 				topoff = topoffQuantity;
-				LOGGER.debug("Top-off (fixed): {}", topoff);
+				LOGGER.debug("TopOff Type 0 (always add): {} + {} = {}",
+						mealQuantity, topoff, mealQuantity + topoff);
 				break;
 
 			case 1:
-				// Percentage of current quantity
-				topoff = (int) Math.ceil((mealQuantity * topoffQuantity) / 100.0);
-				LOGGER.debug("Top-off ({}% of {} meals): {}",
-						topoffQuantity, mealQuantity, topoff);
+				// Type 1: Add topoff but cap at aircraft version
+				// PowerBuilder: if lCalcBasis + lTopOffQuantity > iVersion then lCalcBasis = iVersion
+				if (mealQuantity + topoffQuantity > aircraftVersion) {
+					// Would exceed capacity - only add enough to reach capacity
+					topoff = Math.max(0, aircraftVersion - mealQuantity);
+					LOGGER.debug("TopOff Type 1 (capped at version): {} + {} would exceed {}, capping at {}",
+							mealQuantity, topoffQuantity, aircraftVersion, topoff);
+				} else {
+					topoff = topoffQuantity;
+					LOGGER.debug("TopOff Type 1 (add with version check): {} + {} = {} (< version {})",
+							mealQuantity, topoff, mealQuantity + topoff, aircraftVersion);
+				}
 				break;
 
 			case 2:
-				// Round up to nearest multiple
-				int roundedUp = roundUpToMultiple(mealQuantity, topoffQuantity);
-				topoff = roundedUp - mealQuantity;
-				LOGGER.debug("Top-off (round to multiple of {}): {} -> {}, topoff={}",
-						topoffQuantity, mealQuantity, roundedUp, topoff);
+				// Type 2: Add topoff only if PAX > 0
+				// PowerBuilder: if lPax > 0 then lCalcBasis = lCalcBasis + lTopOffQuantity
+				if (paxCount > 0) {
+					topoff = topoffQuantity;
+					LOGGER.debug("TopOff Type 2 (PAX > 0): {} + {} = {}",
+							mealQuantity, topoff, mealQuantity + topoff);
+				} else {
+					topoff = 0;
+					LOGGER.debug("TopOff Type 2: No PAX, no topoff");
+				}
+				break;
+
+			case 3:
+				// Type 3: Add topoff if PAX > 0 AND cap at version
+				// PowerBuilder: if lPax > 0 then check version cap
+				if (paxCount > 0) {
+					if (mealQuantity + topoffQuantity > aircraftVersion) {
+						topoff = Math.max(0, aircraftVersion - mealQuantity);
+						LOGGER.debug("TopOff Type 3 (PAX > 0, capped): {} + {} would exceed {}, capping at {}",
+								mealQuantity, topoffQuantity, aircraftVersion, topoff);
+					} else {
+						topoff = topoffQuantity;
+						LOGGER.debug("TopOff Type 3 (PAX > 0, add): {} + {} = {}",
+								mealQuantity, topoff, mealQuantity + topoff);
+					}
+				} else {
+					topoff = 0;
+					LOGGER.debug("TopOff Type 3: No PAX, no topoff");
+				}
 				break;
 
 			default:
@@ -289,20 +386,6 @@ public class MealQuantityCalculationService {
 		}
 
 		return topoff;
-	}
-
-	/**
-	 * Round up to nearest multiple.
-	 *
-	 * @param value Value to round
-	 * @param multiple Multiple to round to
-	 * @return Rounded value
-	 */
-	private int roundUpToMultiple(int value, int multiple) {
-		if (multiple <= 0) {
-			return value;
-		}
-		return ((value + multiple - 1) / multiple) * multiple;
 	}
 
 	/**
