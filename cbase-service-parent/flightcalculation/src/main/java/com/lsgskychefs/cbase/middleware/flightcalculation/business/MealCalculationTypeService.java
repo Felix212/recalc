@@ -1919,6 +1919,40 @@ public class MealCalculationTypeService {
 	}
 
 	/**
+	 * Booking classes calculation.
+	 * PowerBuilder: uf_calc_booking_classes() (line 2300)
+	 *
+	 * <p>Type 15: Only booked passengers (booking class = 1)
+	 * <p>Type 16: Passengers + Crew (all classes, version only from class 1)
+	 * <p>Type 17: Crew only (booking class = 0)
+	 *
+	 * @param ctx Calculation context
+	 */
+	private void calcBookingClasses(CalculationContext ctx) {
+		// PowerBuilder lines 2300-2357
+		int calcId = ctx.getCalcId();
+		long value = 0;
+		long valueVer = 0;
+
+		// TODO: Database access to CenOutPax
+		// PowerBuilder: for i = 1 to dsCenOutPax.RowCount()
+		// Query: SELECT * FROM cen_out_pax WHERE nresult_key = :resultKey
+		//
+		// Type 15: Sum npax and nversion where nbooking_class = 1
+		// Type 16: Sum all npax; nversion from class 1, npax from other classes
+		// Type 17: Sum npax where nbooking_class = 0
+
+		LOGGER.warn("calcBookingClasses (types 15-17) needs database access to CenOutPax");
+
+		// Stub: Return calcBasis until database is implemented
+		value = ctx.getCalcBasis();
+		valueVer = ctx.getCalcBasisVersion();
+
+		ctx.setQuantity(value);
+		ctx.setQuantityVersion(valueVer);
+	}
+
+	/**
 	 * BOB fixed quantity calculation.
 	 * PowerBuilder: uf_calc_bob_fixed() (line 12058)
 	 *
