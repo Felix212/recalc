@@ -1,0 +1,43 @@
+# Flight Calculation Service Configuration
+# Migrated from PowerBuilder cbase_flight_calculation.ini
+
+flight-calculation:
+  # Instance name (corresponds to INI section)
+  instance-name: ${FLIGHT_CALC_INSTANCE:INSTANCE99}
+
+  # Number of jobs to process per cycle
+  number-of-calculations-per-cycle: ${FLIGHT_CALC_BATCH_SIZE:1}
+
+  # Functions to process (empty = all functions)
+  # Function 1 = FLIGHT_CALC (standard calculation)
+  process-functions:
+    - 1
+
+  # Read CEN_OUT table for new jobs
+  read-cen-out: true
+
+  # Always force meal calculation
+  always-force-meal-calculation: true
+
+  # Service name for logging
+  service-name: cbase_flight_calculation
+
+  # Maximum lock time
+  max-lock-seconds: 60
+
+  # Scheduler configuration
+  scheduler:
+    enabled: ${FLIGHT_CALC_SCHEDULER_ENABLED:true}
+    interval-seconds: ${FLIGHT_CALC_INTERVAL:60}
+    initial-delay-seconds: 10
+
+  # Locking configuration
+  locking:
+    timeout-millis: 60000
+    distributed: false
+
+  # Logging configuration
+  logging:
+    include-job-key: true
+    include-result-key: true
+    trace-level: INFO
